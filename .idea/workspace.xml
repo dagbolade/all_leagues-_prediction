@@ -5,18 +5,45 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="96ea0842-52e6-4077-9cd7-5e93b2289f25" name="Changes" comment="Removed">
-      <change afterPath="$PROJECT_DIR$/all-euro-data-2023-2024.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/all-euro-data-2024-2025.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/best_match_outcome_model.joblib" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/best_over_1.5_goals_model.joblib" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/best_over_2.5_goals_model.joblib" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/best_total_fouls_model.joblib" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/catboost_info/catboost_training.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/catboost_info/learn/events.out.tfevents" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/catboost_info/learn_error.tsv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/catboost_info/time_left.tsv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/all-euro-data-2024-2025 (1).xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/best_both_teams_to_score_CatBoost.joblib" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/best_both_teams_to_score_XGBoost.joblib" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/best_btts_catboost.joblib" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/best_btts_xgboost.joblib" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/best_match_outcome_CatBoost.joblib" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/best_match_outcome_XGBoost.joblib" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/best_over_1.5_goals_CatBoost.joblib" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/best_over_1.5_goals_XGBoost.joblib" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/best_over_2.5_goals_CatBoost.joblib" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/best_over_2.5_goals_XGBoost.joblib" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/best_over_3.5_goals_catboost.joblib" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/best_over_3.5_goals_xgboost.joblib" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/best_total_fouls_CatBoost.joblib" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/best_total_fouls_XGBoost.joblib" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/catboost_info/tmp/cat_feature_index.213e12e0-ba6ca667-56c20364-e6e501a4.tmp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/catboost_info/tmp/cat_feature_index.7268aef9-c45fea96-dff871b0-5e941ee4.tmp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/catboost_info/tmp/cat_feature_index.7793e7e2-62d1a334-e98122c8-4a24b589.tmp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/catboost_info/tmp/cat_feature_index.9881ee1d-aa4bc252-c950d201-8c549b63.tmp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/catboost_info/tmp/cat_feature_index.a82d4790-e2f61b47-6341e647-75c6e2d9.tmp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/catboost_info/tmp/cat_feature_index.c4dd2936-66aa42ee-7d6a55a6-b993c91b.tmp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tennis/2022.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tennis/2022_women.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tennis/2023.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tennis/2023_women.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tennis/2024.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tennis/2024_women.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tennis/tennis.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/All_leagues_prediction/.idea/workspace.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/all-euro-data-2024-2025.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/all-euro-data-2024-2025.xlsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/best_match_outcome_model.joblib" beforeDir="false" afterPath="$PROJECT_DIR$/best_match_outcome_model.joblib" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/best_over_1.5_goals_model.joblib" beforeDir="false" afterPath="$PROJECT_DIR$/best_over_1.5_goals_model.joblib" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/best_over_2.5_goals_model.joblib" beforeDir="false" afterPath="$PROJECT_DIR$/best_over_2.5_goals_model.joblib" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/best_total_fouls_model.joblib" beforeDir="false" afterPath="$PROJECT_DIR$/best_total_fouls_model.joblib" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/catboost_info/catboost_training.json" beforeDir="false" afterPath="$PROJECT_DIR$/catboost_info/catboost_training.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/catboost_info/learn/events.out.tfevents" beforeDir="false" afterPath="$PROJECT_DIR$/catboost_info/learn/events.out.tfevents" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/catboost_info/learn_error.tsv" beforeDir="false" afterPath="$PROJECT_DIR$/catboost_info/learn_error.tsv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/catboost_info/time_left.tsv" beforeDir="false" afterPath="$PROJECT_DIR$/catboost_info/time_left.tsv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/main.ipynb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,6 +61,18 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="RESET_MODE" value="MIXED" />
   </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;dagbolade&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/dagbolade/all_leagues-_prediction.git&quot;,
+    &quot;accountId&quot;: &quot;dfd1afa9-f6dc-42d8-9076-2bdc9e902d66&quot;
+  }
+}</component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 4
 }</component>
@@ -51,7 +90,7 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;database.data.extractors.current.export.id&quot;: &quot;Comma-separated (CSV)_id&quot;,
     &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/dagbo_b40tnyc/OneDrive/all_leagues _prediction&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/dagbo_b40tnyc/OneDrive/all_leagues _prediction/tennis&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -62,6 +101,7 @@
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\dagbo_b40tnyc\OneDrive\all_leagues _prediction\tennis" />
       <recent name="C:\Users\dagbo_b40tnyc\OneDrive\all_leagues _prediction" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
@@ -71,8 +111,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-1d06a55b98c1-74d2a5396914-JavaScript-PY-241.14494.241" />
-        <option value="bundled-python-sdk-0509580d9d50-28c9f5db9ffe-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-241.14494.241" />
+        <option value="bundled-js-predefined-1d06a55b98c1-0b3e54e931b4-JavaScript-PY-241.19416.19" />
+        <option value="bundled-python-sdk-337b0a7a993a-2767605e8bc2-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-241.19416.19" />
       </set>
     </attachedChunks>
   </component>
@@ -93,6 +133,15 @@
       <workItem from="1726873079835" duration="26768000" />
       <workItem from="1727156163504" duration="1207000" />
       <workItem from="1727169944535" duration="7591000" />
+      <workItem from="1727353277310" duration="34739000" />
+      <workItem from="1727796104139" duration="4191000" />
+      <workItem from="1728125451644" duration="5630000" />
+      <workItem from="1728649880322" duration="9029000" />
+      <workItem from="1729000303837" duration="1312000" />
+      <workItem from="1729850968260" duration="595000" />
+      <workItem from="1730476702464" duration="18302000" />
+      <workItem from="1733172478562" duration="6292000" />
+      <workItem from="1733762314135" duration="9021000" />
     </task>
     <task id="LOCAL-00001" summary="Removed">
       <option name="closed" value="true" />
@@ -123,5 +172,16 @@
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="Removed" />
     <option name="LAST_COMMIT_MESSAGE" value="Removed" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="jupyter-line">
+          <url>notebook://C:/Users/dagbo_b40tnyc/OneDrive/all_leagues _prediction/main.ipynb</url>
+          <line>1494</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

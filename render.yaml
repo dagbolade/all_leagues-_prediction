@@ -4,6 +4,6 @@ services:
     name: football-predictor
     env: python
     buildCommand: pip install -r requirements.txt
-    startCommand: python run.py
+    startCommand: gunicorn app.run:app
     branch: master
     autoDeploy: true

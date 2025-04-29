@@ -36,19 +36,38 @@ def index():
 
 @app.route('/predict', methods=['GET', 'POST'])
 def predict():
-    """Prediction page route."""
+    """Prediction page route with lazy model loading."""
+    global predictor, teams, football_service
+
+    if predictor is None:
+        try:
+            print("🔄 Lazy-loading models and data...")
+            models = joblib.load('models/football_models.joblib')
+            df_engineered = joblib.load('data/processed/processed_data.pkl')
+            predictor = MatchPredictor(df_engineered, models)
+            teams = sorted(list(set(df_engineered['HomeTeam'].unique()) | set(df_engineered['AwayTeam'].unique())))
+            football_service.predictor = predictor
+            print("✅ Models loaded successfully.")
+        except Exception as e:
+            print(f"[ERROR] Lazy-loading failed: {str(e)}")
+            return render_template('predict.html', error="Error loading model/data", teams=[])
+
     if request.method == 'POST':
         home_team = request.form.get('homeTeam')
         away_team = request.form.get('awayTeam')
 
         if predictor and home_team and away_team:
-            predictions, probabilities = predictor.predict_match(home_team, away_team)
-            return render_template('predict.html',
-                                   teams=teams,
-                                   predictions=predictions,
-                                   probabilities=probabilities,
-                                   home_team=home_team,
-                                   away_team=away_team)
+            try:
+                predictions, probabilities = predictor.predict_match(home_team, away_team)
+                return render_template('predict.html',
+                                       teams=teams,
+                                       predictions=predictions,
+                                       probabilities=probabilities,
+                                       home_team=home_team,
+                                       away_team=away_team)
+            except Exception as e:
+                print(f"[ERROR] Prediction failed: {str(e)}")
+                return render_template('predict.html', error="Prediction failed", teams=teams)
 
     return render_template('predict.html', teams=teams)
 

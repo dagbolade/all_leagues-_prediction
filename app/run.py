@@ -17,8 +17,8 @@ football_service = FootballDataService()
 # Load models and data
 try:
     print("Loading models and data...")
-    models = joblib.load('../models/football_models.joblib')
-    df_engineered = joblib.load('../data/processed/processed_data.pkl')
+    models = joblib.load('models/football_models.joblib')
+    df_engineered = joblib.load('data/processed/processed_data.pkl')
     predictor = MatchPredictor(df_engineered, models)
     teams = sorted(list(set(df_engineered['HomeTeam'].unique()) | set(df_engineered['AwayTeam'].unique())))
     print("Models and data loaded successfully!")

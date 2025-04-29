@@ -1,0 +1,9 @@
+# render.yaml
+services:
+  - type: web
+    name: football-predictor
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: python run.py
+    branch: master
+    autoDeploy: true

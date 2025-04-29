@@ -14,9 +14,9 @@ __pycache__/
 .ipynb_checkpoints/
 
 # Virtual environments
-.venv/
+
 env/
-venv/
+
 
 # VS Code and JetBrains config
 .vscode/

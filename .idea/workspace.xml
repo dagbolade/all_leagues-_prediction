@@ -5,72 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="96ea0842-52e6-4077-9cd7-5e93b2289f25" name="Changes" comment="pushed akk">
-      <change afterPath="$PROJECT_DIR$/.env" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/all_leagues _prediction.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/other.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Procfile" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/routes.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/run.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/services/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/services/football_service.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/static/css/live-scores.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/static/css/styles.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/static/js/components/PredictionUI.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/static/js/live-predictions.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/static/js/live-scores.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/static/js/main.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/static/js/prediction-loading.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/static/js/save-predictions.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/static/js/scroll-to-predictions.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/static/js/three-scene.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/templates/base.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/templates/index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/templates/live_predictions.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/templates/predict.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/templates/results.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/catboost_info/tmp/cat_feature_index.5777fce9-86728957-6ed0a35b-9ee7abd9.tmp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/catboost_info/tmp/cat_feature_index.b2b7d2b6-8f238cdc-a8cca0b5-c3f57bce.tmp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data/processed/advanced_euro_data.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data/processed/cleaned_euro_data.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data/processed/combined_euro_data.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data/processed/processed_data.pkl" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data/raw/all-euro-data-2023-2024.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data/raw/all-euro-data-2024-2025.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/footy/data_cleaning.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/footy/epl_analyzer.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/footy/feature_engineering.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/footy/load_data.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/footy/merge_data.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/footy/model_training.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/footy/predictor_utils.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/footy/preprocessing.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/footy/rolling_features.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/footy/send_predictions.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/footy/train_evaluate.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/footy/utils.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/footy/visualize_interactive.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/footy/visualize_static.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/models/best_match_outcome_model.joblib" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/models/best_over_1.5_goals_model.joblib" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/models/best_over_2.5_goals_model.joblib" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/models/best_total_fouls_model.joblib" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/models/football_models.joblib" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/all-euro-data-2024-2025.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/all-euro-data-2024-2025.xlsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/best_both_teams_to_score_CatBoost.joblib" beforeDir="false" afterPath="$PROJECT_DIR$/best_both_teams_to_score_CatBoost.joblib" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/best_match_outcome_CatBoost.joblib" beforeDir="false" afterPath="$PROJECT_DIR$/best_match_outcome_CatBoost.joblib" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/best_over_1.5_goals_CatBoost.joblib" beforeDir="false" afterPath="$PROJECT_DIR$/best_over_1.5_goals_CatBoost.joblib" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/best_over_2.5_goals_CatBoost.joblib" beforeDir="false" afterPath="$PROJECT_DIR$/best_over_2.5_goals_CatBoost.joblib" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/best_total_fouls_CatBoost.joblib" beforeDir="false" afterPath="$PROJECT_DIR$/best_total_fouls_CatBoost.joblib" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/catboost_info/catboost_training.json" beforeDir="false" afterPath="$PROJECT_DIR$/catboost_info/catboost_training.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/catboost_info/learn/events.out.tfevents" beforeDir="false" afterPath="$PROJECT_DIR$/catboost_info/learn/events.out.tfevents" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/catboost_info/learn_error.tsv" beforeDir="false" afterPath="$PROJECT_DIR$/catboost_info/learn_error.tsv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/catboost_info/time_left.tsv" beforeDir="false" afterPath="$PROJECT_DIR$/catboost_info/time_left.tsv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/main.ipynb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -114,27 +49,27 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "DefaultHtmlFileTemplate": "HTML File",
-    "Python.main.executor": "Run",
-    "Python.run.executor": "Run",
-    "Python.utils.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "database.data.extractors.current.export.id": "Comma-separated (CSV)_id",
-    "git-widget-placeholder": "master",
-    "last_opened_file_path": "C:/Users/dagbo_b40tnyc/OneDrive/all_leagues _prediction/data/raw",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "run.code.analysis.last.selected.profile": "pProject Default",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;Python.main.executor&quot;: &quot;Run&quot;,
+    &quot;Python.run.executor&quot;: &quot;Run&quot;,
+    &quot;Python.utils.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;database.data.extractors.current.export.id&quot;: &quot;Comma-separated (CSV)_id&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/dagbo_b40tnyc/OneDrive/all_leagues _prediction/data/raw&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\dagbo_b40tnyc\OneDrive\all_leagues _prediction\data\raw" />

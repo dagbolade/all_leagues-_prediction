@@ -3,7 +3,7 @@
 from flask import Flask, render_template, request, redirect, url_for, jsonify
 from footy.predictor_utils import MatchPredictor
 from app.routes import routes  # Import the blueprint
-from services.football_service import FootballDataService
+from app.services.football_service import FootballDataService
 import joblib
 import os
 

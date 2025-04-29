@@ -6,7 +6,7 @@ from flask import Blueprint, render_template, request
 from footy.predictor_utils import MatchPredictor
 from flask import jsonify
 
-from services.football_service import FootballDataService
+from app.services.football_service import FootballDataService
 import joblib
 
 # Create blueprint

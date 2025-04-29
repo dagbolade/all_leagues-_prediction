@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="live-predictions-container">
+        <h2>Today's Match Predictions</h2>
+        <span id="lastUpdated" class="text-muted"></span>
+
+        <div id="predictions-grid" class="mt-4">
+            <div class="text-center">
+                <div class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">Loading predictions...</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    function loadPredictions() {
+        fetch('/api/live-predictions')
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    displayPredictions(data.predictions);
+                    updateLastUpdated(data.timestamp);
+                } else {
+                    displayError('No predictions available today.');
+                }
+            })
+            .catch(error => {
+                console.error('Error loading predictions:', error);
+                displayError('Error loading predictions.');
+            });
+    }
+
+    function displayPredictions(predictions) {
+        const grid = document.getElementById('predictions-grid');
+        if (predictions.length === 0) {
+            grid.innerHTML = '<div class="alert alert-info">No predictions available for today\'s matches.</div>';
+            return;
+        }
+
+        grid.innerHTML = predictions.map(pred => `
+            <div class="prediction-card mb-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="text-center mb-0">${pred.home_team} vs ${pred.away_team}</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="prediction-outcome text-center mb-3">
+                            <h6>Predicted: ${pred.predictions['Match Outcome']}</h6>
+                        </div>
+                        <div class="probabilities mb-3">
+                            <div class="mb-2">
+                                <label>Home Win: ${pred.probabilities['Match Outcome']['Home Win']}</label>
+                                <div class="progress">
+                                    <div class="progress-bar bg-success"
+                                         style="width: ${pred.probabilities['Match Outcome']['Home Win']}"></div>
+                                </div>
+                            </div>
+                            <div class="mb-2">
+                                <label>Draw: ${pred.probabilities['Match Outcome']['Draw']}</label>
+                                <div class="progress">
+                                    <div class="progress-bar bg-warning"
+                                         style="width: ${pred.probabilities['Match Outcome']['Draw']}"></div>
+                                </div>
+                            </div>
+                            <div class="mb-2">
+                                <label>Away Win: ${pred.probabilities['Match Outcome']['Away Win']}</label>
+                                <div class="progress">
+                                    <div class="progress-bar bg-danger"
+                                         style="width: ${pred.probabilities['Match Outcome']['Away Win']}"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="additional-predictions text-center">
+                            <div>Over 1.5 Goals: ${pred.predictions['Over 1.5 Goals']}</div>
+                            <div>Over 2.5 Goals: ${pred.predictions['Over 2.5 Goals']}</div>
+                            <div>Both Teams to Score: ${pred.predictions['Both Teams to Score']}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    function updateLastUpdated(timestamp) {
+        const element = document.getElementById('lastUpdated');
+        if (element) {
+            element.textContent = `Last updated: ${new Date(timestamp).toLocaleTimeString()}`;
+        }
+    }
+
+    function displayError(message) {
+        document.getElementById('predictions-grid').innerHTML =
+            `<div class="alert alert-danger">${message}</div>`;
+    }
+
+    // Initial load
+    loadPredictions();
+
+    // Refresh every 5 minutes
+    setInterval(loadPredictions, 300000); // 300000 ms = 5 minutes
+});
+</script>
+{% endblock %}

@@ -1,0 +1,138 @@
+<!-- templates/predict.html -->
+{% extends "base.html" %}
+
+{% block content %}
+<div class="dashboard-container">
+    <!-- Match Selection -->
+    <div class="selection-panel">
+        <h2>Match Selection</h2>
+        <p class="subtitle">Select teams to get AI-powered predictions</p>
+        <div id="loadingSpinner" style="display: none; text-align: center; padding: 50px;">
+            <div class="spinner-border text-primary" style="width: 4rem; height: 4rem;" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <p class="mt-3">Generating Prediction...</p>
+        </div>
+
+
+        <form method="POST" id="predictionForm">
+            <div class="teams-selection">
+                <div class="team-select">
+                    <label>Home Team</label>
+                    <select name="homeTeam" required>
+                        <option value="">Select Home Team</option>
+                        {% for team in teams %}
+                        <option value="{{ team }}">{{ team }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="vs-badge">VS</div>
+
+                <div class="team-select">
+                    <label>Away Team</label>
+                    <select name="awayTeam" required>
+                        <option value="">Select Away Team</option>
+                        {% for team in teams %}
+                        <option value="{{ team }}">{{ team }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <button type="submit" class="btn-predict">Generate Prediction</button>
+        </form>
+    </div>
+
+    {% if predictions %}
+<!-- Prediction Results -->
+<div class="prediction-results" id="predictionResultsSection">
+    <div class="match-header">
+        <h3>{{ home_team }} vs {{ away_team }}</h3>
+
+        <!-- Hidden inputs to pass data to JS -->
+        <input type="hidden" id="homeTeamSelected" value="{{ home_team }}">
+        <input type="hidden" id="awayTeamSelected" value="{{ away_team }}">
+        <pre id="predictionsData" style="display:none;">{{ predictions | tojson }}</pre>
+
+        <button id="savePredictionButton" class="btn btn-success mt-2">Save Prediction</button>
+    </div>
+
+    <div class="predictions-grid">
+        <!-- Match Outcome -->
+        <div class="prediction-card">
+            <h4>Match Outcome</h4>
+            <div class="outcome-probabilities">
+                <div class="prob-bar home">
+                    <span class="label">Home Win</span>
+                    <div class="bar">
+                        <div class="fill" style="width: {{ probabilities['Match Outcome']['Home Win']|replace('%','') }}%"></div>
+                    </div>
+                    <span class="value">{{ probabilities['Match Outcome']['Home Win'] }}</span>
+                </div>
+                <div class="prob-bar draw">
+                    <span class="label">Draw</span>
+                    <div class="bar">
+                        <div class="fill" style="width: {{ probabilities['Match Outcome']['Draw']|replace('%','') }}%"></div>
+                    </div>
+                    <span class="value">{{ probabilities['Match Outcome']['Draw'] }}</span>
+                </div>
+                <div class="prob-bar away">
+                    <span class="label">Away Win</span>
+                    <div class="bar">
+                        <div class="fill" style="width: {{ probabilities['Match Outcome']['Away Win']|replace('%','') }}%"></div>
+                    </div>
+                    <span class="value">{{ probabilities['Match Outcome']['Away Win'] }}</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Goals & Scores -->
+        <div class="prediction-card">
+            <h4>Goals & Scores</h4>
+            <div class="goals-predictions">
+                <div class="goal-stat">
+                    <div class="header">
+                        <span>Over 1.5 Goals</span>
+                        <span class="prediction">{{ predictions['Over 1.5 Goals'] }}</span>
+                    </div>
+                    <div class="bar">
+                        <div class="fill" style="width: {{ probabilities['Over 1.5 Goals']|replace('%','') }}%"></div>
+                    </div>
+                    <span class="probability">{{ probabilities['Over 1.5 Goals'] }}</span>
+                </div>
+
+                <div class="goal-stat">
+                    <div class="header">
+                        <span>Over 2.5 Goals</span>
+                        <span class="prediction">{{ predictions['Over 2.5 Goals'] }}</span>
+                    </div>
+                    <div class="bar">
+                        <div class="fill" style="width: {{ probabilities['Over 2.5 Goals']|replace('%','') }}%"></div>
+                    </div>
+                    <span class="probability">{{ probabilities['Over 2.5 Goals'] }}</span>
+                </div>
+
+                <div class="goal-stat">
+                    <div class="header">
+                        <span>Both Teams to Score</span>
+                        <span class="prediction">{{ predictions['Both Teams to Score'] }}</span>
+                    </div>
+                    <div class="bar">
+                        <div class="fill" style="width: {{ probabilities['Both Teams to Score']|replace('%','') }}%"></div>
+                    </div>
+                    <span class="probability">{{ probabilities['Both Teams to Score'] }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+
+    <!-- Saved Predictions -->
+    <div class="saved-predictions">
+        <h3>Today's Predictions</h3>
+        <div id="savedPredictionsList"></div>
+    </div>
+</div>
+{% endblock %}

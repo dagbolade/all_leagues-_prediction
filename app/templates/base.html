@@ -1,0 +1,162 @@
+<!-- templates/base.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Football Predictor Pro - {% block title %}{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/styles.css') }}" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+            min-height: 100vh;
+            position: relative;
+        }
+
+        .content-wrapper {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            padding: 20px;
+            margin: 20px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .navbar {
+            background: rgba(0, 0, 0, 0.8) !important;
+            backdrop-filter: blur(10px);
+        }
+
+        .prediction-result-card {
+            animation: slideIn 0.5s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .loading-spinner {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+        }
+
+        .hero-banner {
+            background-image: linear-gradient(to bottom, #1a2a6c, #b21f1f, #fdbb2d);
+            background-size: 100% 300px;
+            background-position: 0% 100%;
+            height: 300px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <span class="navbar-brand">⚽ Football Predictor Pro</span>
+
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.path == '/' %}active{% endif %}" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.path.startswith('/predict') %}active{% endif %}" href="/predict">Make Prediction</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.path.startswith('/live-predictions') %}active{% endif %}" href="/live-predictions">Live Predictions</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.path.startswith('/results') %}active{% endif %}" href="/results">Results</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+    <div class="container mt-4 fade-in">
+        <div class="row">
+            <!-- Main content -->
+            <div class="col-lg-8">
+                {% block content %}{% endblock %}
+            </div>
+
+            <!-- Live Scores Sidebar -->
+            <div class="col-lg-4">
+                <div class="card live-scores-card card-accent">
+                    <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0">Live Matches</h5>
+                        <span class="refresh-time" id="lastUpdated"></span>
+                    </div>
+                    <div class="card-body">
+                        <div id="liveScores" class="live-scores-container">
+                            <div class="loading-spinner">
+                                <div class="spinner-border text-primary" role="status">
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ url_for('static', filename='js/live-scores.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/save-predictions.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/scroll-to-predictions.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/prediction-loading.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="/static/js/three-scene.js"></script>
+    <script>
+        // Initialize LiveScoresManager
+        document.addEventListener('DOMContentLoaded', function() {
+            const liveScores = new LiveScoresManager();
+
+            // Update the last updated time
+            function updateLastUpdated() {
+                const now = new Date();
+                document.getElementById('lastUpdated').textContent =
+                    `Last updated: ${now.toLocaleTimeString()}`;
+            }
+
+            // Initial update
+            updateLastUpdated();
+
+            // Update time every minute
+            setInterval(updateLastUpdated, 60000);
+        });
+    </script>
+</body>
+</html>

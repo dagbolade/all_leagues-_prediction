@@ -1,0 +1,24 @@
+<!-- templates/index.html -->
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<div class="welcome-section text-center py-5">
+    <h1 class="display-4 text-white mb-3">Welcome to Football Predictor Pro</h1>
+    <p class="lead text-light mb-4">Get AI-powered predictions for football matches using machine learning!</p>
+    <a href="/predict" class="btn btn-primary btn-lg">Make a Prediction</a>
+</div>
+
+<div id="threejs-container"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="{{ url_for('static', filename='js/three-scene.js') }}"></script>
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const stadium = new FootballStadium();
+        const predictionManager = new PredictionManager();
+    });
+</script>
+{% endblock %}

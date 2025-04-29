@@ -1,0 +1,98 @@
+<!-- templates/results.html -->
+{% extends "base.html" %}
+
+{% block content %}
+<div class="card shadow">
+    <div class="card-header bg-info text-white d-flex justify-content-between align-items-center">
+        <h3 class="mb-0">Recent Predictions</h3>
+        <div>
+            <button class="btn btn-light btn-sm" onclick="exportResults()">Export Results</button>
+            <button class="btn btn-light btn-sm" onclick="clearResults()">Clear History</button>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Match</th>
+                        <th>Prediction</th>
+                        <th>Result</th>
+                        <th>Accuracy</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="resultsTableBody">
+                    <!-- Results will be populated dynamically -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Accuracy Summary Card -->
+<div class="card shadow mt-4">
+    <div class="card-header bg-success text-white">
+        <h3 class="mb-0">Prediction Accuracy</h3>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <h4>Match Outcomes</h4>
+                        <div class="display-4" id="matchAccuracy">--%</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <h4>Over/Under</h4>
+                        <div class="display-4" id="goalsAccuracy">--%</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <h4>BTTS</h4>
+                        <div class="display-4" id="bttsAccuracy">--%</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Add Result Modal -->
+<div class="modal fade" id="addResultModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Add Match Result</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form id="addResultForm">
+                    <input type="hidden" id="predictionId">
+                    <div class="mb-3">
+                        <label class="form-label">Home Team Score</label>
+                        <input type="number" class="form-control" id="homeScore" required min="0">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Away Team Score</label>
+                        <input type="number" class="form-control" id="awayScore" required min="0">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="saveResult()">Save Result</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

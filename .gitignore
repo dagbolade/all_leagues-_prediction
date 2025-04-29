@@ -1,0 +1,28 @@
+.env
+# Ignore environment and secrets
+.env
+
+# Bytecode and cache
+__pycache__/
+*.pyc
+*.pyo
+
+# OS files
+.DS_Store
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Virtual environments
+.venv/
+env/
+venv/
+
+# VS Code and JetBrains config
+.vscode/
+.idea/
+
+# Data and model files (optional if large)
+*.joblib
+*.xlsx
+*.csv

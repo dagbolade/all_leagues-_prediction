@@ -1,0 +1,98 @@
+/* static/css/live-scores.css */
+
+.live-matches-container {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+}
+
+.match-card {
+    background: white;
+    border-radius: 8px;
+    margin-bottom: 12px;
+    padding: 12px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease;
+}
+
+.match-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.competition-header {
+    font-size: 0.9rem;
+    color: #666;
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.competition-header img {
+    height: 20px;
+    margin-right: 8px;
+}
+
+.teams-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px 0;
+}
+
+.team {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex: 1;
+}
+
+.team img {
+    width: 24px;
+    height: 24px;
+}
+
+.team.home {
+    text-align: right;
+}
+
+.team.away {
+    text-align: left;
+}
+
+.vs {
+    padding: 0 15px;
+    font-weight: bold;
+    color: #888;
+}
+
+.match-time {
+    text-align: center;
+    font-size: 0.9rem;
+    color: #2196F3;
+    font-weight: 500;
+}
+
+.match-status {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    margin-top: 5px;
+}
+
+.status-live {
+    background: #f44336;
+    color: white;
+}
+
+.status-timed {
+    background: #2196F3;
+    color: white;
+}
+
+.status-finished {
+    background: #4CAF50;
+    color: white;
+}

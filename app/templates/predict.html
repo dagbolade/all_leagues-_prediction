@@ -1,0 +1,707 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="dashboard-container">
+    <!-- Simple Header -->
+    <div class="header-section text-center mb-4" style="background: linear-gradient(135deg, #2E8B57, #1e5631); padding: 2rem; border-radius: 15px; color: white;">
+        <h2 class="mb-2">⚽ Enhanced Football Predictor</h2>
+        <p class="mb-0">AI predictions with logical constraints and exact scorelines</p>
+    </div>
+
+    <!-- Team Selection -->
+    <div class="selection-panel">
+        <h3>Select Match</h3>
+
+        <div id="loadingSpinner" style="display: none; text-align: center; padding: 40px;">
+            <div class="spinner-border text-success" style="width: 3rem; height: 3rem;"></div>
+            <p class="mt-3">Generating prediction...</p>
+        </div>
+
+        <form method="POST" id="predictionForm">
+            <div class="teams-selection">
+                <div class="team-select">
+                    <label>🏠 Home Team</label>
+                    <select name="homeTeam" required>
+                        <option value="">Select Home Team</option>
+                        {% for team in teams %}
+                        <option value="{{ team }}">{{ team }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="vs-badge">VS</div>
+
+                <div class="team-select">
+                    <label>✈️ Away Team</label>
+                    <select name="awayTeam" required>
+                        <option value="">Select Away Team</option>
+                        {% for team in teams %}
+                        <option value="{{ team }}">{{ team }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <button type="submit" class="btn-predict">🎯 Get Prediction</button>
+        </form>
+    </div>
+
+    {% if predictions %}
+    <!-- Enhanced Results -->
+    <div class="prediction-results">
+        <div class="match-header">
+            <h3>{{ home_team }} vs {{ away_team }}</h3>
+
+            <!-- Logical Status -->
+            {% if logical_valid %}
+            <div class="alert alert-success d-flex align-items-center mb-3">
+                <i class="fas fa-check-circle me-2"></i>
+                <strong>✅ Predictions are logically consistent</strong>
+                {% if logical_issues %}
+                <div class="ms-3">
+                    <small>Applied: {{ logical_issues|join(', ') }}</small>
+                </div>
+                {% endif %}
+            </div>
+            {% endif %}
+
+            <input type="hidden" id="homeTeamSelected" value="{{ home_team }}">
+            <input type="hidden" id="awayTeamSelected" value="{{ away_team }}">
+            <button id="savePredictionButton" class="btn btn-outline-success">💾 Save Prediction</button>
+        </div>
+
+        <div class="predictions-grid">
+            <!-- Goal Markets -->
+            <div class="prediction-card goal-markets">
+                <h4>⚽ Goal Markets</h4>
+                <div class="goals-predictions">
+                    <div class="goal-item">
+                        <div class="goal-header">
+                            <span>Over 1.5 Goals</span>
+                            <span class="result {{ 'success' if predictions['Over 1.5 Goals'] == 'Yes' else 'danger' }}">
+                                {{ predictions['Over 1.5 Goals'] }}
+                            </span>
+                        </div>
+                        <div class="confidence">{{ probabilities['Over 1.5 Goals'] }} confidence</div>
+                    </div>
+
+                    <div class="goal-item featured">
+                        <div class="goal-header">
+                            <span>Over 2.5 Goals</span>
+                            <span class="result {{ 'success' if predictions['Over 2.5 Goals'] == 'Yes' else 'danger' }}">
+                                {{ predictions['Over 2.5 Goals'] }}
+                            </span>
+                        </div>
+                        <div class="confidence">{{ probabilities['Over 2.5 Goals'] }} confidence</div>
+                    </div>
+
+                    {% if predictions.get('Over 3.5 Goals') %}
+                    <div class="goal-item">
+                        <div class="goal-header">
+                            <span>Over 3.5 Goals</span>
+                            <span class="result {{ 'success' if predictions['Over 3.5 Goals'] == 'Yes' else 'danger' }}">
+                                {{ predictions['Over 3.5 Goals'] }}
+                            </span>
+                        </div>
+                        <div class="confidence">{{ probabilities['Over 3.5 Goals'] }} confidence</div>
+                    </div>
+                    {% endif %}
+
+                    <div class="goal-item">
+                        <div class="goal-header">
+                            <span>Both Teams Score</span>
+                            <span class="result {{ 'success' if predictions['Both Teams to Score'] == 'Yes' else 'danger' }}">
+                                {{ predictions['Both Teams to Score'] }}
+                            </span>
+                        </div>
+                        <div class="confidence">{{ probabilities['Both Teams to Score'] }} confidence</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Match Outcome -->
+            <div class="prediction-card">
+                <h4>🏆 Match Outcome</h4>
+                <div class="outcome-result">
+                    <div class="main-prediction">{{ predictions['Match Outcome'] }}</div>
+                    <div class="outcome-probabilities">
+                        <div class="prob-item">
+                            <span>Home Win</span>
+                            <span>{{ probabilities['Match Outcome']['Home Win'] }}</span>
+                        </div>
+                        <div class="prob-item">
+                            <span>Draw</span>
+                            <span>{{ probabilities['Match Outcome']['Draw'] }}</span>
+                        </div>
+                        <div class="prob-item">
+                            <span>Away Win</span>
+                            <span>{{ probabilities['Match Outcome']['Away Win'] }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Poisson Scorelines -->
+            {% if poisson_scorelines %}
+            <div class="prediction-card poisson-card">
+                <h4>🎯 Most Likely Scores</h4>
+                <div class="expected-goals">
+                    <strong>Expected Goals: {{ poisson_scorelines.expected_goals }}</strong>
+                </div>
+                <div class="scoreline-grid">
+                    {% for scoreline in poisson_scorelines.top_scorelines %}
+                    <div class="scoreline-item">
+                        <div class="score">{{ scoreline.score }}</div>
+                        <div class="probability">{{ scoreline.probability }}%</div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+
+            <!-- Team Insights -->
+            {% if team_insights %}
+            <div class="prediction-card insights-card">
+                <h4>📊 Team Analysis</h4>
+                <div class="team-comparison">
+                    <div class="team-stats">
+                        <div class="team-info">
+                            <h6>🏠 {{ home_team }}</h6>
+                            <div>Elo: {{ team_insights.home_elo }}</div>
+                            <div>Form: {{ team_insights.home_form }}</div>
+                        </div>
+                        <div class="advantage">
+                            <div class="elo-diff">
+                                {{ '+' if team_insights.elo_advantage > 0 else '' }}{{ team_insights.elo_advantage }}
+                            </div>
+                            <small>Elo Advantage</small>
+                        </div>
+                        <div class="team-info">
+                            <h6>✈️ {{ away_team }}</h6>
+                            <div>Elo: {{ team_insights.away_elo }}</div>
+                            <div>Form: {{ team_insights.away_form }}</div>
+                        </div>
+                    </div>
+                </div>
+
+                {% if team_insights.key_factors %}
+                <div class="key-factors">
+                    <h6>🔍 Key Factors:</h6>
+                    <ul>
+                        {% for factor in team_insights.key_factors %}
+                        <li>{{ factor }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+            </div>
+            {% endif %}
+
+            <!-- Enhanced Insights from insights.py -->
+            {% if match_insights %}
+            <div class="prediction-card insights-deep">
+                <h4>💡 Match Insights</h4>
+
+                {% if match_insights.shooting_analysis %}
+                <div class="insight-section">
+                    <h6>Shot Analysis</h6>
+                    <div class="shooting-stats">
+                        <div class="team-shooting">
+                            <strong>{{ home_team }} (Home):</strong>
+                            <small>{{ match_insights.shooting_analysis.home.overall_xg_indicators.shot_volume }} volume,
+                                   {{ match_insights.shooting_analysis.home.overall_xg_indicators.clinical_finishing }} finishing</small>
+                        </div>
+                        <div class="team-shooting">
+                            <strong>{{ away_team }} (Away):</strong>
+                            <small>{{ match_insights.shooting_analysis.away.overall_xg_indicators.shot_volume }} volume,
+                                   {{ match_insights.shooting_analysis.away.overall_xg_indicators.clinical_finishing }} finishing</small>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+
+                {% if match_insights.corner_analysis %}
+                <div class="insight-section">
+                    <h6>Corner Prediction</h6>
+                    <div class="corner-stats">
+                        <div>Expected Total: <strong>{{ match_insights.corner_analysis.prediction.expected_total_corners }}</strong></div>
+                        <div>Suggestion: <strong>{{ match_insights.corner_analysis.prediction.corner_market_suggestion }}</strong></div>
+                    </div>
+                </div>
+                {% endif %}
+
+                {% if match_insights.key_insights %}
+                <div class="insight-section">
+                    <h6>Key Insights</h6>
+                    <ul class="insights-list">
+                        {% for insight in match_insights.key_insights %}
+                        <li>{{ insight|safe }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+            </div>
+            {% endif %}
+        </div>
+
+        <!-- System Status -->
+        <div class="system-status mt-4">
+            <div class="status-grid">
+                <div class="status-item">
+                    <i class="fas fa-check-circle text-success"></i>
+                    <span>Enhanced Models Active</span>
+                </div>
+                <div class="status-item">
+                    <i class="fas fa-brain text-info"></i>
+                    <span>Logical Constraints Enabled</span>
+                </div>
+                {% if poisson_scorelines %}
+                <div class="status-item">
+                    <i class="fas fa-target text-warning"></i>
+                    <span>Poisson Scorelines Available</span>
+                </div>
+                {% endif %}
+                <div class="status-item">
+                    <i class="fas fa-chart-line text-primary"></i>
+                    <span>Team Insights Loaded</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Saved Predictions -->
+    <div class="saved-predictions mt-4">
+        <h4>📋 Saved Predictions</h4>
+        <div id="savedPredictionsList"></div>
+    </div>
+</div>
+
+<style>
+/* Clean, simple styling */
+.dashboard-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem;
+}
+
+.selection-panel {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 2rem;
+    border-radius: 15px;
+    margin-bottom: 2rem;
+    backdrop-filter: blur(10px);
+}
+
+.teams-selection {
+    display: flex;
+    align-items: end;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.team-select {
+    flex: 1;
+    min-width: 200px;
+}
+
+.team-select label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+    color: #2E8B57;
+}
+
+.team-select select {
+    width: 100%;
+    padding: 0.8rem;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+}
+
+.team-select select:focus {
+    border-color: #2E8B57;
+    outline: none;
+}
+
+.vs-badge {
+    background: linear-gradient(45deg, #2E8B57, #32CD32);
+    color: white;
+    padding: 0.8rem 1.5rem;
+    border-radius: 50px;
+    font-weight: bold;
+    font-size: 1.1rem;
+    margin: 0 1rem;
+    align-self: center;
+}
+
+.btn-predict {
+    background: linear-gradient(45deg, #2E8B57, #32CD32);
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: block;
+    margin: 0 auto;
+}
+
+.btn-predict:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(46, 139, 87, 0.3);
+}
+
+.predictions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.prediction-card {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    padding: 1.5rem;
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: transform 0.3s ease;
+}
+
+.prediction-card:hover {
+    transform: translateY(-3px);
+}
+
+.prediction-card h4 {
+    margin-bottom: 1rem;
+    color: #2E8B57;
+    font-size: 1.2rem;
+}
+
+/* Goal Markets */
+.goal-markets {
+    border-left: 4px solid #2E8B57;
+}
+
+.goal-item {
+    margin-bottom: 1rem;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    transition: background 0.3s;
+}
+
+.goal-item:hover {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.goal-item.featured {
+    border: 2px solid #FFD700;
+    background: rgba(255, 215, 0, 0.1);
+}
+
+.goal-header {
+    display: flex;
+    justify-content: between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.goal-header span:first-child {
+    font-weight: bold;
+    color: #333;
+}
+
+.result {
+    font-weight: bold;
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+}
+
+.result.success {
+    background: #28a745;
+    color: white;
+}
+
+.result.danger {
+    background: #dc3545;
+    color: white;
+}
+
+.confidence {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+/* Match Outcome */
+.main-prediction {
+    font-size: 1.4rem;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 1rem;
+    color: #2E8B57;
+}
+
+.prob-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Poisson Scorelines */
+.poisson-card {
+    border-left: 4px solid #00CED1;
+}
+
+.expected-goals {
+    text-align: center;
+    margin-bottom: 1rem;
+    padding: 1rem;
+    background: rgba(0, 206, 209, 0.1);
+    border-radius: 8px;
+    color: #00CED1;
+}
+
+.scoreline-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+    gap: 0.8rem;
+}
+
+.scoreline-item {
+    text-align: center;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    transition: transform 0.3s;
+}
+
+.scoreline-item:hover {
+    transform: scale(1.05);
+}
+
+.score {
+    font-weight: bold;
+    font-size: 1.1rem;
+    color: #2E8B57;
+}
+
+.probability {
+    font-size: 0.9rem;
+    color: #00CED1;
+}
+
+/* Team Analysis */
+.insights-card {
+    border-left: 4px solid #9370DB;
+}
+
+.team-stats {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.team-info {
+    text-align: center;
+    flex: 1;
+}
+
+.team-info h6 {
+    margin-bottom: 0.5rem;
+    color: #2E8B57;
+}
+
+.advantage {
+    text-align: center;
+    margin: 0 1rem;
+}
+
+.elo-diff {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #9370DB;
+}
+
+.key-factors ul {
+    list-style: none;
+    padding: 0;
+}
+
+.key-factors li {
+    padding: 0.3rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Enhanced Insights */
+.insights-deep {
+    border-left: 4px solid #FF6B35;
+}
+
+.insight-section {
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.insight-section:last-child {
+    border-bottom: none;
+}
+
+.insight-section h6 {
+    color: #FF6B35;
+    margin-bottom: 0.5rem;
+}
+
+.team-shooting, .corner-stats div {
+    margin-bottom: 0.5rem;
+}
+
+.insights-list {
+    list-style: none;
+    padding: 0;
+}
+
+.insights-list li {
+    padding: 0.5rem 0;
+    border-left: 3px solid #FF6B35;
+    padding-left: 1rem;
+    margin-bottom: 0.5rem;
+    background: rgba(255, 107, 53, 0.1);
+    border-radius: 0 5px 5px 0;
+}
+
+/* System Status */
+.status-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+}
+
+.status-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .teams-selection {
+        flex-direction: column;
+    }
+
+    .vs-badge {
+        margin: 1rem 0;
+        align-self: center;
+    }
+
+    .predictions-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .team-stats {
+        flex-direction: column;
+        gap: 1rem;
+    }
+}
+</style>
+
+<script>
+// Simple form handling
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('predictionForm');
+    const loadingSpinner = document.getElementById('loadingSpinner');
+
+    if (form) {
+        form.addEventListener('submit', function() {
+            loadingSpinner.style.display = 'block';
+        });
+    }
+
+    // Save prediction functionality
+    const saveBtn = document.getElementById('savePredictionButton');
+    if (saveBtn) {
+        saveBtn.addEventListener('click', function() {
+            const homeTeam = document.getElementById('homeTeamSelected')?.value;
+            const awayTeam = document.getElementById('awayTeamSelected')?.value;
+
+            if (homeTeam && awayTeam) {
+                const predictionData = {
+                    homeTeam,
+                    awayTeam,
+                    predictions: {{ predictions | tojson if predictions else '{}' }},
+                    timestamp: new Date().toISOString(),
+                    enhanced: true
+                };
+
+                savePredictionToStorage(predictionData);
+                this.textContent = '✅ Saved!';
+                this.classList.add('btn-success');
+
+                setTimeout(() => {
+                    this.textContent = '💾 Save Prediction';
+                    this.classList.remove('btn-success');
+                }, 2000);
+            }
+        });
+    }
+
+    loadSavedPredictions();
+});
+
+function savePredictionToStorage(data) {
+    try {
+        const existing = JSON.parse(localStorage.getItem('footballPredictions') || '[]');
+        existing.unshift(data);
+        localStorage.setItem('footballPredictions', JSON.stringify(existing.slice(0, 10)));
+    } catch (error) {
+        console.error('Error saving prediction:', error);
+    }
+}
+
+function loadSavedPredictions() {
+    try {
+        const saved = JSON.parse(localStorage.getItem('footballPredictions') || '[]');
+        const container = document.getElementById('savedPredictionsList');
+
+        if (!container) return;
+
+        if (saved.length === 0) {
+            container.innerHTML = '<p class="text-muted">No saved predictions yet.</p>';
+            return;
+        }
+
+        container.innerHTML = saved.map(pred => `
+            <div class="saved-prediction mb-2 p-3" style="background: rgba(255, 255, 255, 0.1); border-radius: 8px;">
+                <div class="d-flex justify-content-between align-items-center">
+                    <strong>${pred.homeTeam} vs ${pred.awayTeam}</strong>
+                    <small>${new Date(pred.timestamp).toLocaleDateString()}</small>
+                </div>
+                <div class="prediction-summary mt-1">
+                    <span class="badge bg-${pred.predictions['Over 2.5 Goals'] === 'Yes' ? 'success' : 'danger'} me-1">
+                        O2.5: ${pred.predictions['Over 2.5 Goals']}
+                    </span>
+                    <span class="badge bg-info">
+                        Outcome: ${pred.predictions['Match Outcome']}
+                    </span>
+                </div>
+            </div>
+        `).join('');
+    } catch (error) {
+        console.error('Error loading predictions:', error);
+    }
+}
+</script>
+{% endblock %}

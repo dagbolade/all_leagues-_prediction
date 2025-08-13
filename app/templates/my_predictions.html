@@ -1,0 +1,652 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <!-- Header -->
+    <div class="predictions-header text-center mb-4" style="background: linear-gradient(135deg, #2E8B57, #1e5631); padding: 2rem; border-radius: 15px; color: white;">
+        <h2 class="mb-2">📋 My Predictions</h2>
+        <p class="mb-0">Build accumulators and track your betting performance</p>
+    </div>
+
+    <!-- Stats Overview -->
+    <div class="stats-overview mb-4">
+        <div class="row">
+            <div class="col-md-3 col-6 mb-3">
+                <div class="stat-card" style="background: rgba(46, 139, 87, 0.1); border: 1px solid rgba(46, 139, 87, 0.3); border-radius: 10px; padding: 1.5rem; text-align: center;">
+                    <h3 class="stat-number text-success" id="totalPredictions">0</h3>
+                    <p class="stat-label">Total Predictions</p>
+                </div>
+            </div>
+            <div class="col-md-3 col-6 mb-3">
+                <div class="stat-card" style="background: rgba(255, 215, 0, 0.1); border: 1px solid rgba(255, 215, 0, 0.3); border-radius: 10px; padding: 1.5rem; text-align: center;">
+                    <h3 class="stat-number text-warning" id="pendingPredictions">0</h3>
+                    <p class="stat-label">Pending</p>
+                </div>
+            </div>
+            <div class="col-md-3 col-6 mb-3">
+                <div class="stat-card" style="background: rgba(40, 167, 69, 0.1); border: 1px solid rgba(40, 167, 69, 0.3); border-radius: 10px; padding: 1.5rem; text-align: center;">
+                    <h3 class="stat-number text-success" id="winningPredictions">0</h3>
+                    <p class="stat-label">Winners</p>
+                </div>
+            </div>
+            <div class="col-md-3 col-6 mb-3">
+                <div class="stat-card" style="background: rgba(220, 53, 69, 0.1); border: 1px solid rgba(220, 53, 69, 0.3); border-radius: 10px; padding: 1.5rem; text-align: center;">
+                    <h3 class="stat-number text-danger" id="losingPredictions">0</h3>
+                    <p class="stat-label">Losers</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="action-buttons mb-4 text-center">
+        <button class="btn btn-success me-2" onclick="showAccaBuilder()">
+            🎯 Build Accumulator
+        </button>
+        <button class="btn btn-info me-2" onclick="exportPredictions()">
+            📤 Export Predictions
+        </button>
+        <button class="btn btn-warning me-2" onclick="clearAllPredictions()">
+            🗑️ Clear All
+        </button>
+        <a href="/predict" class="btn btn-primary">
+            ➕ Add New Prediction
+        </a>
+    </div>
+
+    <!-- Acca Builder Modal -->
+    <div class="modal fade" id="accaBuilderModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content" style="background: #1a1a1a; border: 1px solid #444;">
+                <div class="modal-header" style="border-bottom: 1px solid #444;">
+                    <h5 class="modal-title text-white">🎯 Accumulator Builder</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="acca-builder">
+                        <div class="selected-predictions mb-3">
+                            <h6 class="text-white">Selected Predictions:</h6>
+                            <div id="accaSelections" class="selections-list">
+                                <p class="text-muted">No predictions selected for accumulator</p>
+                            </div>
+                        </div>
+
+                        <div class="acca-summary p-3" style="background: rgba(46, 139, 87, 0.1); border-radius: 10px; border: 1px solid rgba(46, 139, 87, 0.3);">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <strong class="text-success">Total Selections: <span id="totalSelections">0</span></strong>
+                                </div>
+                                <div class="col-md-6">
+                                    <strong class="text-success">Combined Confidence: <span id="combinedConfidence">0%</span></strong>
+                                </div>
+                            </div>
+                            <div class="mt-2">
+                                <button class="btn btn-success" onclick="saveAccumulator()">
+                                    💾 Save Accumulator
+                                </button>
+                                <button class="btn btn-info ms-2" onclick="shareAccumulator()">
+                                    📤 Share Acca
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Predictions List -->
+    <div class="predictions-container">
+        <div id="predictionsList">
+            <!-- Predictions will be loaded here -->
+        </div>
+    </div>
+
+    <!-- Accumulators Section -->
+    <div class="accumulators-section mt-5">
+        <h4 class="text-white mb-3">🎯 My Accumulators</h4>
+        <div id="accumulatorsList">
+            <!-- Accumulators will be loaded here -->
+        </div>
+    </div>
+</div>
+
+<style>
+/* My Predictions Page Styles */
+.stat-card {
+    transition: transform 0.3s ease;
+    cursor: pointer;
+}
+
+.stat-card:hover {
+    transform: translateY(-3px);
+}
+
+.stat-number {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 0;
+}
+
+.stat-label {
+    color: #666;
+    margin-bottom: 0;
+    font-size: 0.9rem;
+}
+
+.prediction-item {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    transition: all 0.3s ease;
+}
+
+.prediction-item:hover {
+    transform: translateY(-2px);
+    border-color: #2E8B57;
+}
+
+.prediction-item.selected {
+    border: 2px solid #FFD700;
+    background: rgba(255, 215, 0, 0.1);
+}
+
+.prediction-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.match-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #2E8B57;
+}
+
+.prediction-status {
+    padding: 0.3rem 0.8rem;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+.status-pending {
+    background: #ffc107;
+    color: #000;
+}
+
+.status-won {
+    background: #28a745;
+    color: #fff;
+}
+
+.status-lost {
+    background: #dc3545;
+    color: #fff;
+}
+
+.prediction-details {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+}
+
+.prediction-market {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 1rem;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.market-name {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 0.5rem;
+}
+
+.market-prediction {
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin-bottom: 0.3rem;
+}
+
+.market-confidence {
+    font-size: 0.8rem;
+    color: #2E8B57;
+}
+
+.prediction-actions {
+    margin-top: 1rem;
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.acca-selection {
+    background: rgba(255, 215, 0, 0.1);
+    border: 1px solid rgba(255, 215, 0, 0.3);
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 0.5rem;
+}
+
+.accumulator-item {
+    background: rgba(46, 139, 87, 0.1);
+    border: 1px solid rgba(46, 139, 87, 0.3);
+    border-radius: 10px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.accumulator-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .prediction-details {
+        grid-template-columns: 1fr;
+    }
+
+    .action-buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .action-buttons .btn {
+        margin: 0 !important;
+    }
+}
+</style>
+
+<script>
+// Complete My Predictions Manager
+class MyPredictionsManager {
+    constructor() {
+        this.predictions = this.loadPredictions();
+        this.accumulators = this.loadAccumulators();
+        this.selectedForAcca = new Set();
+        this.init();
+    }
+
+    init() {
+        this.updateStats();
+        this.renderPredictions();
+        this.renderAccumulators();
+    }
+
+    loadPredictions() {
+        try {
+            return JSON.parse(localStorage.getItem('footballPredictions') || '[]');
+        } catch (error) {
+            console.error('Error loading predictions:', error);
+            return [];
+        }
+    }
+
+    loadAccumulators() {
+        try {
+            return JSON.parse(localStorage.getItem('footballAccumulators') || '[]');
+        } catch (error) {
+            console.error('Error loading accumulators:', error);
+            return [];
+        }
+    }
+
+    savePredictions() {
+        localStorage.setItem('footballPredictions', JSON.stringify(this.predictions));
+    }
+
+    saveAccumulators() {
+        localStorage.setItem('footballAccumulators', JSON.stringify(this.accumulators));
+    }
+
+    updateStats() {
+        const total = this.predictions.length;
+        const pending = this.predictions.filter(p => p.status === 'pending' || !p.status).length;
+        const won = this.predictions.filter(p => p.status === 'won').length;
+        const lost = this.predictions.filter(p => p.status === 'lost').length;
+
+        document.getElementById('totalPredictions').textContent = total;
+        document.getElementById('pendingPredictions').textContent = pending;
+        document.getElementById('winningPredictions').textContent = won;
+        document.getElementById('losingPredictions').textContent = lost;
+    }
+
+    renderPredictions() {
+        const container = document.getElementById('predictionsList');
+
+        if (this.predictions.length === 0) {
+            container.innerHTML = `
+                <div class="text-center p-5">
+                    <h5 class="text-muted">No predictions saved yet</h5>
+                    <p class="text-muted">Start by making some predictions!</p>
+                    <a href="/predict" class="btn btn-primary">Make Your First Prediction</a>
+                </div>
+            `;
+            return;
+        }
+
+        container.innerHTML = this.predictions.map((pred, index) => this.renderPredictionItem(pred, index)).join('');
+    }
+
+    renderPredictionItem(pred, index) {
+        const isSelected = this.selectedForAcca.has(index);
+        const status = pred.status || 'pending';
+
+        return `
+            <div class="prediction-item ${isSelected ? 'selected' : ''}" data-index="${index}">
+                <div class="prediction-header">
+                    <div class="match-title">${pred.homeTeam} vs ${pred.awayTeam}</div>
+                    <div class="prediction-status status-${status}">${status.toUpperCase()}</div>
+                </div>
+
+                <div class="prediction-details">
+                    <div class="prediction-market">
+                        <div class="market-name">Over 2.5 Goals</div>
+                        <div class="market-prediction ${pred.predictions && pred.predictions['Over 2.5 Goals'] === 'Yes' ? 'text-success' : 'text-danger'}">
+                            ${pred.predictions ? pred.predictions['Over 2.5 Goals'] || 'N/A' : 'N/A'}
+                        </div>
+                        <div class="market-confidence">${pred.probabilities ? pred.probabilities['Over 2.5 Goals'] || 'N/A' : 'N/A'}</div>
+                    </div>
+
+                    <div class="prediction-market">
+                        <div class="market-name">Match Outcome</div>
+                        <div class="market-prediction text-info">
+                            ${pred.predictions ? pred.predictions['Match Outcome'] || 'N/A' : 'N/A'}
+                        </div>
+                        <div class="market-confidence">Outcome</div>
+                    </div>
+
+                    <div class="prediction-market">
+                        <div class="market-name">Both Teams Score</div>
+                        <div class="market-prediction ${pred.predictions && pred.predictions['Both Teams to Score'] === 'Yes' ? 'text-success' : 'text-danger'}">
+                            ${pred.predictions ? pred.predictions['Both Teams to Score'] || 'N/A' : 'N/A'}
+                        </div>
+                        <div class="market-confidence">${pred.probabilities ? pred.probabilities['Both Teams to Score'] || 'N/A' : 'N/A'}</div>
+                    </div>
+                </div>
+
+                <div class="prediction-actions">
+                    <button class="btn btn-sm btn-outline-warning" onclick="myPredictions.toggleAccaSelection(${index})">
+                        ${isSelected ? '➖ Remove from Acca' : '➕ Add to Acca'}
+                    </button>
+                    <button class="btn btn-sm btn-outline-info" onclick="myPredictions.editPredictionStatus(${index})">
+                        📝 Update Status
+                    </button>
+                    <button class="btn btn-sm btn-outline-danger" onclick="myPredictions.deletePrediction(${index})">
+                        🗑️ Delete
+                    </button>
+                    <small class="text-muted ms-auto align-self-center">
+                        ${new Date(pred.timestamp).toLocaleDateString()}
+                    </small>
+                </div>
+            </div>
+        `;
+    }
+
+    toggleAccaSelection(index) {
+        if (this.selectedForAcca.has(index)) {
+            this.selectedForAcca.delete(index);
+        } else {
+            this.selectedForAcca.add(index);
+        }
+        this.renderPredictions();
+        this.updateAccaBuilder();
+    }
+
+    updateAccaBuilder() {
+        const selections = Array.from(this.selectedForAcca).map(index => this.predictions[index]);
+        const container = document.getElementById('accaSelections');
+
+        if (selections.length === 0) {
+            container.innerHTML = '<p class="text-muted">No predictions selected for accumulator</p>';
+            document.getElementById('totalSelections').textContent = '0';
+            document.getElementById('combinedConfidence').textContent = '0%';
+            return;
+        }
+
+        container.innerHTML = selections.map(pred => `
+            <div class="acca-selection">
+                <strong>${pred.homeTeam} vs ${pred.awayTeam}</strong>
+                <div class="row mt-2">
+                    <div class="col-md-4">
+                        <small>Over 2.5: <span class="text-${pred.predictions && pred.predictions['Over 2.5 Goals'] === 'Yes' ? 'success' : 'danger'}">${pred.predictions ? pred.predictions['Over 2.5 Goals'] || 'N/A' : 'N/A'}</span></small>
+                    </div>
+                    <div class="col-md-4">
+                        <small>Outcome: <span class="text-info">${pred.predictions ? pred.predictions['Match Outcome'] || 'N/A' : 'N/A'}</span></small>
+                    </div>
+                    <div class="col-md-4">
+                        <small>BTTS: <span class="text-${pred.predictions && pred.predictions['Both Teams to Score'] === 'Yes' ? 'success' : 'danger'}">${pred.predictions ? pred.predictions['Both Teams to Score'] || 'N/A' : 'N/A'}</span></small>
+                    </div>
+                </div>
+            </div>
+        `).join('');
+
+        // Calculate combined confidence (simplified)
+        const avgConfidence = selections.length > 0 ? Math.max(10, 70 - (selections.length * 5)) : 0;
+
+        document.getElementById('totalSelections').textContent = selections.length;
+        document.getElementById('combinedConfidence').textContent = `${avgConfidence}%`;
+    }
+
+    editPredictionStatus(index) {
+        const pred = this.predictions[index];
+        const newStatus = prompt(`Update status for ${pred.homeTeam} vs ${pred.awayTeam}:\n\nOptions: pending, won, lost`, pred.status || 'pending');
+
+        if (newStatus && ['pending', 'won', 'lost'].includes(newStatus.toLowerCase())) {
+            this.predictions[index].status = newStatus.toLowerCase();
+            this.savePredictions();
+            this.updateStats();
+            this.renderPredictions();
+        }
+    }
+
+    deletePrediction(index) {
+        const pred = this.predictions[index];
+        if (confirm(`Delete prediction for ${pred.homeTeam} vs ${pred.awayTeam}?`)) {
+            this.predictions.splice(index, 1);
+            this.selectedForAcca.delete(index);
+            // Update selected indices
+            const newSelected = new Set();
+            this.selectedForAcca.forEach(i => {
+                if (i < index) newSelected.add(i);
+                else if (i > index) newSelected.add(i - 1);
+            });
+            this.selectedForAcca = newSelected;
+
+            this.savePredictions();
+            this.updateStats();
+            this.renderPredictions();
+        }
+    }
+
+    saveAccumulator() {
+        const selections = Array.from(this.selectedForAcca).map(index => this.predictions[index]);
+
+        if (selections.length < 2) {
+            alert('Please select at least 2 predictions for an accumulator');
+            return;
+        }
+
+        const accumulator = {
+            id: Date.now(),
+            name: `${selections.length}-fold Acca`,
+            selections: selections,
+            created: new Date().toISOString(),
+            status: 'pending'
+        };
+
+        this.accumulators.unshift(accumulator);
+        this.saveAccumulators();
+        this.renderAccumulators();
+
+        // Clear selections
+        this.selectedForAcca.clear();
+        this.renderPredictions();
+        this.updateAccaBuilder();
+
+        // Close modal
+        const modal = bootstrap.Modal.getInstance(document.getElementById('accaBuilderModal'));
+        if (modal) modal.hide();
+
+        alert('Accumulator saved successfully!');
+    }
+
+    shareAccumulator() {
+        const selections = Array.from(this.selectedForAcca).map(index => this.predictions[index]);
+
+        if (selections.length === 0) {
+            alert('No predictions selected to share');
+            return;
+        }
+
+        const shareText = `🎯 My ${selections.length}-fold Accumulator:\n\n` +
+            selections.map(pred =>
+                `${pred.homeTeam} vs ${pred.awayTeam}\n` +
+                `- Over 2.5: ${pred.predictions ? pred.predictions['Over 2.5 Goals'] || 'N/A' : 'N/A'}\n` +
+                `- Outcome: ${pred.predictions ? pred.predictions['Match Outcome'] || 'N/A' : 'N/A'}\n`
+            ).join('\n') +
+            `\nGenerated by Football Predictor Pro`;
+
+        if (navigator.share) {
+            navigator.share({
+                title: 'My Football Accumulator',
+                text: shareText
+            });
+        } else {
+            navigator.clipboard.writeText(shareText).then(() => {
+                alert('Accumulator copied to clipboard!');
+            });
+        }
+    }
+
+    renderAccumulators() {
+        const container = document.getElementById('accumulatorsList');
+
+        if (this.accumulators.length === 0) {
+            container.innerHTML = '<p class="text-muted">No accumulators created yet</p>';
+            return;
+        }
+
+        container.innerHTML = this.accumulators.map((acca, index) => `
+            <div class="accumulator-item">
+                <div class="accumulator-header">
+                    <h6 class="text-success">${acca.name}</h6>
+                    <span class="prediction-status status-${acca.status}">${acca.status.toUpperCase()}</span>
+                </div>
+                <div class="mb-2">
+                    <strong>${acca.selections.length} selections:</strong>
+                    ${acca.selections.map(sel => `${sel.homeTeam} vs ${sel.awayTeam}`).join(', ')}
+                </div>
+                <div class="d-flex justify-content-between align-items-center">
+                    <small class="text-muted">Created: ${new Date(acca.created).toLocaleDateString()}</small>
+                    <div>
+                        <button class="btn btn-sm btn-outline-info me-2" onclick="myPredictions.updateAccumulatorStatus(${index})">
+                            📝 Update Status
+                        </button>
+                        <button class="btn btn-sm btn-outline-danger" onclick="myPredictions.deleteAccumulator(${index})">
+                            🗑️ Delete
+                        </button>
+                    </div>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    updateAccumulatorStatus(index) {
+        const acca = this.accumulators[index];
+        const newStatus = prompt(`Update status for ${acca.name}:`, acca.status);
+
+        if (newStatus && ['pending', 'won', 'lost'].includes(newStatus.toLowerCase())) {
+            this.accumulators[index].status = newStatus.toLowerCase();
+            this.saveAccumulators();
+            this.renderAccumulators();
+        }
+    }
+
+    deleteAccumulator(index) {
+        const acca = this.accumulators[index];
+        if (confirm(`Delete ${acca.name}?`)) {
+            this.accumulators.splice(index, 1);
+            this.saveAccumulators();
+            this.renderAccumulators();
+        }
+    }
+
+    exportPredictions() {
+        if (this.predictions.length === 0) {
+            alert('No predictions to export');
+            return;
+        }
+
+        const exportData = {
+            predictions: this.predictions,
+            accumulators: this.accumulators,
+            exported: new Date().toISOString()
+        };
+
+        const dataStr = JSON.stringify(exportData, null, 2);
+        const dataBlob = new Blob([dataStr], {type: 'application/json'});
+
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(dataBlob);
+        link.download = `football-predictions-${new Date().toISOString().split('T')[0]}.json`;
+        link.click();
+    }
+
+    clearAllPredictions() {
+        if (confirm('Are you sure you want to clear all predictions? This cannot be undone.')) {
+            this.predictions = [];
+            this.accumulators = [];
+            this.selectedForAcca.clear();
+
+            localStorage.removeItem('footballPredictions');
+            localStorage.removeItem('footballAccumulators');
+
+            this.updateStats();
+            this.renderPredictions();
+            this.renderAccumulators();
+        }
+    }
+}
+
+// Global functions for button onclick handlers
+function showAccaBuilder() {
+    const modal = new bootstrap.Modal(document.getElementById('accaBuilderModal'));
+    modal.show();
+    myPredictions.updateAccaBuilder();
+}
+
+function exportPredictions() {
+    myPredictions.exportPredictions();
+}
+
+function clearAllPredictions() {
+    myPredictions.clearAllPredictions();
+}
+
+function saveAccumulator() {
+    myPredictions.saveAccumulator();
+}
+
+function shareAccumulator() {
+    myPredictions.shareAccumulator();
+}
+
+// Initialize when page loads
+let myPredictions;
+document.addEventListener('DOMContentLoaded', function() {
+    myPredictions = new MyPredictionsManager();
+});
+</script>
+{% endblock %}

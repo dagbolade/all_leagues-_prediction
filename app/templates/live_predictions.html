@@ -1,0 +1,640 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <!-- Simple Header -->
+    <div class="live-header text-center mb-4" style="background: linear-gradient(135deg, #2E8B57, #1e5631); border-radius: 15px; padding: 2rem; color: white;">
+        <h2 class="mb-3">🔴 Live Predictions</h2>
+        <div class="status-badges mb-3">
+            <span class="badge bg-success me-2">✅ Enhanced System Active</span>
+            <span class="badge bg-info">🔧 Logical Constraints Enabled</span>
+        </div>
+        <p class="mb-0">Real-time predictions with AI insights and exact scorelines</p>
+        <div class="update-info mt-2">
+            <span id="lastUpdated" class="text-warning"></span>
+            <span class="badge bg-secondary ms-2" id="predictionCount">Loading...</span>
+        </div>
+    </div>
+
+    <!-- Simple Controls -->
+    <div class="controls-section mb-4">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="control-panel" style="background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); border-radius: 10px; padding: 1rem;">
+                    <div class="row align-items-center">
+                        <div class="col-md-4">
+                            <button id="refreshBtn" class="btn btn-success">
+                                <i class="fas fa-sync-alt"></i> Refresh
+                            </button>
+                            <div class="form-check form-switch d-inline-block ms-2">
+                                <input class="form-check-input" type="checkbox" id="autoRefresh" checked>
+                                <label class="form-check-label text-light" for="autoRefresh">Auto</label>
+                            </div>
+                        </div>
+                        <div class="col-md-4 text-center">
+                            <select id="confidenceFilter" class="form-select form-select-sm">
+                                <option value="all">All Predictions</option>
+                                <option value="high">High Confidence</option>
+                                <option value="logical">Logical Valid</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4 text-end">
+                            <span class="badge bg-success" id="systemHealth">
+                                <i class="fas fa-heartbeat"></i> System Healthy
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Predictions Container -->
+    <div id="predictions-grid" class="predictions-container">
+        <div class="text-center loading-state">
+            <div class="spinner-border text-success" style="width: 3rem; height: 3rem;"></div>
+            <p class="mt-3 text-light">Loading enhanced predictions...</p>
+        </div>
+    </div>
+
+    <!-- Summary Stats -->
+    <div id="summaryStats" class="mt-4" style="display: none;">
+        <div class="stats-card" style="background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); border-radius: 15px; padding: 1.5rem;">
+            <h5 class="text-center mb-3">📊 Today's Summary</h5>
+            <div class="row" id="statsContent">
+                <!-- Stats populated by JavaScript -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+/* Clean live predictions styling */
+.predictions-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 1.5rem;
+}
+
+.live-prediction-card {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    padding: 1.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: all 0.3s ease;
+    animation: slideIn 0.5s ease-out;
+}
+
+.live-prediction-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+}
+
+.live-prediction-card.logical-valid {
+    border-left: 4px solid #28a745;
+}
+
+.live-prediction-card.high-confidence {
+    border-top: 3px solid #FFD700;
+}
+
+.match-title {
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    color: #2E8B57;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid rgba(46, 139, 87, 0.3);
+}
+
+/* Goal Markets Section */
+.goal-markets {
+    background: linear-gradient(135deg, rgba(46, 139, 87, 0.1), rgba(255, 215, 0, 0.1));
+    border-radius: 10px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border: 1px solid rgba(46, 139, 87, 0.3);
+}
+
+.goal-markets h6 {
+    color: #2E8B57;
+    margin-bottom: 0.8rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.market-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.8rem;
+}
+
+.market-item {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 0.8rem;
+    border-radius: 8px;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.market-item:hover {
+    background: rgba(255, 255, 255, 0.15);
+    transform: scale(1.02);
+}
+
+.market-item.featured {
+    border: 2px solid #FFD700;
+    background: rgba(255, 215, 0, 0.1);
+}
+
+.market-label {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 0.3rem;
+}
+
+.market-result {
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin-bottom: 0.3rem;
+}
+
+.market-result.yes {
+    color: #28a745;
+}
+
+.market-result.no {
+    color: #dc3545;
+}
+
+.market-confidence {
+    font-size: 0.8rem;
+    color: #2E8B57;
+}
+
+/* Poisson Section */
+.poisson-section {
+    background: rgba(0, 206, 209, 0.1);
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border: 1px solid rgba(0, 206, 209, 0.3);
+}
+
+.poisson-section h6 {
+    color: #00CED1;
+    margin-bottom: 0.8rem;
+}
+
+.expected-goals {
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 0.8rem;
+    color: #00CED1;
+}
+
+.top-scores {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.score-item {
+    text-align: center;
+    padding: 0.5rem;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+    min-width: 50px;
+}
+
+.score {
+    font-weight: bold;
+    color: #2E8B57;
+}
+
+.score-prob {
+    font-size: 0.8rem;
+    color: #00CED1;
+}
+
+/* Match Outcome */
+.outcome-section {
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+}
+
+.outcome-section h6 {
+    color: #9370DB;
+    margin-bottom: 0.8rem;
+}
+
+.main-outcome {
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 0.8rem;
+    color: #2E8B57;
+}
+
+.outcome-probs {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+}
+
+.prob-item {
+    text-align: center;
+    flex: 1;
+}
+
+.prob-label {
+    color: #666;
+    font-size: 0.8rem;
+}
+
+.prob-value {
+    font-weight: bold;
+    color: #2E8B57;
+}
+
+/* Status badges */
+.status-badges-row {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    flex-wrap: wrap;
+}
+
+.status-badge {
+    padding: 0.3rem 0.8rem;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+.badge-logical {
+    background: #28a745;
+    color: white;
+}
+
+.badge-high-conf {
+    background: #FFD700;
+    color: black;
+}
+
+.badge-poisson {
+    background: #17a2b8;
+    color: white;
+}
+
+/* Insights Section */
+.insights-section {
+    background: rgba(255, 107, 53, 0.1);
+    border-radius: 8px;
+    padding: 1rem;
+    margin-top: 1rem;
+    border: 1px solid rgba(255, 107, 53, 0.3);
+}
+
+.insights-section h6 {
+    color: #FF6B35;
+    margin-bottom: 0.8rem;
+}
+
+.insight-item {
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+    padding: 0.3rem 0;
+    border-bottom: 1px solid rgba(255, 107, 53, 0.2);
+}
+
+.insight-item:last-child {
+    border-bottom: none;
+}
+
+/* Loading and animations */
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.loading-state {
+    grid-column: 1 / -1;
+    padding: 3rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .predictions-container {
+        grid-template-columns: 1fr;
+    }
+
+    .market-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .top-scores {
+        justify-content: center;
+    }
+
+    .outcome-probs {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+}
+
+/* Filter transitions */
+.prediction-hidden {
+    display: none !important;
+}
+
+.prediction-visible {
+    display: block;
+    animation: slideIn 0.3s ease-out;
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    let autoRefreshInterval;
+
+    // Load predictions on page load
+    loadPredictions();
+
+    // Refresh button
+    document.getElementById('refreshBtn').addEventListener('click', function() {
+        this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Refreshing...';
+        loadPredictions();
+        setTimeout(() => {
+            this.innerHTML = '<i class="fas fa-sync-alt"></i> Refresh';
+        }, 1000);
+    });
+
+    // Auto-refresh toggle
+    document.getElementById('autoRefresh').addEventListener('change', function() {
+        if (this.checked) {
+            startAutoRefresh();
+        } else {
+            stopAutoRefresh();
+        }
+    });
+
+    // Confidence filter
+    document.getElementById('confidenceFilter').addEventListener('change', function() {
+        filterPredictions(this.value);
+    });
+
+    // Start auto-refresh (every 5 minutes)
+    startAutoRefresh();
+
+    function startAutoRefresh() {
+        stopAutoRefresh();
+        autoRefreshInterval = setInterval(loadPredictions, 300000); // 5 minutes
+    }
+
+    function stopAutoRefresh() {
+        if (autoRefreshInterval) {
+            clearInterval(autoRefreshInterval);
+        }
+    }
+
+    function loadPredictions() {
+        fetch('/api/live-predictions')
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    displayPredictions(data.predictions);
+                    updateSummary(data.predictions);
+                    updateLastUpdated(data.timestamp);
+                } else {
+                    displayError('No predictions available today.');
+                }
+            })
+            .catch(error => {
+                console.error('Error loading predictions:', error);
+                displayError('Error loading predictions.');
+            });
+    }
+
+    function displayPredictions(predictions) {
+        const grid = document.getElementById('predictions-grid');
+
+        if (predictions.length === 0) {
+            grid.innerHTML = '<div class="loading-state"><div class="alert alert-info">No predictions available for today\'s matches.</div></div>';
+            return;
+        }
+
+        grid.innerHTML = predictions.map(pred => createPredictionCard(pred)).join('');
+    }
+
+    function createPredictionCard(pred) {
+        const logicalValid = pred.logical_valid !== false;
+        const highConfidence = pred.confidence_level === 'HIGH';
+        const hasPoisson = pred.poisson_scorelines && pred.poisson_scorelines.top_scorelines;
+        const hasInsights = pred.match_insights && pred.match_insights.key_insights;
+
+        return `
+            <div class="live-prediction-card ${logicalValid ? 'logical-valid' : ''} ${highConfidence ? 'high-confidence' : ''}"
+                 data-confidence="${pred.confidence_level || 'MEDIUM'}"
+                 data-logical="${logicalValid}">
+
+                <div class="match-title">
+                    ${pred.home_team} vs ${pred.away_team}
+                </div>
+
+                <!-- Goal Markets -->
+                <div class="goal-markets">
+                    <h6>⚽ Goal Markets <span class="badge bg-success">ENHANCED</span></h6>
+                    <div class="market-grid">
+                        <div class="market-item">
+                            <div class="market-label">Over 1.5 Goals</div>
+                            <div class="market-result ${pred.predictions['Over 1.5 Goals'] === 'Yes' ? 'yes' : 'no'}">
+                                ${pred.predictions['Over 1.5 Goals'] || 'N/A'}
+                            </div>
+                            <div class="market-confidence">${pred.probabilities['Over 1.5 Goals'] || 'N/A'}</div>
+                        </div>
+
+                        <div class="market-item featured">
+                            <div class="market-label">Over 2.5 Goals</div>
+                            <div class="market-result ${pred.predictions['Over 2.5 Goals'] === 'Yes' ? 'yes' : 'no'}">
+                                ${pred.predictions['Over 2.5 Goals'] || 'N/A'}
+                            </div>
+                            <div class="market-confidence">${pred.probabilities['Over 2.5 Goals'] || 'N/A'}</div>
+                        </div>
+
+                        ${pred.predictions['Over 3.5 Goals'] ? `
+                        <div class="market-item">
+                            <div class="market-label">Over 3.5 Goals</div>
+                            <div class="market-result ${pred.predictions['Over 3.5 Goals'] === 'Yes' ? 'yes' : 'no'}">
+                                ${pred.predictions['Over 3.5 Goals']}
+                            </div>
+                            <div class="market-confidence">${pred.probabilities['Over 3.5 Goals'] || 'N/A'}</div>
+                        </div>
+                        ` : ''}
+
+                        <div class="market-item">
+                            <div class="market-label">Both Teams Score</div>
+                            <div class="market-result ${pred.predictions['Both Teams to Score'] === 'Yes' ? 'yes' : 'no'}">
+                                ${pred.predictions['Both Teams to Score'] || 'N/A'}
+                            </div>
+                            <div class="market-confidence">${pred.probabilities['Both Teams to Score'] || 'N/A'}</div>
+                        </div>
+                    </div>
+                </div>
+
+                ${hasPoisson ? `
+                <!-- Poisson Scorelines -->
+                <div class="poisson-section">
+                    <h6>🎯 Most Likely Scores</h6>
+                    <div class="expected-goals">${pred.poisson_scorelines.expected_goals}</div>
+                    <div class="top-scores">
+                        ${pred.poisson_scorelines.top_scorelines.slice(0, 4).map(score => `
+                            <div class="score-item">
+                                <div class="score">${score.score}</div>
+                                <div class="score-prob">${score.probability}%</div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+                ` : ''}
+
+                <!-- Match Outcome -->
+                <div class="outcome-section">
+                    <h6>🏆 Match Outcome</h6>
+                    <div class="main-outcome">${pred.predictions['Match Outcome'] || 'N/A'}</div>
+                    <div class="outcome-probs">
+                        <div class="prob-item">
+                            <div class="prob-label">Home</div>
+                            <div class="prob-value">${pred.probabilities['Match Outcome']?.['Home Win'] || 'N/A'}</div>
+                        </div>
+                        <div class="prob-item">
+                            <div class="prob-label">Draw</div>
+                            <div class="prob-value">${pred.probabilities['Match Outcome']?.['Draw'] || 'N/A'}</div>
+                        </div>
+                        <div class="prob-item">
+                            <div class="prob-label">Away</div>
+                            <div class="prob-value">${pred.probabilities['Match Outcome']?.['Away Win'] || 'N/A'}</div>
+                        </div>
+                    </div>
+                </div>
+
+                ${hasInsights ? `
+                <!-- Match Insights -->
+                <div class="insights-section">
+                    <h6>💡 Key Insights</h6>
+                    ${pred.match_insights.key_insights.slice(0, 3).map(insight => `
+                        <div class="insight-item">${insight}</div>
+                    `).join('')}
+                </div>
+                ` : ''}
+
+                <!-- Status Badges -->
+                <div class="status-badges-row">
+                    ${logicalValid ? '<span class="status-badge badge-logical">✅ LOGICAL</span>' : '<span class="status-badge badge-warning">⚠️ FIXED</span>'}
+                    ${highConfidence ? '<span class="status-badge badge-high-conf">🔥 HIGH CONF</span>' : ''}
+                    ${hasPoisson ? '<span class="status-badge badge-poisson">🎯 POISSON</span>' : ''}
+                </div>
+            </div>
+        `;
+    }
+
+    function filterPredictions(filterType) {
+        const cards = document.querySelectorAll('.live-prediction-card');
+
+        cards.forEach(card => {
+            let show = true;
+
+            switch(filterType) {
+                case 'high':
+                    show = card.classList.contains('high-confidence');
+                    break;
+                case 'logical':
+                    show = card.getAttribute('data-logical') === 'true';
+                    break;
+                case 'all':
+                default:
+                    show = true;
+            }
+
+            if (show) {
+                card.classList.remove('prediction-hidden');
+                card.classList.add('prediction-visible');
+            } else {
+                card.classList.add('prediction-hidden');
+                card.classList.remove('prediction-visible');
+            }
+        });
+    }
+
+    function updateSummary(predictions) {
+        if (predictions.length === 0) return;
+
+        const summaryStats = document.getElementById('summaryStats');
+        const statsContent = document.getElementById('statsContent');
+
+        // Calculate stats
+        const totalMatches = predictions.length;
+        const logicalValid = predictions.filter(p => p.logical_valid !== false).length;
+        const highConfidence = predictions.filter(p => p.confidence_level === 'HIGH').length;
+        const withPoisson = predictions.filter(p => p.poisson_scorelines).length;
+
+        const over25Yes = predictions.filter(p => p.predictions['Over 2.5 Goals'] === 'Yes').length;
+        const over25Rate = Math.round((over25Yes / totalMatches) * 100);
+
+        statsContent.innerHTML = `
+            <div class="col-md-3 col-6 text-center">
+                <div class="stat-item">
+                    <div class="stat-number">${totalMatches}</div>
+                    <div class="stat-label">Total Matches</div>
+                </div>
+            </div>
+            <div class="col-md-3 col-6 text-center">
+                <div class="stat-item">
+                    <div class="stat-number">${logicalValid}</div>
+                    <div class="stat-label">Logical Valid</div>
+                </div>
+            </div>
+            <div class="col-md-3 col-6 text-center">
+                <div class="stat-item">
+                    <div class="stat-number">${over25Rate}%</div>
+                    <div class="stat-label">Over 2.5 Rate</div>
+                </div>
+            </div>
+            <div class="col-md-3 col-6 text-center">
+                <div class="stat-item">
+                    <div class="stat-number">${withPoisson}</div>
+                    <div class="stat-label">With Scorelines</div>
+                </div>
+            </div>
+        `;
+
+        summaryStats.style.display = 'block';
+        document.getElementById('predictionCount').textContent = `${totalMatches} predictions`;
+    }
+
+    function updateLastUpdated(timestamp) {
+        const element = document.getElementById('lastUpdated');
+        if (element && timestamp) {
+            element.textContent = `Updated: ${new Date(timestamp).toLocaleTimeString()}`;
+        }
+    }
+
+    function displayError(message) {
+        document.getElementById('predictions-grid').innerHTML =
+            `<div class="loading-state"><div class="alert alert-danger">${message}</div></div>`;
+    }
+});
+</script>
+{% endblock %}

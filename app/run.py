@@ -9,9 +9,9 @@ logger = logging.getLogger(__name__)
 
 def create_app():
     app = Flask(__name__)
-    app.config['SECRET_KEY'] = 'your-secret-key-here'
 
-    # Register blueprint
+
+    # Register blueprint for routes
     app.register_blueprint(routes)
 
     # Simple error handlers
@@ -32,9 +32,11 @@ def create_app():
     return app
 
 
-def main():
-    app = create_app()
+# CREATE APP INSTANCE AT MODULE LEVEL (for deployment)
+app = create_app()
 
+
+def main():
     print("🚀 Starting Football Predictor...")
     print("🌐 Access your app at: http://localhost:5000")
 

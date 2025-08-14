@@ -147,24 +147,44 @@ class OpeningWeekendAnalyzer:
         }
         return league_names.get(code, code)
 
-    def get_team_gw1_history(self, team_name, league='E0'):
-        """Get specific team's opening weekend history"""
+    def get_team_gw1_history(self, team_name, league=None):
+        """Get specific team's opening weekend history with auto league detection"""
         gw1_matches = self.extract_gw1_matches()
 
         if len(gw1_matches) == 0:
             return {'error': 'No GW1 data available'}
 
-        # Filter for specific team
-        team_gw1 = gw1_matches[
-            ((gw1_matches['HomeTeam'] == team_name) |
-             (gw1_matches['AwayTeam'] == team_name)) &
-            (gw1_matches['League'] == league)
-            ].sort_values('Date', ascending=False)
+        # 🔧 AUTO-DETECT LEAGUE if not provided
+        if league is None:
+            # Find what league this team actually plays in
+            team_matches = self.df[
+                (self.df['HomeTeam'] == team_name) | (self.df['AwayTeam'] == team_name)
+            ]
+            if len(team_matches) > 0 and 'League' in team_matches.columns:
+                league = team_matches['League'].iloc[-1]  # Get most recent league
+                print(f"🔍 Auto-detected {team_name} league: {league}")
+            else:
+                print(f"⚠️ Could not detect league for {team_name}, trying all leagues")
+                league = None  # Will search all leagues
+
+        # Filter for specific team (with or without league filter)
+        if league:
+            team_gw1 = gw1_matches[
+                ((gw1_matches['HomeTeam'] == team_name) |
+                 (gw1_matches['AwayTeam'] == team_name)) &
+                (gw1_matches['League'] == league)
+                ].sort_values('Date', ascending=False)
+        else:
+            # Search across ALL leagues if auto-detection failed
+            team_gw1 = gw1_matches[
+                ((gw1_matches['HomeTeam'] == team_name) |
+                 (gw1_matches['AwayTeam'] == team_name))
+                ].sort_values('Date', ascending=False)
 
         if len(team_gw1) == 0:
-            return {'error': f'No GW1 data found for {team_name}'}
+            return {'error': f'No GW1 data found for {team_name} in {league if league else "any league"}'}
 
-        # Calculate team-specific stats
+        # Calculate team-specific stats (rest of the method stays the same)
         wins = draws = losses = goals_for = goals_against = 0
 
         for _, match in team_gw1.iterrows():
@@ -189,6 +209,7 @@ class OpeningWeekendAnalyzer:
 
         return {
             'team': team_name,
+            'league': league if league else 'Multi-league',
             'gw1_appearances': len(team_gw1),
             'record': f"{wins}W-{draws}D-{losses}L",
             'win_rate': round(wins / len(team_gw1) * 100, 1) if len(team_gw1) > 0 else 0,

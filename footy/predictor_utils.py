@@ -167,7 +167,9 @@ class BayesianMatchPredictor:
                 if col.startswith('Home') and col in latest_home_home.index:
                     features[col] = latest_home_home[col]
                 elif col in latest_home_home.index:
-                    features[col] = latest_home_home[col]
+                    # Skip EloAdvantage here - we'll calculate it properly later
+                    if col != 'EloAdvantage':
+                        features[col] = latest_home_home[col]
 
         # Get away team features (when they were playing away)
         away_away_matches = self.df[self.df['AwayTeam'] == away_team]
@@ -179,25 +181,88 @@ class BayesianMatchPredictor:
                 if col.startswith('Away') and col in latest_away_away.index:
                     features[col] = latest_away_away[col]
                 elif col not in features and col in latest_away_away.index:
-                    features[col] = latest_away_away[col]
+                    # Skip EloAdvantage here - we'll calculate it properly later
+                    if col != 'EloAdvantage':
+                        features[col] = latest_away_away[col]
 
         # Fill missing features with zeros or defaults
         for col in self.feature_columns:
             if col not in features:
-                if 'Elo' in col:
+                if 'Elo' in col and col != 'EloAdvantage':
                     features[col] = 1500  # Default Elo
                 elif 'Prob' in col:
                     features[col] = 0.5  # Default probability
                 elif 'Rate' in col:
                     features[col] = 0.5  # Default rate
-                else:
+                elif col != 'EloAdvantage':  # Skip EloAdvantage
                     features[col] = 0  # Default zero
+
+        # 🔧 CRITICAL FIX: Properly calculate EloAdvantage
+        if 'HomeElo' in features and 'AwayElo' in features:
+            features['EloAdvantage'] = features['HomeElo'] - features['AwayElo']
+            print(
+                f"🔧 Fixed EloAdvantage: {features['HomeElo']:.1f} - {features['AwayElo']:.1f} = {features['EloAdvantage']:.1f}")
+        else:
+            features['EloAdvantage'] = 0  # Default if Elo values missing
+
+        # 🔧 ADDITIONAL FIXES: Recalculate other derived features properly
+
+        # Fix Bayesian match outcome probabilities if they exist
+        if 'HomeElo' in features and 'AwayElo' in features and 'EloAdvantage' in features:
+            elo_diff = features['EloAdvantage']
+
+            # Recalculate Bayesian home win probability
+            if 'MatchOutcome_HomeProb' in self.feature_columns:
+                features['MatchOutcome_HomeProb'] = 1 / (1 + 10 ** (-elo_diff / 400))
+                features['MatchOutcome_AwayProb'] = 1 / (1 + 10 ** (elo_diff / 400))
+                features['MatchOutcome_DrawProb'] = max(0.15, min(0.40,
+                                                                  1 - features['MatchOutcome_HomeProb'] - features[
+                                                                      'MatchOutcome_AwayProb']))
+
+                # Normalize probabilities
+                total_prob = (features['MatchOutcome_HomeProb'] +
+                              features['MatchOutcome_DrawProb'] +
+                              features['MatchOutcome_AwayProb'])
+                if total_prob > 0:
+                    features['MatchOutcome_HomeProb'] /= total_prob
+                    features['MatchOutcome_DrawProb'] /= total_prob
+                    features['MatchOutcome_AwayProb'] /= total_prob
+
+            # Recalculate Bayesian win probabilities if they exist
+            if 'BayesianHomeWinProb' in self.feature_columns:
+                features['BayesianHomeWinProb'] = features['MatchOutcome_HomeProb']
+                features['BayesianDrawProb'] = features['MatchOutcome_DrawProb']
+                features['BayesianAwayWinProb'] = features['MatchOutcome_AwayProb']
+
+        # Fix team strength comparisons
+        if 'HomeAttackStrength' in features and 'AwayDefenseStrength' in features:
+            if 'ExpectedHomeGoals' in self.feature_columns:
+                features['ExpectedHomeGoals'] = features['HomeAttackStrength'] * features['AwayDefenseStrength']
+
+        if 'AwayAttackStrength' in features and 'HomeDefenseStrength' in features:
+            if 'ExpectedAwayGoals' in self.feature_columns:
+                features['ExpectedAwayGoals'] = features['AwayAttackStrength'] * features['HomeDefenseStrength']
+
+        # Fix Bayesian expected total
+        if ('ExpectedHomeGoals' in features and 'ExpectedAwayGoals' in features and
+                'BayesianExpectedTotal' in self.feature_columns):
+            features['BayesianExpectedTotal'] = features['ExpectedHomeGoals'] + features['ExpectedAwayGoals']
 
         # Create DataFrame
         feature_df = pd.DataFrame([features], columns=self.feature_columns)
 
         print(f"✅ Bayesian features extracted for {home_team} vs {away_team}")
         print(f"   📊 Feature vector shape: {feature_df.shape}")
+
+        # Debug output for key features
+        if 'EloAdvantage' in features:
+            advantage = features['EloAdvantage']
+            if advantage < -100:
+                print(f"   🎯 Strong away advantage: {advantage:.1f} (favors {away_team})")
+            elif advantage > 100:
+                print(f"   🎯 Strong home advantage: {advantage:.1f} (favors {home_team})")
+            else:
+                print(f"   ⚖️ Close match: {advantage:.1f} Elo difference")
 
         return feature_df
 

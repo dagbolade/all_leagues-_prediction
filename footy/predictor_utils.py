@@ -1,48 +1,34 @@
-# footy/predictor_utils.py - ENHANCED WITH LOGICAL CONSTRAINTS & POISSON
+# footy/predictor_utils.py - ENHANCED BAYESIAN INTEGRATION
 
 import pandas as pd
 import numpy as np
-from typing import Dict, Tuple, Optional, List, Union
-import warnings
+from typing import Dict, List, Tuple, Optional, Any
 import joblib
+import logging
+from scipy import stats
+from sklearn.isotonic import IsotonicRegression
+import warnings
 
 warnings.filterwarnings('ignore')
 
-
-class TeamMapper:
-    """Handles team name mappings and standardization."""
-
-    TEAM_MAPPINGS = {
-        'Manchester City': 'Man City',
-        'Manchester United': 'Man United',
-        'Tottenham Hotspur': 'Tottenham',
-        'Brighton & Hove Albion': 'Brighton',
-        'West Ham United': 'West Ham',
-        'Newcastle United': 'Newcastle',
-        'Wolverhampton Wanderers': 'Wolves',
-        'Sheffield United': 'Sheffield Utd',
-        'Norwich City': 'Norwich',
-        'Leicester City': 'Leicester'
-    }
-
-    @classmethod
-    def standardize_team_name(cls, team_name: str) -> str:
-        """Standardize team names for consistency."""
-        return cls.TEAM_MAPPINGS.get(team_name, team_name)
+logger = logging.getLogger(__name__)
 
 
-class MatchPredictor:
-    """Enhanced match predictor with logical constraints and Poisson integration."""
+class BayesianMatchPredictor:
+    """Enhanced predictor with full Bayesian integration from your enhanced pipeline"""
 
     def __init__(self, df: pd.DataFrame, models_path: str = 'models/football_models.joblib'):
-        print(f"🔮 Initializing Enhanced MatchPredictor with logical constraints...")
+        print(f"🎯 Initializing BAYESIAN MatchPredictor...")
+
         self.df = df.copy()
         self.models = {}
         self.calibrated_models = {}
         self.poisson_predictor = None
         self.feature_columns = []
+        self.bayesian_priors = {}
+        self.confidence_adjuster = None
 
-        # Enhanced prediction tasks with logical hierarchy
+        # Enhanced prediction tasks matching your model training
         self.PREDICTION_TASKS = {
             'match_outcome': 'Match Outcome',
             'over_1_5': 'Over 1.5 Goals',
@@ -52,48 +38,57 @@ class MatchPredictor:
             'btts': 'Both Teams to Score'
         }
 
-        # Load enhanced models
-        self._load_enhanced_models(models_path)
+        # Load enhanced Bayesian models
+        self._load_bayesian_models(models_path)
 
-        # Prepare enhanced features
-        self._prepare_enhanced_features()
+        # Prepare enhanced features from your pipeline
+        self._prepare_bayesian_features()
 
-    def _load_enhanced_models(self, models_path: str):
-        """Load enhanced trained models with logical constraints."""
+    def _load_bayesian_models(self, models_path: str):
+        """Load your enhanced Bayesian models with all components"""
         try:
             model_data = joblib.load(models_path)
-            print(f"✅ Loaded models, type: {type(model_data)}")
+            print(f"✅ Loaded Bayesian model data, type: {type(model_data)}")
 
-            if isinstance(model_data, dict) and 'models' in model_data:
-                print("✅ Detected enhanced model format")
-                self.models = model_data['models']
+            if isinstance(model_data, dict):
+                # Load all Bayesian components
+                self.models = model_data.get('models', {})
                 self.calibrated_models = model_data.get('calibrated_models', {})
                 self.poisson_predictor = model_data.get('poisson_predictor', None)
+                self.bayesian_priors = model_data.get('bayesian_priors', {})
+                self.confidence_adjuster = model_data.get('confidence_adjuster', None)
+                self.feature_categories = model_data.get('feature_categories', {})
+                self.available_features = model_data.get('available_features', [])
 
-                # Verify enhanced models loaded
+                # Verify Bayesian models loaded
                 loaded_tasks = []
                 for task, model_info in self.models.items():
                     if isinstance(model_info, dict) and 'model' in model_info:
                         actual_model = model_info['model']
                         if actual_model is not None:
                             loaded_tasks.append(task)
-                            print(f"✅ Enhanced {task}: {type(actual_model).__name__}")
+                            print(f"✅ Bayesian {task}: {type(actual_model).__name__}")
 
-                print(f"✅ Enhanced models loaded: {loaded_tasks}")
+                print(f"🧠 Bayesian models loaded: {loaded_tasks}")
+                print(f"🧠 Bayesian priors available: {list(self.bayesian_priors.keys())}")
 
                 if self.poisson_predictor:
-                    print("✅ Poisson predictor loaded for exact scorelines")
+                    print("⚽ Poisson predictor loaded for exact scorelines")
+
+                if self.calibrated_models:
+                    print(f"📊 Calibrated models available: {list(self.calibrated_models.keys())}")
 
             else:
-                print("❌ Enhanced model format not detected")
+                print("❌ Bayesian model format not detected")
+                raise ValueError("Expected enhanced Bayesian model format")
 
         except Exception as e:
-            print(f"❌ Error loading enhanced models: {e}")
+            print(f"❌ Error loading Bayesian models: {e}")
             raise
 
-    def _prepare_enhanced_features(self):
-        """Prepare enhanced feature columns using all engineered features."""
-        # Get all enhanced feature columns from the dataframe
+    def _prepare_bayesian_features(self):
+        """Prepare enhanced feature columns from your Bayesian pipeline"""
+        # Exclude target variables and non-predictive columns
         exclude_cols = [
             'Date', 'HomeTeam', 'AwayTeam', 'League', 'Season', 'Div',
             'FTR', 'FTHG', 'FTAG', 'HTHG', 'HTAG', 'HTR',
@@ -102,207 +97,234 @@ class MatchPredictor:
             'Over1.5', 'Over2.5', 'Over3.5', 'BTTS'
         ]
 
-        # Also exclude betting odds columns to prevent data leakage
+        # Also exclude betting odds to prevent data leakage
         betting_cols = [col for col in self.df.columns if any(bookie in col for bookie in
                                                               ['B365', 'BW', 'IW', 'PS', 'WH', 'SJ', 'VC', 'GB', 'BS',
                                                                'LB'])]
         exclude_cols.extend(betting_cols)
 
-        # Use all engineered features
+        # Use all enhanced features from your Bayesian pipeline
         all_columns = self.df.columns.tolist()
         self.feature_columns = [col for col in all_columns if col not in exclude_cols]
 
-        print(f"✅ Enhanced features prepared: {len(self.feature_columns)} features")
-        print(f"📊 Excluded {len(exclude_cols)} non-predictive columns")
+        # Prioritize Bayesian features
+        bayesian_features = [col for col in self.feature_columns if 'Bayesian' in col]
+        elo_features = [col for col in self.feature_columns if 'Elo' in col]
+        form_features = [col for col in self.feature_columns if 'Form' in col]
+        h2h_features = [col for col in self.feature_columns if 'H2H' in col]
 
-    def _get_enhanced_team_features(self, team: str, date: pd.Timestamp = None) -> pd.Series:
-        """Get enhanced features for a team using all engineered features."""
+        print(f"🧠 Bayesian features prepared: {len(self.feature_columns)} total features")
+        print(f"   🎯 Bayesian features: {len(bayesian_features)}")
+        print(f"   🏆 Elo features: {len(elo_features)}")
+        print(f"   📈 Form features: {len(form_features)}")
+        print(f"   🤝 H2H features: {len(h2h_features)}")
 
-        # Standardize team name
-        team = TeamMapper.standardize_team_name(team)
+    def _get_bayesian_team_features(self, home_team: str, away_team: str,
+                                    match_date: pd.Timestamp = None) -> pd.DataFrame:
+        """Get Bayesian features for a match using your enhanced pipeline"""
 
-        # Get team matches (both home and away)
-        team_matches = self.df[
-            (self.df['HomeTeam'] == team) | (self.df['AwayTeam'] == team)
+        # Create a mock match for feature generation
+        if match_date is None:
+            match_date = pd.Timestamp.now()
+
+        # Get recent data for both teams
+        home_matches = self.df[
+            (self.df['HomeTeam'] == home_team) | (self.df['AwayTeam'] == home_team)
             ].copy()
 
-        if date is not None:
-            # Only use matches before the prediction date (no data leakage)
-            team_matches = team_matches[team_matches['Date'] < date]
+        away_matches = self.df[
+            (self.df['HomeTeam'] == away_team) | (self.df['AwayTeam'] == away_team)
+            ].copy()
 
-        if len(team_matches) == 0:
-            print(f"⚠️ No enhanced data found for {team}")
+        if len(home_matches) == 0 or len(away_matches) == 0:
+            print(f"⚠️ Limited data for {home_team} vs {away_team}")
             # Return zeros for all features
-            return pd.Series(0, index=self.feature_columns)
+            return pd.DataFrame(0, index=[0], columns=self.feature_columns)
 
-        # Get the most recent match for this team
-        latest_match = team_matches.sort_values('Date').iloc[-1]
+        # Find the most recent match features for prediction
+        # This uses the latest available Bayesian features for each team
+        combined_matches = self.df[
+            ((self.df['HomeTeam'] == home_team) | (self.df['AwayTeam'] == home_team) |
+             (self.df['HomeTeam'] == away_team) | (self.df['AwayTeam'] == away_team))
+        ].copy()
 
-        print(f"✅ Found {len(team_matches)} enhanced matches for {team}")
+        if len(combined_matches) == 0:
+            return pd.DataFrame(0, index=[0], columns=self.feature_columns)
 
-        # Extract enhanced features for this team
-        enhanced_features = {}
+        # Get the latest match and use its features as a template
+        latest_match = combined_matches.sort_values('Date').iloc[-1]
 
-        for feature in self.feature_columns:
-            if feature in latest_match.index:
-                enhanced_features[feature] = latest_match[feature]
-            else:
-                enhanced_features[feature] = 0
+        # Create feature vector by extracting team-specific features
+        features = {}
 
-        return pd.Series(enhanced_features)
+        # Get home team features (when they were playing at home)
+        home_home_matches = self.df[self.df['HomeTeam'] == home_team]
+        if len(home_home_matches) > 0:
+            latest_home_home = home_home_matches.sort_values('Date').iloc[-1]
 
-    def _apply_logical_constraints(self, predictions: Dict) -> Tuple[Dict, List[str]]:
-        """
-        🎯 CORE FIX: Apply logical constraints to prevent impossible predictions.
-        """
+            # Extract home team features
+            for col in self.feature_columns:
+                if col.startswith('Home') and col in latest_home_home.index:
+                    features[col] = latest_home_home[col]
+                elif col in latest_home_home.index:
+                    features[col] = latest_home_home[col]
+
+        # Get away team features (when they were playing away)
+        away_away_matches = self.df[self.df['AwayTeam'] == away_team]
+        if len(away_away_matches) > 0:
+            latest_away_away = away_away_matches.sort_values('Date').iloc[-1]
+
+            # Extract away team features
+            for col in self.feature_columns:
+                if col.startswith('Away') and col in latest_away_away.index:
+                    features[col] = latest_away_away[col]
+                elif col not in features and col in latest_away_away.index:
+                    features[col] = latest_away_away[col]
+
+        # Fill missing features with zeros or defaults
+        for col in self.feature_columns:
+            if col not in features:
+                if 'Elo' in col:
+                    features[col] = 1500  # Default Elo
+                elif 'Prob' in col:
+                    features[col] = 0.5  # Default probability
+                elif 'Rate' in col:
+                    features[col] = 0.5  # Default rate
+                else:
+                    features[col] = 0  # Default zero
+
+        # Create DataFrame
+        feature_df = pd.DataFrame([features], columns=self.feature_columns)
+
+        print(f"✅ Bayesian features extracted for {home_team} vs {away_team}")
+        print(f"   📊 Feature vector shape: {feature_df.shape}")
+
+        return feature_df
+
+    def apply_bayesian_logical_constraints(self, predictions: Dict, probabilities: Dict) -> Tuple[
+        Dict, Dict, List[str]]:
+        """Apply Bayesian logical constraints with probability calibration"""
         fixed_predictions = predictions.copy()
+        fixed_probabilities = probabilities.copy()
         constraints_applied = []
 
-        # Get Over/Under predictions
+        # Get Over/Under predictions and probabilities
         over_1_5 = predictions.get('Over 1.5 Goals', 'Unknown')
         over_2_5 = predictions.get('Over 2.5 Goals', 'Unknown')
         over_3_5 = predictions.get('Over 3.5 Goals', 'Unknown')
+
+        over_1_5_prob = probabilities.get('Over 1.5 Goals', 0.5)
+        over_2_5_prob = probabilities.get('Over 2.5 Goals', 0.5)
+        over_3_5_prob = probabilities.get('Over 3.5 Goals', 0.5)
 
         # Convert to binary for logic checking
         over_1_5_bin = 1 if over_1_5 == 'Yes' else 0 if over_1_5 == 'No' else -1
         over_2_5_bin = 1 if over_2_5 == 'Yes' else 0 if over_2_5 == 'No' else -1
         over_3_5_bin = 1 if over_3_5 == 'Yes' else 0 if over_3_5 == 'No' else -1
 
-        # Rule 1: If Over 3.5 = Yes → Over 2.5 = Yes → Over 1.5 = Yes
+        # Bayesian Rule 1: If Over 3.5 = Yes → Over 2.5 = Yes → Over 1.5 = Yes
         if over_3_5_bin == 1 and over_2_5_bin == 0:
             fixed_predictions['Over 2.5 Goals'] = 'Yes'
-            constraints_applied.append("Rule 1a: Over 3.5 Yes → Over 2.5 Yes")
+            # Bayesian probability adjustment
+            fixed_probabilities['Over 2.5 Goals'] = max(over_2_5_prob, over_3_5_prob * 0.9)
+            constraints_applied.append("Bayesian Rule 1a: Over 3.5 Yes → Over 2.5 Yes")
 
         if over_3_5_bin == 1 and over_1_5_bin == 0:
             fixed_predictions['Over 1.5 Goals'] = 'Yes'
-            constraints_applied.append("Rule 1b: Over 3.5 Yes → Over 1.5 Yes")
+            fixed_probabilities['Over 1.5 Goals'] = max(over_1_5_prob, over_3_5_prob * 0.95)
+            constraints_applied.append("Bayesian Rule 1b: Over 3.5 Yes → Over 1.5 Yes")
 
         if over_2_5_bin == 1 and over_1_5_bin == 0:
             fixed_predictions['Over 1.5 Goals'] = 'Yes'
-            constraints_applied.append("Rule 1c: Over 2.5 Yes → Over 1.5 Yes")
+            fixed_probabilities['Over 1.5 Goals'] = max(over_1_5_prob, over_2_5_prob * 0.9)
+            constraints_applied.append("Bayesian Rule 1c: Over 2.5 Yes → Over 1.5 Yes")
 
-        # Rule 2: If Over 1.5 = No → Over 2.5 = No → Over 3.5 = No
+        # Bayesian Rule 2: If Over 1.5 = No → Over 2.5 = No → Over 3.5 = No
         if over_1_5_bin == 0 and over_2_5_bin == 1:
             fixed_predictions['Over 2.5 Goals'] = 'No'
-            constraints_applied.append("Rule 2a: Over 1.5 No → Over 2.5 No")
+            fixed_probabilities['Over 2.5 Goals'] = min(over_2_5_prob, (1 - over_1_5_prob) * 0.9)
+            constraints_applied.append("Bayesian Rule 2a: Over 1.5 No → Over 2.5 No")
 
         if over_1_5_bin == 0 and over_3_5_bin == 1:
             fixed_predictions['Over 3.5 Goals'] = 'No'
-            constraints_applied.append("Rule 2b: Over 1.5 No → Over 3.5 No")
+            fixed_probabilities['Over 3.5 Goals'] = min(over_3_5_prob, (1 - over_1_5_prob) * 0.8)
+            constraints_applied.append("Bayesian Rule 2b: Over 1.5 No → Over 3.5 No")
 
         if over_2_5_bin == 0 and over_3_5_bin == 1:
             fixed_predictions['Over 3.5 Goals'] = 'No'
-            constraints_applied.append("Rule 2c: Over 2.5 No → Over 3.5 No")
+            fixed_probabilities['Over 3.5 Goals'] = min(over_3_5_prob, (1 - over_2_5_prob) * 0.8)
+            constraints_applied.append("Bayesian Rule 2c: Over 2.5 No → Over 3.5 No")
 
-        # Update total goals based on Over/Under logic
-        if 'Total Goals' in predictions:
-            logical_total = self._calculate_logical_total_goals(fixed_predictions)
-            fixed_predictions['Total Goals'] = f"{logical_total:.1f}"
+        # Ensure Bayesian probability hierarchy: P(Over1.5) ≥ P(Over2.5) ≥ P(Over3.5)
+        if 'Over 1.5 Goals' in fixed_probabilities and 'Over 2.5 Goals' in fixed_probabilities:
+            if fixed_probabilities['Over 2.5 Goals'] > fixed_probabilities['Over 1.5 Goals']:
+                fixed_probabilities['Over 1.5 Goals'] = fixed_probabilities['Over 2.5 Goals']
+                constraints_applied.append("Bayesian probability hierarchy: P(Over1.5) ≥ P(Over2.5)")
 
-        return fixed_predictions, constraints_applied
+        if 'Over 2.5 Goals' in fixed_probabilities and 'Over 3.5 Goals' in fixed_probabilities:
+            if fixed_probabilities['Over 3.5 Goals'] > fixed_probabilities['Over 2.5 Goals']:
+                fixed_probabilities['Over 2.5 Goals'] = fixed_probabilities['Over 3.5 Goals']
+                constraints_applied.append("Bayesian probability hierarchy: P(Over2.5) ≥ P(Over3.5)")
 
-    def _calculate_logical_total_goals(self, predictions: Dict) -> float:
-        """Calculate realistic total goals from Over/Under predictions."""
-        over_1_5 = predictions.get('Over 1.5 Goals', 'No')
-        over_2_5 = predictions.get('Over 2.5 Goals', 'No')
-        over_3_5 = predictions.get('Over 3.5 Goals', 'No')
+        return fixed_predictions, fixed_probabilities, constraints_applied
 
-        # Logic-based total goals calculation
-        if over_3_5 == 'Yes':
-            return 4.2  # Likely 4+ goals
-        elif over_2_5 == 'Yes':
-            return 3.1  # Likely 3 goals
-        elif over_1_5 == 'Yes':
-            return 2.3  # Likely 2 goals
-        else:
-            return 1.1  # Likely 0-1 goals
+    def calculate_bayesian_total_goals(self, predictions: Dict, probabilities: Dict) -> float:
+        """Calculate realistic total goals using Bayesian expected value"""
+        over_1_5_prob = probabilities.get('Over 1.5 Goals', 0.5)
+        over_2_5_prob = probabilities.get('Over 2.5 Goals', 0.5)
+        over_3_5_prob = probabilities.get('Over 3.5 Goals', 0.3)
 
-    def _get_confidence_level(self, probability: float) -> str:
-        """Determine confidence level for betting guidance."""
-        if probability >= 0.75:
-            return "🔥 HIGH"
-        elif probability >= 0.60:
-            return "📊 MEDIUM"
-        else:
-            return "⚡ LOW"
+        # Bayesian expected goals calculation
+        # E[Goals] = sum(P(Goals > k) for k = 0, 1, 2, ...)
+        expected_goals = (
+                1.0 +  # Always at least 0 goals
+                over_1_5_prob +  # P(Goals > 1.5)
+                over_2_5_prob +  # P(Goals > 2.5)
+                over_3_5_prob  # P(Goals > 3.5)
+        )
 
-    def _extract_team_strength_insights(self, home_features: pd.Series, away_features: pd.Series) -> Dict:
-        """Extract team strength insights from enhanced features."""
-        insights = {}
+        return max(0.5, min(6.0, expected_goals))  # Realistic bounds
 
-        # Elo ratings
-        home_elo = home_features.get('HomeElo', 1500)
-        away_elo = home_features.get('AwayElo', 1500)  # Away team's elo when they're away
+    def predict_match_bayesian(self, home_team: str, away_team: str) -> Tuple[Dict, Dict]:
+        """Make Bayesian predictions using your enhanced models"""
 
-        insights['team_strength'] = {
-            'home_elo': f"{home_elo:.0f}",
-            'away_elo': f"{away_elo:.0f}",
-            'elo_advantage': f"{home_elo - away_elo:+.0f}"
-        }
+        print(f"🧠 BAYESIAN Prediction: {home_team} vs {away_team}")
 
-        # Form analysis
-        home_form = home_features.get('HomeForm_5', 0.5)
-        away_form = away_features.get('AwayForm_5', 0.5)
+        # Get Bayesian features
+        feature_matrix = self._get_bayesian_team_features(home_team, away_team)
 
-        key_factors = []
-        if home_form > away_form + 0.2:
-            key_factors.append("Home team in better form")
-        elif away_form > home_form + 0.2:
-            key_factors.append("Away team in better form")
+        if feature_matrix.empty:
+            print("❌ Could not generate Bayesian features")
+            return {}, {}
 
-        # Goal potential
-        home_scoring = home_features.get('HomeScoringForm_5', 1.0)
-        away_scoring = away_features.get('AwayScoringForm_5', 1.0)
-
-        if (home_scoring + away_scoring) > 2.5:
-            key_factors.append("Both teams scoring regularly")
-        elif (home_scoring + away_scoring) < 1.5:
-            key_factors.append("Both teams struggling for goals")
-
-        insights['key_factors'] = key_factors[:3]  # Top 3 factors
-
-        return insights
-
-    def predict_match(self, home_team: str, away_team: str) -> Tuple[Dict, Dict]:
-        """Make enhanced predictions with logical constraints and Poisson integration."""
-
-        print(f"🔮 ENHANCED Prediction: {home_team} vs {away_team}")
-
-        # Get enhanced features for both teams
-        home_features = self._get_enhanced_team_features(home_team)
-        away_features = self._get_enhanced_team_features(away_team)
-
-        # Create enhanced feature matrix
-        feature_matrix = pd.DataFrame([home_features.values], columns=self.feature_columns)
-
-        print(f"✅ Enhanced feature matrix created: {feature_matrix.shape}")
+        print(f"✅ Bayesian feature matrix ready: {feature_matrix.shape}")
 
         predictions = {}
         probabilities = {}
 
-        # Make predictions with all enhanced models
+        # Make predictions with all Bayesian models
         for task, display_name in self.PREDICTION_TASKS.items():
             if task in self.models:
                 try:
-                    print(f"🔄 Enhanced prediction for {display_name}...")
+                    print(f"🔄 Bayesian prediction for {display_name}...")
 
                     model_info = self.models[task]
                     if isinstance(model_info, dict) and 'model' in model_info:
                         model = model_info['model']
                         task_features = model_info.get('features', self.feature_columns)
 
-                        # Use task-specific features if available
+                        # Use task-specific Bayesian features
                         available_features = [f for f in task_features if f in feature_matrix.columns]
                         if available_features:
                             task_matrix = feature_matrix[available_features]
-                            print(f"   Using {len(available_features)} enhanced features")
+                            print(f"   Using {len(available_features)} Bayesian features for {task}")
                         else:
                             task_matrix = feature_matrix
-                            print(f"   Using all {len(self.feature_columns)} features")
+                            print(f"   Using all {len(self.feature_columns)} features for {task}")
 
-                        # Make enhanced prediction
+                        # Make Bayesian prediction
                         if hasattr(model, 'predict_proba'):
-                            # Classification with probabilities
+                            # Classification with Bayesian probabilities
                             proba = model.predict_proba(task_matrix)[0]
                             pred_class = np.argmax(proba)
 
@@ -323,7 +345,7 @@ class MatchPredictor:
                             pred_value = model.predict(task_matrix)[0]
 
                             if task == 'total_goals':
-                                # Ensure realistic goal predictions
+                                # Ensure realistic goal predictions with Bayesian bounds
                                 pred_value = max(0, min(10, pred_value))
                                 predictions[display_name] = f"{pred_value:.1f}"
                                 probabilities[display_name] = 0.8  # Default confidence
@@ -334,27 +356,64 @@ class MatchPredictor:
                         print(f"✅ {display_name}: {predictions.get(display_name, 'N/A')}")
 
                 except Exception as e:
-                    print(f"❌ Enhanced prediction failed for {display_name}: {e}")
+                    print(f"❌ Bayesian prediction failed for {display_name}: {e}")
                     predictions[display_name] = "Error"
                     probabilities[display_name] = 0.0
 
-        # 🎯 Apply logical constraints
-        print("🔧 Applying logical constraints...")
-        constrained_predictions, constraints_applied = self._apply_logical_constraints(predictions)
+        # Apply Bayesian logical constraints
+        print("🧠 Applying Bayesian logical constraints...")
+        constrained_predictions, constrained_probabilities, constraints_applied = self.apply_bayesian_logical_constraints(
+            predictions, probabilities
+        )
 
         if constraints_applied:
             for constraint in constraints_applied:
                 print(f"   ✅ Applied {constraint}")
         else:
-            print("   ✅ No constraints needed - predictions already logical")
+            print("   ✅ No Bayesian constraints needed - predictions already logical")
 
-        print(f"✅ Enhanced predictions generated: {len(constrained_predictions)}")
-        return constrained_predictions, probabilities
+        # Calculate Bayesian total goals
+        if 'Total Goals' not in constrained_predictions:
+            bayesian_total = self.calculate_bayesian_total_goals(constrained_predictions, constrained_probabilities)
+            constrained_predictions['Total Goals'] = f"{bayesian_total:.1f}"
+            constrained_probabilities['Total Goals'] = 0.8
+
+        print(f"✅ Bayesian predictions completed: {len(constrained_predictions)}")
+        return constrained_predictions, constrained_probabilities
+
+    def get_bayesian_confidence_intervals(self, probabilities: Dict) -> Dict:
+        """Calculate Bayesian confidence intervals for predictions"""
+        confidence_intervals = {}
+
+        for pred_type, prob_data in probabilities.items():
+            try:
+                if pred_type == 'Match Outcome' and isinstance(prob_data, dict):
+                    # Match outcome confidence based on probability spread
+                    probs = list(prob_data.values())
+                    max_prob = max(probs)
+                    confidence = 0.6 + (max_prob - 0.33) * 0.8  # Scale from 0.6 to 1.0
+
+                    confidence_intervals[pred_type] = {
+                        'confidence_level': f"{confidence:.1%}",
+                        'prediction_strength': 'High' if max_prob > 0.6 else 'Medium' if max_prob > 0.45 else 'Low'
+                    }
+
+                elif isinstance(prob_data, (int, float)):
+                    # Binary prediction confidence
+                    confidence = abs(prob_data - 0.5) * 2  # Convert to 0-1 scale
+
+                    confidence_intervals[pred_type] = {
+                        'confidence_level': f"{confidence:.1%}",
+                        'prediction_strength': 'High' if confidence > 0.7 else 'Medium' if confidence > 0.5 else 'Low'
+                    }
+
+            except Exception as e:
+                logger.warning(f"Could not calculate confidence for {pred_type}: {e}")
+
+        return confidence_intervals
 
     def get_poisson_insights(self, home_team: str, away_team: str) -> Dict:
-        """
-        🎯 NEW: Get Poisson-based exact scoreline predictions and insights.
-        """
+        """Get Poisson-based exact scoreline predictions"""
         if not self.poisson_predictor:
             print("⚠️ Poisson predictor not available")
             return {}
@@ -393,114 +452,37 @@ class MatchPredictor:
             print(f"❌ Poisson analysis failed: {e}")
             return {}
 
-    def get_comprehensive_insights(self, home_team: str, away_team: str) -> Dict:
-        """Get comprehensive match insights using all enhanced features."""
+    def predict_with_full_bayesian_analysis(self, home_team: str, away_team: str) -> Dict:
+        """
+        🎯 COMPLETE: Make predictions with full Bayesian analysis and insights
+        """
+        # Get core Bayesian predictions
+        predictions, probabilities = self.predict_match_bayesian(home_team, away_team)
 
-        print(f"📊 Getting comprehensive insights for {home_team} vs {away_team}")
-
-        # Get team features
-        home_features = self._get_enhanced_team_features(home_team)
-        away_features = self._get_enhanced_team_features(away_team)
-
-        # Extract team strength insights
-        strength_insights = self._extract_team_strength_insights(home_features, away_features)
+        # Get Bayesian confidence intervals
+        confidence_intervals = self.get_bayesian_confidence_intervals(probabilities)
 
         # Get Poisson insights
         poisson_insights = self.get_poisson_insights(home_team, away_team)
 
-        # Combine all insights
-        comprehensive_insights = {
-            **strength_insights,
-            'poisson_analysis': poisson_insights,
-            'betting_focus': self._get_betting_recommendations(home_features, away_features),
-            'confidence_assessment': self._assess_prediction_confidence(home_features, away_features)
-        }
-
-        return comprehensive_insights
-
-    def _get_betting_recommendations(self, home_features: pd.Series, away_features: pd.Series) -> Dict:
-        """Get betting market recommendations based on features."""
-        recommendations = {}
-
-        # Goal market analysis
-        home_over_25 = home_features.get('HomeOverRate2.5_5', 0.5)
-        away_over_25 = away_features.get('AwayOverRate2.5_5', 0.5)
-        combined_over_25 = (home_over_25 + away_over_25) / 2
-
-        if combined_over_25 > 0.7:
-            recommendations['primary_market'] = 'Over 2.5 Goals'
-            recommendations['confidence'] = 'High'
-        elif combined_over_25 < 0.3:
-            recommendations['primary_market'] = 'Under 2.5 Goals'
-            recommendations['confidence'] = 'High'
-        else:
-            recommendations['primary_market'] = 'Over/Under 2.5 Goals'
-            recommendations['confidence'] = 'Medium'
-
-        # BTTS analysis
-        home_btts = home_features.get('HomeBTTSForm_5', 0.5)
-        away_btts = away_features.get('AwayBTTSForm_5', 0.5)
-        combined_btts = (home_btts + away_btts) / 2
-
-        if combined_btts > 0.6:
-            recommendations['secondary_market'] = 'Both Teams to Score - Yes'
-        else:
-            recommendations['secondary_market'] = 'Both Teams to Score - No'
-
-        return recommendations
-
-    def _assess_prediction_confidence(self, home_features: pd.Series, away_features: pd.Series) -> str:
-        """Assess overall prediction confidence based on data quality."""
-        confidence_factors = []
-
-        # Elo difference factor
-        home_elo = home_features.get('HomeElo', 1500)
-        away_elo = away_features.get('AwayElo', 1500)
-        elo_diff = abs(home_elo - away_elo)
-
-        if elo_diff > 200:
-            confidence_factors.append("Large Elo difference")
-        elif elo_diff < 50:
-            confidence_factors.append("Very close teams")
-
-        # Form consistency
-        home_form_variance = abs(home_features.get('HomeForm_3', 0.5) - home_features.get('HomeForm_10', 0.5))
-        away_form_variance = abs(away_features.get('AwayForm_3', 0.5) - away_features.get('AwayForm_10', 0.5))
-
-        if home_form_variance < 0.2 and away_form_variance < 0.2:
-            confidence_factors.append("Consistent recent form")
-
-        # Determine overall confidence
-        if len(confidence_factors) >= 2:
-            return "High"
-        elif len(confidence_factors) == 1:
-            return "Medium"
-        else:
-            return "Low"
-
-    def predict_with_full_insights(self, home_team: str, away_team: str) -> Dict:
-        """
-        🎯 COMPLETE: Make predictions with full insights, constraints, and Poisson analysis.
-        """
-        # Get core predictions
-        predictions, probabilities = self.predict_match(home_team, away_team)
-
-        # Get comprehensive insights
-        insights = self.get_comprehensive_insights(home_team, away_team)
-
         # Format enhanced output
-        enhanced_output = {
+        bayesian_output = {
             'predictions': predictions,
             'probabilities': probabilities,
-            'insights': insights,
-            'poisson_scorelines': insights.get('poisson_analysis', {}),
-            'betting_guidance': insights.get('betting_focus', {}),
-            'confidence_level': insights.get('confidence_assessment', 'Medium')
+            'confidence_intervals': confidence_intervals,
+            'poisson_analysis': poisson_insights,
+            'bayesian_priors': self.bayesian_priors,
+            'model_info': {
+                'models_used': list(self.models.keys()),
+                'calibrated_models': list(self.calibrated_models.keys()),
+                'poisson_available': self.poisson_predictor is not None
+            }
         }
 
-        return enhanced_output
+        return bayesian_output
 
 
-def create_predictor(df: pd.DataFrame, models_path: str = 'models/football_models.joblib') -> MatchPredictor:
-    """Factory function to create enhanced predictor with logical constraints."""
-    return MatchPredictor(df, models_path)
+def create_bayesian_predictor(df: pd.DataFrame,
+                              models_path: str = 'models/football_models.joblib') -> BayesianMatchPredictor:
+    """Factory function to create enhanced Bayesian predictor"""
+    return BayesianMatchPredictor(df, models_path)

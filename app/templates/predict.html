@@ -2,10 +2,13 @@
 
 {% block content %}
 <div class="dashboard-container">
-    <!-- Simple Header -->
+    <!-- Enhanced Header for Bayesian System -->
     <div class="header-section text-center mb-4" style="background: linear-gradient(135deg, #2E8B57, #1e5631); padding: 2rem; border-radius: 15px; color: white;">
-        <h2 class="mb-2">⚽ Enhanced Football Predictor</h2>
-        <p class="mb-0">AI predictions with logical constraints and exact scorelines</p>
+        <h2 class="mb-2">🧠 Enhanced Bayesian Football Predictor</h2>
+        <p class="mb-0">AI predictions with Bayesian inference, logical constraints and exact scorelines</p>
+        {% if bayesian_system %}
+        <small class="badge bg-success mt-2">✅ Enhanced Bayesian System Active</small>
+        {% endif %}
     </div>
 
     <!-- Team Selection -->
@@ -14,7 +17,7 @@
 
         <div id="loadingSpinner" style="display: none; text-align: center; padding: 40px;">
             <div class="spinner-border text-success" style="width: 3rem; height: 3rem;"></div>
-            <p class="mt-3">Generating prediction...</p>
+            <p class="mt-3">🧠 Generating Bayesian prediction...</p>
         </div>
 
         <form method="POST" id="predictionForm">
@@ -41,7 +44,7 @@
                     </select>
                 </div>
             </div>
-            <button type="submit" class="btn-predict">🎯 Get Prediction</button>
+            <button type="submit" class="btn-predict">🧠 Get Bayesian Prediction</button>
         </form>
     </div>
 
@@ -55,7 +58,7 @@
             {% if logical_valid %}
             <div class="alert alert-success d-flex align-items-center mb-3">
                 <i class="fas fa-check-circle me-2"></i>
-                <strong>✅ Predictions are logically consistent</strong>
+                <strong>✅ Bayesian predictions are logically consistent</strong>
                 {% if logical_issues %}
                 <div class="ms-3">
                     <small>Applied: {{ logical_issues|join(', ') }}</small>
@@ -66,13 +69,13 @@
 
             <input type="hidden" id="homeTeamSelected" value="{{ home_team }}">
             <input type="hidden" id="awayTeamSelected" value="{{ away_team }}">
-            <button id="savePredictionButton" class="btn btn-outline-success">💾 Save Prediction</button>
+            <button id="savePredictionButton" class="btn btn-outline-success">💾 Save Bayesian Prediction</button>
         </div>
 
         <div class="predictions-grid">
             <!-- Goal Markets -->
             <div class="prediction-card goal-markets">
-                <h4>⚽ Goal Markets</h4>
+                <h4>⚽ Bayesian Goal Markets</h4>
                 <div class="goals-predictions">
                     <div class="goal-item">
                         <div class="goal-header">
@@ -81,7 +84,13 @@
                                 {{ predictions['Over 1.5 Goals'] }}
                             </span>
                         </div>
-                        <div class="confidence">{{ probabilities['Over 1.5 Goals'] }} confidence</div>
+                        <div class="confidence">
+                            {% if confidence_intervals and confidence_intervals.get('Over 1.5 Goals') %}
+                                {{ confidence_intervals['Over 1.5 Goals'] }}
+                            {% else %}
+                                {{ probabilities.get('Over 1.5 Goals', 'N/A') }} confidence
+                            {% endif %}
+                        </div>
                     </div>
 
                     <div class="goal-item featured">
@@ -91,7 +100,13 @@
                                 {{ predictions['Over 2.5 Goals'] }}
                             </span>
                         </div>
-                        <div class="confidence">{{ probabilities['Over 2.5 Goals'] }} confidence</div>
+                        <div class="confidence">
+                            {% if confidence_intervals and confidence_intervals.get('Over 2.5 Goals') %}
+                                {{ confidence_intervals['Over 2.5 Goals'] }}
+                            {% else %}
+                                {{ probabilities.get('Over 2.5 Goals', 'N/A') }} confidence
+                            {% endif %}
+                        </div>
                     </div>
 
                     {% if predictions.get('Over 3.5 Goals') %}
@@ -102,7 +117,13 @@
                                 {{ predictions['Over 3.5 Goals'] }}
                             </span>
                         </div>
-                        <div class="confidence">{{ probabilities['Over 3.5 Goals'] }} confidence</div>
+                        <div class="confidence">
+                            {% if confidence_intervals and confidence_intervals.get('Over 3.5 Goals') %}
+                                {{ confidence_intervals['Over 3.5 Goals'] }}
+                            {% else %}
+                                {{ probabilities.get('Over 3.5 Goals', 'N/A') }} confidence
+                            {% endif %}
+                        </div>
                     </div>
                     {% endif %}
 
@@ -113,17 +134,29 @@
                                 {{ predictions['Both Teams to Score'] }}
                             </span>
                         </div>
-                        <div class="confidence">{{ probabilities['Both Teams to Score'] }} confidence</div>
+                        <div class="confidence">
+                            {% if confidence_intervals and confidence_intervals.get('Both Teams to Score') %}
+                                {{ confidence_intervals['Both Teams to Score'] }}
+                            {% else %}
+                                {{ probabilities.get('Both Teams to Score', 'N/A') }} confidence
+                            {% endif %}
+                        </div>
                     </div>
                 </div>
             </div>
 
             <!-- Match Outcome -->
             <div class="prediction-card">
-                <h4>🏆 Match Outcome</h4>
+                <h4>🏆 Bayesian Match Outcome</h4>
                 <div class="outcome-result">
                     <div class="main-prediction">{{ predictions['Match Outcome'] }}</div>
+                    {% if confidence_intervals and confidence_intervals.get('Match Outcome') %}
+                    <div class="outcome-confidence">
+                        <small>Confidence: {{ confidence_intervals['Match Outcome'] }}</small>
+                    </div>
+                    {% endif %}
                     <div class="outcome-probabilities">
+                        {% if probabilities['Match Outcome'] is mapping %}
                         <div class="prob-item">
                             <span>Home Win</span>
                             <span>{{ probabilities['Match Outcome']['Home Win'] }}</span>
@@ -136,17 +169,39 @@
                             <span>Away Win</span>
                             <span>{{ probabilities['Match Outcome']['Away Win'] }}</span>
                         </div>
+                        {% else %}
+                        <div class="prob-item">
+                            <span>Prediction Confidence</span>
+                            <span>{{ probabilities.get('Match Outcome', 'N/A') }}</span>
+                        </div>
+                        {% endif %}
                     </div>
                 </div>
             </div>
 
+            <!-- Total Goals -->
+            {% if predictions.get('Total Goals') %}
+            <div class="prediction-card">
+                <h4>⚽ Bayesian Total Goals</h4>
+                <div class="total-goals-result">
+                    <div class="main-prediction">{{ predictions['Total Goals'] }}</div>
+                    {% if confidence_intervals and confidence_intervals.get('Total Goals') %}
+                    <div class="confidence">{{ confidence_intervals['Total Goals'] }}</div>
+                    {% endif %}
+                </div>
+            </div>
+            {% endif %}
+
             <!-- Poisson Scorelines -->
             {% if poisson_scorelines %}
             <div class="prediction-card poisson-card">
-                <h4>🎯 Most Likely Scores</h4>
+                <h4>🎯 Bayesian Poisson Scorelines</h4>
+                {% if poisson_scorelines.expected_goals %}
                 <div class="expected-goals">
                     <strong>Expected Goals: {{ poisson_scorelines.expected_goals }}</strong>
                 </div>
+                {% endif %}
+                {% if poisson_scorelines.top_scorelines %}
                 <div class="scoreline-grid">
                     {% for scoreline in poisson_scorelines.top_scorelines %}
                     <div class="scoreline-item">
@@ -155,36 +210,68 @@
                     </div>
                     {% endfor %}
                 </div>
+                {% endif %}
             </div>
             {% endif %}
 
-            <!-- Team Insights -->
+            <!-- Enhanced Team Insights -->
             {% if team_insights %}
             <div class="prediction-card insights-card">
-                <h4>📊 Team Analysis</h4>
+                <h4>🧠 Bayesian Team Analysis</h4>
                 <div class="team-comparison">
                     <div class="team-stats">
                         <div class="team-info">
                             <h6>🏠 {{ home_team }}</h6>
+                            {% if team_insights.home_elo %}
                             <div>Elo: {{ team_insights.home_elo }}</div>
+                            {% endif %}
+                            {% if team_insights.home_form %}
                             <div>Form: {{ team_insights.home_form }}</div>
+                            {% endif %}
                         </div>
+                        {% if team_insights.elo_advantage %}
                         <div class="advantage">
                             <div class="elo-diff">
                                 {{ '+' if team_insights.elo_advantage > 0 else '' }}{{ team_insights.elo_advantage }}
                             </div>
                             <small>Elo Advantage</small>
                         </div>
+                        {% endif %}
                         <div class="team-info">
                             <h6>✈️ {{ away_team }}</h6>
+                            {% if team_insights.away_elo %}
                             <div>Elo: {{ team_insights.away_elo }}</div>
+                            {% endif %}
+                            {% if team_insights.away_form %}
                             <div>Form: {{ team_insights.away_form }}</div>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
 
+                <!-- Bayesian System Info -->
+                {% if team_insights.bayesian_system %}
+                <div class="bayesian-info mt-3">
+                    <h6>🧠 Enhanced System Details:</h6>
+                    <div class="system-details">
+                        {% if team_insights.models_used %}
+                        <div><strong>Models:</strong> {{ team_insights.models_used|length }} Bayesian models</div>
+                        {% endif %}
+                        {% if team_insights.calibrated_models %}
+                        <div><strong>Calibrated:</strong> {{ team_insights.calibrated_models|length }} models</div>
+                        {% endif %}
+                        {% if team_insights.poisson_available %}
+                        <div><strong>Poisson:</strong> ✅ Available</div>
+                        {% endif %}
+                        {% if team_insights.bayesian_priors_used %}
+                        <div><strong>Priors:</strong> {{ team_insights.bayesian_priors_used|join(', ') }}</div>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endif %}
+
                 {% if team_insights.key_factors %}
-                <div class="key-factors">
+                <div class="key-factors mt-3">
                     <h6>🔍 Key Factors:</h6>
                     <ul>
                         {% for factor in team_insights.key_factors %}
@@ -196,10 +283,21 @@
             </div>
             {% endif %}
 
-            <!-- Enhanced Insights from insights.py -->
+            <!-- Enhanced Insights from match_insights -->
             {% if match_insights %}
             <div class="prediction-card insights-deep">
-                <h4>💡 Match Insights</h4>
+                <h4>💡 Enhanced Match Insights</h4>
+
+                {% if match_insights.key_insights %}
+                <div class="insight-section">
+                    <h6>Key Insights</h6>
+                    <ul class="insights-list">
+                        {% for insight in match_insights.key_insights %}
+                        <li>{{ insight|safe }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
 
                 {% if match_insights.shooting_analysis %}
                 <div class="insight-section">
@@ -228,30 +326,19 @@
                     </div>
                 </div>
                 {% endif %}
-
-                {% if match_insights.key_insights %}
-                <div class="insight-section">
-                    <h6>Key Insights</h6>
-                    <ul class="insights-list">
-                        {% for insight in match_insights.key_insights %}
-                        <li>{{ insight|safe }}</li>
-                        {% endfor %}
-                    </ul>
-                </div>
-                {% endif %}
             </div>
             {% endif %}
         </div>
 
-        <!-- System Status -->
+        <!-- Enhanced System Status -->
         <div class="system-status mt-4">
             <div class="status-grid">
                 <div class="status-item">
-                    <i class="fas fa-check-circle text-success"></i>
-                    <span>Enhanced Models Active</span>
+                    <i class="fas fa-brain text-success"></i>
+                    <span>Bayesian Models Active</span>
                 </div>
                 <div class="status-item">
-                    <i class="fas fa-brain text-info"></i>
+                    <i class="fas fa-check-circle text-info"></i>
                     <span>Logical Constraints Enabled</span>
                 </div>
                 {% if poisson_scorelines %}
@@ -260,24 +347,41 @@
                     <span>Poisson Scorelines Available</span>
                 </div>
                 {% endif %}
+                {% if confidence_intervals %}
                 <div class="status-item">
-                    <i class="fas fa-chart-line text-primary"></i>
-                    <span>Team Insights Loaded</span>
+                    <i class="fas fa-percentage text-primary"></i>
+                    <span>Confidence Intervals</span>
                 </div>
+                {% endif %}
+                {% if team_insights and team_insights.bayesian_system %}
+                <div class="status-item">
+                    <i class="fas fa-cogs text-success"></i>
+                    <span>Enhanced Bayesian System</span>
+                </div>
+                {% endif %}
             </div>
         </div>
     </div>
     {% endif %}
 
+    <!-- Error Display -->
+    {% if error %}
+    <div class="alert alert-danger mt-4">
+        <h5>⚠️ Prediction Error</h5>
+        <p>{{ error }}</p>
+        <small>Please try again or contact support if the issue persists.</small>
+    </div>
+    {% endif %}
+
     <!-- Saved Predictions -->
     <div class="saved-predictions mt-4">
-        <h4>📋 Saved Predictions</h4>
+        <h4>📋 Saved Bayesian Predictions</h4>
         <div id="savedPredictionsList"></div>
     </div>
 </div>
 
 <style>
-/* Clean, simple styling */
+/* Enhanced styling for Bayesian system */
 .dashboard-container {
     max-width: 1200px;
     margin: 0 auto;
@@ -383,6 +487,28 @@
     font-size: 1.2rem;
 }
 
+/* Bayesian specific styles */
+.bayesian-info {
+    background: rgba(46, 139, 87, 0.1);
+    padding: 1rem;
+    border-radius: 8px;
+    border-left: 4px solid #2E8B57;
+}
+
+.system-details {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 0.5rem;
+    font-size: 0.9rem;
+}
+
+.outcome-confidence {
+    text-align: center;
+    margin: 0.5rem 0;
+    color: #666;
+    font-size: 0.9rem;
+}
+
 /* Goal Markets */
 .goal-markets {
     border-left: 4px solid #2E8B57;
@@ -407,7 +533,7 @@
 
 .goal-header {
     display: flex;
-    justify-content: between;
+    justify-content: space-between;
     align-items: center;
     margin-bottom: 0.5rem;
 }
@@ -596,6 +722,17 @@
     font-size: 0.9rem;
 }
 
+/* Total Goals Card */
+.total-goals-result {
+    text-align: center;
+}
+
+.total-goals-result .main-prediction {
+    font-size: 2rem;
+    color: #FF6B35;
+    margin-bottom: 0.5rem;
+}
+
 /* Responsive */
 @media (max-width: 768px) {
     .teams-selection {
@@ -615,11 +752,15 @@
         flex-direction: column;
         gap: 1rem;
     }
+
+    .system-details {
+        grid-template-columns: 1fr;
+    }
 }
 </style>
 
 <script>
-// Simple form handling
+// Enhanced form handling for Bayesian system
 document.addEventListener('DOMContentLoaded', function() {
     const form = document.getElementById('predictionForm');
     const loadingSpinner = document.getElementById('loadingSpinner');
@@ -630,7 +771,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Save prediction functionality
+    // Enhanced save prediction functionality
     const saveBtn = document.getElementById('savePredictionButton');
     if (saveBtn) {
         saveBtn.addEventListener('click', function() {
@@ -642,16 +783,19 @@ document.addEventListener('DOMContentLoaded', function() {
                     homeTeam,
                     awayTeam,
                     predictions: {{ predictions | tojson if predictions else '{}' }},
+                    probabilities: {{ probabilities | tojson if probabilities else '{}' }},
+                    confidence_intervals: {{ confidence_intervals | tojson if confidence_intervals else '{}' }},
                     timestamp: new Date().toISOString(),
-                    enhanced: true
+                    enhanced: true,
+                    bayesian_system: true
                 };
 
                 savePredictionToStorage(predictionData);
-                this.textContent = '✅ Saved!';
+                this.textContent = '✅ Bayesian Prediction Saved!';
                 this.classList.add('btn-success');
 
                 setTimeout(() => {
-                    this.textContent = '💾 Save Prediction';
+                    this.textContent = '💾 Save Bayesian Prediction';
                     this.classList.remove('btn-success');
                 }, 2000);
             }
@@ -667,7 +811,7 @@ function savePredictionToStorage(data) {
         existing.unshift(data);
         localStorage.setItem('footballPredictions', JSON.stringify(existing.slice(0, 10)));
     } catch (error) {
-        console.error('Error saving prediction:', error);
+        console.error('Error saving Bayesian prediction:', error);
     }
 }
 
@@ -679,7 +823,7 @@ function loadSavedPredictions() {
         if (!container) return;
 
         if (saved.length === 0) {
-            container.innerHTML = '<p class="text-muted">No saved predictions yet.</p>';
+            container.innerHTML = '<p class="text-muted">No saved Bayesian predictions yet.</p>';
             return;
         }
 
@@ -696,11 +840,12 @@ function loadSavedPredictions() {
                     <span class="badge bg-info">
                         Outcome: ${pred.predictions['Match Outcome']}
                     </span>
+                    ${pred.bayesian_system ? '<span class="badge bg-success">🧠 Bayesian</span>' : ''}
                 </div>
             </div>
         `).join('');
     } catch (error) {
-        console.error('Error loading predictions:', error);
+        console.error('Error loading Bayesian predictions:', error);
     }
 }
 </script>

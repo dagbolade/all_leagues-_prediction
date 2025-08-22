@@ -1,4 +1,4 @@
-# app/routes.py - CLEAN VERSION WITHOUT TECHNICAL JARGON
+# app/routes.py - UPDATED VERSION WITH DYNAMIC INSIGHTS
 
 from datetime import datetime
 import logging
@@ -12,9 +12,10 @@ import numpy as np
 # Enhanced import for predictor
 from footy.predictor_utils import create_bayesian_predictor
 
-# Import the analyzers
+# Import ALL the analyzers
 from footy.opening_weekend_analyzer import OpeningWeekendAnalyzer
 from footy.weekly_insights_analyzer import WeeklyInsightsAnalyzer
+from footy.insights import FootballInsights  # ADD THIS IMPORT
 
 # Create blueprint
 routes = Blueprint('routes', __name__)
@@ -44,6 +45,255 @@ def convert_numpy_types(obj):
         return obj.tolist()
     else:
         return obj
+
+def generate_comprehensive_insights(predictor_df, home_team, away_team, weekly_analyzer, gw1_analyzer):
+    """Generate insights using ONLY actual data - no generic bullshit"""
+
+    insights = []
+
+    try:
+        # 1. DETECT CURRENT GAMEWEEK FROM ACTUAL DATA
+        if weekly_analyzer:
+            current_gw = weekly_analyzer.detect_current_gameweek()
+            insights.append(f"📅 Gameweek {current_gw}")
+    except:
+        pass
+
+    try:
+        # 2. GET LATEST ACTUAL MATCH RESULTS (whatever season format exists)
+        # Find what seasons actually exist in the data
+        available_seasons = predictor_df['Season'].unique()
+        latest_season = sorted(available_seasons)[-1]  # Most recent season
+
+        # Get latest season matches
+        latest_season_matches = predictor_df[
+            predictor_df['Season'] == latest_season
+            ].sort_values('Date')
+
+        if len(latest_season_matches) > 0:
+            # Get HOME TEAM's latest match from current season
+            home_latest_season = latest_season_matches[
+                (latest_season_matches['HomeTeam'] == home_team) |
+                (latest_season_matches['AwayTeam'] == home_team)
+                ].tail(1)
+
+            if len(home_latest_season) > 0:
+                match = home_latest_season.iloc[0]
+                date = match['Date'].strftime('%b %d') if hasattr(match['Date'], 'strftime') else str(match['Date'])
+
+                if match['HomeTeam'] == home_team:
+                    score = f"{match['FTHG']}-{match['FTAG']}"
+                    opponent = match['AwayTeam']
+                    venue = "H"
+                    result_emoji = "🟢" if match['FTR'] == 'H' else "🟡" if match['FTR'] == 'D' else "🔴"
+                else:
+                    score = f"{match['FTAG']}-{match['FTHG']}"
+                    opponent = match['HomeTeam']
+                    venue = "A"
+                    result_emoji = "🟢" if match['FTR'] == 'A' else "🟡" if match['FTR'] == 'D' else "🔴"
+
+                insights.append(f"🏆 {home_team} latest: {result_emoji} {score} vs {opponent} ({venue}) - {date}")
+
+            # Get AWAY TEAM's latest match from current season
+            away_latest_season = latest_season_matches[
+                (latest_season_matches['HomeTeam'] == away_team) |
+                (latest_season_matches['AwayTeam'] == away_team)
+                ].tail(1)
+
+            if len(away_latest_season) > 0:
+                match = away_latest_season.iloc[0]
+                date = match['Date'].strftime('%b %d') if hasattr(match['Date'], 'strftime') else str(match['Date'])
+
+                if match['HomeTeam'] == away_team:
+                    score = f"{match['FTHG']}-{match['FTAG']}"
+                    opponent = match['AwayTeam']
+                    venue = "H"
+                    result_emoji = "🟢" if match['FTR'] == 'H' else "🟡" if match['FTR'] == 'D' else "🔴"
+                else:
+                    score = f"{match['FTAG']}-{match['FTHG']}"
+                    opponent = match['HomeTeam']
+                    venue = "A"
+                    result_emoji = "🟢" if match['FTR'] == 'A' else "🟡" if match['FTR'] == 'D' else "🔴"
+
+                insights.append(f"✈️ {away_team} latest: {result_emoji} {score} vs {opponent} ({venue}) - {date}")
+
+    except Exception as e:
+        print(f"Latest season results error: {e}")
+
+    try:
+        # 3. HOME TEAM RECENT FORM (last 6 matches across all time)
+        home_recent = predictor_df[
+            (predictor_df['HomeTeam'] == home_team) | (predictor_df['AwayTeam'] == home_team)
+            ].sort_values('Date', ascending=False).head(6)
+
+        if len(home_recent) > 0:
+            form_letters = []
+            wins = draws = losses = 0
+            goals_for = goals_against = 0
+            clean_sheets = 0
+
+            for _, match in home_recent.iterrows():
+                if match['HomeTeam'] == home_team:
+                    gf, ga = match['FTHG'], match['FTAG']
+                    result = match['FTR']
+                    if result == 'H':
+                        form_letters.append('W')
+                        wins += 1
+                    elif result == 'D':
+                        form_letters.append('D')
+                        draws += 1
+                    else:
+                        form_letters.append('L')
+                        losses += 1
+                else:
+                    gf, ga = match['FTAG'], match['FTHG']
+                    result = match['FTR']
+                    if result == 'A':
+                        form_letters.append('W')
+                        wins += 1
+                    elif result == 'D':
+                        form_letters.append('D')
+                        draws += 1
+                    else:
+                        form_letters.append('L')
+                        losses += 1
+
+                goals_for += gf
+                goals_against += ga
+                if ga == 0:
+                    clean_sheets += 1
+
+            avg_goals_for = goals_for / len(home_recent)
+            avg_goals_against = goals_against / len(home_recent)
+
+            insights.append(
+                f"📈 {home_team} last {len(home_recent)}: {''.join(form_letters)} ({wins}W-{draws}D-{losses}L)")
+            insights.append(f"⚽ {home_team} scoring: {avg_goals_for:.1f} per game, conceding {avg_goals_against:.1f}")
+
+            if clean_sheets > 0:
+                insights.append(f"🛡️ {home_team}: {clean_sheets}/{len(home_recent)} clean sheets")
+
+    except Exception as e:
+        print(f"Home team form error: {e}")
+
+    try:
+        # 4. AWAY TEAM RECENT FORM (last 6 matches across all time)
+        away_recent = predictor_df[
+            (predictor_df['HomeTeam'] == away_team) | (predictor_df['AwayTeam'] == away_team)
+            ].sort_values('Date', ascending=False).head(6)
+
+        if len(away_recent) > 0:
+            form_letters = []
+            wins = draws = losses = 0
+            goals_for = goals_against = 0
+            clean_sheets = 0
+
+            for _, match in away_recent.iterrows():
+                if match['HomeTeam'] == away_team:
+                    gf, ga = match['FTHG'], match['FTAG']
+                    result = match['FTR']
+                    if result == 'H':
+                        form_letters.append('W')
+                        wins += 1
+                    elif result == 'D':
+                        form_letters.append('D')
+                        draws += 1
+                    else:
+                        form_letters.append('L')
+                        losses += 1
+                else:
+                    gf, ga = match['FTAG'], match['FTHG']
+                    result = match['FTR']
+                    if result == 'A':
+                        form_letters.append('W')
+                        wins += 1
+                    elif result == 'D':
+                        form_letters.append('D')
+                        draws += 1
+                    else:
+                        form_letters.append('L')
+                        losses += 1
+
+                goals_for += gf
+                goals_against += ga
+                if ga == 0:
+                    clean_sheets += 1
+
+            avg_goals_for = goals_for / len(away_recent)
+            avg_goals_against = goals_against / len(away_recent)
+
+            insights.append(
+                f"📉 {away_team} last {len(away_recent)}: {''.join(form_letters)} ({wins}W-{draws}D-{losses}L)")
+            insights.append(f"⚽ {away_team} scoring: {avg_goals_for:.1f} per game, conceding {avg_goals_against:.1f}")
+
+            if clean_sheets > 0:
+                insights.append(f"🛡️ {away_team}: {clean_sheets}/{len(away_recent)} clean sheets")
+
+    except Exception as e:
+        print(f"Away team form error: {e}")
+
+    try:
+        # 5. HEAD-TO-HEAD ANALYSIS (BOTH TEAMS)
+        h2h_matches = predictor_df[
+            ((predictor_df['HomeTeam'] == home_team) & (predictor_df['AwayTeam'] == away_team)) |
+            ((predictor_df['HomeTeam'] == away_team) & (predictor_df['AwayTeam'] == home_team))
+            ].sort_values('Date', ascending=False).head(10)
+
+        if len(h2h_matches) > 0:
+            home_wins = len(h2h_matches[
+                                ((h2h_matches['HomeTeam'] == home_team) & (h2h_matches['FTR'] == 'H')) |
+                                ((h2h_matches['AwayTeam'] == home_team) & (h2h_matches['FTR'] == 'A'))
+                                ])
+            draws = len(h2h_matches[h2h_matches['FTR'] == 'D'])
+            away_wins = len(h2h_matches) - home_wins - draws
+
+            # Goal analysis
+            total_goals = (h2h_matches['FTHG'] + h2h_matches['FTAG']).sum()
+            avg_goals = total_goals / len(h2h_matches)
+            over_25_count = len(h2h_matches[(h2h_matches['FTHG'] + h2h_matches['FTAG']) > 2.5])
+            btts_count = len(h2h_matches[(h2h_matches['FTHG'] > 0) & (h2h_matches['FTAG'] > 0)])
+
+            insights.append(
+                f"🤝 Last {len(h2h_matches)} H2H: {home_team} {home_wins}W-{draws}D-{away_wins}L vs {away_team}")
+            insights.append(f"📊 H2H averages: {avg_goals:.1f} goals per game")
+
+            if len(h2h_matches) >= 5:
+                insights.append(
+                    f"🎯 Over 2.5 Goals in {over_25_count}/{len(h2h_matches)} recent H2H ({(over_25_count / len(h2h_matches) * 100):.0f}%)")
+                insights.append(
+                    f"⚽ Both teams scored in {btts_count}/{len(h2h_matches)} recent H2H ({(btts_count / len(h2h_matches) * 100):.0f}%)")
+
+    except Exception as e:
+        print(f"H2H analysis error: {e}")
+
+    try:
+        # 6. VENUE-SPECIFIC PERFORMANCE (HOME TEAM at home, AWAY TEAM away)
+        home_at_home = predictor_df[predictor_df['HomeTeam'] == home_team].tail(10)
+        if len(home_at_home) >= 5:
+            home_wins = len(home_at_home[home_at_home['FTR'] == 'H'])
+            home_goals_for = home_at_home['FTHG'].sum()
+            home_goals_against = home_at_home['FTAG'].sum()
+
+            insights.append(
+                f"🏠 {home_team} at home: {home_wins}/{len(home_at_home)} wins ({(home_wins / len(home_at_home) * 100):.0f}%)")
+            insights.append(
+                f"🏠 {home_team} home scoring: {(home_goals_for / len(home_at_home)):.1f} for, {(home_goals_against / len(home_at_home)):.1f} against")
+
+        away_away = predictor_df[predictor_df['AwayTeam'] == away_team].tail(10)
+        if len(away_away) >= 5:
+            away_wins = len(away_away[away_away['FTR'] == 'A'])
+            away_goals_for = away_away['FTAG'].sum()
+            away_goals_against = away_away['FTHG'].sum()
+
+            insights.append(
+                f"✈️ {away_team} away: {away_wins}/{len(away_away)} wins ({(away_wins / len(away_away) * 100):.0f}%)")
+            insights.append(
+                f"✈️ {away_team} away scoring: {(away_goals_for / len(away_away)):.1f} for, {(away_goals_against / len(away_away)):.1f} against")
+
+    except Exception as e:
+        print(f"Venue analysis error: {e}")
+
+    return insights
 
 
 def initialize_predictor():
@@ -96,7 +346,7 @@ def initialize_predictor():
         try:
             gw1_analyzer = OpeningWeekendAnalyzer(df)
             weekly_analyzer = WeeklyInsightsAnalyzer(df)
-            print(f"✅ Analyzers initialized")
+            print(f"✅ All analyzers initialized")
         except Exception as e:
             print(f"⚠️ Analyzer initialization failed: {e}")
 
@@ -143,135 +393,23 @@ def predict():
             confidence_intervals = convert_numpy_types(result.get('confidence_intervals', {}))
             poisson_analysis = convert_numpy_types(result.get('poisson_analysis', {}))
 
-            # 🚀 REAL INSIGHTS - NO TECHNICAL JARGON
-            match_insights = []
-
-            # 1. Get team GW1 records (now works for all leagues)
-            if gw1_analyzer:
-                try:
-                    home_gw1 = gw1_analyzer.get_team_gw1_history(home_team)
-                    away_gw1 = gw1_analyzer.get_team_gw1_history(away_team)
-
-                    if home_gw1 and not home_gw1.get('error'):
-                        match_insights.append(
-                            f"🏆 {home_team} opening weekend record: {home_gw1['record']} ({home_gw1['win_rate']}% win rate)")
-
-                    if away_gw1 and not away_gw1.get('error'):
-                        match_insights.append(
-                            f"✈️ {away_team} opening weekend record: {away_gw1['record']} ({away_gw1['win_rate']}% win rate)")
-
-                except Exception as e:
-                    print(f"⚠️ GW1 insights error: {e}")
-
-            # 2. Get head-to-head record
+            # 🚀 GENERATE COMPREHENSIVE DYNAMIC INSIGHTS
             try:
-                h2h_matches = predictor.df[
-                    ((predictor.df['HomeTeam'] == home_team) & (predictor.df['AwayTeam'] == away_team)) |
-                    ((predictor.df['HomeTeam'] == away_team) & (predictor.df['AwayTeam'] == home_team))
-                    ].tail(8)
+                match_insights = generate_comprehensive_insights(
+                    predictor.df,
+                    home_team,
+                    away_team,
+                    weekly_analyzer,
+                    gw1_analyzer
+                )
 
-                if len(h2h_matches) > 0:
-                    home_wins = len(h2h_matches[
-                                        ((h2h_matches['HomeTeam'] == home_team) & (h2h_matches['FTR'] == 'H')) |
-                                        ((h2h_matches['AwayTeam'] == home_team) & (h2h_matches['FTR'] == 'A'))
-                                        ])
-                    draws = len(h2h_matches[h2h_matches['FTR'] == 'D'])
-                    away_wins = len(h2h_matches) - home_wins - draws
-
-                    match_insights.append(
-                        f"🤝 Last {len(h2h_matches)} meetings: {home_team} {home_wins}W-{draws}D-{away_wins}L vs {away_team}")
-
-                    # Average goals in H2H
-                    if 'FTHG' in h2h_matches.columns and 'FTAG' in h2h_matches.columns:
-                        avg_goals = (h2h_matches['FTHG'] + h2h_matches['FTAG']).mean()
-                        over_25_h2h = len(h2h_matches[(h2h_matches['FTHG'] + h2h_matches['FTAG']) > 2.5])
-                        btts_h2h = len(h2h_matches[(h2h_matches['FTHG'] > 0) & (h2h_matches['FTAG'] > 0)])
-
-                        match_insights.append(f"📊 H2H average: {avg_goals:.1f} goals per game")
-                        if len(h2h_matches) >= 3:
-                            match_insights.append(f"🎯 Over 2.5 Goals in {over_25_h2h}/{len(h2h_matches)} recent H2H")
-                            match_insights.append(f"⚽ Both scored in {btts_h2h}/{len(h2h_matches)} recent H2H")
-
-            except Exception as e:
-                print(f"⚠️ H2H insights error: {e}")
-
-            # 3. Get recent form
-            try:
-                # Home team form
-                home_recent = predictor.df[
-                    (predictor.df['HomeTeam'] == home_team) | (predictor.df['AwayTeam'] == home_team)
-                    ].tail(6)
-
-                if len(home_recent) > 0:
-                    home_wins = home_draws = home_losses = 0
-                    home_goals_for = home_goals_against = 0
-
-                    for _, match in home_recent.iterrows():
-                        if match['HomeTeam'] == home_team:
-                            home_goals_for += match['FTHG']
-                            home_goals_against += match['FTAG']
-                            if match['FTR'] == 'H':
-                                home_wins += 1
-                            elif match['FTR'] == 'D':
-                                home_draws += 1
-                            else:
-                                home_losses += 1
-                        else:
-                            home_goals_for += match['FTAG']
-                            home_goals_against += match['FTHG']
-                            if match['FTR'] == 'A':
-                                home_wins += 1
-                            elif match['FTR'] == 'D':
-                                home_draws += 1
-                            else:
-                                home_losses += 1
-
-                    if len(home_recent) >= 3:
-                        match_insights.append(
-                            f"📈 {home_team} last {len(home_recent)}: {home_wins}W-{home_draws}D-{home_losses}L")
-
-                # Away team form
-                away_recent = predictor.df[
-                    (predictor.df['HomeTeam'] == away_team) | (predictor.df['AwayTeam'] == away_team)
-                    ].tail(6)
-
-                if len(away_recent) > 0:
-                    away_wins = away_draws = away_losses = 0
-
-                    for _, match in away_recent.iterrows():
-                        if match['HomeTeam'] == away_team:
-                            if match['FTR'] == 'H':
-                                away_wins += 1
-                            elif match['FTR'] == 'D':
-                                away_draws += 1
-                            else:
-                                away_losses += 1
-                        else:
-                            if match['FTR'] == 'A':
-                                away_wins += 1
-                            elif match['FTR'] == 'D':
-                                away_draws += 1
-                            else:
-                                away_losses += 1
-
-                    if len(away_recent) >= 3:
-                        match_insights.append(
-                            f"📉 {away_team} last {len(away_recent)}: {away_wins}W-{away_draws}D-{away_losses}L")
-
-            except Exception as e:
-                print(f"⚠️ Form insights error: {e}")
-
-            # 4. Goal market insights
-            try:
+                # Add prediction-specific insights
                 over_25_pred = predictions.get('Over 2.5 Goals', 'N/A')
                 btts_pred = predictions.get('Both Teams to Score', 'N/A')
                 total_goals = predictions.get('Total Goals', 'N/A')
 
                 if over_25_pred != 'N/A':
-                    confidence = probabilities.get('Over 2.5 Goals', 0)
-                    if isinstance(confidence, (int, float)):
-                        confidence_pct = f"{confidence:.0%}" if confidence <= 1 else f"{confidence:.1f}%"
-                        match_insights.append(f"🎯 Over 2.5 Goals: {over_25_pred} ({confidence_pct} confidence)")
+                    match_insights.append(f"🎯 Over 2.5 Goals prediction: {over_25_pred}")
 
                 if btts_pred != 'N/A':
                     match_insights.append(f"⚽ Both teams to score: {btts_pred}")
@@ -280,40 +418,12 @@ def predict():
                     match_insights.append(f"🥅 Expected total goals: {total_goals}")
 
             except Exception as e:
-                print(f"⚠️ Goal insights error: {e}")
-
-            # 5. Venue-specific insights
-            try:
-                # Home team at home record
-                home_at_home = predictor.df[predictor.df['HomeTeam'] == home_team].tail(10)
-                if len(home_at_home) >= 5:
-                    home_home_wins = len(home_at_home[home_at_home['FTR'] == 'H'])
-                    home_win_rate = (home_home_wins / len(home_at_home)) * 100
-                    match_insights.append(
-                        f"🏠 {home_team} at home: {home_home_wins}/{len(home_at_home)} wins ({home_win_rate:.0f}%)")
-
-                # Away team away record
-                away_away = predictor.df[predictor.df['AwayTeam'] == away_team].tail(10)
-                if len(away_away) >= 5:
-                    away_away_wins = len(away_away[away_away['FTR'] == 'A'])
-                    away_win_rate = (away_away_wins / len(away_away)) * 100
-                    match_insights.append(
-                        f"✈️ {away_team} away: {away_away_wins}/{len(away_away)} wins ({away_win_rate:.0f}%)")
-
-            except Exception as e:
-                print(f"⚠️ Venue insights error: {e}")
-
-            # 6. Fallback insights if none found
-            if not match_insights:
-                match_insights = [
-                    f"⚽ Match prediction: {predictions.get('Match Outcome', 'N/A')}",
-                    f"🎯 Over 2.5 Goals: {predictions.get('Over 2.5 Goals', 'N/A')}",
-                    f"🏆 Both teams to score: {predictions.get('Both Teams to Score', 'N/A')}"
-                ]
+                print(f"⚠️ Comprehensive insights error: {e}")
+                match_insights = [f"⚽ Basic prediction for {home_team} vs {away_team}"]
 
             # Format insights for display
             enhanced_insights = {
-                'key_insights': match_insights[:8]  # Limit to top 8 insights
+                'key_insights': match_insights[:10]  # Show top 10 insights
             }
 
             # Format confidence levels
@@ -474,7 +584,8 @@ def api_system_status():
         'status': 'operational' if predictor else 'error',
         'teams_loaded': len(teams),
         'predictor_ready': predictor is not None,
-        'gw1_analyzer_ready': gw1_analyzer is not None
+        'gw1_analyzer_ready': gw1_analyzer is not None,
+        'weekly_analyzer_ready': weekly_analyzer is not None
     })
 
 

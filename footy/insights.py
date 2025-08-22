@@ -567,8 +567,75 @@ class FootballInsights:
 
         return sorted(value_bets, key=lambda x: x['edge'], reverse=True)
 
+    def get_team_latest_form_string(self, team: str, matches: int = 6) -> dict:
+        """Get team's latest form as WWWDL string (most recent first)"""
+        team_matches = self.df[
+            (self.df['HomeTeam'] == team) | (self.df['AwayTeam'] == team)
+            ].sort_values('Date', ascending=False).head(matches)
+
+        if len(team_matches) == 0:
+            return {
+                'form_string': 'No matches',
+                'record': '0W-0D-0L',
+                'current_streak': 'No data'
+            }
+
+        # Build form string (most recent first)
+        form_letters = []
+        wins = draws = losses = 0
+
+        for _, match in team_matches.iterrows():
+            if match['HomeTeam'] == team:
+                # Team playing at home
+                if match['FTR'] == 'H':
+                    form_letters.append('W')
+                    wins += 1
+                elif match['FTR'] == 'D':
+                    form_letters.append('D')
+                    draws += 1
+                else:
+                    form_letters.append('L')
+                    losses += 1
+            else:
+                # Team playing away
+                if match['FTR'] == 'A':
+                    form_letters.append('W')
+                    wins += 1
+                elif match['FTR'] == 'D':
+                    form_letters.append('D')
+                    draws += 1
+                else:
+                    form_letters.append('L')
+                    losses += 1
+
+        form_string = ''.join(form_letters)  # e.g., "LWWDWL"
+
+        # Calculate current streak
+        if len(form_letters) > 0:
+            current_result = form_letters[0]  # Most recent
+            streak_count = 1
+
+            for i in range(1, len(form_letters)):
+                if form_letters[i] == current_result:
+                    streak_count += 1
+                else:
+                    break
+
+            streak_type = {'W': 'Win', 'D': 'Draw', 'L': 'Loss'}[current_result]
+            current_streak = f"{streak_count} {streak_type} streak"
+        else:
+            current_streak = 'No streak'
+
+        return {
+            'form_string': form_string,
+            'record': f"{wins}W-{draws}D-{losses}L",
+            'current_streak': current_streak,
+            'matches_analyzed': len(team_matches),
+            'latest_result': form_letters[0] if form_letters else 'N/A'
+        }
+
     def streaks_and_patterns(self, team: str, pattern_type: str = 'all') -> dict:
-        """Identify current streaks and patterns for a team."""
+        """Enhanced version with form string"""
         team_matches = self.df[
             (self.df['HomeTeam'] == team) | (self.df['AwayTeam'] == team)
             ].sort_values('Date').copy()
@@ -591,7 +658,7 @@ class FootballInsights:
                 else:
                     results.append('L')
 
-        # Find current streaks
+        # Find current streak
         current_streak = 1
         if len(results) > 1:
             last_result = results[-1]
@@ -601,11 +668,17 @@ class FootballInsights:
                 else:
                     break
 
+        # Get form strings (reversed for most recent first)
+        last_5_form = ''.join(results[-5:][::-1]) if len(results) >= 5 else ''.join(results[::-1])
+        last_10_form = ''.join(results[-10:][::-1]) if len(results) >= 10 else ''.join(results[::-1])
+
         return {
             'current_streak': f"{current_streak} {results[-1] if results else 'N/A'}",
-            'last_5_form': ''.join(results[-5:]) if len(results) >= 5 else ''.join(results),
+            'last_5_form': last_5_form,
+            'last_10_form': last_10_form,
             'wins_in_last_10': results[-10:].count('W') if len(results) >= 10 else results.count('W'),
-            'losses_in_last_10': results[-10:].count('L') if len(results) >= 10 else results.count('L')
+            'losses_in_last_10': results[-10:].count('L') if len(results) >= 10 else results.count('L'),
+            'total_matches': len(results)
         }
 
     # ==================== VISUALIZATION HELPERS ====================

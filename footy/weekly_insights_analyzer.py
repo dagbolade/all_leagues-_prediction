@@ -1,4 +1,4 @@
-# footy/weekly_insights_analyzer.py - DYNAMIC WEEKLY INSIGHTS
+# footy/weekly_insights_analyzer.py - UPDATED CURRENT SEASON DETECTION
 
 import pandas as pd
 import numpy as np
@@ -20,33 +20,68 @@ class WeeklyInsightsAnalyzer:
         if 'BTTS' not in self.df.columns:
             self.df['BTTS'] = ((self.df['FTHG'] > 0) & (self.df['FTAG'] > 0)).astype(int)
 
-        print(f"🔍 Weekly insights analyzer initialized with {len(self.df)} matches")
+        print(f"🗓️ Weekly insights analyzer initialized with {len(self.df)} matches")
 
-    def detect_current_gameweek(self, league='E0', season='2024/25'):
-        """Detect current gameweek based on season progress"""
-        # In real implementation, this would check current date vs season start
-        # For now, return configurable gameweek
-        return self._get_simulated_gameweek()
+    def detect_current_gameweek(self, league='E0', season=None):
+        """Detect current gameweek based on actual data"""
+        if season is None:
+            # Auto-detect current season from latest data
+            latest_date = self.df['Date'].max()
+            if latest_date.month >= 8:  # August onwards = new season
+                season = f"{latest_date.year}-{str(latest_date.year + 1)}"
+            else:  # January-July = previous season
+                season = f"{latest_date.year - 1}/{str(latest_date.year)[-2:]}"
+
+        # Try multiple season formats
+        season_formats = [season, season.replace('/', '-'), season.replace('20', ''), season.replace('/', '')]
+
+        current_season_data = pd.DataFrame()
+        for season_format in season_formats:
+            temp_data = self.df[
+                (self.df['League'] == league) &
+                (self.df['Season'] == season_format)
+                ].sort_values('Date')
+
+            if len(temp_data) > 0:
+                current_season_data = temp_data
+                break
+
+        if len(current_season_data) == 0:
+            print(f"⚠️ No data found for {league} in season {season}")
+            return 1  # Default to GW1
+
+        # Count number of unique matchdays/rounds
+        # Each gameweek typically has 10 matches in Premier League
+        total_matches = len(current_season_data)
+
+        if league == 'E0':  # Premier League
+            matches_per_gw = 10
+        elif league in ['D1', 'SP1', 'I1', 'F1']:  # Big leagues
+            matches_per_gw = 9
+        else:
+            matches_per_gw = 10  # Default
+
+        estimated_gw = min((total_matches // matches_per_gw) + 1, 38)
+
+        print(f"🎯 Detected gameweek: {estimated_gw} (based on {total_matches} matches)")
+        return estimated_gw
 
     def _get_simulated_gameweek(self):
-        """Simulate current gameweek - FIXED for pre-season"""
+        """Fallback: simulate current gameweek based on date"""
         current_date = datetime.now()
 
-        # For 2024/25 season starting August 16, 2024
-        season_start = datetime(2024, 8, 16)
+        # For 2025/26 season starting August 15, 2025
+        season_start = datetime(2025, 8, 15)
 
-        # If we're before season start, return GW1 (pre-season)
+        # If we're before season start, return GW1
         if current_date < season_start:
-            return 1  # Show GW1 insights even before season starts
+            return 1
 
         # Calculate weeks since season start
         weeks_elapsed = (current_date - season_start).days // 7
+        gameweek = min(weeks_elapsed + 1, 38)
 
-        # Each gameweek is roughly 1 week apart
-        gameweek = min(weeks_elapsed + 1, 38)  # Max 38 gameweeks
-
-        # For now (pre-season), force return GW1
-        return 1  # HARDCODE GW1 until season actually starts
+        return gameweek
 
     def get_weekly_insights(self, home_team, away_team, league='E0'):
         """Get insights based on current gameweek"""

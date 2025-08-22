@@ -151,6 +151,8 @@ class OpeningWeekendAnalyzer:
         """Get specific team's opening weekend history with auto league detection"""
         gw1_matches = self.extract_gw1_matches()
 
+
+
         if len(gw1_matches) == 0:
             return {'error': 'No GW1 data available'}
 

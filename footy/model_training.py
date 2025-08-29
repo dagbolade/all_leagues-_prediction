@@ -546,7 +546,7 @@ class BayesianFootballPredictor:
                     fn=objective,
                     space=space,
                     algo=tpe.suggest,
-                    max_evals=50,  # Reduced for faster training
+                    max_evals=20,  # Reduced for faster training
                     trials=trials,
                     early_stop_fn=no_progress_loss(10),
                     verbose=False

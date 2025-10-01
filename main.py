@@ -1,9 +1,15 @@
 # main.py - ENHANCED BAYESIAN PIPELINE
+# Add this import after your other imports in main.py
 
 import pandas as pd
 from pathlib import Path
 from footy.load_data import load_season_data_any, load_and_merge_multi
 from footy.data_cleaning import clean_betting_columns, explore_dataset
+from constants import (
+    SystemConfig, DataPaths, EloRatingBounds, DisplayConfig,
+    PredictionConfig, FeaturePatterns, TestData, DataLoadingConfig,
+    PhaseNames
+)
 
 # ENHANCED IMPORTS - Using your Bayesian classes
 from footy.rolling_features import BayesianRollingFeatureGenerator

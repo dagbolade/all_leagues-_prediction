@@ -846,11 +846,50 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    // Field-specific validation for instant feedback
+    function validateField(field) {
+        if (!field) return;
+        // Remove previous error state for this field
+        if (field === homeSelect) {
+            homeSelect.classList.remove('is-invalid');
+            homeSelect.removeAttribute('aria-invalid');
+            if (homeTeamError) homeTeamError.style.display = 'none';
+        }
+        if (field === awaySelect) {
+            awaySelect.classList.remove('is-invalid');
+            awaySelect.removeAttribute('aria-invalid');
+            if (awayTeamError) awayTeamError.style.display = 'none';
+        }
+        if (sameTeamsError) sameTeamsError.style.display = 'none';
+        if (formErrorSummary) formErrorSummary.style.display = 'none';
+
+        const homeVal = homeSelect ? homeSelect.value.trim() : '';
+        const awayVal = awaySelect ? awaySelect.value.trim() : '';
+
+        // Validate the changed field
+        if (field === homeSelect && !homeVal) {
+            homeSelect.classList.add('is-invalid');
+            homeSelect.setAttribute('aria-invalid', 'true');
+            if (homeTeamError) homeTeamError.style.display = 'block';
+        }
+        if (field === awaySelect && !awayVal) {
+            awaySelect.classList.add('is-invalid');
+            awaySelect.setAttribute('aria-invalid', 'true');
+            if (awayTeamError) awayTeamError.style.display = 'block';
+        }
+        // Validate "same teams" constraint if both have values
+        if (homeVal && awayVal && homeVal === awayVal) {
+            awaySelect.classList.add('is-invalid');
+            awaySelect.setAttribute('aria-invalid', 'true');
+            if (sameTeamsError) sameTeamsError.style.display = 'block';
+        }
+    }
+
     [homeSelect, awaySelect].forEach(el => {
         if (!el) return;
         el.addEventListener('change', () => {
-            // Re-validate on change for instant feedback
-            validateForm();
+            // Field-specific validation for instant feedback
+            validateField(el);
         });
     });
 

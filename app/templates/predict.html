@@ -20,29 +20,35 @@
             <p class="mt-3">🧠 Generating Bayesian prediction...</p>
         </div>
 
-        <form method="POST" id="predictionForm">
+        <form method="POST" id="predictionForm" novalidate aria-describedby="formErrorSummary">
             <div class="teams-selection">
                 <div class="team-select">
-                    <label>🏠 Home Team</label>
-                    <select name="homeTeam" required>
+                    <label for="homeTeamSelect">🏠 Home Team</label>
+                    <select id="homeTeamSelect" name="homeTeam" required aria-invalid="false" aria-describedby="homeTeamError">
                         <option value="">Select Home Team</option>
                         {% for team in teams %}
                         <option value="{{ team }}">{{ team }}</option>
                         {% endfor %}
                     </select>
+                    <div id="homeTeamError" class="invalid-feedback">Please choose a home team.</div>
                 </div>
 
                 <div class="vs-badge">VS</div>
 
                 <div class="team-select">
-                    <label>✈️ Away Team</label>
-                    <select name="awayTeam" required>
+                    <label for="awayTeamSelect">✈️ Away Team</label>
+                    <select id="awayTeamSelect" name="awayTeam" required aria-invalid="false" aria-describedby="awayTeamError sameTeamsError">
                         <option value="">Select Away Team</option>
                         {% for team in teams %}
                         <option value="{{ team }}">{{ team }}</option>
                         {% endfor %}
                     </select>
+                    <div id="awayTeamError" class="invalid-feedback">Please choose an away team.</div>
+                    <div id="sameTeamsError" class="invalid-feedback">Home and away teams must be different.</div>
                 </div>
+            </div>
+            <div id="formErrorSummary" class="text-danger" role="alert" aria-live="polite" style="display:none;">
+                Please correct the errors before submitting.
             </div>
             <button type="submit" class="btn-predict">🧠 Get Bayesian Prediction</button>
         </form>
@@ -764,12 +770,89 @@
 document.addEventListener('DOMContentLoaded', function() {
     const form = document.getElementById('predictionForm');
     const loadingSpinner = document.getElementById('loadingSpinner');
+    const homeSelect = document.getElementById('homeTeamSelect');
+    const awaySelect = document.getElementById('awayTeamSelect');
+    const homeTeamError = document.getElementById('homeTeamError');
+    const awayTeamError = document.getElementById('awayTeamError');
+    const sameTeamsError = document.getElementById('sameTeamsError');
+    const formErrorSummary = document.getElementById('formErrorSummary');
+
+    function resetErrors() {
+        [homeSelect, awaySelect].forEach(el => {
+            if (!el) return;
+            el.classList.remove('is-invalid');
+            el.setAttribute('aria-invalid', 'false');
+        });
+        [homeTeamError, awayTeamError, sameTeamsError].forEach(el => { if (el) el.style.display = 'none'; });
+        if (formErrorSummary) formErrorSummary.style.display = 'none';
+    }
+
+    function validateForm() {
+        resetErrors();
+        let isValid = true;
+        let firstInvalid = null;
+
+        const homeVal = homeSelect ? homeSelect.value.trim() : '';
+        const awayVal = awaySelect ? awaySelect.value.trim() : '';
+
+        if (!homeVal) {
+            isValid = false;
+            if (homeSelect) {
+                homeSelect.classList.add('is-invalid');
+                homeSelect.setAttribute('aria-invalid', 'true');
+            }
+            if (homeTeamError) homeTeamError.style.display = 'block';
+            firstInvalid = firstInvalid || homeSelect;
+        }
+
+        if (!awayVal) {
+            isValid = false;
+            if (awaySelect) {
+                awaySelect.classList.add('is-invalid');
+                awaySelect.setAttribute('aria-invalid', 'true');
+            }
+            if (awayTeamError) awayTeamError.style.display = 'block';
+            firstInvalid = firstInvalid || awaySelect;
+        }
+
+        if (homeVal && awayVal && homeVal === awayVal) {
+            isValid = false;
+            if (awaySelect) {
+                awaySelect.classList.add('is-invalid');
+                awaySelect.setAttribute('aria-invalid', 'true');
+            }
+            if (sameTeamsError) sameTeamsError.style.display = 'block';
+            firstInvalid = firstInvalid || awaySelect;
+        }
+
+        if (!isValid && formErrorSummary) {
+            formErrorSummary.style.display = 'block';
+        }
+
+        if (!isValid && firstInvalid && typeof firstInvalid.focus === 'function') {
+            firstInvalid.focus();
+        }
+
+        return isValid;
+    }
 
     if (form) {
-        form.addEventListener('submit', function() {
+        form.addEventListener('submit', function(e) {
+            if (!validateForm()) {
+                e.preventDefault();
+                return;
+            }
             loadingSpinner.style.display = 'block';
         });
     }
+
+    [homeSelect, awaySelect].forEach(el => {
+        if (!el) return;
+        el.addEventListener('change', () => {
+            // Re-validate on change for instant feedback
+            validateForm();
+        });
+    });
 
     // Enhanced save prediction functionality
     const saveBtn = document.getElementById('savePredictionButton');

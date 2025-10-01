@@ -1,474 +1,539 @@
-# main.py - ENHANCED BAYESIAN PIPELINE
+# bayesian_football_pipeline.py
+"""
+Bayesian Football Prediction Pipeline
+A beginner-friendly implementation following ML best practices
+"""
 
 import pandas as pd
+import numpy as np
 from pathlib import Path
-from footy.load_data import load_season_data_any, load_and_merge_multi
-from footy.data_cleaning import clean_betting_columns, explore_dataset
-
-# ENHANCED IMPORTS - Using your Bayesian classes
-from footy.rolling_features import BayesianRollingFeatureGenerator
-from footy.feature_engineering import BayesianFootballFeatureEngineering
-from footy.model_training import BayesianFootballPredictor
-from footy.predictor_utils import create_bayesian_predictor
-
-from footy.epl_analyzer import run_epl_analysis, AdvancedEPLAnalyzer
-import re
 import warnings
-
 warnings.filterwarnings('ignore')
 
-# Suppress specific warnings
-import pandas as pd
-
-pd.options.mode.chained_assignment = None
-
-import os
-
-os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
-
-
-def _season_from_fname(p: Path) -> str:
-    m = re.search(r"(\d{4}-\d{4})", p.name)
-    return m.group(1) if m else "unknown"
-
-
-def validate_bayesian_elo_ratings(df: pd.DataFrame) -> bool:
-    """Validate that Bayesian Elo ratings are realistic."""
-    if 'HomeElo' not in df.columns:
-        return False
-
-    avg_elo = df['HomeElo'].mean()
-    min_elo = df['HomeElo'].min()
-    max_elo = df['HomeElo'].max()
-
-    print(f"🧠 Bayesian Elo Validation:")
-    print(f"   Average: {avg_elo:.0f}")
-    print(f"   Range: {min_elo:.0f} - {max_elo:.0f}")
-
-    # Check if Bayesian Elo values are realistic
-    if 1200 <= avg_elo <= 1800 and 1000 <= min_elo and max_elo <= 2000:
-        print("✅ Bayesian Elo ratings look realistic!")
-        return True
-    else:
-        print("⚠️ Bayesian Elo ratings may need adjustment!")
-        return False
-
-
-def validate_bayesian_predictions(predictions: dict) -> tuple:
-    """Validate Bayesian predictions for logical consistency."""
-    issues = []
-
-    over_1_5 = predictions.get('Over 1.5 Goals', 'Unknown')
-    over_2_5 = predictions.get('Over 2.5 Goals', 'Unknown')
-    over_3_5 = predictions.get('Over 3.5 Goals', 'Unknown')
-
-    # Check Bayesian logical consistency
-    if over_1_5 == 'No' and over_2_5 == 'Yes':
-        issues.append("Bayesian Logic Error: Over 1.5 No + Over 2.5 Yes")
-    if over_2_5 == 'No' and over_3_5 == 'Yes':
-        issues.append("Bayesian Logic Error: Over 2.5 No + Over 3.5 Yes")
-    if over_1_5 == 'No' and over_3_5 == 'Yes':
-        issues.append("Bayesian Logic Error: Over 1.5 No + Over 3.5 Yes")
-
-    is_valid = len(issues) == 0
-    return is_valid, issues
-
-
-def test_enhanced_bayesian_predictions(match_predictor):
-    """Test the enhanced Bayesian prediction system."""
-    print(f"\n🧠 TESTING ENHANCED BAYESIAN PREDICTION SYSTEM")
-    print("=" * 60)
-
-    test_matches = [
-        ('Arsenal', 'Chelsea'),
-        ('Man City', 'Liverpool'),
-        ('Tottenham', 'Brighton'),
-        ('Newcastle', 'West Ham'),
-        ('Wolves', 'Fulham')
-    ]
-
-    all_predictions_valid = True
-
-    for i, (home, away) in enumerate(test_matches, 1):
-        print(f"\n🧠 BAYESIAN TEST {i}: {home} vs {away}")
+# Step 1: Data Collection
+class DataCollector:
+    """Handles data loading and initial validation"""
+    
+    def __init__(self, data_dir="data/raw"):
+        self.data_dir = Path(data_dir)
+        
+    def load_season_data(self):
+        """Load multiple seasons of football data"""
+        print("📊 STEP 1: LOADING DATA")
         print("-" * 40)
-
-        try:
-            # Test Bayesian predictions with full analysis
-            bayesian_result = match_predictor.predict_with_full_bayesian_analysis(home, away)
-
-            predictions = bayesian_result['predictions']
-            probabilities = bayesian_result['probabilities']
-            confidence_intervals = bayesian_result['confidence_intervals']
-
-            # Validate Bayesian logical consistency
-            is_valid, issues = validate_bayesian_predictions(predictions)
-
-            if is_valid:
-                print("✅ Bayesian predictions are logically consistent")
-            else:
-                print("❌ Bayesian logical issues found:")
-                for issue in issues:
-                    print(f"   • {issue}")
-                all_predictions_valid = False
-
-            # Show key Bayesian predictions
-            print("🧠 Key Bayesian Predictions:")
-            for market in ['Match Outcome', 'Over 1.5 Goals', 'Over 2.5 Goals', 'Over 3.5 Goals']:
-                if market in predictions:
-                    pred = predictions[market]
-
-                    # Get confidence if available
-                    confidence = "N/A"
-                    if market in confidence_intervals:
-                        confidence = confidence_intervals[market].get('confidence_level', 'N/A')
-
-                    print(f"   {market}: {pred} (Confidence: {confidence})")
-
-            # Show Bayesian probability details for match outcome
-            if 'Match Outcome' in probabilities and isinstance(probabilities['Match Outcome'], dict):
-                print(f"   Match Outcome Probabilities:")
-                for outcome, prob in probabilities['Match Outcome'].items():
-                    print(f"     {outcome}: {prob}")
-
-            # Test Poisson insights
-            poisson_insights = bayesian_result.get('poisson_analysis', {})
-            if poisson_insights and 'expected_goals' in poisson_insights:
-                exp_goals = poisson_insights['expected_goals']
-                print(f"⚽ Bayesian Expected Goals: {exp_goals['home']} - {exp_goals['away']}")
-
-                if 'most_likely_scorelines' in poisson_insights:
-                    top_score = poisson_insights['most_likely_scorelines'][0]
-                    print(f"🎯 Most Likely Score: {top_score['score']} ({top_score['probability']})")
-            else:
-                print("⚠️ Poisson insights not available")
-
-            # Show model info
-            model_info = bayesian_result.get('model_info', {})
-            if model_info:
-                models_used = model_info.get('models_used', [])
-                print(f"🤖 Models Used: {', '.join(models_used)}")
-
-        except Exception as e:
-            print(f"❌ Bayesian prediction test failed: {e}")
-            import traceback
-            traceback.print_exc()
-            all_predictions_valid = False
-
-    print(f"\n🧠 BAYESIAN TESTING SUMMARY:")
-    if all_predictions_valid:
-        print("✅ All Bayesian predictions passed logical consistency tests!")
-    else:
-        print("❌ Some Bayesian predictions failed logical consistency tests!")
-
-    return all_predictions_valid
-
-
-def main():
-    print("🧠 STARTING ENHANCED BAYESIAN FOOTBALL PREDICTION PIPELINE")
-    print("🎯 Goal: Realistic predictions with Bayesian inference for EPL 2024/25")
-    print("=" * 80)
-
-    data_dir = Path("data/raw")
-    models_dir = Path("models")
-    models_dir.mkdir(exist_ok=True)
-
-    # Auto-discover all season files
-    files = sorted(data_dir.glob("all-euro-data-*.xlsx"))
-    if not files:
-        raise FileNotFoundError("No season files found in data/raw")
-
-    season_paths = {_season_from_fname(f): f for f in files}
-    print(f"📂 Found {len(season_paths)} season files: {list(season_paths.keys())}")
-
-    try:
-        # ============================================================================
-        # PHASE 1: ENHANCED DATA LOADING & CLEANING
-        # ============================================================================
-        print(f"\n📊 PHASE 1: ENHANCED DATA LOADING")
-        print("-" * 50)
-
-        print("📄 Loading and merging 5 seasons of data...")
-        data_by_season, sheets = load_season_data_any(season_paths)
-        merged_df = load_and_merge_multi(data_by_season)
-        print(f"✅ Loaded {len(merged_df):,} matches across {len(season_paths)} seasons")
-
-        print("🧹 Cleaning data...")
-        merged_df_cleaned = clean_betting_columns(merged_df)
-        dataset_info = explore_dataset(merged_df_cleaned)
-        print(f"✅ Data cleaned: {len(merged_df_cleaned):,} matches ready")
-
-        # ============================================================================
-        # PHASE 2: ENHANCED BAYESIAN FEATURE ENGINEERING PIPELINE
-        # ============================================================================
-        print(f"\n🧠 PHASE 2: ENHANCED BAYESIAN FEATURE ENGINEERING")
-        print("-" * 50)
-
-        # Step 1: Enhanced Bayesian rolling features
-        print("🧠 Step 1: Adding Bayesian rolling features...")
-        bayesian_rolling_generator = BayesianRollingFeatureGenerator()
-        df_with_bayesian_rolling = bayesian_rolling_generator.add_rolling_features(merged_df_cleaned)
-
-        # Validate Bayesian Elo ratings
-        bayesian_elo_valid = validate_bayesian_elo_ratings(df_with_bayesian_rolling)
-
-        bayesian_rolling_features = [col for col in df_with_bayesian_rolling.columns if
-                                     any(x in col for x in
-                                         ['Bayesian', 'Elo', 'Form', 'Scoring', 'Over', 'BTTS', 'Expected'])]
-        print(f"✅ Bayesian rolling features added: {len(bayesian_rolling_features)} features")
-
-        # Step 2: Enhanced Bayesian feature engineering
-        print("🧠 Step 2: Adding Bayesian feature engineering...")
-        bayesian_feature_engineering = BayesianFootballFeatureEngineering()
-        df_bayesian_engineered = bayesian_feature_engineering.engineer_features(df_with_bayesian_rolling)
-
-        # Count final Bayesian features
-        enhanced_bayesian_features = [col for col in df_bayesian_engineered.columns if
-                                      any(x in col for x in ['Bayesian', 'MatchOutcome', 'H2H', 'Ref', 'GW1'])]
-        print(f"✅ Bayesian feature engineering completed: {len(enhanced_bayesian_features)} features")
-
-        total_features = len([col for col in df_bayesian_engineered.columns if col not in [
-            'Date', 'HomeTeam', 'AwayTeam', 'League', 'Season', 'FTR', 'FTHG', 'FTAG'
-        ]])
-        print(f"🧠 Total Bayesian engineered features: {total_features}")
-
-        # ============================================================================
-        # PHASE 3: ENHANCED BAYESIAN MODEL TRAINING
-        # ============================================================================
-        print(f"\n🤖 PHASE 3: ENHANCED BAYESIAN MODEL TRAINING")
-        print("-" * 50)
-
-        print("🧠 Starting Bayesian model training with hyperparameter optimization...")
-        bayesian_predictor = BayesianFootballPredictor()
-
-        # Train enhanced Bayesian models
-        bayesian_predictor.train_models(df_bayesian_engineered)
-
-        # Save enhanced Bayesian models
-        models_path = models_dir / "football_models.joblib"
-        bayesian_predictor.save_models(models_path)
-        print(f"💾 Enhanced Bayesian models saved to: {models_path}")
-
-        # ============================================================================
-        # PHASE 4: ENHANCED BAYESIAN MATCH PREDICTOR SETUP
-        # ============================================================================
-        print(f"\n🧠 PHASE 4: ENHANCED BAYESIAN MATCH PREDICTOR SETUP")
-        print("-" * 50)
-
-        print("🔄 Creating enhanced Bayesian match predictor...")
-        bayesian_match_predictor = create_bayesian_predictor(df_bayesian_engineered, models_path)
-        print("✅ Enhanced Bayesian match predictor initialized")
-
-        # Test the enhanced Bayesian prediction system
-        bayesian_predictions_valid = test_enhanced_bayesian_predictions(bayesian_match_predictor)
-
-        # ============================================================================
-        # PHASE 5: ENHANCED EPL ANALYSIS
-        # ============================================================================
-        print(f"\n📊 PHASE 5: ENHANCED EPL ANALYSIS")
-        print("-" * 50)
-
-        try:
-            analyzer = AdvancedEPLAnalyzer()
-            analysis_results = analyzer.analyze_enhanced_epl_data(df_bayesian_engineered)
-
-            # Get Bayesian insights
-            bayesian_insights = bayesian_rolling_generator.get_bayesian_team_strengths()
-            if bayesian_insights:
-                print("🧠 Bayesian Team Strength Insights:")
-                print(f"   League priors calculated: {len(bayesian_insights.get('league_priors', {}))}")
-                print(f"   Team priors calculated: {len(bayesian_insights.get('team_priors', {}))}")
-
-        except Exception as e:
-            print(f"⚠️ Enhanced analysis failed, using basic: {e}")
-            team_stats, percentage_stats, fig = run_epl_analysis(df_bayesian_engineered)
-
-        # ============================================================================
-        # PHASE 6: ENHANCED BAYESIAN MATCH PREDICTIONS
-        # ============================================================================
-        print(f"\n⚽ PHASE 6: ENHANCED BAYESIAN MATCH PREDICTIONS")
-        print("=" * 80)
-
-        # EPL opening fixtures for 2024/25
-        epl_opening_matches = [
-            ('Arsenal', 'Wolves'),
-            ('Brighton', 'Man United'),
-            ('Chelsea', 'Man City'),
-            ('Liverpool', 'Ipswich'),
-            ('Newcastle', 'Southampton')
-        ]
-
-        print("🧠 EPL 2024/25 OPENING MATCH PREDICTIONS")
-        print("📊 Using enhanced Bayesian models with hyperparameter optimization")
-
-        all_bayesian_predictions = []
-
-        for i, (home, away) in enumerate(epl_opening_matches, 1):
-            print(f"\n{'=' * 20} BAYESIAN MATCH {i}/{len(epl_opening_matches)} {'=' * 20}")
-            print(f"🏟️ {home} vs {away}")
-            print("-" * 60)
-
+        
+        # Find all data files
+        files = list(self.data_dir.glob("*.xlsx"))
+        if not files:
+            raise FileNotFoundError(f"No data files found in {self.data_dir}")
+            
+        print(f"Found {len(files)} data files")
+        
+        # Load each season
+        seasons_data = {}
+        for file_path in files:
+            season_name = self._extract_season_name(file_path)
             try:
-                # Get full enhanced Bayesian predictions with analysis
-                bayesian_analysis = bayesian_match_predictor.predict_with_full_bayesian_analysis(home, away)
-
-                predictions = bayesian_analysis['predictions']
-                probabilities = bayesian_analysis['probabilities']
-                confidence_intervals = bayesian_analysis['confidence_intervals']
-                poisson_analysis = bayesian_analysis.get('poisson_analysis', {})
-                model_info = bayesian_analysis.get('model_info', {})
-
-                # Validate Bayesian predictions
-                is_valid, issues = validate_bayesian_predictions(predictions)
-
-                print("🧠 ENHANCED BAYESIAN PREDICTIONS:")
-
-                # Match outcome with confidence
-                if 'Match Outcome' in predictions:
-                    outcome = predictions['Match Outcome']
-                    confidence = confidence_intervals.get('Match Outcome', {}).get('confidence_level', 'N/A')
-                    print(f"   🏆 Match Outcome: {outcome} (Confidence: {confidence})")
-
-                    # Show probabilities
-                    if isinstance(probabilities.get('Match Outcome'), dict):
-                        print(f"   Probabilities:")
-                        for outcome_type, prob in probabilities['Match Outcome'].items():
-                            print(f"     {outcome_type}: {prob}")
-
-                # Over/Under with Bayesian logical consistency check
-                over_markets = ['Over 1.5 Goals', 'Over 2.5 Goals', 'Over 3.5 Goals']
-                print("   ⚽ Bayesian Goal Markets:")
-                for market in over_markets:
-                    if market in predictions:
-                        pred = predictions[market]
-                        confidence = confidence_intervals.get(market, {}).get('confidence_level', 'N/A')
-                        print(f"     {market}: {pred} (Confidence: {confidence})")
-
-                # BTTS with Bayesian confidence
-                if 'Both Teams to Score' in predictions:
-                    btts = predictions['Both Teams to Score']
-                    btts_confidence = confidence_intervals.get('Both Teams to Score', {}).get('confidence_level', 'N/A')
-                    print(f"   ✅ Both Teams to Score: {btts} (Confidence: {btts_confidence})")
-
-                # Bayesian logical consistency status
-                if is_valid:
-                    print("   ✅ BAYESIAN LOGICAL CONSISTENCY: PASSED")
-                else:
-                    print("   ❌ BAYESIAN LOGICAL CONSISTENCY: FAILED")
-                    for issue in issues:
-                        print(f"     • {issue}")
-
-                # Total goals
-                if 'Total Goals' in predictions:
-                    total = predictions['Total Goals']
-                    print(f"   ⚽ Bayesian Total Goals: {total}")
-
-                # Poisson insights
-                if poisson_analysis and 'expected_goals' in poisson_analysis:
-                    exp_goals = poisson_analysis['expected_goals']
-                    print(f"\n📊 BAYESIAN POISSON EXACT SCORELINES:")
-                    print(f"   Expected Goals: {exp_goals['home']} - {exp_goals['away']}")
-
-                    if 'most_likely_scorelines' in poisson_analysis:
-                        print(f"   Most Likely Scorelines:")
-                        for j, scoreline in enumerate(poisson_analysis['most_likely_scorelines'][:3], 1):
-                            print(f"     {j}. {scoreline['score']}: {scoreline['probability']}")
-
-                # Model information
-                if model_info:
-                    models_used = model_info.get('models_used', [])
-                    calibrated_models = model_info.get('calibrated_models', [])
-                    print(f"\n🤖 BAYESIAN MODEL INFO:")
-                    print(f"   Models Used: {', '.join(models_used)}")
-                    if calibrated_models:
-                        print(f"   Calibrated Models: {', '.join(calibrated_models)}")
-
-                # Bayesian priors used
-                bayesian_priors = bayesian_analysis.get('bayesian_priors', {})
-                if bayesian_priors:
-                    print(f"   Bayesian Priors Available: {list(bayesian_priors.keys())}")
-
-                all_bayesian_predictions.append({
-                    'match': f"{home} vs {away}",
-                    'predictions': predictions,
-                    'valid': is_valid,
-                    'bayesian_models': len(models_used),
-                    'poisson_available': bool(poisson_analysis)
-                })
-
+                df = pd.read_excel(file_path)
+                seasons_data[season_name] = df
+                print(f"✅ Loaded {season_name}: {len(df)} matches")
             except Exception as e:
-                print(f"❌ Enhanced Bayesian prediction failed for {home} vs {away}: {e}")
-                import traceback
-                traceback.print_exc()
+                print(f"❌ Failed to load {file_path}: {e}")
+                
+        return seasons_data
+    
+    def _extract_season_name(self, file_path):
+        """Extract season name from filename"""
+        import re
+        match = re.search(r"(\d{4}-\d{4})", file_path.name)
+        return match.group(1) if match else "Unknown_Season"
 
-        # ============================================================================
-        # PHASE 7: BAYESIAN SYSTEM VALIDATION & SUMMARY
-        # ============================================================================
-        print(f"\n🧠 PHASE 7: BAYESIAN SYSTEM VALIDATION & SUMMARY")
-        print("=" * 60)
-
-        # Validate overall Bayesian system
-        total_predictions = len(all_bayesian_predictions)
-        valid_predictions = sum(1 for pred in all_bayesian_predictions if pred['valid'])
-        poisson_available = sum(1 for pred in all_bayesian_predictions if pred['poisson_available'])
-
-        print(f"🧠 BAYESIAN PREDICTION SYSTEM SUMMARY:")
-        print(f"   Total Bayesian Predictions: {total_predictions}")
-        print(f"   Logically Valid: {valid_predictions}/{total_predictions}")
-        print(f"   Poisson Available: {poisson_available}/{total_predictions}")
-        print(f"   Bayesian Elo Ratings: {'✅ Realistic' if bayesian_elo_valid else '⚠️ May need adjustment'}")
-
-        # Bayesian model summary
-        model_insights = bayesian_predictor.get_model_insights()
-        print(f"\n🤖 BAYESIAN MODEL SUMMARY:")
-        print(f"   Trained Models: {len(model_insights['trained_models'])}")
-        print(f"   Calibrated Models: {len(model_insights['calibration_status'])}")
-        print(f"   Poisson Available: {model_insights['poisson_available']}")
-        print(f"   Bayesian Constraints: {model_insights['bayesian_constraints']}")
-        print(f"   Hyperopt Trials: {model_insights['hyperopt_trials']}")
-
-        # Save processed data
-        print(f"\n💾 SAVING ENHANCED BAYESIAN DATA")
+# Step 2: Data Preprocessing
+class DataPreprocessor:
+    """Cleans and prepares data for modeling"""
+    
+    def __init__(self):
+        self.required_columns = ['Date', 'HomeTeam', 'AwayTeam', 'FTHG', 'FTAG', 'FTR']
+    
+    def preprocess_data(self, seasons_data):
+        """Clean and merge all seasons data"""
+        print("\n🧹 STEP 2: DATA PREPROCESSING")
         print("-" * 40)
+        
+        all_seasons = []
+        
+        for season_name, df in seasons_data.items():
+            print(f"Processing {season_name}...")
+            
+            # Add season identifier
+            df = df.copy()
+            df['Season'] = season_name
+            
+            # Basic cleaning
+            df_clean = self._clean_dataframe(df)
+            
+            # Validate data
+            if self._validate_data(df_clean):
+                all_seasons.append(df_clean)
+                print(f"✅ {season_name}: Validated ({len(df_clean)} matches)")
+            else:
+                print(f"⚠️ {season_name}: Validation issues")
+                
+        # Merge all seasons
+        merged_df = pd.concat(all_seasons, ignore_index=True)
+        print(f"\n📈 Total merged data: {len(merged_df)} matches")
+        
+        return merged_df
+    
+    def _clean_dataframe(self, df):
+        """Perform basic data cleaning"""
+        df_clean = df.copy()
+        
+        # Handle missing values
+        df_clean = df_clean.dropna(subset=['HomeTeam', 'AwayTeam', 'FTHG', 'FTAG'])
+        
+        # Ensure correct data types
+        df_clean['FTHG'] = pd.to_numeric(df_clean['FTHG'], errors='coerce')
+        df_clean['FTAG'] = pd.to_numeric(df_clean['FTAG'], errors='coerce')
+        
+        # Filter valid scores
+        df_clean = df_clean[
+            (df_clean['FTHG'] >= 0) & 
+            (df_clean['FTAG'] >= 0)
+        ]
+        
+        return df_clean
+    
+    def _validate_data(self, df):
+        """Validate dataset has required columns and data"""
+        # Check required columns
+        missing_cols = [col for col in self.required_columns if col not in df.columns]
+        if missing_cols:
+            print(f"   Missing columns: {missing_cols}")
+            return False
+            
+        # Check data quality
+        if len(df) < 10:
+            print("   Too few matches")
+            return False
+            
+        return True
 
-        output_dir = Path("data/processed")
-        output_dir.mkdir(exist_ok=True)
-
-        # Save enhanced Bayesian dataframe
-        bayesian_data_path = output_dir / "enhanced_bayesian_data.pkl"
-        df_bayesian_engineered.to_pickle(bayesian_data_path)
-        print(f"✅ Enhanced Bayesian data saved: {bayesian_data_path}")
-
-        # Save CSV for inspection
-        csv_path = output_dir / "enhanced_bayesian_features.csv"
-        df_bayesian_engineered.to_csv(csv_path, index=False)
-        print(f"✅ Bayesian CSV saved: {csv_path}")
-
-        # Final success message
-        print(f"\n🎉 ENHANCED BAYESIAN PIPELINE COMPLETED SUCCESSFULLY!")
-        print("=" * 80)
-        print(f"📊 Processed {len(df_bayesian_engineered):,} matches")
-        print(f"🧠 Created {total_features} enhanced Bayesian features")
-        print(f"🤖 Trained {len(model_insights['trained_models'])} Bayesian models with hyperopt")
-        print(f"⚽ Generated {valid_predictions}/{total_predictions} logically consistent Bayesian predictions")
-        print(f"🎯 System ready for EPL 2024/25 with realistic Bayesian inference!")
-
-        return {
-            'data': df_bayesian_engineered,
-            'predictor': bayesian_predictor,
-            'match_predictor': bayesian_match_predictor,
-            'total_features': total_features,
-            'models_path': models_path,
-            'predictions_valid': valid_predictions == total_predictions,
-            'bayesian_elo_valid': bayesian_elo_valid
+# Step 3: Feature Engineering
+class FeatureEngineer:
+    """Creates features for machine learning"""
+    
+    def __init__(self):
+        self.feature_categories = {}
+    
+    def create_features(self, df):
+        """Create comprehensive features for prediction"""
+        print("\n🔧 STEP 3: FEATURE ENGINEERING")
+        print("-" * 40)
+        
+        df_features = df.copy()
+        
+        # 3.1 Basic match features
+        print("Creating basic match features...")
+        df_features = self._create_basic_features(df_features)
+        
+        # 3.2 Team strength features
+        print("Creating team strength features...")
+        df_features = self._create_team_strength_features(df_features)
+        
+        # 3.3 Form features
+        print("Creating form features...")
+        df_features = self._create_form_features(df_features)
+        
+        # 3.4 Bayesian features
+        print("Creating Bayesian features...")
+        df_features = self._create_bayesian_features(df_features)
+        
+        # Track feature categories
+        self._categorize_features(df_features)
+        
+        return df_features
+    
+    def _create_basic_features(self, df):
+        """Create basic match-level features"""
+        # Match outcome encoding
+        df['HomeWin'] = (df['FTR'] == 'H').astype(int)
+        df['AwayWin'] = (df['FTR'] == 'A').astype(int)
+        df['Draw'] = (df['FTR'] == 'D').astype(int)
+        
+        # Goal-based features
+        df['TotalGoals'] = df['FTHG'] + df['FTAG']
+        df['GoalDifference'] = df['FTHG'] - df['FTAG']
+        df['BothTeamsScored'] = ((df['FTHG'] > 0) & (df['FTAG'] > 0)).astype(int)
+        
+        return df
+    
+    def _create_team_strength_features(self, df):
+        """Create features representing team strengths"""
+        # Simple Elo-like rating (beginner version)
+        teams = pd.unique(pd.concat([df['HomeTeam'], df['AwayTeam']]))
+        team_ratings = {team: 1500 for team in teams}
+        
+        home_strength = []
+        away_strength = []
+        
+        for idx, match in df.iterrows():
+            home_team = match['HomeTeam']
+            away_team = match['AwayTeam']
+            
+            home_strength.append(team_ratings[home_team])
+            away_strength.append(team_ratings[away_team])
+            
+            # Update ratings based on result
+            self._update_team_ratings(team_ratings, home_team, away_team, 
+                                    match['FTHG'], match['FTAG'])
+        
+        df['HomeTeamStrength'] = home_strength
+        df['AwayTeamStrength'] = away_strength
+        df['StrengthDifference'] = df['HomeTeamStrength'] - df['AwayTeamStrength']
+        
+        return df
+    
+    def _update_team_ratings(self, ratings, home_team, away_team, home_goals, away_goals):
+        """Simple rating update based on match result"""
+        K = 30  # Learning rate
+        
+        # Expected result (simplified)
+        home_expected = 1 / (1 + 10 ** ((ratings[away_team] - ratings[home_team]) / 400))
+        
+        # Actual result
+        if home_goals > away_goals:
+            home_actual = 1.0
+        elif home_goals < away_goals:
+            home_actual = 0.0
+        else:
+            home_actual = 0.5
+            
+        # Update ratings
+        ratings[home_team] += K * (home_actual - home_expected)
+        ratings[away_team] += K * ((1 - home_actual) - (1 - home_expected))
+    
+    def _create_form_features(self, df):
+        """Create recent form features for teams"""
+        # Sort by date for rolling calculations
+        if 'Date' in df.columns:
+            df = df.sort_values('Date')
+        
+        # Calculate recent form (last 5 matches)
+        all_teams = pd.unique(pd.concat([df['HomeTeam'], df['AwayTeam']]))
+        
+        for team in all_teams:
+            team_matches = df[(df['HomeTeam'] == team) | (df['AwayTeam'] == team)].copy()
+            team_matches['TeamPoints'] = team_matches.apply(
+                lambda x: self._calculate_points(x, team), axis=1
+            )
+            
+            # Rolling average of points
+            team_matches['Form_5'] = team_matches['TeamPoints'].rolling(5, min_periods=1).mean()
+            
+            # Merge back to main dataframe
+            form_mapping = team_matches.set_index(team_matches.index)['Form_5']
+            # Simplified implementation - in practice you'd merge carefully
+        
+        return df
+    
+    def _calculate_points(self, match, team):
+        """Calculate points for a team in a match"""
+        if match['HomeTeam'] == team:
+            if match['FTR'] == 'H':
+                return 3
+            elif match['FTR'] == 'D':
+                return 1
+            else:
+                return 0
+        else:  # Away team
+            if match['FTR'] == 'A':
+                return 3
+            elif match['FTR'] == 'D':
+                return 1
+            else:
+                return 0
+    
+    def _create_bayesian_features(self, df):
+        """Create Bayesian-inspired features"""
+        # Bayesian prior for goal scoring
+        avg_home_goals = df['FTHG'].mean()
+        avg_away_goals = df['FTAG'].mean()
+        
+        df['HomeGoalPrior'] = avg_home_goals
+        df['AwayGoalPrior'] = avg_away_goals
+        
+        # Team-specific goal averages (Bayesian estimates with shrinkage)
+        for team in pd.unique(pd.concat([df['HomeTeam'], df['AwayTeam']])):
+            team_home_matches = df[df['HomeTeam'] == team]
+            team_away_matches = df[df['AwayTeam'] == team]
+            
+            # Bayesian estimate: weighted average of team performance and league average
+            if len(team_home_matches) > 0:
+                team_home_avg = team_home_matches['FTHG'].mean()
+                # Shrink towards league average
+                df.loc[df['HomeTeam'] == team, 'HomeAttackStrength'] = (
+                    0.7 * team_home_avg + 0.3 * avg_home_goals
+                )
+            
+            if len(team_away_matches) > 0:
+                team_away_avg = team_away_matches['FTAG'].mean()
+                df.loc[df['AwayTeam'] == team, 'AwayAttackStrength'] = (
+                    0.7 * team_away_avg + 0.3 * avg_away_goals
+                )
+        
+        return df
+    
+    def _categorize_features(self, df):
+        """Categorize features for better understanding"""
+        basic_features = ['HomeWin', 'AwayWin', 'Draw', 'TotalGoals', 'GoalDifference']
+        strength_features = [col for col in df.columns if 'Strength' in col]
+        form_features = [col for col in df.columns if 'Form' in col]
+        bayesian_features = [col for col in df.columns if any(x in col for x in ['Prior', 'Attack'])]
+        
+        self.feature_categories = {
+            'basic': basic_features,
+            'strength': strength_features,
+            'form': form_features,
+            'bayesian': bayesian_features
         }
+        
+        print(f"Feature breakdown:")
+        for category, features in self.feature_categories.items():
+            print(f"  {category}: {len(features)} features")
 
+# Step 4: Model Training
+class ModelTrainer:
+    """Trains machine learning models for prediction"""
+    
+    def __init__(self):
+        self.models = {}
+        self.feature_columns = []
+    
+    def prepare_training_data(self, df):
+        """Prepare features and target for training"""
+        print("\n🤖 STEP 4: MODEL TRAINING PREPARATION")
+        print("-" * 40)
+        
+        # Define feature columns (exclude identifiers and targets)
+        exclude_columns = ['Date', 'HomeTeam', 'AwayTeam', 'Season', 'FTR', 'FTHG', 'FTAG']
+        
+        self.feature_columns = [col for col in df.columns 
+                              if col not in exclude_columns 
+                              and not col.startswith('HomeWin') 
+                              and not col.startswith('AwayWin')
+                              and not col.startswith('Draw')]
+        
+        print(f"Using {len(self.feature_columns)} features for training")
+        print(f"Feature examples: {self.feature_columns[:5]}...")
+        
+        # Define targets
+        X = df[self.feature_columns].fillna(0)
+        y_home_win = df['HomeWin']
+        y_total_goals = df['TotalGoals']
+        
+        return X, y_home_win, y_total_goals
+    
+    def train_models(self, X, y_home_win, y_total_goals):
+        """Train multiple models for different prediction tasks"""
+        from sklearn.ensemble import RandomForestClassifier, RandomForestRegressor
+        from sklearn.model_selection import train_test_split
+        from sklearn.metrics import accuracy_score, mean_absolute_error
+        
+        print("\nTraining models...")
+        
+        # Split data
+        X_train, X_test, y_home_train, y_home_test = train_test_split(
+            X, y_home_win, test_size=0.2, random_state=42
+        )
+        
+        _, _, y_goals_train, y_goals_test = train_test_split(
+            X, y_total_goals, test_size=0.2, random_state=42
+        )
+        
+        # Model 1: Match outcome prediction
+        print("1. Training match outcome classifier...")
+        outcome_model = RandomForestClassifier(n_estimators=100, random_state=42)
+        outcome_model.fit(X_train, y_home_train)
+        
+        # Evaluate
+        y_pred = outcome_model.predict(X_test)
+        accuracy = accuracy_score(y_home_test, y_pred)
+        print(f"   ✅ Outcome model accuracy: {accuracy:.3f}")
+        
+        # Model 2: Total goals prediction
+        print("2. Training total goals regressor...")
+        goals_model = RandomForestRegressor(n_estimators=100, random_state=42)
+        goals_model.fit(X_train, y_goals_train)
+        
+        # Evaluate
+        y_goals_pred = goals_model.predict(X_test)
+        mae = mean_absolute_error(y_goals_test, y_goals_pred)
+        print(f"   ✅ Goals model MAE: {mae:.3f}")
+        
+        # Store models
+        self.models = {
+            'outcome': outcome_model,
+            'goals': goals_model
+        }
+        
+        return self.models
+
+# Step 5: Prediction System
+class MatchPredictor:
+    """Makes predictions for new matches"""
+    
+    def __init__(self, models, feature_columns):
+        self.models = models
+        self.feature_columns = feature_columns
+        self.team_stats = {}
+    
+    def predict_match(self, home_team, away_team, historical_data):
+        """Predict outcome for a specific match"""
+        print(f"\n🎯 PREDICTING: {home_team} vs {away_team}")
+        print("-" * 40)
+        
+        # Create feature vector for this match
+        features = self._create_match_features(home_team, away_team, historical_data)
+        
+        if features is None:
+            print("❌ Could not create features for prediction")
+            return None
+        
+        # Make predictions
+        outcome_proba = self.models['outcome'].predict_proba([features])[0]
+        predicted_goals = self.models['goals'].predict([features])[0]
+        
+        # Interpret results
+        home_win_prob = outcome_proba[1]  # Assuming class 1 is HomeWin
+        away_win_prob = outcome_proba[0]  # Assuming class 0 is AwayWin
+        draw_prob = 1 - (home_win_prob + away_win_prob)  # Simplified
+        
+        print("📊 PREDICTION RESULTS:")
+        print(f"   🏆 {home_team} win: {home_win_prob:.1%}")
+        print(f"   🤝 Draw: {draw_prob:.1%}")
+        print(f"   🏆 {away_team} win: {away_win_prob:.1%}")
+        print(f"   ⚽ Predicted total goals: {predicted_goals:.1f}")
+        
+        # Bayesian-inspired confidence
+        confidence = self._calculate_confidence(outcome_proba, predicted_goals)
+        print(f"   🎯 Confidence: {confidence}")
+        
+        return {
+            'home_win_prob': home_win_prob,
+            'draw_prob': draw_prob,
+            'away_win_prob': away_win_prob,
+            'predicted_goals': predicted_goals,
+            'confidence': confidence
+        }
+    
+    def _create_match_features(self, home_team, away_team, historical_data):
+        """Create feature vector for a specific match"""
+        # This is simplified - in practice you'd compute recent form, etc.
+        features = {}
+        
+        # Get team strength features from historical data
+        home_matches = historical_data[historical_data['HomeTeam'] == home_team]
+        away_matches = historical_data[historical_data['AwayTeam'] == away_team]
+        
+        if len(home_matches) == 0 or len(away_matches) == 0:
+            return None
+        
+        # Use average values as features
+        for feature in self.feature_columns:
+            if feature in historical_data.columns:
+                # Simple approach: use league averages
+                features[feature] = historical_data[feature].mean()
+        
+        # Ensure all features are present
+        for feature in self.feature_columns:
+            if feature not in features:
+                features[feature] = 0
+        
+        return [features[feature] for feature in self.feature_columns]
+    
+    def _calculate_confidence(self, outcome_proba, predicted_goals):
+        """Calculate prediction confidence (Bayesian inspired)"""
+        # Confidence based on probability distribution
+        max_prob = max(outcome_proba)
+        
+        if max_prob > 0.6:
+            return "High"
+        elif max_prob > 0.45:
+            return "Medium"
+        else:
+            return "Low"
+
+# Step 6: Main Pipeline
+def run_bayesian_pipeline():
+    """Complete machine learning pipeline for football prediction"""
+    print("🚀 BAYESIAN FOOTBALL PREDICTION PIPELINE")
+    print("=" * 50)
+    
+    try:
+        # Step 1: Data Collection
+        collector = DataCollector()
+        seasons_data = collector.load_season_data()
+        
+        # Step 2: Data Preprocessing
+        preprocessor = DataPreprocessor()
+        cleaned_data = preprocessor.preprocess_data(seasons_data)
+        
+        # Step 3: Feature Engineering
+        engineer = FeatureEngineer()
+        featured_data = engineer.create_features(cleaned_data)
+        
+        # Step 4: Model Training
+        trainer = ModelTrainer()
+        X, y_home_win, y_total_goals = trainer.prepare_training_data(featured_data)
+        models = trainer.train_models(X, y_home_win, y_total_goals)
+        
+        # Step 5: Predictions
+        predictor = MatchPredictor(models, trainer.feature_columns)
+        
+        # Test predictions
+        test_matches = [
+            ('Arsenal', 'Chelsea'),
+            ('Man City', 'Liverpool'),
+            ('Tottenham', 'Brighton')
+        ]
+        
+        print("\n" + "="*50)
+        print("🧪 TEST PREDICTIONS")
+        print("="*50)
+        
+        predictions = []
+        for home, away in test_matches:
+            prediction = predictor.predict_match(home, away, featured_data)
+            if prediction:
+                predictions.append({
+                    'match': f"{home} vs {away}",
+                    **prediction
+                })
+        
+        # Summary
+        print("\n📈 PIPELINE SUMMARY")
+        print("-" * 30)
+        print(f"✅ Data: {len(cleaned_data)} matches processed")
+        print(f"✅ Features: {len(trainer.feature_columns)} features created")
+        print(f"✅ Models: {len(models)} models trained")
+        print(f"✅ Predictions: {len(predictions)} test predictions made")
+        
+        return {
+            'data': featured_data,
+            'models': models,
+            'predictor': predictor,
+            'predictions': predictions
+        }
+        
     except Exception as e:
-        print(f"\n❌ Error in enhanced Bayesian pipeline: {str(e)}")
+        print(f"❌ Pipeline failed: {e}")
         import traceback
         traceback.print_exc()
         return None
 
-
 if __name__ == "__main__":
-    results = main()
+    results = run_bayesian_pipeline()
+
+
+    

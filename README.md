@@ -32,8 +32,9 @@
 
 3. **Set up the backend:**
    ```bash
-   python -m venv venv
-   source venv/bin/activate  # Windows: venv\Scripts\activate
+   python -m venv venv # for windows
+   python3 -m venv venv #for mac users
+   source venv/bin/activate  # Windows: venv\Scripts\activate  (same for both)
    pip install -r requirements.txt
    ```
 

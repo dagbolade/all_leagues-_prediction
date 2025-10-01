@@ -1,0 +1,103 @@
+// components/AccuracyChart.tsx
+"use client";
+
+import React, { useEffect, useState } from "react";
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+} from "chart.js";
+import { Line } from "react-chartjs-2";
+
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend
+);
+
+interface DataPoint {
+  time: string;
+  accuracy: number;
+}
+
+const AccuracyChart: React.FC = () => {
+  const [dataPoints, setDataPoints] = useState<DataPoint[]>([
+    { time: "00:00", accuracy: 60 },
+  ]);
+
+  // Simulated live updates (replace with WebSocket/SSE in production)
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setDataPoints((prev) => {
+        const lastTime = prev.length;
+        const newAccuracy = Math.min(
+          100,
+          Math.max(40, prev[prev.length - 1].accuracy + (Math.random() * 10 - 5))
+        );
+
+        return [
+          ...prev,
+          {
+            time: `${lastTime}:00`,
+            accuracy: newAccuracy,
+          },
+        ].slice(-20); // keep last 20 points
+      });
+    }, 3000); // update every 3s
+
+    return () => clearInterval(interval);
+  }, []);
+
+  const chartData = {
+    labels: dataPoints.map((d) => d.time),
+    datasets: [
+      {
+        label: "Model Accuracy (%)",
+        data: dataPoints.map((d) => d.accuracy),
+        borderColor: "rgba(75, 192, 192, 1)",
+        backgroundColor: "rgba(75, 192, 192, 0.2)",
+        tension: 0.4,
+        fill: true,
+      },
+    ],
+  };
+
+  const options = {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: "top" as const,
+      },
+      title: {
+        display: true,
+        text: "Live Model Accuracy Over Time",
+      },
+    },
+    scales: {
+      y: {
+        min: 40,
+        max: 100,
+        ticks: {
+          callback: (value: number) => `${value}%`,
+        },
+      },
+    },
+  };
+
+  return (
+    <div className="p-4 bg-white rounded-2xl shadow-md">
+      <Line data={chartData} options={options} />
+    </div>
+  );
+};
+
+export default AccuracyChart;

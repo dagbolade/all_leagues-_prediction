@@ -66,12 +66,23 @@ Please note that this project is released with a [Contributor Covenant Code of C
 
 ## Project Structure
 
-- `data/` — Datasets and data loaders
-- `models/` — Prediction models and training scripts
-- `notebooks/` — Jupyter notebooks for exploration and analysis
-- `frontend/` — (Optional) Front-end app for visualization
-- `main.py` — Main entry point for running the backend service
-- `requirements.txt` — Python dependencies
+all_leagues-_prediction/
+├── .github/                  # GitHub-specific configurations
+├── app/                      # Application-related code
+├── data/                     # Data storage and processing
+├── footy/                    # Football-specific modules
+├── models/                   # Machine learning models
+├── .gitattributes            # Git attributes file
+├── .gitignore                # Git ignore file
+├── CODE_OF_CONDUCT.md        # Code of conduct guidelines
+├── CONTRIBUTING.md           # Contribution guidelines
+├── Procfile                  # Process file for deployment
+├── README.md                 # Project overview and documentation
+├── debug.py                  # Debugging script
+├── global_data_integration.py# Script for integrating global data
+├── main.py                   # Main application script
+└── render.yaml               # Render deployment configuration
+└── requirements.txt          # Python dependencies
 
 ---
 

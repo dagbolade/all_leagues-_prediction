@@ -177,17 +177,17 @@ class BayesianFootballFeatureEngineering:
 
     def create_bayesian_h2h_analysis(self, df):
         """
-        🧠 BAYESIAN H2H: Enhanced head-to-head with Bayesian priors.
+        🧠 ENHANCED BAYESIAN H2H: Advanced head-to-head with rolling windows, venue analysis, and streaks.
         """
         df = df.copy()
         df = df.sort_values(['Season', 'Date'])
 
-        print("🧠 Creating Bayesian H2H analysis...")
+        print("🧠 Creating Enhanced Bayesian H2H analysis...")
 
         # Calculate league-wide H2H priors
         league_h2h_priors = self._calculate_h2h_league_priors(df)
 
-        # Initialize H2H columns with league priors
+        # Initialize basic H2H columns with league priors
         df['H2H_HomeWinRate'] = 0.45  # Will be updated with Bayesian calculation
         df['H2H_AvgGoals'] = 2.5
         df['H2H_BTTSRate'] = 0.55
@@ -195,10 +195,46 @@ class BayesianFootballFeatureEngineering:
         df['H2H_GoalTrend'] = 0.0
         df['H2H_Confidence'] = 0.0  # NEW: Confidence in H2H prediction
 
+        # Initialize new rolling window columns
+        for window in [3, 5, 10]:
+            for suffix in ['HomeWinRate', 'DrawRate', 'AwayWinRate', 'AvgGoals', 'BTTSRate',
+                          'AvgHomeGoals', 'AvgAwayGoals', 'GoalDiff']:
+                df[f'H2H_Last{window}_{suffix}'] = 0.0
+
+        # Initialize venue-specific columns
+        venue_columns = [
+            'H2H_HomeAtHome_WinRate', 'H2H_HomeAtHome_AvgGoalsFor', 'H2H_HomeAtHome_AvgGoalsAgainst',
+            'H2H_HomeAtHome_BTTSRate', 'H2H_HomeAtHome_Matches',
+            'H2H_AwayAtHome_WinRate', 'H2H_AwayAtHome_AvgGoalsFor', 'H2H_AwayAtHome_AvgGoalsAgainst',
+            'H2H_AwayAtHome_BTTSRate', 'H2H_AwayAtHome_Matches', 'H2H_VenueAdvantage'
+        ]
+        for col in venue_columns:
+            df[col] = 0.0
+
+        # Initialize streak columns
+        streak_columns = [
+            'H2H_CurrentStreak', 'H2H_StreakType', 'H2H_LongestWinStreak', 'H2H_LongestLossStreak',
+            'H2H_RecentMomentum', 'H2H_TrendDirection', 'H2H_Volatility'
+        ]
+        for col in streak_columns:
+            if col == 'H2H_StreakType':
+                df[col] = 'None'
+            else:
+                df[col] = 0.0
+
+        # Initialize trend columns
+        trend_columns = [
+            'H2H_GoalTrendSlope', 'H2H_WinRateTrend', 'H2H_RecentVsHistorical', 'H2H_SeasonalPattern'
+        ]
+        for col in trend_columns:
+            df[col] = 0.0
+
         # Process each match efficiently
         unique_matchups = df[['HomeTeam', 'AwayTeam']].drop_duplicates()
 
-        for _, matchup in unique_matchups.iterrows():
+        print(f"   Processing {len(unique_matchups)} unique H2H matchups...")
+
+        for matchup_idx, matchup in unique_matchups.iterrows():
             home_team = matchup['HomeTeam']
             away_team = matchup['AwayTeam']
 
@@ -208,10 +244,12 @@ class BayesianFootballFeatureEngineering:
                 ((df['HomeTeam'] == away_team) & (df['AwayTeam'] == home_team))
                 ].sort_values('Date')
 
-            # Calculate Bayesian H2H stats for each match in this pairing
+            # Calculate Enhanced H2H stats for each match in this pairing
             for idx in matchup_matches.index:
                 match_date = df.at[idx, 'Date']
                 match_league = df.at[idx, 'League'] if 'League' in df.columns else 'E0'
+                current_home_team = df.at[idx, 'HomeTeam']
+                current_away_team = df.at[idx, 'AwayTeam']
 
                 # Get PAST H2H matches only (no data leakage)
                 past_h2h = matchup_matches[matchup_matches['Date'] < match_date]
@@ -223,10 +261,11 @@ class BayesianFootballFeatureEngineering:
                     # Calculate confidence based on number of H2H meetings
                     h2h_confidence = min(0.8, len(past_h2h) / 10)  # Max 80% confidence with 10+ meetings
 
-                    # Bayesian updating for home win rate
+                    # === BASIC BAYESIAN H2H STATS ===
+                    # Bayesian updating for home win rate (from current home team's perspective)
                     home_wins = len(past_h2h[
-                                        ((past_h2h['HomeTeam'] == home_team) & (past_h2h['FTR'] == 'H')) |
-                                        ((past_h2h['AwayTeam'] == home_team) & (past_h2h['FTR'] == 'A'))
+                                        ((past_h2h['HomeTeam'] == current_home_team) & (past_h2h['FTR'] == 'H')) |
+                                        ((past_h2h['AwayTeam'] == current_home_team) & (past_h2h['FTR'] == 'A'))
                                         ])
                     h2h_home_win_rate = home_wins / len(past_h2h)
 
@@ -252,19 +291,39 @@ class BayesianFootballFeatureEngineering:
                         h2h_confidence
                     )
 
-                    # Update dataframe with Bayesian H2H stats
+                    # Update dataframe with basic Bayesian H2H stats
                     df.at[idx, 'H2H_HomeWinRate'] = bayesian_home_win_rate
                     df.at[idx, 'H2H_AvgGoals'] = bayesian_avg_goals
                     df.at[idx, 'H2H_BTTSRate'] = bayesian_btts_rate
                     df.at[idx, 'H2H_Confidence'] = h2h_confidence
 
-                    # Recent form (last 3 H2H with Bayesian smoothing)
+                    # === ENHANCED ROLLING WINDOW ANALYSIS ===
+                    rolling_stats = self._calculate_h2h_rolling_windows(past_h2h, current_home_team)
+                    for key, value in rolling_stats.items():
+                        df.at[idx, key] = value
+
+                    # === VENUE-SPECIFIC ANALYSIS ===
+                    venue_stats = self._calculate_venue_specific_h2h(past_h2h, current_home_team, current_away_team)
+                    for key, value in venue_stats.items():
+                        df.at[idx, key] = value
+
+                    # === STREAK AND MOMENTUM ANALYSIS ===
+                    streak_stats = self._detect_h2h_streaks(past_h2h, current_home_team)
+                    for key, value in streak_stats.items():
+                        df.at[idx, key] = value
+
+                    # === TREND ANALYSIS ===
+                    trend_stats = self._calculate_h2h_trends_over_time(past_h2h, current_home_team)
+                    for key, value in trend_stats.items():
+                        df.at[idx, key] = value
+
+                    # === LEGACY RECENT FORM (Enhanced) ===
                     if len(past_h2h) >= 3:
                         recent_h2h = past_h2h.tail(3)
                         recent_home_wins = len(recent_h2h[
-                                                   ((recent_h2h['HomeTeam'] == home_team) & (
+                                                   ((recent_h2h['HomeTeam'] == current_home_team) & (
                                                                recent_h2h['FTR'] == 'H')) |
-                                                   ((recent_h2h['AwayTeam'] == home_team) & (recent_h2h['FTR'] == 'A'))
+                                                   ((recent_h2h['AwayTeam'] == current_home_team) & (recent_h2h['FTR'] == 'A'))
                                                    ])
                         recent_form = recent_home_wins / len(recent_h2h)
 
@@ -275,7 +334,7 @@ class BayesianFootballFeatureEngineering:
                             0.3  # Give some weight to recent form
                         )
 
-                        # Goal trend with Bayesian smoothing
+                        # Enhanced goal trend with Bayesian smoothing
                         if len(past_h2h) >= 5:
                             recent_goals = recent_h2h['TotalGoals'].mean()
                             older_goals = past_h2h.head(-3)['TotalGoals'].mean()
@@ -284,7 +343,12 @@ class BayesianFootballFeatureEngineering:
                             # Smooth extreme trends
                             df.at[idx, 'H2H_GoalTrend'] = np.clip(raw_trend, -1.0, 1.0)
 
-        print("✅ Bayesian H2H analysis completed")
+        print("✅ Enhanced Bayesian H2H analysis completed")
+        print(f"   📊 Generated {len([col for col in df.columns if col.startswith('H2H_')])} H2H features")
+        print(f"   🔄 Rolling windows: 3, 5, 10 meetings")
+        print(f"   🏟️ Venue-specific analysis included")
+        print(f"   🔥 Streak and momentum detection active")
+        print(f"   📈 Trend analysis over time enabled")
         return df
 
     def _calculate_h2h_league_priors(self, df: pd.DataFrame) -> Dict:
@@ -308,6 +372,320 @@ class BayesianFootballFeatureEngineering:
                 }
 
         return league_priors
+
+    def _calculate_h2h_rolling_windows(self, past_h2h: pd.DataFrame, home_team: str,
+                                     windows: List[int] = [3, 5, 10]) -> Dict:
+        """
+        🔄 Calculate H2H statistics for multiple rolling windows.
+
+        Args:
+            past_h2h: Historical H2H matches (sorted by date)
+            home_team: Current home team name
+            windows: List of window sizes to calculate
+
+        Returns:
+            Dictionary with rolling window statistics
+        """
+        rolling_stats = {}
+
+        for window in windows:
+            if len(past_h2h) >= window:
+                # Get last N meetings
+                recent_h2h = past_h2h.tail(window)
+
+                # Calculate win rates for this window
+                home_wins = len(recent_h2h[
+                    ((recent_h2h['HomeTeam'] == home_team) & (recent_h2h['FTR'] == 'H')) |
+                    ((recent_h2h['AwayTeam'] == home_team) & (recent_h2h['FTR'] == 'A'))
+                ])
+                draws = len(recent_h2h[recent_h2h['FTR'] == 'D'])
+                away_wins = window - home_wins - draws
+
+                rolling_stats[f'H2H_Last{window}_HomeWinRate'] = home_wins / window
+                rolling_stats[f'H2H_Last{window}_DrawRate'] = draws / window
+                rolling_stats[f'H2H_Last{window}_AwayWinRate'] = away_wins / window
+
+                # Goal statistics for this window
+                rolling_stats[f'H2H_Last{window}_AvgGoals'] = recent_h2h['TotalGoals'].mean()
+                rolling_stats[f'H2H_Last{window}_BTTSRate'] = recent_h2h['BTTS'].mean()
+
+                # Goal difference trends
+                home_goals = []
+                away_goals = []
+                for _, match in recent_h2h.iterrows():
+                    if match['HomeTeam'] == home_team:
+                        home_goals.append(match['FTHG'])
+                        away_goals.append(match['FTAG'])
+                    else:
+                        home_goals.append(match['FTAG'])
+                        away_goals.append(match['FTHG'])
+
+                rolling_stats[f'H2H_Last{window}_AvgHomeGoals'] = np.mean(home_goals)
+                rolling_stats[f'H2H_Last{window}_AvgAwayGoals'] = np.mean(away_goals)
+                rolling_stats[f'H2H_Last{window}_GoalDiff'] = np.mean(home_goals) - np.mean(away_goals)
+
+            else:
+                # Not enough data for this window - use defaults
+                for suffix in ['HomeWinRate', 'DrawRate', 'AwayWinRate', 'AvgGoals', 'BTTSRate',
+                              'AvgHomeGoals', 'AvgAwayGoals', 'GoalDiff']:
+                    rolling_stats[f'H2H_Last{window}_{suffix}'] = 0.0
+
+        return rolling_stats
+
+    def _calculate_venue_specific_h2h(self, past_h2h: pd.DataFrame, home_team: str,
+                                    away_team: str) -> Dict:
+        """
+        🏟️ Calculate venue-specific H2H statistics.
+
+        Args:
+            past_h2h: Historical H2H matches
+            home_team: Current home team name
+            away_team: Current away team name
+
+        Returns:
+            Dictionary with venue-specific H2H statistics
+        """
+        venue_stats = {}
+
+        # Split by venue context
+        home_at_home = past_h2h[past_h2h['HomeTeam'] == home_team]  # Home team playing at home
+        away_at_home = past_h2h[past_h2h['HomeTeam'] == away_team]  # Away team playing at home
+
+        # Home team's record when playing at home vs this opponent
+        if len(home_at_home) > 0:
+            home_wins_at_home = len(home_at_home[home_at_home['FTR'] == 'H'])
+            venue_stats['H2H_HomeAtHome_WinRate'] = home_wins_at_home / len(home_at_home)
+            venue_stats['H2H_HomeAtHome_AvgGoalsFor'] = home_at_home['FTHG'].mean()
+            venue_stats['H2H_HomeAtHome_AvgGoalsAgainst'] = home_at_home['FTAG'].mean()
+            venue_stats['H2H_HomeAtHome_BTTSRate'] = home_at_home['BTTS'].mean()
+            venue_stats['H2H_HomeAtHome_Matches'] = len(home_at_home)
+        else:
+            venue_stats.update({
+                'H2H_HomeAtHome_WinRate': 0.45,  # League average
+                'H2H_HomeAtHome_AvgGoalsFor': 1.4,
+                'H2H_HomeAtHome_AvgGoalsAgainst': 1.1,
+                'H2H_HomeAtHome_BTTSRate': 0.55,
+                'H2H_HomeAtHome_Matches': 0
+            })
+
+        # Away team's record when playing at home vs this opponent
+        if len(away_at_home) > 0:
+            away_wins_at_home = len(away_at_home[away_at_home['FTR'] == 'H'])
+            venue_stats['H2H_AwayAtHome_WinRate'] = away_wins_at_home / len(away_at_home)
+            venue_stats['H2H_AwayAtHome_AvgGoalsFor'] = away_at_home['FTHG'].mean()
+            venue_stats['H2H_AwayAtHome_AvgGoalsAgainst'] = away_at_home['FTAG'].mean()
+            venue_stats['H2H_AwayAtHome_BTTSRate'] = away_at_home['BTTS'].mean()
+            venue_stats['H2H_AwayAtHome_Matches'] = len(away_at_home)
+        else:
+            venue_stats.update({
+                'H2H_AwayAtHome_WinRate': 0.45,
+                'H2H_AwayAtHome_AvgGoalsFor': 1.4,
+                'H2H_AwayAtHome_AvgGoalsAgainst': 1.1,
+                'H2H_AwayAtHome_BTTSRate': 0.55,
+                'H2H_AwayAtHome_Matches': 0
+            })
+
+        # Calculate venue advantage
+        if venue_stats['H2H_HomeAtHome_Matches'] > 0 and venue_stats['H2H_AwayAtHome_Matches'] > 0:
+            venue_stats['H2H_VenueAdvantage'] = (
+                venue_stats['H2H_HomeAtHome_WinRate'] - venue_stats['H2H_AwayAtHome_WinRate']
+            )
+        else:
+            venue_stats['H2H_VenueAdvantage'] = 0.0
+
+        return venue_stats
+
+    def _detect_h2h_streaks(self, past_h2h: pd.DataFrame, home_team: str) -> Dict:
+        """
+        🔥 Detect H2H streaks and momentum indicators.
+
+        Args:
+            past_h2h: Historical H2H matches (sorted by date)
+            home_team: Current home team name
+
+        Returns:
+            Dictionary with streak and momentum statistics
+        """
+        streak_stats = {}
+
+        if len(past_h2h) == 0:
+            return {
+                'H2H_CurrentStreak': 0,
+                'H2H_StreakType': 'None',
+                'H2H_LongestWinStreak': 0,
+                'H2H_LongestLossStreak': 0,
+                'H2H_RecentMomentum': 0.0,
+                'H2H_TrendDirection': 0.0,
+                'H2H_Volatility': 0.0
+            }
+
+        # Determine outcomes from home team's perspective
+        outcomes = []
+        for _, match in past_h2h.iterrows():
+            if match['HomeTeam'] == home_team:
+                if match['FTR'] == 'H':
+                    outcomes.append('W')
+                elif match['FTR'] == 'D':
+                    outcomes.append('D')
+                else:
+                    outcomes.append('L')
+            else:  # home_team was away
+                if match['FTR'] == 'A':
+                    outcomes.append('W')
+                elif match['FTR'] == 'D':
+                    outcomes.append('D')
+                else:
+                    outcomes.append('L')
+
+        # Calculate current streak
+        current_streak = 0
+        streak_type = 'None'
+        if outcomes:
+            last_outcome = outcomes[-1]
+            streak_type = last_outcome
+
+            # Count consecutive outcomes from the end
+            for outcome in reversed(outcomes):
+                if outcome == last_outcome:
+                    current_streak += 1
+                else:
+                    break
+
+        streak_stats['H2H_CurrentStreak'] = current_streak
+        streak_stats['H2H_StreakType'] = streak_type
+
+        # Calculate longest streaks
+        longest_win_streak = 0
+        longest_loss_streak = 0
+        current_win_streak = 0
+        current_loss_streak = 0
+
+        for outcome in outcomes:
+            if outcome == 'W':
+                current_win_streak += 1
+                current_loss_streak = 0
+                longest_win_streak = max(longest_win_streak, current_win_streak)
+            elif outcome == 'L':
+                current_loss_streak += 1
+                current_win_streak = 0
+                longest_loss_streak = max(longest_loss_streak, current_loss_streak)
+            else:  # Draw
+                current_win_streak = 0
+                current_loss_streak = 0
+
+        streak_stats['H2H_LongestWinStreak'] = longest_win_streak
+        streak_stats['H2H_LongestLossStreak'] = longest_loss_streak
+
+        # Calculate momentum indicators
+        if len(outcomes) >= 3:
+            # Recent momentum (last 3 vs previous 3)
+            recent_outcomes = outcomes[-3:]
+            recent_wins = recent_outcomes.count('W')
+            recent_momentum = recent_wins / 3
+
+            if len(outcomes) >= 6:
+                previous_outcomes = outcomes[-6:-3]
+                previous_wins = previous_outcomes.count('W')
+                previous_momentum = previous_wins / 3
+                momentum_change = recent_momentum - previous_momentum
+            else:
+                momentum_change = recent_momentum - 0.33  # Compare to average
+
+            streak_stats['H2H_RecentMomentum'] = recent_momentum
+            streak_stats['H2H_TrendDirection'] = momentum_change
+        else:
+            streak_stats['H2H_RecentMomentum'] = 0.33  # Neutral
+            streak_stats['H2H_TrendDirection'] = 0.0
+
+        # Calculate volatility (consistency of outcomes)
+        if len(outcomes) >= 5:
+            win_rates = []
+            for i in range(len(outcomes) - 2):
+                window = outcomes[i:i+3]
+                win_rate = window.count('W') / 3
+                win_rates.append(win_rate)
+
+            volatility = np.std(win_rates) if len(win_rates) > 1 else 0.0
+            streak_stats['H2H_Volatility'] = volatility
+        else:
+            streak_stats['H2H_Volatility'] = 0.0
+
+        return streak_stats
+
+    def _calculate_h2h_trends_over_time(self, past_h2h: pd.DataFrame, home_team: str) -> Dict:
+        """
+        📈 Calculate H2H trends and patterns over time.
+
+        Args:
+            past_h2h: Historical H2H matches (sorted by date)
+            home_team: Current home team name
+
+        Returns:
+            Dictionary with trend analysis
+        """
+        trend_stats = {}
+
+        if len(past_h2h) < 4:
+            return {
+                'H2H_GoalTrendSlope': 0.0,
+                'H2H_WinRateTrend': 0.0,
+                'H2H_RecentVsHistorical': 0.0,
+                'H2H_SeasonalPattern': 0.0
+            }
+
+        # Calculate goal trends over time
+        total_goals = past_h2h['TotalGoals'].values
+        time_indices = np.arange(len(total_goals))
+
+        if len(total_goals) > 1:
+            # Linear regression for goal trend
+            slope, _, _, _, _ = stats.linregress(time_indices, total_goals)
+            trend_stats['H2H_GoalTrendSlope'] = slope
+        else:
+            trend_stats['H2H_GoalTrendSlope'] = 0.0
+
+        # Win rate trend over time
+        win_indicators = []
+        for _, match in past_h2h.iterrows():
+            if match['HomeTeam'] == home_team:
+                win_indicators.append(1 if match['FTR'] == 'H' else 0)
+            else:
+                win_indicators.append(1 if match['FTR'] == 'A' else 0)
+
+        if len(win_indicators) > 1:
+            slope, _, _, _, _ = stats.linregress(time_indices, win_indicators)
+            trend_stats['H2H_WinRateTrend'] = slope
+        else:
+            trend_stats['H2H_WinRateTrend'] = 0.0
+
+        # Recent vs historical comparison
+        if len(past_h2h) >= 6:
+            recent_half = past_h2h.tail(len(past_h2h) // 2)
+            historical_half = past_h2h.head(len(past_h2h) // 2)
+
+            recent_wins = 0
+            historical_wins = 0
+
+            for _, match in recent_half.iterrows():
+                if ((match['HomeTeam'] == home_team and match['FTR'] == 'H') or
+                    (match['AwayTeam'] == home_team and match['FTR'] == 'A')):
+                    recent_wins += 1
+
+            for _, match in historical_half.iterrows():
+                if ((match['HomeTeam'] == home_team and match['FTR'] == 'H') or
+                    (match['AwayTeam'] == home_team and match['FTR'] == 'A')):
+                    historical_wins += 1
+
+            recent_rate = recent_wins / len(recent_half)
+            historical_rate = historical_wins / len(historical_half)
+            trend_stats['H2H_RecentVsHistorical'] = recent_rate - historical_rate
+        else:
+            trend_stats['H2H_RecentVsHistorical'] = 0.0
+
+        # Seasonal pattern (if date information available)
+        trend_stats['H2H_SeasonalPattern'] = 0.0  # Placeholder for future enhancement
+
+        return trend_stats
 
     def create_bayesian_match_outcome_features(self, df):
         """

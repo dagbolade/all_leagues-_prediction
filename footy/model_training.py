@@ -178,8 +178,35 @@ class BayesianFootballPredictor:
                 'AttackDefenseBalance', 'DefensiveVulnerability'
             ],
             'h2h_features': [
+                # Basic H2H features
                 'H2H_HomeWinRate', 'H2H_AvgGoals', 'H2H_BTTSRate', 'H2H_RecentForm',
-                'H2H_GoalTrend', 'H2H_Confidence'
+                'H2H_GoalTrend', 'H2H_Confidence',
+
+                # Rolling window features (Last 3, 5, 10 meetings)
+                'H2H_Last3_HomeWinRate', 'H2H_Last3_DrawRate', 'H2H_Last3_AwayWinRate',
+                'H2H_Last3_AvgGoals', 'H2H_Last3_BTTSRate', 'H2H_Last3_AvgHomeGoals',
+                'H2H_Last3_AvgAwayGoals', 'H2H_Last3_GoalDiff',
+
+                'H2H_Last5_HomeWinRate', 'H2H_Last5_DrawRate', 'H2H_Last5_AwayWinRate',
+                'H2H_Last5_AvgGoals', 'H2H_Last5_BTTSRate', 'H2H_Last5_AvgHomeGoals',
+                'H2H_Last5_AvgAwayGoals', 'H2H_Last5_GoalDiff',
+
+                'H2H_Last10_HomeWinRate', 'H2H_Last10_DrawRate', 'H2H_Last10_AwayWinRate',
+                'H2H_Last10_AvgGoals', 'H2H_Last10_BTTSRate', 'H2H_Last10_AvgHomeGoals',
+                'H2H_Last10_AvgAwayGoals', 'H2H_Last10_GoalDiff',
+
+                # Venue-specific features
+                'H2H_HomeAtHome_WinRate', 'H2H_HomeAtHome_AvgGoalsFor', 'H2H_HomeAtHome_AvgGoalsAgainst',
+                'H2H_HomeAtHome_BTTSRate', 'H2H_HomeAtHome_Matches',
+                'H2H_AwayAtHome_WinRate', 'H2H_AwayAtHome_AvgGoalsFor', 'H2H_AwayAtHome_AvgGoalsAgainst',
+                'H2H_AwayAtHome_BTTSRate', 'H2H_AwayAtHome_Matches', 'H2H_VenueAdvantage',
+
+                # Streak and momentum features
+                'H2H_CurrentStreak', 'H2H_LongestWinStreak', 'H2H_LongestLossStreak',
+                'H2H_RecentMomentum', 'H2H_TrendDirection', 'H2H_Volatility',
+
+                # Trend analysis features
+                'H2H_GoalTrendSlope', 'H2H_WinRateTrend', 'H2H_RecentVsHistorical', 'H2H_SeasonalPattern'
             ],
             'referee_features': [
                 'RefAvgGoals', 'RefHomeBias', 'RefCardTendency', 'RefOver25Rate'

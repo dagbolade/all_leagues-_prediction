@@ -214,7 +214,7 @@ class FootballInsights:
         return results
 
     def fixture_difficulty_analysis(self, team: str, upcoming_matches: list) -> dict:
-        """Analyze upcoming fixture difficulty based on historical performance."""
+        """Enhanced fixture difficulty analysis with H2H trends and momentum."""
         results = []
 
         for opponent in upcoming_matches:
@@ -232,14 +232,40 @@ class FootballInsights:
 
                 difficulty_score = 1 - (team_wins / len(h2h))  # Higher = more difficult
 
-                results.append({
+                # Enhanced analysis with trends
+                fixture_analysis = {
                     'opponent': opponent,
                     'h2h_matches': len(h2h),
                     'team_wins': team_wins,
                     'win_rate': round(team_wins / len(h2h) * 100, 1),
                     'difficulty_score': round(difficulty_score, 2),
                     'avg_goals_in_h2h': round(h2h['TotalGoals'].mean(), 2)
-                })
+                }
+
+                # Add recent form analysis (last 3 H2H)
+                if len(h2h) >= 3:
+                    recent_h2h = h2h.tail(3)
+                    recent_wins = len(recent_h2h[
+                        ((recent_h2h['HomeTeam'] == team) & (recent_h2h['FTR'] == 'H')) |
+                        ((recent_h2h['AwayTeam'] == team) & (recent_h2h['FTR'] == 'A'))
+                    ])
+                    fixture_analysis['recent_form'] = {
+                        'last_3_wins': recent_wins,
+                        'last_3_win_rate': round(recent_wins / 3 * 100, 1),
+                        'recent_trend': 'improving' if recent_wins >= 2 else 'declining' if recent_wins == 0 else 'mixed'
+                    }
+
+                # Add momentum indicators
+                if len(h2h) >= 5:
+                    # Get H2H momentum using our new method
+                    momentum_data = self.get_h2h_momentum_indicators(team, opponent)
+                    if not momentum_data.get('insufficient_data', False):
+                        fixture_analysis['momentum'] = {
+                            'current_streak': momentum_data['current_streak'],
+                            'recent_vs_historical': momentum_data['momentum']['recent_vs_historical']
+                        }
+
+                results.append(fixture_analysis)
 
         return sorted(results, key=lambda x: x['difficulty_score'], reverse=True)
 
@@ -909,14 +935,301 @@ class FootballInsights:
             'market_predictiveness': 'High' if df['FavoriteWon'].mean() > 0.6 else 'Medium' if df[
                                                                                                    'FavoriteWon'].mean() > 0.4 else 'Low'
         }
-        """Get comprehensive insights for a specific match."""
+
+    def get_match_insights(self, home_team: str, away_team: str) -> dict:
+        """Get comprehensive insights for a specific match with enhanced H2H analysis."""
         return {
             'head_to_head': self.fixture_difficulty_analysis(home_team, [away_team]),
+            'h2h_trends': self.get_h2h_trend_analysis(home_team, away_team),
+            'venue_specific_h2h': self.get_venue_specific_h2h_insights(home_team, away_team),
+            'h2h_momentum': self.get_h2h_momentum_indicators(home_team, away_team),
             'home_team_form': self.streaks_and_patterns(home_team),
             'away_team_form': self.streaks_and_patterns(away_team),
             'home_venue_advantage': self.venue_analysis(home_team),
             'away_venue_record': self.venue_analysis(away_team)
         }
+
+    # ==================== ENHANCED H2H TREND ANALYSIS ====================
+
+    def get_h2h_trend_analysis(self, home_team: str, away_team: str) -> dict:
+        """
+        📈 Get comprehensive H2H trend analysis with rolling windows and momentum.
+
+        Args:
+            home_team: Home team name
+            away_team: Away team name
+
+        Returns:
+            Dictionary with detailed H2H trend analysis
+        """
+        # Get all H2H matches
+        h2h_matches = self.df[
+            ((self.df['HomeTeam'] == home_team) & (self.df['AwayTeam'] == away_team)) |
+            ((self.df['HomeTeam'] == away_team) & (self.df['AwayTeam'] == home_team))
+        ].sort_values('Date')
+
+        if len(h2h_matches) == 0:
+            return {
+                'total_meetings': 0,
+                'insufficient_data': True,
+                'message': 'No historical meetings found'
+            }
+
+        # Basic H2H stats
+        home_wins = len(h2h_matches[
+            ((h2h_matches['HomeTeam'] == home_team) & (h2h_matches['FTR'] == 'H')) |
+            ((h2h_matches['AwayTeam'] == home_team) & (h2h_matches['FTR'] == 'A'))
+        ])
+        draws = len(h2h_matches[h2h_matches['FTR'] == 'D'])
+        away_wins = len(h2h_matches) - home_wins - draws
+
+        # Rolling window analysis
+        rolling_windows = {}
+        for window in [3, 5, 10]:
+            if len(h2h_matches) >= window:
+                recent_matches = h2h_matches.tail(window)
+                recent_home_wins = len(recent_matches[
+                    ((recent_matches['HomeTeam'] == home_team) & (recent_matches['FTR'] == 'H')) |
+                    ((recent_matches['AwayTeam'] == home_team) & (recent_matches['FTR'] == 'A'))
+                ])
+                recent_draws = len(recent_matches[recent_matches['FTR'] == 'D'])
+
+                rolling_windows[f'last_{window}'] = {
+                    'home_wins': recent_home_wins,
+                    'draws': recent_draws,
+                    'away_wins': window - recent_home_wins - recent_draws,
+                    'home_win_rate': round(recent_home_wins / window * 100, 1),
+                    'avg_goals': round(recent_matches['TotalGoals'].mean(), 2),
+                    'btts_rate': round(recent_matches['BTTS'].mean() * 100, 1)
+                }
+
+        # Goal trends over time
+        goal_trend = 'stable'
+        if len(h2h_matches) >= 6:
+            recent_half = h2h_matches.tail(len(h2h_matches) // 2)
+            older_half = h2h_matches.head(len(h2h_matches) // 2)
+
+            recent_avg = recent_half['TotalGoals'].mean()
+            older_avg = older_half['TotalGoals'].mean()
+
+            if recent_avg > older_avg + 0.5:
+                goal_trend = 'increasing'
+            elif recent_avg < older_avg - 0.5:
+                goal_trend = 'decreasing'
+
+        # Recent momentum
+        momentum = 'neutral'
+        if len(h2h_matches) >= 3:
+            last_3 = h2h_matches.tail(3)
+            home_wins_last_3 = len(last_3[
+                ((last_3['HomeTeam'] == home_team) & (last_3['FTR'] == 'H')) |
+                ((last_3['AwayTeam'] == home_team) & (last_3['FTR'] == 'A'))
+            ])
+
+            if home_wins_last_3 >= 2:
+                momentum = f'{home_team} dominant'
+            elif home_wins_last_3 == 0:
+                momentum = f'{away_team} dominant'
+
+        return {
+            'total_meetings': len(h2h_matches),
+            'insufficient_data': False,
+            'overall_record': {
+                'home_wins': home_wins,
+                'draws': draws,
+                'away_wins': away_wins,
+                'home_win_rate': round(home_wins / len(h2h_matches) * 100, 1)
+            },
+            'rolling_windows': rolling_windows,
+            'trends': {
+                'goal_trend': goal_trend,
+                'recent_momentum': momentum,
+                'avg_goals_overall': round(h2h_matches['TotalGoals'].mean(), 2),
+                'btts_rate_overall': round(h2h_matches['BTTS'].mean() * 100, 1)
+            },
+            'latest_meetings': h2h_matches.tail(3)[['Date', 'HomeTeam', 'AwayTeam', 'FTHG', 'FTAG', 'FTR']].to_dict('records')
+        }
+
+    def get_venue_specific_h2h_insights(self, home_team: str, away_team: str) -> dict:
+        """
+        🏟️ Get venue-specific H2H insights and home advantage analysis.
+
+        Args:
+            home_team: Home team name
+            away_team: Away team name
+
+        Returns:
+            Dictionary with venue-specific H2H analysis
+        """
+        # Get H2H matches split by venue
+        home_at_home = self.df[
+            (self.df['HomeTeam'] == home_team) & (self.df['AwayTeam'] == away_team)
+        ]
+        away_at_home = self.df[
+            (self.df['HomeTeam'] == away_team) & (self.df['AwayTeam'] == home_team)
+        ]
+
+        venue_analysis = {
+            'home_team_at_home': {
+                'matches': len(home_at_home),
+                'wins': len(home_at_home[home_at_home['FTR'] == 'H']),
+                'draws': len(home_at_home[home_at_home['FTR'] == 'D']),
+                'losses': len(home_at_home[home_at_home['FTR'] == 'A']),
+                'avg_goals_for': round(home_at_home['FTHG'].mean(), 2) if len(home_at_home) > 0 else 0,
+                'avg_goals_against': round(home_at_home['FTAG'].mean(), 2) if len(home_at_home) > 0 else 0,
+                'win_rate': round(len(home_at_home[home_at_home['FTR'] == 'H']) / len(home_at_home) * 100, 1) if len(home_at_home) > 0 else 0
+            },
+            'away_team_at_home': {
+                'matches': len(away_at_home),
+                'wins': len(away_at_home[away_at_home['FTR'] == 'H']),
+                'draws': len(away_at_home[away_at_home['FTR'] == 'D']),
+                'losses': len(away_at_home[away_at_home['FTR'] == 'A']),
+                'avg_goals_for': round(away_at_home['FTHG'].mean(), 2) if len(away_at_home) > 0 else 0,
+                'avg_goals_against': round(away_at_home['FTAG'].mean(), 2) if len(away_at_home) > 0 else 0,
+                'win_rate': round(len(away_at_home[away_at_home['FTR'] == 'H']) / len(away_at_home) * 100, 1) if len(away_at_home) > 0 else 0
+            }
+        }
+
+        # Calculate venue advantage
+        home_advantage = 0
+        if len(home_at_home) > 0 and len(away_at_home) > 0:
+            home_win_rate_at_home = venue_analysis['home_team_at_home']['win_rate']
+            away_win_rate_at_home = venue_analysis['away_team_at_home']['win_rate']
+            home_advantage = home_win_rate_at_home - away_win_rate_at_home
+
+        venue_analysis['venue_advantage'] = {
+            'home_advantage_percentage': round(home_advantage, 1),
+            'interpretation': (
+                'Strong home advantage' if home_advantage > 30 else
+                'Moderate home advantage' if home_advantage > 10 else
+                'Neutral venue effect' if home_advantage > -10 else
+                'Away team performs better'
+            )
+        }
+
+        return venue_analysis
+
+    def get_h2h_momentum_indicators(self, home_team: str, away_team: str) -> dict:
+        """
+        🔥 Get H2H momentum indicators including streaks and recent form.
+
+        Args:
+            home_team: Home team name
+            away_team: Away team name
+
+        Returns:
+            Dictionary with momentum and streak analysis
+        """
+        h2h_matches = self.df[
+            ((self.df['HomeTeam'] == home_team) & (self.df['AwayTeam'] == away_team)) |
+            ((self.df['HomeTeam'] == away_team) & (self.df['AwayTeam'] == home_team))
+        ].sort_values('Date')
+
+        if len(h2h_matches) == 0:
+            return {'insufficient_data': True}
+
+        # Determine outcomes from home team's perspective
+        outcomes = []
+        for _, match in h2h_matches.iterrows():
+            if match['HomeTeam'] == home_team:
+                if match['FTR'] == 'H':
+                    outcomes.append('W')
+                elif match['FTR'] == 'D':
+                    outcomes.append('D')
+                else:
+                    outcomes.append('L')
+            else:  # home_team was away
+                if match['FTR'] == 'A':
+                    outcomes.append('W')
+                elif match['FTR'] == 'D':
+                    outcomes.append('D')
+                else:
+                    outcomes.append('L')
+
+        # Current streak analysis
+        current_streak = 0
+        streak_type = 'None'
+        if outcomes:
+            last_outcome = outcomes[-1]
+            streak_type = last_outcome
+
+            for outcome in reversed(outcomes):
+                if outcome == last_outcome:
+                    current_streak += 1
+                else:
+                    break
+
+        # Longest streaks
+        longest_win_streak = 0
+        longest_loss_streak = 0
+        current_win_streak = 0
+        current_loss_streak = 0
+
+        for outcome in outcomes:
+            if outcome == 'W':
+                current_win_streak += 1
+                current_loss_streak = 0
+                longest_win_streak = max(longest_win_streak, current_win_streak)
+            elif outcome == 'L':
+                current_loss_streak += 1
+                current_win_streak = 0
+                longest_loss_streak = max(longest_loss_streak, current_loss_streak)
+            else:  # Draw
+                current_win_streak = 0
+                current_loss_streak = 0
+
+        # Recent vs historical performance
+        recent_vs_historical = 'stable'
+        if len(outcomes) >= 6:
+            recent_half = outcomes[len(outcomes)//2:]
+            historical_half = outcomes[:len(outcomes)//2]
+
+            recent_win_rate = recent_half.count('W') / len(recent_half)
+            historical_win_rate = historical_half.count('W') / len(historical_half)
+
+            if recent_win_rate > historical_win_rate + 0.2:
+                recent_vs_historical = 'improving'
+            elif recent_win_rate < historical_win_rate - 0.2:
+                recent_vs_historical = 'declining'
+
+        return {
+            'insufficient_data': False,
+            'current_streak': {
+                'length': current_streak,
+                'type': 'Wins' if streak_type == 'W' else 'Losses' if streak_type == 'L' else 'Draws',
+                'description': f"{current_streak} consecutive {streak_type}{'s' if current_streak != 1 else ''}" if current_streak > 0 else 'No current streak'
+            },
+            'historical_streaks': {
+                'longest_win_streak': longest_win_streak,
+                'longest_loss_streak': longest_loss_streak
+            },
+            'momentum': {
+                'recent_vs_historical': recent_vs_historical,
+                'last_5_outcomes': outcomes[-5:] if len(outcomes) >= 5 else outcomes,
+                'recent_form_description': self._describe_recent_form(outcomes[-5:] if len(outcomes) >= 5 else outcomes)
+            }
+        }
+
+    def _describe_recent_form(self, recent_outcomes: list) -> str:
+        """Helper method to describe recent form in H2H."""
+        if not recent_outcomes:
+            return 'No recent data'
+
+        wins = recent_outcomes.count('W')
+        draws = recent_outcomes.count('D')
+        losses = recent_outcomes.count('L')
+        total = len(recent_outcomes)
+
+        if wins / total >= 0.6:
+            return 'Dominant recent form'
+        elif wins / total >= 0.4:
+            return 'Good recent form'
+        elif losses / total >= 0.6:
+            return 'Poor recent form'
+        elif draws / total >= 0.4:
+            return 'Draw-heavy recent form'
+        else:
+            return 'Mixed recent form'
 
     def get_league_insights(self, league: str = 'E0') -> dict:
         """Get comprehensive league insights."""

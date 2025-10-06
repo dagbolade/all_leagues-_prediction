@@ -18,7 +18,7 @@ import warnings
 warnings.filterwarnings('ignore')
 
 # Suppress specific warnings
-import pandas as pd
+
 
 pd.options.mode.chained_assignment = None
 
@@ -74,28 +74,33 @@ def validate_bayesian_predictions(predictions: dict) -> tuple:
     return is_valid, issues
 
 
-def test_enhanced_bayesian_predictions(match_predictor):
-    """Test the enhanced Bayesian prediction system."""
-    print(f"\n🧠 TESTING ENHANCED BAYESIAN PREDICTION SYSTEM")
-    print("=" * 60)
+import random
 
-    test_matches = [
-        ('Arsenal', 'Chelsea'),
-        ('Man City', 'Liverpool'),
-        ('Tottenham', 'Brighton'),
-        ('Newcastle', 'West Ham'),
-        ('Wolves', 'Fulham')
-    ]
-
+def test_enhanced_bayesian_predictions(model, df, n_matches=5):
+    """
+    Dynamically selects random matches from the dataset for testing.
+    """
+    # Ensure dataset has required columns
     all_predictions_valid = True
+    if 'HomeTeam' not in df.columns or 'AwayTeam' not in df.columns:
+        raise ValueError("Dataset must contain 'HomeTeam' and 'AwayTeam' columns")
 
-    for i, (home, away) in enumerate(test_matches, 1):
-        print(f"\n🧠 BAYESIAN TEST {i}: {home} vs {away}")
-        print("-" * 40)
+    # Drop missing values and get random pairs
+    test_matches_df = df[['HomeTeam', 'AwayTeam']].dropna().sample(
+    n=min(n_matches, len(df)), random_state=42
+    )
+
+    test_matches = list(zip(test_matches_df['HomeTeam'], test_matches_df['AwayTeam']))
+
+    print("\n🔹 Testing model on random matches:")
+    for home_team, away_team in test_matches:
+        prediction = model.predict(home_team, away_team, df)
+        print(f"{home_team} vs {away_team}: {prediction}")
+
 
         try:
             # Test Bayesian predictions with full analysis
-            bayesian_result = match_predictor.predict_with_full_bayesian_analysis(home, away)
+            bayesian_result = model.predict_with_full_bayesian_analysis(home_team, away_team)
 
             predictions = bayesian_result['predictions']
             probabilities = bayesian_result['probabilities']
@@ -260,7 +265,7 @@ def main():
         print("✅ Enhanced Bayesian match predictor initialized")
 
         # Test the enhanced Bayesian prediction system
-        bayesian_predictions_valid = test_enhanced_bayesian_predictions(bayesian_match_predictor)
+        bayesian_predictions_valid = test_enhanced_bayesian_predictions(bayesian_match_predictor, df_bayesian_engineered)
 
         # ============================================================================
         # PHASE 5: ENHANCED EPL ANALYSIS

@@ -49,7 +49,7 @@ def test_poission_predictor_third():
     assert abs(away_exp - 0.432) < 0.01
 
 
-def test_poission_predictor_fourth():
+def test_poisson_predictor_fourth():
     # Testing the case when home_expected becomes lesser than 0.1 and so, the new home_exp value becomes 0.1
 
     predictor = PoissonScorelinePredictor()

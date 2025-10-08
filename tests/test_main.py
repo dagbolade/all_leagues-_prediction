@@ -14,7 +14,7 @@ The first two inputs are checking how does it work in normal scenarios
 The third input checks how does it perform in special scenarios like when there's no dates in the name
 """
 
-@pytest.mark.parametrize("num", "expected", [
+@pytest.mark.parametrize("num, expected", [
     ("All-Euro-Data-2023-2024", "2023-2024"),
     ("All-American-Data-2000-2004", "2000-2004"),
     ("All-Oceanic-Data", "unknown")

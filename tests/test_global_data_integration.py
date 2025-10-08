@@ -45,4 +45,4 @@ def test_standardize_dataframe():
     'B365A': [4.50, 3.60, 6.00]
     })
 
-    assert result == expected_output
+    pd.testing.assert_frame_equal(result, expected_output)

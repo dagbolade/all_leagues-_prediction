@@ -67,11 +67,34 @@ Please note that this project is released with a [Contributor Covenant Code of C
 ## Project Structure
 
 - `data/` — Datasets and data loaders
+  - `raw/` — Original Excel files with multi-sheet league data
+  - `processed/` — Cleaned and engineered datasets
 - `models/` — Prediction models and training scripts
-- `notebooks/` — Jupyter notebooks for exploration and analysis
-- `frontend/` — (Optional) Front-end app for visualization
+- `footy/` — Core football analytics modules
+  - `load_data.py` — Multi-season data loading utilities
+  - `data_cleaning.py` — Data validation and cleaning functions
+  - `feature_engineering.py` — Advanced feature creation
+  - `model_training.py` — Bayesian model training pipeline
+- `app/` — Web application components
+  - `routes.py` — Flask web routes
+  - `templates/` — HTML templates
+  - `static/` — CSS, JavaScript, and assets
 - `main.py` — Main entry point for running the backend service
+- `global_data_integration.py` — Integration tool for additional leagues
 - `requirements.txt` — Python dependencies
+
+## Data Requirements
+
+**Important**: This project requires properly formatted football match data. Before contributing or running the system, please review our comprehensive data format guide:
+
+📋 **[Data Format Guide](DATA_FORMAT_GUIDE.md)** - Complete documentation on expected data structure, file formats, and validation requirements.
+
+### Quick Data Overview
+
+- **File Format**: Excel files with multiple worksheets (one per league)
+- **Naming**: `all-euro-data-{YYYY-YYYY}.xlsx` (e.g., `all-euro-data-2023-2024.xlsx`)
+- **Required Columns**: Date, HomeTeam, AwayTeam, FTHG, FTAG, FTR
+- **Supported Leagues**: EPL, Bundesliga, La Liga, Serie A, Ligue 1, and more
 
 ---
 

@@ -20,7 +20,7 @@ def test_poission_predictor_first():
     assert abs(away_exp - 0.816) < 0.01
 
 
-def test_poission_predictor_second():
+def test_poisson_predictor_second():
     # This test case if for when it's a high scoring match
     predictor = PoissonScorelinePredictor()
     predictor.home_attack_strength = {'Arsenal' : 2.3, 'Chelsea': 1.9}

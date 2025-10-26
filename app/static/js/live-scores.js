@@ -28,16 +28,22 @@ class LiveScoresManager {
             throw new Error("Failed to parse API response");
         }
 
-        if (data.error) {
-            throw new Error(data.message || data.error);
+        // Check for API response status
+        if (!response.ok) {
+            throw new Error(data.message || `HTTP ${response.status}`);
         }
 
-        this.displayScores(data.matches || []);
+        // Check for application-level error
+        if (data.status === 'error') {
+            throw new Error(data.message);
+        }
+
+        this.displayScores(data.data.matches || []);
         this.updateLastUpdated();
 
     } catch (error) {
         console.error("Error fetching scores:", error);
-        this.showError(`Error loading live scores: ${error.message}`);
+        this.showError(error.message);
     }
 }
 

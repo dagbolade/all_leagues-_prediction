@@ -9,6 +9,7 @@ import pandas as pd
 import os
 import numpy as np
 
+
 # Enhanced import for predictor
 from footy.predictor_utils import create_bayesian_predictor
 
@@ -16,6 +17,8 @@ from footy.predictor_utils import create_bayesian_predictor
 from footy.opening_weekend_analyzer import OpeningWeekendAnalyzer
 from footy.weekly_insights_analyzer import WeeklyInsightsAnalyzer
 from footy.insights import FootballInsights  # ADD THIS IMPORT
+
+from app.services.football_service import FootballDataService
 
 # Create blueprint
 routes = Blueprint('routes', __name__)
@@ -647,3 +650,53 @@ def save_prediction():
     except Exception as e:
         print(f"❌ Save error: {e}")
         return jsonify({'status': 'error', 'message': str(e)}), 500
+
+
+@routes.route('/api/live-scores', methods=['GET'])
+def live_scores():
+    """
+    Fetch live scores from football-data.org API via FootballDataService.
+
+    This endpoint retrieves current live matches through the FootballDataService
+    class, which handles API authentication and communication with 
+    https://api.football-data.org/v4/matches.
+
+    The service fetches matches with status: LIVE, IN_PLAY, PAUSED, SCHEDULED.
+
+    """
+    try:
+        # Check if API key is available
+        api_key = os.getenv('API_KEY')
+        if not api_key:
+            print("❌ Live scores error: API key not configured")
+            return jsonify({
+                'status': 'error',
+                'message': 'API key not configured',
+                'timestamp': datetime.utcnow().isoformat()
+            }), 500
+
+        football_service = FootballDataService()
+        data = football_service.get_live_matches()
+
+        if not data['success']:
+            print("❌ Live scores API error")
+            return jsonify({
+                'status': 'error',
+                'message': data.get('details').get('message'),
+                'timestamp': datetime.utcnow().isoformat()
+            }), 502
+
+        # Return consistent JSON response format
+        return jsonify({
+            'status': 'success',
+            'data': data.get('data'),
+            'timestamp': datetime.utcnow().isoformat()
+        })
+
+    except Exception as e:
+        print(f"❌ Live scores processing error: {e}")
+        return jsonify({
+            'status': 'error',
+            'message': 'Internal server error while fetching live scores',
+            'timestamp': datetime.utcnow().isoformat()
+        }), 500

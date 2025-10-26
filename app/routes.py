@@ -18,6 +18,7 @@ from footy.opening_weekend_analyzer import OpeningWeekendAnalyzer
 from footy.weekly_insights_analyzer import WeeklyInsightsAnalyzer
 from footy.insights import FootballInsights  # ADD THIS IMPORT
 
+# Import api service class
 from app.services.football_service import FootballDataService
 
 # Create blueprint

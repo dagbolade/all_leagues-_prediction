@@ -29,15 +29,10 @@ class LiveScoresManager {
         }
 
         // Check for API response status
-        if (!response.ok) {
+        if (!response.ok) {            
             throw new Error(data.message || `HTTP ${response.status}`);
         }
-
-        // Check for application-level error
-        if (data.status === 'error') {
-            throw new Error(data.message);
-        }
-
+        
         this.displayScores(data.data.matches || []);
         this.updateLastUpdated();
 

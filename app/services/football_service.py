@@ -20,6 +20,10 @@ class FootballDataService:
         self.logger = logging.getLogger(__name__)
 
     def get_live_matches(self):
+        """
+        Retrieve live and scheduled matches from football-data.org.
+        Fetches matches with status LIVE, IN_PLAY, PAUSED, SCHEDULED
+        """
         try:
             response = requests.get(
                 f"{self.BASE_URL}/matches",
@@ -33,15 +37,26 @@ class FootballDataService:
             print("API Response Content:", response.text[:500])  # First 500 chars
 
             if response.status_code == 200:
-                return response.json()
+                return {
+                    "success":True,
+                    "data": response.json()
+                }
             else:
                 print(f"Error Status Code: {response.status_code}")
                 print(f"Error Response: {response.text}")
-                return None
+                return {
+                    "success": False,
+                    "error": f"Upstream API returned status {response.status_code}",
+                    "details": response.json()
+                }
 
         except Exception as e:
             print(f"API Request Error: {str(e)}")
-            return None
+            return {
+                    "success": False,
+                    "error": f"Exception while fetching live matches",
+                    "details": str(e)
+                }
 
     def handle_api_response(self, response, error_context="API"):
         """Helper method to handle API responses consistently."""

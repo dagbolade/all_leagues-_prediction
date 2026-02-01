@@ -27,6 +27,8 @@ sys.path.insert(0, str(project_root))
 from core.prediction_engine import UnifiedPredictionEngine
 from sports.basketball.basketball_predictor import BasketballPredictor
 from sports.nfl.nfl_predictor import NFLPredictor
+from sports.football.football_predictor import FootballPredictor
+from sports.tennis.tennis_predictor import TennisPredictor
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -63,9 +65,13 @@ def initialize_predictors():
         nfl_predictor = NFLPredictor()
         engine.register_sport('nfl', nfl_predictor)
 
-        # TODO: Initialize Football when adapter is ready
-        # football_predictor = FootballPredictor()
-        # engine.register_sport('football', football_predictor)
+        # Initialize Football
+        football_predictor = FootballPredictor()
+        engine.register_sport('football', football_predictor)
+
+        # Initialize Tennis
+        tennis_predictor = TennisPredictor()
+        engine.register_sport('tennis', tennis_predictor)
 
         # Try to load saved models
         models_dir = Path("models")
@@ -204,16 +210,26 @@ def predict_match(sport):
         if not data:
             return jsonify({'error': 'No data provided'}), 400
 
-        # Validate required fields
-        if 'home' not in data or 'away' not in data:
-            return jsonify({'error': 'Missing required fields: home, away'}), 400
-
-        match_info = {
-            'home': data['home'],
-            'away': data['away'],
-            'date': data.get('date'),
-            'league': data.get('league')
-        }
+        # Validate required fields (handle tennis which uses player1/player2)
+        if sport == 'tennis':
+            if 'player1' not in data or 'player2' not in data:
+                return jsonify({'error': 'Missing required fields: player1, player2'}), 400
+            match_info = {
+                'player1': data['player1'],
+                'player2': data['player2'],
+                'surface': data.get('surface'),
+                'tournament': data.get('tournament'),
+                'round': data.get('round')
+            }
+        else:
+            if 'home' not in data or 'away' not in data:
+                return jsonify({'error': 'Missing required fields: home, away'}), 400
+            match_info = {
+                'home': data['home'],
+                'away': data['away'],
+                'date': data.get('date'),
+                'league': data.get('league')
+            }
 
         # Get prediction
         prediction = engine.predict(sport, match_info)
@@ -323,7 +339,8 @@ if __name__ == '__main__':
     print("\nSupported Sports:")
     print("  - basketball (NBA)")
     print("  - nfl (NFL)")
-    print("  - football (coming soon)")
+    print("  - football (22 leagues)")
+    print("  - tennis (ATP/WTA)")
     print("\n" + "="*80)
 
     # Initialize predictors
@@ -338,8 +355,12 @@ if __name__ == '__main__':
     print("Access at: http://localhost:5000")
     print("="*80 + "\n")
 
+    # Get port from environment variable (required for deployment)
+    import os
+    port = int(os.environ.get('PORT', 5000))
+
     app.run(
         host='0.0.0.0',
-        port=5000,
+        port=port,
         debug=True
     )

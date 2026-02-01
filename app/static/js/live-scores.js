@@ -13,34 +13,34 @@ class LiveScoresManager {
     }
 
     async updateScores() {
-    try {
-        this.showLoading();
-        console.log("Fetching live scores...");
-
-        const response = await fetch('/api/live-scores');
-        const text = await response.text(); // Get raw response text first
-        console.log("Raw response:", text);
-
-        let data;
         try {
-            data = JSON.parse(text);
-        } catch (e) {
-            throw new Error("Failed to parse API response");
-        }
+            this.showLoading();
+            console.log("Fetching live scores...");
 
-        // Check for API response status
-        if (!response.ok) {            
-            throw new Error(data.message || `HTTP ${response.status}`);
-        }
-        
-        this.displayScores(data.data.matches || []);
-        this.updateLastUpdated();
+            const response = await fetch('/api/live-scores');
+            const text = await response.text(); // Get raw response text first
+            console.log("Raw response:", text);
 
-    } catch (error) {
-        console.error("Error fetching scores:", error);
-        this.showError(error.message);
+            let data;
+            try {
+                data = JSON.parse(text);
+            } catch (e) {
+                throw new Error("Failed to parse API response");
+            }
+
+            // Check for API response status
+            if (!response.ok) {
+                throw new Error(data.message || `HTTP ${response.status}`);
+            }
+
+            this.displayScores(data.matches || []);
+            this.updateLastUpdated();
+
+        } catch (error) {
+            console.error("Error fetching scores:", error);
+            this.showError(error.message);
+        }
     }
-}
 
     showLoading() {
         if (!this.container) return;
@@ -63,37 +63,37 @@ class LiveScoresManager {
         `;
     }
 
-   displayScores(matches) {
-    if (!this.container) return;
+    displayScores(matches) {
+        if (!this.container) return;
 
-    if (!matches.length) {
-        this.container.innerHTML = `
+        if (!matches.length) {
+            this.container.innerHTML = `
             <div class="text-center p-4">
                 <i class="fas fa-calendar-times"></i>
                 <p class="mb-0">No live matches currently</p>
             </div>
         `;
-        return;
-    }
+            return;
+        }
 
-    this.container.innerHTML = matches.map(match => {
-        const homeScore = match.score?.fullTime?.home ?? '-';
-        const awayScore = match.score?.fullTime?.away ?? '-';
+        this.container.innerHTML = matches.map(match => {
+            const homeScore = match.score?.fullTime?.home ?? '-';
+            const awayScore = match.score?.fullTime?.away ?? '-';
 
-        return `
+            return `
             <div class="live-match-card">
                 <div class="match-header">
-                    <span class="competition-name">${match.competition?.name || ''}</span>
+                    <span class="competition-name">${match.competition || ''}</span>
                     <span class="match-minute">${this.getMatchMinute(match)}</span>
                 </div>
                 <div class="match-teams">
                     <div class="team home">
-                        <span class="team-name">${match.homeTeam.name}</span>
+                        <span class="team-name">${match.home_team}</span>
                         <span class="score">${homeScore}</span>
                     </div>
                     <div class="score-divider">-</div>
                     <div class="team away">
-                        <span class="team-name">${match.awayTeam.name}</span>
+                        <span class="team-name">${match.away_team}</span>
                         <span class="score">${awayScore}</span>
                     </div>
                 </div>
@@ -102,8 +102,8 @@ class LiveScoresManager {
                 </div>
             </div>
         `;
-    }).join('');
-}
+        }).join('');
+    }
 
 
     updateLastUpdated() {

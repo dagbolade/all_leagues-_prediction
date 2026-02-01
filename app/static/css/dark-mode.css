@@ -1,0 +1,262 @@
+/* Dark Mode Styles for Football Predictor Pro */
+
+:root {
+    /* Light mode colors */
+    --bg-primary: #ffffff;
+    --bg-secondary: #f8f9fa;
+    --bg-card: rgba(255, 255, 255, 0.9);
+    --text-primary: #212529;
+    --text-secondary: #6c757d;
+    --border-color: rgba(0, 0, 0, 0.1);
+    --shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    
+    /* Accent colors */
+    --accent-primary: #2E8B57;
+    --accent-secondary: #32CD32;
+    --accent-danger: #dc3545;
+    --accent-warning: #ffc107;
+    --accent-info: #17a2b8;
+    
+    /* Gradient */
+    --gradient-bg: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+}
+
+[data-theme="dark"] {
+    /* Dark mode colors */
+    --bg-primary: #1a1a1a;
+    --bg-secondary: #2d2d2d;
+    --bg-card: rgba(45, 45, 45, 0.95);
+    --text-primary: #e0e0e0;
+    --text-secondary: #a0a0a0;
+    --border-color: rgba(255, 255, 255, 0.1);
+    --shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+    
+    /* Darker gradient for dark mode */
+    --gradient-bg: linear-gradient(135deg, #0a1a3c, #5a0f0f, #7d5d1d);
+}
+
+/* Apply theme colors */
+body {
+    background: var(--gradient-bg) !important;
+    color: var(--text-primary);
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+.card {
+    background: var(--bg-card) !important;
+    color: var(--text-primary);
+    border-color: var(--border-color);
+    box-shadow: var(--shadow);
+}
+
+.content-wrapper {
+    background: var(--bg-card) !important;
+    color: var(--text-primary);
+}
+
+.navbar {
+    background: rgba(0, 0, 0, 0.8) !important;
+}
+
+[data-theme="dark"] .navbar {
+    background: rgba(0, 0, 0, 0.95) !important;
+}
+
+/* Form controls */
+.form-control, .form-select {
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+    border-color: var(--border-color);
+}
+
+[data-theme="dark"] .form-control,
+[data-theme="dark"] .form-select {
+    background-color: #2d2d2d;
+    color: #e0e0e0;
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.form-control:focus, .form-select:focus {
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+    border-color: var(--accent-primary);
+}
+
+/* Buttons */
+.btn-primary {
+    background: linear-gradient(45deg, var(--accent-primary), var(--accent-secondary));
+}
+
+.btn-outline-primary {
+    color: var(--accent-primary);
+    border-color: var(--accent-primary);
+}
+
+[data-theme="dark"] .btn-outline-primary {
+    color: var(--accent-secondary);
+    border-color: var(--accent-secondary);
+}
+
+/* Tables */
+.table {
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .table {
+    --bs-table-bg: transparent;
+    --bs-table-striped-bg: rgba(255, 255, 255, 0.05);
+    --bs-table-hover-bg: rgba(255, 255, 255, 0.075);
+}
+
+/* Badges */
+.badge {
+    background-color: var(--accent-primary);
+}
+
+/* Text colors */
+.text-muted {
+    color: var(--text-secondary) !important;
+}
+
+/* Statistics Dashboard Dark Mode */
+[data-theme="dark"] .form-display {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+[data-theme="dark"] .stat-item {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+[data-theme="dark"] .stat-box {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+[data-theme="dark"] .result-item {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+[data-theme="dark"] .goal-stats,
+[data-theme="dark"] .venue-stats {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+/* Theme Toggle Button */
+.theme-toggle {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: linear-gradient(45deg, var(--accent-primary), var(--accent-secondary));
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.theme-toggle:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+}
+
+.theme-toggle:active {
+    transform: translateY(-1px);
+}
+
+/* Smooth transitions for theme changes */
+* {
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Prediction cards in dark mode */
+[data-theme="dark"] .prediction-result-card {
+    background: rgba(45, 45, 45, 0.95);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Live scores in dark mode */
+[data-theme="dark"] .live-scores-card {
+    background: rgba(45, 45, 45, 0.95);
+}
+
+/* Modal dark mode */
+[data-theme="dark"] .modal-content {
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .modal-header {
+    border-bottom-color: var(--border-color);
+}
+
+[data-theme="dark"] .modal-footer {
+    border-top-color: var(--border-color);
+}
+
+/* Dropdown dark mode */
+[data-theme="dark"] .dropdown-menu {
+    background-color: var(--bg-secondary);
+    border-color: var(--border-color);
+}
+
+[data-theme="dark"] .dropdown-item {
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .dropdown-item:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Alert dark mode */
+[data-theme="dark"] .alert {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-color: var(--border-color);
+    color: var(--text-primary);
+}
+
+/* Betting tips dark mode */
+[data-theme="dark"] .betting-tip-card {
+    background: rgba(45, 45, 45, 0.95);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Form badges (W/D/L) maintain their colors in dark mode */
+.form-badge.win {
+    background: #28a745;
+    color: white;
+}
+
+.form-badge.draw {
+    background: #ffc107;
+    color: #333;
+}
+
+.form-badge.loss {
+    background: #dc3545;
+    color: white;
+}
+
+/* Scrollbar dark mode */
+[data-theme="dark"]::-webkit-scrollbar {
+    width: 12px;
+}
+
+[data-theme="dark"]::-webkit-scrollbar-track {
+    background: var(--bg-secondary);
+}
+
+[data-theme="dark"]::-webkit-scrollbar-thumb {
+    background: var(--accent-primary);
+    border-radius: 6px;
+}
+
+[data-theme="dark"]::-webkit-scrollbar-thumb:hover {
+    background: var(--accent-secondary);
+}

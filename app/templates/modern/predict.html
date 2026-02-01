@@ -1,0 +1,363 @@
+{% extends "modern/base.html" %}
+
+{% block title %}Match Prediction - Football AI{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <!-- Header -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="text-center">
+                <h1 class="display-5 fw-bold mb-3">
+                    <i class="fas fa-brain text-primary me-3"></i>
+                    AI Match Predictor
+                </h1>
+                <p class="lead text-muted">
+                    Select two teams to get advanced AI predictions with confidence intervals
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Prediction Form -->
+    <div class="row justify-content-center mb-5">
+        <div class="col-lg-8">
+            <div class="card shadow-lg border-0">
+                <div class="card-header bg-primary text-white text-center py-3">
+                    <h5 class="mb-0">
+                        <i class="fas fa-futbol me-2"></i>
+                        Match Setup
+                    </h5>
+                </div>
+                <div class="card-body p-4">
+                    <form id="predictionForm">
+                        <div class="row g-3">
+                            <div class="col-md-5">
+                                <label for="homeTeam" class="form-label fw-semibold">
+                                    <i class="fas fa-home me-1 text-primary"></i>
+                                    Home Team
+                                </label>
+                                <select class="form-select" id="homeTeam" required>
+                                    <option value="">Select Home Team</option>
+                                    {% for team in teams %}
+                                    <option value="{{ team }}">{{ team }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+
+                            <div class="col-md-2 d-flex align-items-end justify-content-center">
+                                <div class="text-center">
+                                    <strong class="text-primary fs-3">VS</strong>
+                                </div>
+                            </div>
+
+                            <div class="col-md-5">
+                                <label for="awayTeam" class="form-label fw-semibold">
+                                    <i class="fas fa-plane me-1 text-warning"></i>
+                                    Away Team
+                                </label>
+                                <select class="form-select" id="awayTeam" required>
+                                    <option value="">Select Away Team</option>
+                                    {% for team in teams %}
+                                    <option value="{{ team }}">{{ team }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="text-center mt-4">
+                            <button type="submit" class="btn btn-primary btn-lg px-5" id="predictBtn">
+                                <i class="fas fa-magic me-2"></i>
+                                Generate AI Prediction
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Results Section -->
+    <div id="resultsSection" style="display: none;">
+        <!-- Match Header -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card prediction-card border-0">
+                    <div class="card-body text-center py-4">
+                        <h2 id="matchTitle" class="mb-3 fw-bold"></h2>
+                        <div id="predictionTime" class="text-muted small"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Predictions -->
+        <div class="row g-4 mb-4">
+            <!-- Match Outcome -->
+            <div class="col-lg-4">
+                <div class="card h-100 border-0 shadow">
+                    <div class="card-header bg-primary text-white text-center">
+                        <h6 class="mb-0">
+                            <i class="fas fa-trophy me-2"></i>
+                            Match Outcome
+                        </h6>
+                    </div>
+                    <div class="card-body text-center">
+                        <div id="matchOutcome" class="display-6 fw-bold mb-2"></div>
+                        <div id="matchOutcomeProb" class="text-muted"></div>
+                        <div id="matchConfidence" class="mt-2"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Goals Markets -->
+            <div class="col-lg-4">
+                <div class="card h-100 border-0 shadow">
+                    <div class="card-header bg-success text-white text-center">
+                        <h6 class="mb-0">
+                            <i class="fas fa-futbol me-2"></i>
+                            Goals Markets
+                        </h6>
+                    </div>
+                    <div class="card-body">
+                        <div id="goalsMarkets"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- BTTS & Total -->
+            <div class="col-lg-4">
+                <div class="card h-100 border-0 shadow">
+                    <div class="card-header bg-warning text-white text-center">
+                        <h6 class="mb-0">
+                            <i class="fas fa-chart-bar me-2"></i>
+                            Other Markets
+                        </h6>
+                    </div>
+                    <div class="card-body">
+                        <div id="otherMarkets"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Poisson Scorelines -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card border-0 shadow">
+                    <div class="card-header bg-info text-white">
+                        <h6 class="mb-0">
+                            <i class="fas fa-calculator me-2"></i>
+                            Most Likely Scorelines (Poisson Analysis)
+                        </h6>
+                    </div>
+                    <div class="card-body">
+                        <div id="poissonScorelines" class="row g-3"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Model Information -->
+        <div class="row">
+            <div class="col-12">
+                <div class="card border-0 bg-light">
+                    <div class="card-body">
+                        <div class="row text-center">
+                            <div class="col-md-3">
+                                <div class="text-primary fw-bold" id="modelsUsed">-</div>
+                                <small class="text-muted">Models Used</small>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="text-success fw-bold" id="responseTime">-</div>
+                                <small class="text-muted">Response Time</small>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="text-warning fw-bold" id="cacheStatus">-</div>
+                                <small class="text-muted">Cache Status</small>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="text-info fw-bold">{{ model_info.feature_count if model_info else 0 }}</div>
+                                <small class="text-muted">Features</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.getElementById('predictionForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+
+    const homeTeam = document.getElementById('homeTeam').value;
+    const awayTeam = document.getElementById('awayTeam').value;
+
+    if (!homeTeam || !awayTeam) {
+        showAlert('Please select both teams', 'warning');
+        return;
+    }
+
+    if (homeTeam === awayTeam) {
+        showAlert('Please select different teams', 'warning');
+        return;
+    }
+
+    const predictBtn = document.getElementById('predictBtn');
+    const stopLoading = showLoading(predictBtn);
+
+    try {
+        const response = await fetch('/api/predict', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                home_team: homeTeam,
+                away_team: awayTeam
+            })
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+            displayPredictions(data);
+            document.getElementById('resultsSection').style.display = 'block';
+            document.getElementById('resultsSection').scrollIntoView({ behavior: 'smooth' });
+        } else {
+            showAlert(data.error || 'Prediction failed', 'danger');
+        }
+
+    } catch (error) {
+        showAlert('Network error: ' + error.message, 'danger');
+    } finally {
+        stopLoading();
+    }
+});
+
+function displayPredictions(data) {
+    // Match title
+    document.getElementById('matchTitle').textContent = data.match;
+    document.getElementById('predictionTime').textContent =
+        `Generated at ${new Date(data.timestamp).toLocaleString()}`;
+
+    // Match outcome
+    const outcome = data.predictions['Match Outcome'] || 'Unknown';
+    const outcomeProbs = data.probabilities['Match Outcome'] || {};
+
+    document.getElementById('matchOutcome').textContent =
+        outcome === 'Home' ? data.match.split(' vs ')[0] + ' Win' :
+        outcome === 'Away' ? data.match.split(' vs ')[1] + ' Win' :
+        outcome === 'Draw' ? 'Draw' : outcome;
+
+    if (Object.keys(outcomeProbs).length > 0) {
+        const probText = Object.entries(outcomeProbs)
+            .map(([key, value]) => `${key}: ${value}`)
+            .join(' | ');
+        document.getElementById('matchOutcomeProb').textContent = probText;
+    }
+
+    // Confidence
+    const confidence = data.confidence_intervals['Match Outcome'] || 'Medium';
+    const confidenceEl = document.getElementById('matchConfidence');
+    confidenceEl.innerHTML = `<span class="badge bg-${getConfidenceColor(confidence)}">${confidence} Confidence</span>`;
+
+    // Goals markets
+    const goalsMarketsEl = document.getElementById('goalsMarkets');
+    goalsMarketsEl.innerHTML = '';
+
+    ['Over 1.5 Goals', 'Over 2.5 Goals', 'Over 3.5 Goals'].forEach(market => {
+        if (data.predictions[market]) {
+            const prediction = data.predictions[market];
+            const confidence = data.confidence_intervals[market] || 'Medium';
+
+            goalsMarketsEl.innerHTML += `
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <span>${market}:</span>
+                    <div>
+                        <span class="fw-bold me-2">${prediction}</span>
+                        <span class="badge bg-${getConfidenceColor(confidence)} small">${confidence}</span>
+                    </div>
+                </div>
+            `;
+        }
+    });
+
+    // Other markets
+    const otherMarketsEl = document.getElementById('otherMarkets');
+    otherMarketsEl.innerHTML = '';
+
+    if (data.predictions['Both Teams to Score']) {
+        const btts = data.predictions['Both Teams to Score'];
+        const bttsConf = data.confidence_intervals['Both Teams to Score'] || 'Medium';
+
+        otherMarketsEl.innerHTML += `
+            <div class="d-flex justify-content-between align-items-center mb-2">
+                <span>Both Teams to Score:</span>
+                <div>
+                    <span class="fw-bold me-2">${btts}</span>
+                    <span class="badge bg-${getConfidenceColor(bttsConf)} small">${bttsConf}</span>
+                </div>
+            </div>
+        `;
+    }
+
+    if (data.predictions['Total Goals']) {
+        otherMarketsEl.innerHTML += `
+            <div class="d-flex justify-content-between align-items-center mb-2">
+                <span>Expected Total Goals:</span>
+                <span class="fw-bold">${data.predictions['Total Goals']}</span>
+            </div>
+        `;
+    }
+
+    // Poisson scorelines
+    const poissonEl = document.getElementById('poissonScorelines');
+    poissonEl.innerHTML = '';
+
+    if (data.poisson_analysis && data.poisson_analysis.most_likely_scorelines) {
+        data.poisson_analysis.most_likely_scorelines.slice(0, 6).forEach((scoreline, index) => {
+            poissonEl.innerHTML += `
+                <div class="col-md-2 col-sm-4">
+                    <div class="text-center p-3 bg-white rounded border">
+                        <div class="fw-bold text-primary">${scoreline.score}</div>
+                        <small class="text-muted">${scoreline.probability}</small>
+                    </div>
+                </div>
+            `;
+        });
+    }
+
+    // Model info
+    if (data.model_info && data.model_info.models_used) {
+        document.getElementById('modelsUsed').textContent = data.model_info.models_used.length;
+    }
+
+    if (data.performance) {
+        document.getElementById('responseTime').textContent = data.performance.prediction_time + 's';
+        document.getElementById('cacheStatus').textContent = data.performance.cached ? 'Cached' : 'Fresh';
+    }
+}
+
+function getConfidenceColor(confidence) {
+    const conf = confidence.toLowerCase();
+    if (conf.includes('high')) return 'success';
+    if (conf.includes('medium')) return 'warning';
+    if (conf.includes('low')) return 'danger';
+    return 'secondary';
+}
+
+// Auto-complete for team selection
+document.getElementById('homeTeam').addEventListener('input', function(e) {
+    // Could implement autocomplete here
+});
+
+document.getElementById('awayTeam').addEventListener('input', function(e) {
+    // Could implement autocomplete here
+});
+</script>
+{% endblock %}

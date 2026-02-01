@@ -1,0 +1,388 @@
+<!-- Statistics Dashboard Template -->
+{% extends "base.html" %}
+
+{% block title %}Match Statistics{% endblock %}
+
+{% block content %}
+<div class="dashboard-container">
+    <div class="welcome-section mb-4 text-center">
+        <h1><i class="bi bi-bar-chart-line"></i> Match Statistics</h1>
+        {% if stats %}
+        <p class="lead">{{ home_team }} <span class="text-muted">vs</span> {{ away_team }}</p>
+        {% else %}
+        <p class="lead">Compare teams and analyze historical performance</p>
+        {% endif %}
+    </div>
+
+    {% if not stats %}
+    <!-- Team Selection Form -->
+    <div class="card mb-4" style="max-width: 800px; margin: 0 auto;">
+        <div class="card-header">
+            <h4><i class="bi bi-controller"></i> Select Teams</h4>
+        </div>
+        <div class="card-body">
+            <form method="POST">
+                <div class="row align-items-end">
+                    <div class="col-md-5 mb-3">
+                        <label class="form-label">Home Team</label>
+                        <select name="homeTeam" class="form-select" required>
+                            <option value="">Select Home Team</option>
+                            {% for team in teams %}
+                            <option value="{{ team }}">{{ team }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-md-2 mb-3 text-center">
+                        <div class="vs-badge">VS</div>
+                    </div>
+                    <div class="col-md-5 mb-3">
+                        <label class="form-label">Away Team</label>
+                        <select name="awayTeam" class="form-select" required>
+                            <option value="">Select Away Team</option>
+                            {% for team in teams %}
+                            <option value="{{ team }}">{{ team }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="mt-3 text-center">
+                    <button type="submit" class="btn-predict"><i class="bi bi-lightning-charge"></i> Generate
+                        Statistics</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    {% else %}
+
+    <!-- Team Form Comparison -->
+    <div class="card mb-4">
+        <div class="card-header">
+            <h4><i class="bi bi-activity"></i> Recent Form (Last 10 Matches)</h4>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-5">
+                    <h5 class="text-primary mb-3">{{ home_team }} <small class="text-muted">(Home)</small></h5>
+                    <div class="p-3 rounded mb-3" style="background: var(--bg-body);">
+                        <div class="d-flex justify-content-center gap-1 mb-3">
+                            {% for letter in stats.team_form.home.form_string %}
+                            <span
+                                class="d-flex align-items-center justify-content-center rounded-circle fw-bold text-white"
+                                style="width: 32px; height: 32px; font-size: 0.8rem; background-color: {{ '#10B981' if letter == 'W' else '#F59E0B' if letter == 'D' else '#EF4444' }};">
+                                {{ letter }}
+                            </span>
+                            {% endfor %}
+                        </div>
+                        <div class="row g-2 text-center text-muted small">
+                            <div class="col-6">
+                                <div class="p-2 border border-secondary rounded">
+                                    <div class="d-block text-white fw-bold">{{ stats.team_form.home.wins }}W-{{
+                                        stats.team_form.home.draws }}D-{{ stats.team_form.home.losses }}L</div>
+                                    <span>Record</span>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="p-2 border border-secondary rounded">
+                                    <div class="d-block text-white fw-bold">{{ stats.team_form.home.ppg }}</div>
+                                    <span>PPG</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-2 text-center d-flex align-items-center justify-content-center">
+                    <div class="badge bg-secondary p-2 fs-6">
+                        {{ stats.team_form.comparison.advantage }}
+                    </div>
+                </div>
+
+                <div class="col-md-5">
+                    <h5 class="text-primary mb-3">{{ away_team }} <small class="text-muted">(Away)</small></h5>
+                    <div class="p-3 rounded mb-3" style="background: var(--bg-body);">
+                        <div class="d-flex justify-content-center gap-1 mb-3">
+                            {% for letter in stats.team_form.away.form_string %}
+                            <span
+                                class="d-flex align-items-center justify-content-center rounded-circle fw-bold text-white"
+                                style="width: 32px; height: 32px; font-size: 0.8rem; background-color: {{ '#10B981' if letter == 'W' else '#F59E0B' if letter == 'D' else '#EF4444' }};">
+                                {{ letter }}
+                            </span>
+                            {% endfor %}
+                        </div>
+                        <div class="row g-2 text-center text-muted small">
+                            <div class="col-6">
+                                <div class="p-2 border border-secondary rounded">
+                                    <div class="d-block text-white fw-bold">{{ stats.team_form.away.wins }}W-{{
+                                        stats.team_form.away.draws }}D-{{ stats.team_form.away.losses }}L</div>
+                                    <span>Record</span>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="p-2 border border-secondary rounded">
+                                    <div class="d-block text-white fw-bold">{{ stats.team_form.away.ppg }}</div>
+                                    <span>PPG</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Head-to-Head -->
+    {% if stats.head_to_head.total_matches > 0 %}
+    <div class="card mb-4">
+        <div class="card-header">
+            <h4><i class="bi bi-people"></i> Head-to-Head <small class="text-muted">(Last {{
+                    stats.head_to_head.total_matches }} Meetings)</small></h4>
+        </div>
+        <div class="card-body">
+            <div class="row text-center mb-4">
+                <div class="col-4">
+                    <div class="display-4 fw-bold text-success">{{ stats.head_to_head.home_wins }}</div>
+                    <small class="text-muted">{{ home_team }} Wins</small>
+                </div>
+                <div class="col-4">
+                    <div class="display-4 fw-bold text-warning">{{ stats.head_to_head.draws }}</div>
+                    <small class="text-muted">Draws</small>
+                </div>
+                <div class="col-4">
+                    <div class="display-4 fw-bold text-danger">{{ stats.head_to_head.away_wins }}</div>
+                    <small class="text-muted">{{ away_team }} Wins</small>
+                </div>
+            </div>
+
+            <div class="h2h-stats mb-4">
+                <h5 class="mb-3">Goal Stats</h5>
+                <div class="row g-3">
+                    <div class="col-md-4">
+                        <div class="p-3 rounded border border-secondary text-center"
+                            style="background: var(--bg-body);">
+                            <div class="h3 mb-0 text-white">{{ stats.head_to_head.goal_stats.avg_goals }}</div>
+                            <small class="text-muted">Avg Goals/Match</small>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="p-3 rounded border border-secondary text-center"
+                            style="background: var(--bg-body);">
+                            <div class="h3 mb-0 text-white">{{ stats.head_to_head.goal_stats.over_25_percentage }}%
+                            </div>
+                            <small class="text-muted">Over 2.5 Goals</small>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="p-3 rounded border border-secondary text-center"
+                            style="background: var(--bg-body);">
+                            <div class="h3 mb-0 text-white">{{ stats.head_to_head.goal_stats.btts_percentage }}%</div>
+                            <small class="text-muted">Both Teams Score</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="recent-h2h">
+                <h5 class="mb-3">Recent Meetings</h5>
+                <div class="list-group">
+                    {% for result in stats.head_to_head.recent_results %}
+                    <div class="list-group-item d-flex justify-content-between align-items-center"
+                        style="background: var(--bg-body); border-color: var(--border-color);">
+                        <div>
+                            <span class="text-muted me-3">{{ result.date }}</span>
+                            <span class="text-white fw-bold">{{ result.home }} vs {{ result.away }}</span>
+                        </div>
+                        <div class="d-flex align-items-center gap-3">
+                            <span class="fw-bold text-white">{{ result.score }}</span>
+                            <span
+                                class="badge {{ 'bg-success' if result.result == 'H' else 'bg-warning' if result.result == 'D' else 'bg-danger' }}">
+                                {{ result.result }}
+                            </span>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Discipline & Intensity -->
+    {% if advanced_stats %}
+    <div class="card mb-4">
+        <div class="card-header">
+            <h4><i class="bi bi-exclamation-octagon"></i> Discipline & Corners <small class="text-muted">(Season Avg per
+                    Match)</small></h4>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <!-- Cards -->
+                <div class="col-md-6 mb-4 mb-md-0">
+                    <h5 class="text-warning mb-3"><i class="bi bi-file-earmark-fill"></i> Card Stats</h5>
+                    <div class="p-3 rounded border border-secondary" style="background: var(--bg-body);">
+                        <!-- Recent Matches Analyzed -->
+                        <div class="d-flex justify-content-between mb-3 border-bottom border-secondary pb-2">
+                            <span class="text-muted">Matches Analyzed</span>
+                            <span class="text-white">{{ advanced_stats.home_stats.matches }}</span>
+                        </div>
+
+                        <!-- Yellow Cards -->
+                        <div class="mb-4">
+                            <div class="d-flex justify-content-between mb-1">
+                                <span class="text-muted">Avg Yellow Cards</span>
+                            </div>
+                            <div class="progress mb-1" style="height: 24px; background: rgba(255,255,255,0.05);">
+                                {% set max_cards = ((advanced_stats.home_stats.avg_yellow_cards +
+                                advanced_stats.away_stats.avg_yellow_cards) * 1.2) or 5 %}
+                                {% set home_pct = (advanced_stats.home_stats.avg_yellow_cards / max_cards * 100) %}
+                                {% set away_pct = (advanced_stats.away_stats.avg_yellow_cards / max_cards * 100) %}
+
+                                <div class="progress-bar bg-warning overflow-visible text-dark fw-bold px-2"
+                                    role="progressbar" style="width: {{ home_pct }}%">
+                                    {{ advanced_stats.home_stats.avg_yellow_cards }} ({{ home_team }})
+                                </div>
+                            </div>
+                            <div class="progress" style="height: 24px; background: rgba(255,255,255,0.05);">
+                                <div class="progress-bar bg-warning overflow-visible text-dark fw-bold px-2 stats-bar-striped"
+                                    role="progressbar" style="width: {{ away_pct }}%; opacity: 0.7;">
+                                    {{ advanced_stats.away_stats.avg_yellow_cards }} ({{ away_team }})
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Red Cards -->
+                        <div class="d-flex justify-content-between">
+                            <span class="text-muted">Avg Red Cards</span>
+                            <div>
+                                <span class="text-danger fw-bold me-2">{{ advanced_stats.home_stats.avg_red_cards
+                                    }}</span>
+                                <span class="text-muted">vs</span>
+                                <span class="text-danger fw-bold ms-2">{{ advanced_stats.away_stats.avg_red_cards
+                                    }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Corners & Fouls -->
+                <div class="col-md-6">
+                    <h5 class="text-info mb-3"><i class="bi bi-flag-fill"></i> Intensity Metrics</h5>
+                    <div class="p-3 rounded border border-secondary" style="background: var(--bg-body);">
+                        <!-- Corners -->
+                        <div class="mb-4">
+                            <div class="d-flex justify-content-between mb-1">
+                                <span class="text-muted">Avg Corners</span>
+                            </div>
+                            <div class="d-flex align-items-center mb-2">
+                                <div style="width: 45%; text-align: right;" class="small text-muted">{{ home_team }}
+                                </div>
+                                <div style="width: 10%; text-align: center;" class="fw-bold text-info">{{
+                                    advanced_stats.home_stats.avg_corners }}</div>
+                                <div style="width: 45%; text-align: left;" class="small text-muted">{{ away_team }}
+                                </div>
+                            </div>
+                            <div class="progress" style="height: 8px; background: rgba(255,255,255,0.1);">
+                                {% set total_corners = advanced_stats.home_stats.avg_corners +
+                                advanced_stats.away_stats.avg_corners %}
+                                {% set home_corner_pct = (advanced_stats.home_stats.avg_corners / total_corners * 100)
+                                if total_corners > 0 else 50 %}
+                                <div class="progress-bar bg-info" role="progressbar"
+                                    style="width: {{ home_corner_pct }}%"></div>
+                            </div>
+                            <div class="d-flex justify-content-between mt-1">
+                                <small class="text-info">{{ advanced_stats.away_stats.avg_corners }}</small>
+                            </div>
+                        </div>
+
+                        <!-- Fouls (if available) -->
+                        <div class="mb-2">
+                            <div class="d-flex justify-content-between mb-1">
+                                <span class="text-muted">Avg Fouls</span>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="badge bg-secondary">{{ advanced_stats.home_stats.avg_fouls }}</span>
+                                <small class="text-muted">per match</small>
+                                <span class="badge bg-secondary">{{ advanced_stats.away_stats.avg_fouls }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {% if advanced_stats.h2h_stats.matches > 0 %}
+            <div class="alert alert-secondary mt-3 mb-0 d-flex align-items-center">
+                <i class="bi bi-info-circle fs-4 me-3 text-info"></i>
+                <div>
+                    <h6 class="mb-1 text-white">H2H Intensity</h6>
+                    <p class="mb-0 small text-muted">In their last {{ advanced_stats.h2h_stats.matches }} meetings,
+                        matches have averaged
+                        <strong class="text-white">{{ advanced_stats.h2h_stats.avg_total_yellow }}</strong> yellow cards
+                        and
+                        <strong class="text-white">{{ advanced_stats.h2h_stats.avg_total_corners }}</strong> corners.
+                    </p>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    {% endif %}
+    <div class="card mb-4">
+        <div class="card-header">
+            <h4><i class="bi bi-graph-up"></i> Goal Statistics <small class="text-muted">(Last 10 Matches)</small></h4>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5 class="text-primary">{{ home_team }}</h5>
+                    <div class="p-3 rounded" style="background: var(--bg-body); border: 1px solid var(--border-color);">
+                        <div class="d-flex justify-content-between mb-2 pb-2 border-bottom border-secondary">
+                            <span class="text-muted">Avg Goals Scored:</span>
+                            <strong class="text-white">{{ stats.goal_statistics.home.avg_goals_scored }}</strong>
+                        </div>
+                        <div class="d-flex justify-content-between mb-2 pb-2 border-bottom border-secondary">
+                            <span class="text-muted">Avg Goals Conceded:</span>
+                            <strong class="text-white">{{ stats.goal_statistics.home.avg_goals_conceded }}</strong>
+                        </div>
+                        <div class="d-flex justify-content-between mb-2 pb-2 border-bottom border-secondary">
+                            <span class="text-muted">Clean Sheets:</span>
+                            <strong class="text-white">{{ stats.goal_statistics.home.clean_sheets }} ({{
+                                stats.goal_statistics.home.clean_sheet_percentage }}%)</strong>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <span class="text-muted">Scoring Rate:</span>
+                            <strong class="text-white">{{ stats.goal_statistics.home.scoring_percentage }}%</strong>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <h5 class="text-primary">{{ away_team }}</h5>
+                    <div class="p-3 rounded" style="background: var(--bg-body); border: 1px solid var(--border-color);">
+                        <div class="d-flex justify-content-between mb-2 pb-2 border-bottom border-secondary">
+                            <span class="text-muted">Avg Goals Scored:</span>
+                            <strong class="text-white">{{ stats.goal_statistics.away.avg_goals_scored }}</strong>
+                        </div>
+                        <div class="d-flex justify-content-between mb-2 pb-2 border-bottom border-secondary">
+                            <span class="text-muted">Avg Goals Conceded:</span>
+                            <strong class="text-white">{{ stats.goal_statistics.away.avg_goals_conceded }}</strong>
+                        </div>
+                        <div class="d-flex justify-content-between mb-2 pb-2 border-bottom border-secondary">
+                            <span class="text-muted">Clean Sheets:</span>
+                            <strong class="text-white">{{ stats.goal_statistics.away.clean_sheets }} ({{
+                                stats.goal_statistics.away.clean_sheet_percentage }}%)</strong>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <span class="text-muted">Scoring Rate:</span>
+                            <strong class="text-white">{{ stats.goal_statistics.away.scoring_percentage }}%</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="text-center mt-5 mb-5">
+        <a href="/predict" class="btn-predict text-decoration-none"><i class="bi bi-arrow-right-circle"></i> Make
+            Another Prediction</a>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

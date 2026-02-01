@@ -1,0 +1,296 @@
+{% extends "base.html" %}
+
+{% block title %}Accumulator Builder{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-4">💰 Accumulator Builder</h2>
+
+    <div class="row">
+        <!-- Accumulator Details -->
+        <div class="col-lg-4">
+            <div class="card shadow-lg sticky-top" style="top: 20px;">
+                <div class="card-header bg-gradient text-white"
+                    style="background: linear-gradient(45deg, #2E8B57, #32CD32);">
+                    <h5 class="mb-0">Your Accumulator</h5>
+                </div>
+                <div class="card-body">
+                    <div id="accumulatorSummary">
+                        <p class="text-muted">Add selections to build your accumulator</p>
+                    </div>
+
+                    <div id="accumulatorDetails" class="mt-3" style="display: none;">
+                        <div class="mb-3">
+                            <strong>Total Odds:</strong>
+                            <span id="totalOdds" class="float-end">-</span>
+                        </div>
+                        <div class="mb-3">
+                            <strong>Confidence:</strong>
+                            <span id="confidence" class="float-end">-</span>
+                        </div>
+                        <div class="mb-3">
+                            <strong>Risk Level:</strong>
+                            <span id="riskLevel" class="float-end badge">-</span>
+                        </div>
+
+                        <hr>
+
+                        <div class="mb-3">
+                            <label class="form-label">Stake (£)</label>
+                            <input type="number" id="stakeInput" class="form-control" value="10" min="1">
+                        </div>
+
+                        <div class="mb-3">
+                            <strong>Potential Return:</strong>
+                            <span id="potentialReturn" class="float-end text-success">£0.00</span>
+                        </div>
+
+                        <button class="btn btn-primary w-100 mb-2" id="getSuggestionBtn">
+                            Get Stake Suggestion
+                        </button>
+
+                        <button class="btn btn-outline-danger w-100" id="clearAccumulatorBtn">
+                            Clear All
+                        </button>
+                    </div>
+                </div>
+
+                <div class="card-footer" id="recommendations" style="display: none;">
+                    <h6>Recommendations:</h6>
+                    <ul id="recommendationsList" class="small mb-0"></ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Selections List -->
+        <div class="col-lg-8">
+            <div class="card shadow">
+                <div class="card-header">
+                    <h5 class="mb-0">Selections (<span id="selectionCount">0</span>)</h5>
+                </div>
+                <div class="card-body">
+                    <div id="selectionsList">
+                        <p class="text-muted">No selections yet. Add predictions from the prediction page.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Add Form -->
+            <div class="card shadow mt-4">
+                <div class="card-header">
+                    <h5 class="mb-0">Quick Add Selection</h5>
+                </div>
+                <div class="card-body">
+                    <form id="quickAddForm">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Home Team</label>
+                                <input type="text" class="form-control" id="homeTeam" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Away Team</label>
+                                <input type="text" class="form-control" id="awayTeam" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label">Market</label>
+                                <select class="form-select" id="market" required>
+                                    <option value="Match Winner">Match Winner</option>
+                                    <option value="Over 2.5 Goals">Over 2.5 Goals</option>
+                                    <option value="BTTS">Both Teams to Score</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label">Selection</label>
+                                <input type="text" class="form-control" id="selection" placeholder="e.g., Home Win"
+                                    required>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label">Odds</label>
+                                <input type="number" class="form-control" id="odds" step="0.01" min="1.01" value="2.00"
+                                    required>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Confidence (%)</label>
+                            <input type="range" class="form-range" id="confidenceSlider" min="10" max="95" value="70">
+                            <div class="text-center"><span id="confidenceValue">70</span>%</div>
+                        </div>
+                        <button type="submit" class="btn btn-success">Add to Accumulator</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    let accumulator = { num_selections: 0, selections: [] };
+
+    // Load accumulator on page load
+    loadAccumulator();
+
+    // Quick add form
+    document.getElementById('quickAddForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const data = {
+            home_team: document.getElementById('homeTeam').value,
+            away_team: document.getElementById('awayTeam').value,
+            market: document.getElementById('market').value,
+            selection: document.getElementById('selection').value,
+            odds: parseFloat(document.getElementById('odds').value),
+            confidence: parseFloat(document.getElementById('confidenceSlider').value) / 100
+        };
+
+        try {
+            const response = await fetch('/api/accumulator/add', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            });
+
+            const result = await response.json();
+
+            if (result.status === 'success') {
+                accumulator = result.accumulator;
+                updateUI();
+                e.target.reset();
+                document.getElementById('confidenceSlider').value = 70;
+                document.getElementById('confidenceValue').textContent = 70;
+            }
+        } catch (error) {
+            alert('Failed to add selection');
+        }
+    });
+
+    // Confidence slider
+    document.getElementById('confidenceSlider').addEventListener('input', (e) => {
+        document.getElementById('confidenceValue').textContent = e.target.value;
+    });
+
+    // Clear accumulator
+    document.getElementById('clearAccumulatorBtn').addEventListener('click', async () => {
+        if (confirm('Clear all selections?')) {
+            await fetch('/api/accumulator/clear', { method: 'POST' });
+            accumulator = { num_selections: 0, selections: [] };
+            updateUI();
+        }
+    });
+
+    // Get stake suggestion
+    document.getElementById('getSuggestionBtn').addEventListener('click', async () => {
+        const bankroll = parseFloat(prompt('Enter your bankroll (£):', '100'));
+        if (!bankroll) return;
+
+        try {
+            const response = await fetch('/api/accumulator/stake-suggestion', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ bankroll })
+            });
+
+            const result = await response.json();
+
+            if (result.status === 'success') {
+                const suggestion = result.suggestion;
+                alert(`Suggested Stake: £${suggestion.suggested_stake}\n` +
+                    `(${suggestion.percentage_of_bankroll}% of bankroll)\n\n` +
+                    `Reasoning: ${suggestion.reasoning}`);
+                document.getElementById('stakeInput').value = suggestion.suggested_stake;
+            }
+        } catch (error) {
+            alert('Failed to get suggestion');
+        }
+    });
+
+    async function loadAccumulator() {
+        try {
+            const response = await fetch('/api/accumulator/details');
+            const result = await response.json();
+
+            if (result.status === 'success') {
+                accumulator = result.accumulator;
+                updateUI();
+            }
+        } catch (error) {
+            console.error('Failed to load accumulator');
+        }
+    }
+
+    function updateUI() {
+        // Update count
+        document.getElementById('selectionCount').textContent = accumulator.num_selections;
+
+        if (accumulator.num_selections === 0) {
+            document.getElementById('accumulatorDetails').style.display = 'none';
+            document.getElementById('recommendations').style.display = 'none';
+            document.getElementById('selectionsList').innerHTML = '<p class="text-muted">No selections yet.</p>';
+            return;
+        }
+
+        // Show details
+        document.getElementById('accumulatorDetails').style.display = 'block';
+        document.getElementById('recommendations').style.display = 'block';
+
+        // Update summary
+        document.getElementById('totalOdds').textContent = accumulator.total_odds.toFixed(2);
+        document.getElementById('confidence').textContent = accumulator.combined_confidence.toFixed(1) + '%';
+
+        const riskBadge = document.getElementById('riskLevel');
+        riskBadge.textContent = accumulator.risk_level;
+        riskBadge.className = 'float-end badge ' + getRiskBadgeClass(accumulator.risk_level);
+
+        // Update potential return
+        const stake = parseFloat(document.getElementById('stakeInput').value) || 10;
+        const potentialReturn = stake * accumulator.total_odds;
+        document.getElementById('potentialReturn').textContent = '£' + potentialReturn.toFixed(2);
+
+        // Update selections list
+        const selectionsList = document.getElementById('selectionsList');
+        selectionsList.innerHTML = accumulator.selections.map(s => `
+        <div class="card mb-2">
+            <div class="card-body p-3">
+                <div class="d-flex justify-content-between align-items-start">
+                    <div>
+                        <strong>${s.match}</strong><br>
+                        <small class="text-muted">${s.market}: ${s.selection}</small><br>
+                        <small>Odds: ${s.odds.toFixed(2)} | Confidence: ${(s.confidence * 100).toFixed(0)}%</small>
+                    </div>
+                    <button class="btn btn-sm btn-outline-danger" onclick="removeSelection(${s.id})">×</button>
+                </div>
+            </div>
+        </div>
+    `).join('');
+
+        // Update recommendations
+        const recList = document.getElementById('recommendationsList');
+        recList.innerHTML = accumulator.recommendations.map(r => `<li>${r}</li>`).join('');
+    }
+
+    function getRiskBadgeClass(risk) {
+        if (risk === 'Low') return 'bg-success';
+        if (risk === 'Medium') return 'bg-warning';
+        if (risk.includes('High')) return 'bg-danger';
+        return 'bg-secondary';
+    }
+
+    async function removeSelection(id) {
+        try {
+            const response = await fetch(`/api/accumulator/remove/${id}`, { method: 'DELETE' });
+            const result = await response.json();
+
+            if (result.status === 'success') {
+                accumulator = result.accumulator;
+                updateUI();
+            }
+        } catch (error) {
+            alert('Failed to remove selection');
+        }
+    }
+
+    // Update potential return when stake changes
+    document.getElementById('stakeInput').addEventListener('input', updateUI);
+</script>
+{% endblock %}

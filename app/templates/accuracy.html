@@ -1,0 +1,248 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="dashboard-container">
+    <!-- Header -->
+    <div class="welcome-section mb-4 d-flex justify-content-between align-items-center">
+        <div>
+            <h1><i class="bi bi-patch-check-fill text-success"></i> Model Accuracy Tracker</h1>
+            <p class="lead">Validate AI predictions against real-world results</p>
+        </div>
+        <div class="btn-group">
+            <button id="clearHistoryButton" class="btn btn-outline-danger me-2">
+                <i class="bi bi-trash"></i> Clear History
+            </button>
+            <button id="verifyButton" class="btn btn-primary">
+                <i class="bi bi-arrow-clockwise"></i> Verify Now
+            </button>
+        </div>
+    </div>
+
+    <!-- Stats Overview -->
+    <div class="row mb-4">
+        <div class="col-md-3">
+            <div class="card text-center h-100">
+                <div class="card-body">
+                    <h6 class="text-muted text-uppercase mb-2">Total Predictions</h6>
+                    <div class="display-4 fw-bold text-white" id="totalPreds">0</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-center h-100">
+                <div class="card-body">
+                    <h6 class="text-muted text-uppercase mb-2">Accuracy Rate</h6>
+                    <div class="display-4 fw-bold text-success" id="accuracyRate">0%</div>
+                    <small class="text-muted" id="winCount">0 correct</small>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-center h-100">
+                <div class="card-body">
+                    <h6 class="text-muted text-uppercase mb-2">Exact Scores</h6>
+                    <div class="display-4 fw-bold text-info" id="exactScoreCount">0</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-center h-100">
+                <div class="card-body">
+                    <h6 class="text-muted text-uppercase mb-2">Pending</h6>
+                    <div class="display-4 fw-bold text-warning" id="pendingCount">0</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Filter/Search (Optional) -->
+    <!-- <div class="card mb-3">
+        <div class="card-body p-2">
+            <input type="text" class="form-control bg-dark text-white border-secondary" placeholder="Search team...">
+        </div>
+    </div> -->
+
+    <!-- Predictions Table -->
+    <div class="card">
+        <div class="card-header">
+            <h4><i class="bi bi-clock-history"></i> Prediction History</h4>
+        </div>
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0" style="background: transparent;">
+                    <thead class="table-dark">
+                        <tr>
+                            <th scope="col">Date</th>
+                            <th scope="col">Match</th>
+                            <th scope="col">Prediction</th>
+                            <th scope="col">Result</th>
+                            <th scope="col">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="historyTableBody">
+                        <!-- Populated by JS -->
+                        <tr>
+                            <td colspan="5" class="text-center py-4 text-muted">
+                                <i class="bi bi-hourglass-split me-2"></i> Loading history...
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        loadHistory();
+
+        document.getElementById('verifyButton').addEventListener('click', function () {
+            verifyPredictions();
+        });
+
+        document.getElementById('clearHistoryButton').addEventListener('click', function () {
+            if (confirm('Are you sure you want to delete ALL prediction history? This cannot be undone.')) {
+                clearHistory();
+            }
+        });
+    });
+
+    function loadHistory() {
+        fetch('/api/get-history')
+            .then(response => response.json())
+            .then(data => {
+                renderTable(data);
+                updateStats(data);
+            })
+            .catch(error => console.error('Error loading history:', error));
+    }
+
+    function deletePrediction(id) {
+        if (!confirm('Delete this prediction?')) return;
+
+        fetch(`/api/prediction/${id}`, { method: 'DELETE' })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    loadHistory();
+                } else {
+                    alert(data.message);
+                }
+            })
+            .catch(error => console.error('Error:', error));
+    }
+
+    function clearHistory() {
+        fetch('/api/history', { method: 'DELETE' })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    loadHistory();
+                } else {
+                    alert(data.message);
+                }
+            })
+            .catch(error => console.error('Error:', error));
+    }
+
+    function verifyPredictions() {
+        const btn = document.getElementById('verifyButton');
+        btn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Verifying...';
+        btn.disabled = true;
+
+        fetch('/api/verify-predictions', { method: 'POST' })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    loadHistory(); // Reload to show updates
+                } else {
+                    alert('Verification failed: ' + data.message);
+                }
+            })
+            .catch(error => console.error('Error:', error))
+            .finally(() => {
+                btn.innerHTML = '<i class="bi bi-arrow-clockwise"></i> Verify Now';
+                btn.disabled = false;
+            });
+    }
+
+    function renderTable(history) {
+        const tbody = document.getElementById('historyTableBody');
+        tbody.innerHTML = '';
+
+        if (!history || history.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="6" class="text-center py-4 text-muted">No saved predictions yet.</td></tr>';
+            return;
+        }
+
+        // Sort by date desc
+        history.sort((a, b) => new Date(b.date_saved) - new Date(a.date_saved));
+
+        history.forEach(item => {
+            const row = document.createElement('tr');
+
+            // Status Badge
+            let statusBadge = '<span class="badge bg-secondary">Pending</span>';
+            if (item.status === 'Correct') statusBadge = '<span class="badge bg-success">Correct</span>';
+            if (item.status === 'Incorrect') statusBadge = '<span class="badge bg-danger">Incorrect</span>';
+
+            // Match Result
+            const actualScore = item.actual_score ? `<span class="fw-bold">${item.actual_score}</span>` : '<span class="text-muted">-</span>';
+
+            // Date formatting
+            const dateObj = new Date(item.date_saved);
+            const dateStr = dateObj.toLocaleDateString() + ' ' + dateObj.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+            row.innerHTML = `
+            <td><small class="text-muted">${dateStr}</small></td>
+            <td>
+                <div class="fw-bold">${item.home_team} vs ${item.away_team}</div>
+                <small class="text-muted">${item.match_date}</small>
+            </td>
+            <td>
+                <div class="text-primary">${item.predictions['Match Outcome'] || 'N/A'}</div>
+                <small class="text-muted">CS: ${getTopScore(item.poisson_analysis)}</small>
+            </td>
+            <td>${actualScore}</td>
+            <td>${statusBadge}</td>
+            <td class="text-end">
+                <button onclick="deletePrediction(${item.id})" class="btn btn-sm btn-link text-danger p-0" title="Delete">
+                    <i class="bi bi-trash"></i>
+                </button>
+            </td>
+        `;
+            tbody.appendChild(row);
+        });
+    }
+
+    function getTopScore(poisson) {
+        if (poisson && poisson.most_likely_scorelines && poisson.most_likely_scorelines.length > 0) {
+            return poisson.most_likely_scorelines[0].score;
+        }
+        return '-';
+    }
+
+    function updateStats(history) {
+        const total = history.length;
+        const completed = history.filter(h => h.status !== 'Pending').length;
+        const correct = history.filter(h => h.status === 'Correct').length;
+        const exact = history.filter(h => h.exact_score_correct === true).length;
+        const pending = total - completed;
+
+        document.getElementById('totalPreds').textContent = total;
+        document.getElementById('pendingCount').textContent = pending;
+
+        if (completed > 0) {
+            const acc = Math.round((correct / completed) * 100);
+            document.getElementById('accuracyRate').textContent = acc + '%';
+            document.getElementById('winCount').textContent = `${correct}/${completed}`;
+        } else {
+            document.getElementById('accuracyRate').textContent = '0%';
+            document.getElementById('winCount').textContent = '0 verified';
+        }
+
+        document.getElementById('exactScoreCount').textContent = exact;
+    }
+</script>
+{% endblock %}

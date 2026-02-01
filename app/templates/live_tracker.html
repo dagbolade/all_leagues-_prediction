@@ -1,0 +1,176 @@
+{% extends "base.html" %}
+
+{% block title %}Live Match Tracker{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>🔴 Live Match Tracker</h2>
+        <button class="btn btn-primary" id="refreshBtn">
+            <span id="refreshIcon">🔄</span> Refresh
+        </button>
+    </div>
+
+    <div class="alert alert-info">
+        <strong>Real-time Updates:</strong> Track live matches and compare with pre-match predictions
+    </div>
+
+    <div id="liveMatches" class="row">
+        <div class="col-12 text-center py-5">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <p class="mt-3">Loading live matches...</p>
+        </div>
+    </div>
+</div>
+
+<script>
+    let refreshInterval;
+
+    // Load matches on page load
+    loadLiveMatches();
+
+    // Auto-refresh every 30 seconds
+    refreshInterval = setInterval(loadLiveMatches, 30000);
+
+    // Manual refresh
+    document.getElementById('refreshBtn').addEventListener('click', () => {
+        loadLiveMatches();
+
+        // Animate refresh icon
+        const icon = document.getElementById('refreshIcon');
+        icon.style.transform = 'rotate(360deg)';
+        icon.style.transition = 'transform 0.5s';
+        setTimeout(() => {
+            icon.style.transform = 'rotate(0deg)';
+        }, 500);
+    });
+
+    async function loadLiveMatches() {
+        try {
+            const response = await fetch('/api/live-tracker/matches');
+            const data = await response.json();
+
+            if (data.status === 'success') {
+                displayMatches(data.matches);
+            } else {
+                showError('Failed to load live matches');
+            }
+        } catch (error) {
+            showError('Connection error. Please check if the server is running.');
+        }
+    }
+
+    function displayMatches(matches) {
+        const container = document.getElementById('liveMatches');
+
+        if (matches.length === 0) {
+            container.innerHTML = `
+            <div class="col-12 text-center py-5">
+                <h4>⚽ No Live Matches</h4>
+                <p class="text-muted">Check back when matches are in progress</p>
+            </div>
+        `;
+            return;
+        }
+
+        container.innerHTML = matches.map(match => createMatchCard(match)).join('');
+    }
+
+    function createMatchCard(match) {
+        const analysis = match.analysis || {};
+        const predictions = analysis.predictions || [];
+
+        return `
+        <div class="col-lg-6 mb-4">
+            <div class="card shadow-sm">
+                <div class="card-header bg-danger text-white">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span>🔴 LIVE</span>
+                        <span>${match.minute || 0}'</span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <!-- Score -->
+                    <div class="text-center mb-3">
+                        <div class="row">
+                            <div class="col-5">
+                                <h5>${match.home_team || 'Home'}</h5>
+                            </div>
+                            <div class="col-2">
+                                <h3 class="text-primary">
+                                    ${match.home_score || 0} - ${match.away_score || 0}
+                                </h3>
+                            </div>
+                            <div class="col-5">
+                                <h5>${match.away_team || 'Away'}</h5>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Analysis -->
+                    <div class="mb-3">
+                        <div class="row text-center">
+                            <div class="col-4">
+                                <small class="text-muted">Total Goals</small><br>
+                                <strong>${analysis.total_goals || 0}</strong>
+                            </div>
+                            <div class="col-4">
+                                <small class="text-muted">Tempo</small><br>
+                                <strong>${analysis.match_tempo || 'N/A'}</strong>
+                            </div>
+                            <div class="col-4">
+                                <small class="text-muted">Leading</small><br>
+                                <strong>${getLeadingTeamText(analysis.leading_team)}</strong>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Live Predictions -->
+                    ${predictions.length > 0 ? `
+                        <div class="alert alert-light mb-0">
+                            <strong>Live Predictions:</strong>
+                            <ul class="mb-0 mt-2">
+                                ${predictions.map(p => `<li>${p}</li>`).join('')}
+                            </ul>
+                        </div>
+                    ` : ''}
+                    
+                    <!-- Prediction Comparison -->
+                    ${match.prediction_comparison ? `
+                        <div class="mt-3 pt-3 border-top">
+                            <h6>Pre-Match Prediction Comparison:</h6>
+                            <small class="d-block">${match.prediction_comparison.match_outcome || ''}</small>
+                            <small class="d-block">${match.prediction_comparison.goals || ''}</small>
+                            <small class="d-block">${match.prediction_comparison.btts || ''}</small>
+                        </div>
+                    ` : ''}
+                </div>
+            </div>
+        </div>
+    `;
+    }
+
+    function getLeadingTeamText(leading) {
+        if (leading === 'home') return '🏠 Home';
+        if (leading === 'away') return '✈️ Away';
+        return '🤝 Draw';
+    }
+
+    function showError(message) {
+        document.getElementById('liveMatches').innerHTML = `
+        <div class="col-12">
+            <div class="alert alert-danger">
+                <strong>Error:</strong> ${message}
+            </div>
+        </div>
+    `;
+    }
+
+    // Clean up interval on page unload
+    window.addEventListener('beforeunload', () => {
+        clearInterval(refreshInterval);
+    });
+</script>
+{% endblock %}

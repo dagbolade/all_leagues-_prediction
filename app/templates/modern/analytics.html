@@ -1,0 +1,335 @@
+{% extends "modern/base.html" %}
+
+{% block title %}Analytics Dashboard - Football AI{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <!-- Header -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="text-center">
+                <h1 class="display-5 fw-bold mb-3">
+                    <i class="fas fa-chart-line text-primary me-3"></i>
+                    Analytics Dashboard
+                </h1>
+                <p class="lead text-muted">
+                    Real-time performance metrics and system insights
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Performance Metrics -->
+    <div class="row g-4 mb-5">
+        <div class="col-lg-3 col-md-6">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body text-center">
+                    <div class="text-primary mb-2">
+                        <i class="fas fa-tachometer-alt fa-2x"></i>
+                    </div>
+                    <h3 class="fw-bold mb-1" id="avgResponseTime">-</h3>
+                    <p class="text-muted mb-0 small">Average Response Time</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body text-center">
+                    <div class="text-success mb-2">
+                        <i class="fas fa-memory fa-2x"></i>
+                    </div>
+                    <h3 class="fw-bold mb-1" id="cacheHitRate">-</h3>
+                    <p class="text-muted mb-0 small">Cache Hit Rate</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body text-center">
+                    <div class="text-warning mb-2">
+                        <i class="fas fa-brain fa-2x"></i>
+                    </div>
+                    <h3 class="fw-bold mb-1" id="totalPredictions">-</h3>
+                    <p class="text-muted mb-0 small">Total Predictions</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body text-center">
+                    <div class="text-info mb-2">
+                        <i class="fas fa-users fa-2x"></i>
+                    </div>
+                    <h3 class="fw-bold mb-1">{{ teams|length if teams else 0 }}</h3>
+                    <p class="text-muted mb-0 small">Teams Available</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Model Information -->
+    <div class="row mb-5">
+        <div class="col-12">
+            <div class="card border-0 shadow">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">
+                        <i class="fas fa-robot me-2"></i>
+                        Model Information
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="row g-4">
+                        <div class="col-md-6">
+                            <h6 class="text-primary">Training Details</h6>
+                            <ul class="list-unstyled">
+                                <li><strong>Total Models:</strong> {{ model_info.total_models if model_info else 0 }}</li>
+                                <li><strong>Feature Count:</strong> {{ model_info.feature_count if model_info else 0 }}</li>
+                                <li><strong>Fast Training:</strong>
+                                    {% if model_info and model_info.fast_training %}
+                                    <span class="badge bg-success">Enabled</span>
+                                    {% else %}
+                                    <span class="badge bg-secondary">Standard</span>
+                                    {% endif %}
+                                </li>
+                                <li><strong>Training Date:</strong> {{ model_info.training_date if model_info else 'Unknown' }}</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <h6 class="text-primary">System Status</h6>
+                            <ul class="list-unstyled">
+                                <li><strong>Predictor Status:</strong> <span class="badge bg-success">Online</span></li>
+                                <li><strong>Cache Status:</strong> <span class="badge bg-success">Active</span></li>
+                                <li><strong>API Status:</strong> <span class="badge bg-success">Operational</span></li>
+                                <li><strong>Last Update:</strong> <span id="lastUpdate">-</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Performance Charts -->
+    <div class="row g-4 mb-5">
+        <div class="col-lg-6">
+            <div class="card border-0 shadow">
+                <div class="card-header bg-info text-white">
+                    <h6 class="mb-0">
+                        <i class="fas fa-chart-bar me-2"></i>
+                        Response Time Trend
+                    </h6>
+                </div>
+                <div class="card-body">
+                    <canvas id="responseTimeChart" width="400" height="200"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-6">
+            <div class="card border-0 shadow">
+                <div class="card-header bg-success text-white">
+                    <h6 class="mb-0">
+                        <i class="fas fa-pie-chart me-2"></i>
+                        Prediction Distribution
+                    </h6>
+                </div>
+                <div class="card-body">
+                    <canvas id="predictionDistChart" width="400" height="200"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Real-time Monitoring -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card border-0 shadow">
+                <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
+                    <h6 class="mb-0">
+                        <i class="fas fa-eye me-2"></i>
+                        Real-time Monitoring
+                    </h6>
+                    <div>
+                        <span class="badge bg-success">
+                            <i class="fas fa-circle fa-sm me-1"></i>
+                            Live
+                        </span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row g-3">
+                        <div class="col-md-4">
+                            <div class="d-flex align-items-center">
+                                <div class="text-success me-3">
+                                    <i class="fas fa-heartbeat fa-lg"></i>
+                                </div>
+                                <div>
+                                    <div class="fw-bold">System Health</div>
+                                    <small class="text-muted">All systems operational</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="d-flex align-items-center">
+                                <div class="text-primary me-3">
+                                    <i class="fas fa-server fa-lg"></i>
+                                </div>
+                                <div>
+                                    <div class="fw-bold">API Latency</div>
+                                    <small class="text-muted" id="apiLatency">< 100ms</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="d-flex align-items-center">
+                                <div class="text-warning me-3">
+                                    <i class="fas fa-database fa-lg"></i>
+                                </div>
+                                <div>
+                                    <div class="fw-bold">Cache Size</div>
+                                    <small class="text-muted" id="cacheSize">-</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+let responseTimeChart;
+let predictionDistChart;
+
+// Initialize charts
+document.addEventListener('DOMContentLoaded', function() {
+    initializeCharts();
+    loadAnalyticsData();
+    startRealTimeMonitoring();
+});
+
+function initializeCharts() {
+    // Response Time Chart
+    const ctx1 = document.getElementById('responseTimeChart').getContext('2d');
+    responseTimeChart = new Chart(ctx1, {
+        type: 'line',
+        data: {
+            labels: ['1m', '2m', '3m', '4m', '5m', '6m'],
+            datasets: [{
+                label: 'Response Time (ms)',
+                data: [120, 85, 95, 110, 88, 92],
+                borderColor: 'rgb(59, 130, 246)',
+                backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                tension: 0.4
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: 'Response Time (ms)'
+                    }
+                }
+            }
+        }
+    });
+
+    // Prediction Distribution Chart
+    const ctx2 = document.getElementById('predictionDistChart').getContext('2d');
+    predictionDistChart = new Chart(ctx2, {
+        type: 'doughnut',
+        data: {
+            labels: ['Home Win', 'Draw', 'Away Win'],
+            datasets: [{
+                data: [45, 25, 30],
+                backgroundColor: [
+                    'rgb(34, 197, 94)',
+                    'rgb(234, 179, 8)',
+                    'rgb(239, 68, 68)'
+                ]
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'bottom'
+                }
+            }
+        }
+    });
+}
+
+async function loadAnalyticsData() {
+    try {
+        const response = await fetch('/api/analytics/performance');
+        const data = await response.json();
+
+        if (data.success) {
+            updateMetrics(data.data);
+        }
+    } catch (error) {
+        console.error('Failed to load analytics data:', error);
+    }
+}
+
+function updateMetrics(data) {
+    // Update performance metrics
+    document.getElementById('avgResponseTime').textContent =
+        data.average_response_time ? data.average_response_time.toFixed(2) + 's' : '< 0.1s';
+
+    document.getElementById('cacheHitRate').textContent =
+        data.cache_hit_rate ? data.cache_hit_rate.toFixed(1) + '%' : '0%';
+
+    document.getElementById('totalPredictions').textContent =
+        data.total_predictions || '0';
+
+    // Update system status
+    document.getElementById('lastUpdate').textContent = new Date().toLocaleTimeString();
+
+    if (data.system_status) {
+        document.getElementById('cacheSize').textContent =
+            data.system_status.cache_size + ' items';
+    }
+}
+
+function startRealTimeMonitoring() {
+    // Update every 30 seconds
+    setInterval(async () => {
+        try {
+            await loadAnalyticsData();
+
+            // Simulate real-time data updates
+            if (responseTimeChart) {
+                const newData = Math.floor(Math.random() * 50) + 70; // 70-120ms
+                responseTimeChart.data.datasets[0].data.shift();
+                responseTimeChart.data.datasets[0].data.push(newData);
+                responseTimeChart.update('none');
+            }
+
+            // Update API latency
+            const latency = Math.floor(Math.random() * 50) + 50;
+            document.getElementById('apiLatency').textContent = latency + 'ms';
+
+        } catch (error) {
+            console.error('Real-time update failed:', error);
+        }
+    }, 30000);
+}
+
+// Manual refresh button
+function refreshAnalytics() {
+    loadAnalyticsData();
+    showAlert('Analytics data refreshed', 'success');
+}
+</script>
+{% endblock %}

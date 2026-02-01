@@ -1,0 +1,336 @@
+{% extends "base.html" %}
+
+{% block title %}Expert Insights{% endblock %}
+
+{% block content %}
+<div class="dashboard-container">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card chat-card h-100">
+                <div class="card-header d-flex justify-content-between align-items-center py-3">
+                    <div class="d-flex align-items-center gap-3">
+                        <div class="avatar-circle">
+                            <i class="bi bi-person-workspace text-white"></i>
+                        </div>
+                        <div>
+                            <h5 class="mb-0 fw-bold">Ask Our Expert</h5>
+                            <small class="text-success"><i class="bi bi-dot"></i> Online</small>
+                        </div>
+                    </div>
+                    <button id="clearChat" class="btn btn-sm btn-outline-secondary" title="Clear Chat History">
+                        <i class="bi bi-trash"></i>
+                    </button>
+                </div>
+
+                <div class="card-body p-0">
+                    <div id="chatMessages" class="chat-messages p-4">
+                        <!-- Welcome Message -->
+                        <div class="message bot-message">
+                            <div class="message-content">
+                                <p class="mb-0">Hello! I'm your ProPredict Expert. How can I help you analyze the
+                                    upcoming matches today?</p>
+                            </div>
+                            <small class="message-time">Just now</small>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-footer p-3">
+                    <form id="chatForm" class="chat-input-area">
+                        <div class="input-group">
+                            <textarea id="userInput" class="form-control"
+                                placeholder="Ask about team form, head-to-head records, or specific match predictions..."
+                                rows="1" style="resize: none;"></textarea>
+                            <button type="submit" class="btn btn-primary px-4" id="sendButton">
+                                <i class="bi bi-send-fill"></i>
+                            </button>
+                        </div>
+                        <div class="text-center mt-2">
+                            <small class="text-muted" style="font-size: 0.75rem;">
+                                <i class="bi bi-shield-check"></i> ProPredict Expert Analysis
+                            </small>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    /* Chat Specific Styles */
+    .chat-card {
+        background-color: var(--bg-card);
+        border: 1px solid var(--border-color);
+        box-shadow: var(--shadow-sm);
+        height: 75vh !important;
+        /* Fixed height for chat window */
+        display: flex;
+        flex-direction: column;
+    }
+
+    .card-header {
+        background-color: var(--bg-card);
+        border-bottom: 1px solid var(--border-color);
+    }
+
+    .avatar-circle {
+        width: 40px;
+        height: 40px;
+        background: var(--primary-marketing);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.2rem;
+    }
+
+    .chat-messages {
+        flex: 1;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        background-color: var(--bg-body);
+    }
+
+    .message {
+        max-width: 80%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .message-content {
+        padding: 1rem;
+        border-radius: 12px;
+        position: relative;
+        font-size: 0.95rem;
+        line-height: 1.5;
+    }
+
+    .bot-message {
+        align-self: flex-start;
+    }
+
+    .bot-message .message-content {
+        background-color: var(--bg-card);
+        color: var(--text-main);
+        border: 1px solid var(--border-color);
+        border-bottom-left-radius: 2px;
+    }
+
+    .user-message {
+        align-self: flex-end;
+        align-items: flex-end;
+    }
+
+    .user-message .message-content {
+        background-color: var(--primary-marketing);
+        color: white;
+        border-bottom-right-radius: 2px;
+    }
+
+    .message-time {
+        font-size: 0.7rem;
+        color: var(--text-muted);
+        margin-top: 4px;
+        padding: 0 4px;
+    }
+
+    .card-footer {
+        background-color: var(--bg-card);
+        border-top: 1px solid var(--border-color);
+    }
+
+    #userInput {
+        background-color: var(--bg-body);
+        border: 1px solid var(--border-color);
+        color: var(--text-main);
+        border-radius: 8px;
+        padding-right: 3rem;
+    }
+
+    #userInput:focus {
+        border-color: var(--primary-marketing);
+        box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.25);
+    }
+
+    .input-group .btn {
+        z-index: 5;
+    }
+
+    /* Scrollbar styling for chat */
+    .chat-messages::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    .chat-messages::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    .chat-messages::-webkit-scrollbar-thumb {
+        background-color: var(--border-color);
+        border-radius: 3px;
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const chatForm = document.getElementById('chatForm');
+        const userInput = document.getElementById('userInput');
+        const chatMessages = document.getElementById('chatMessages');
+        const sendButton = document.getElementById('sendButton');
+        const clearChatBtn = document.getElementById('clearChat');
+
+        // Auto-resize textarea
+        userInput.addEventListener('input', function () {
+            this.style.height = 'auto';
+            this.style.height = (this.scrollHeight) + 'px';
+            if (this.value === '') this.style.height = 'auto';
+        });
+
+        // Handle Enter key to submit (Shift+Enter for newline)
+        userInput.addEventListener('keydown', function (e) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                chatForm.dispatchEvent(new Event('submit'));
+            }
+        });
+
+        function appendMessage(content, isUser) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${isUser ? 'user-message' : 'bot-message'}`;
+
+            const contentDiv = document.createElement('div');
+            contentDiv.className = 'message-content';
+
+            // Simple markdown parsing for bold text
+            let formattedContent = content.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+            // Convert newlines to breaks
+            formattedContent = formattedContent.replace(/\n/g, '<br>');
+
+            contentDiv.innerHTML = formattedContent;
+
+            const timeSmall = document.createElement('small');
+            timeSmall.className = 'message-time';
+            timeSmall.textContent = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+            messageDiv.appendChild(contentDiv);
+            messageDiv.appendChild(timeSmall);
+
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function addLoadingIndicator() {
+            const loadingDiv = document.createElement('div');
+            loadingDiv.id = 'loadingIndicator';
+            loadingDiv.className = 'message bot-message';
+            loadingDiv.innerHTML = `
+            <div class="message-content">
+                <div class="typing-indicator">
+                    <span></span><span></span><span></span>
+                </div>
+            </div>
+        `;
+            chatMessages.appendChild(loadingDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function removeLoadingIndicator() {
+            const loader = document.getElementById('loadingIndicator');
+            if (loader) loader.remove();
+        }
+
+        chatForm.addEventListener('submit', async function (e) {
+            e.preventDefault();
+            const message = userInput.value.trim();
+            if (!message) return;
+
+            // Add user message
+            appendMessage(message, true);
+            userInput.value = '';
+            userInput.style.height = 'auto';
+
+            // Show loading
+            addLoadingIndicator();
+            sendButton.disabled = true;
+
+            try {
+                // Correct endpoint matching app/advanced_routes.py
+                const response = await fetch('/api/ai-chat', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ message: message })
+                });
+
+                const data = await response.json();
+
+                removeLoadingIndicator();
+
+                if (data.status === 'success') {
+                    appendMessage(data.message, false);
+                } else if (data.status === 'error' || data.error) {
+                    appendMessage("Sorry, I encountered an error: " + (data.message || data.error), false);
+                } else {
+                    appendMessage(data.message || "I'm not sure how to respond to that.", false);
+                }
+            } catch (error) {
+                removeLoadingIndicator();
+                appendMessage("Sorry, I'm having trouble connecting to the server. Please try again.", false);
+                console.error('Error:', error);
+            } finally {
+                sendButton.disabled = false;
+            }
+        });
+
+        // Clear chat functionality
+        if (clearChatBtn) {
+            clearChatBtn.addEventListener('click', function () {
+                if (confirm('Are you sure you want to clear the chat history?')) {
+                    // Keep only the first welcome message
+                    const welcomeMsg = chatMessages.firstElementChild;
+                    chatMessages.innerHTML = '';
+                    if (welcomeMsg) chatMessages.appendChild(welcomeMsg);
+                }
+            });
+        }
+    });
+</script>
+
+<style>
+    /* Typing Indicator Animation */
+    .typing-indicator span {
+        display: inline-block;
+        width: 6px;
+        height: 6px;
+        background-color: var(--text-muted);
+        border-radius: 50%;
+        animation: typing 1.4s infinite ease-in-out both;
+        margin: 0 2px;
+    }
+
+    .typing-indicator span:nth-child(1) {
+        animation-delay: -0.32s;
+    }
+
+    .typing-indicator span:nth-child(2) {
+        animation-delay: -0.16s;
+    }
+
+    @keyframes typing {
+
+        0%,
+        80%,
+        100% {
+            transform: scale(0);
+        }
+
+        40% {
+            transform: scale(1);
+        }
+    }
+</style>
+{% endblock %}

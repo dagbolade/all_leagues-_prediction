@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tennis (ATP/WTA) Predictions</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .header {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        .header h1 {
+            color: #f5576c;
+            margin-bottom: 10px;
+        }
+        .badge {
+            display: inline-block;
+            background: #10b981;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 600;
+        }
+        input, select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        input:focus, select:focus {
+            outline: none;
+            border-color: #f5576c;
+        }
+        button {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: transform 0.2s;
+        }
+        button:hover {
+            transform: translateY(-2px);
+        }
+        .result {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            background: #fef2f2;
+            border-left: 5px solid #f5576c;
+            border-radius: 8px;
+        }
+        .result h3 {
+            color: #991b1b;
+            margin-bottom: 15px;
+        }
+        .prediction-item {
+            padding: 12px 0;
+            border-bottom: 1px solid #fecaca;
+        }
+        .prediction-item:last-child {
+            border-bottom: none;
+        }
+        .back-link {
+            display: inline-block;
+            color: #f5576c;
+            text-decoration: none;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+        }
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #f5576c;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="/multi" class="back-link">← Back to Sports</a>
+
+        <div class="header">
+            <h1>🎾 Tennis (ATP/WTA) Predictions</h1>
+            <p>Advanced Models: XGBoost + CatBoost + LightGBM</p>
+            <span class="badge">95.57% Accuracy on Unseen Matches</span>
+        </div>
+
+        <div class="card">
+            <h2 style="margin-bottom: 20px; color: #f5576c;">Predict Tennis Match</h2>
+            <form id="predictionForm">
+                <div class="form-group">
+                    <label>Player 1</label>
+                    <input type="text" id="player1" placeholder="e.g., Novak Djokovic" required>
+                </div>
+                <div class="form-group">
+                    <label>Player 2</label>
+                    <input type="text" id="player2" placeholder="e.g., Carlos Alcaraz" required>
+                </div>
+                <div class="form-group">
+                    <label>Surface</label>
+                    <select id="surface">
+                        <option value="Hard">Hard Court</option>
+                        <option value="Clay">Clay</option>
+                        <option value="Grass">Grass</option>
+                        <option value="Carpet">Carpet</option>
+                    </select>
+                </div>
+                <button type="submit">Predict Match</button>
+            </form>
+
+            <div class="loading" id="loading">
+                <div class="spinner"></div>
+                <p style="margin-top: 10px;">Analyzing match...</p>
+            </div>
+
+            <div class="result" id="result"></div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('predictionForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const player1 = document.getElementById('player1').value;
+            const player2 = document.getElementById('player2').value;
+            const surface = document.getElementById('surface').value;
+            const resultDiv = document.getElementById('result');
+            const loadingDiv = document.getElementById('loading');
+
+            // Show loading
+            resultDiv.style.display = 'none';
+            loadingDiv.style.display = 'block';
+
+            try {
+                const response = await fetch('/multi/api/tennis/predict', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        player1: player1,
+                        player2: player2,
+                        surface: surface
+                    })
+                });
+
+                const data = await response.json();
+
+                // Hide loading
+                loadingDiv.style.display = 'none';
+
+                if (data.error) {
+                    resultDiv.innerHTML = `<h3 style="color: #dc2626;">Error</h3><p>${data.error}</p>`;
+                } else {
+                    let html = '<h3>Prediction Results</h3>';
+
+                    if (data.winner) {
+                        html += `<div class="prediction-item"><strong>Predicted Winner:</strong> ${data.winner}</div>`;
+                    }
+                    if (data.player1_win_prob) {
+                        html += `<div class="prediction-item"><strong>${player1} Win Probability:</strong> ${(data.player1_win_prob * 100).toFixed(1)}%</div>`;
+                    }
+                    if (data.player2_win_prob) {
+                        html += `<div class="prediction-item"><strong>${player2} Win Probability:</strong> ${(data.player2_win_prob * 100).toFixed(1)}%</div>`;
+                    }
+
+                    resultDiv.innerHTML = html;
+                }
+
+                resultDiv.style.display = 'block';
+
+            } catch (error) {
+                loadingDiv.style.display = 'none';
+                resultDiv.innerHTML = '<h3 style="color: #dc2626;">Error</h3><p>Failed to get prediction. Please try again.</p>';
+                resultDiv.style.display = 'block';
+            }
+        });
+    </script>
+</body>
+</html>

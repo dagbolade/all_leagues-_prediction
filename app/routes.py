@@ -1,4 +1,4 @@
-# app/routes.py - UPDATED VERSION WITH DYNAMIC INSIGHTS
+# app/routes.py - UPDATED VERSION WITH CACHING AND LIVE SCORES
 
 from datetime import datetime
 import logging
@@ -16,10 +16,18 @@ from footy.predictor_utils import create_bayesian_predictor
 # Import ALL the analyzers
 from footy.opening_weekend_analyzer import OpeningWeekendAnalyzer
 from footy.weekly_insights_analyzer import WeeklyInsightsAnalyzer
-from footy.insights import FootballInsights  # ADD THIS IMPORT
+from footy.insights import FootballInsights
+from footy.advanced_stats import DisciplineAnalyzer
 
 # Import api service class
 from app.services.football_service import FootballDataService
+
+# Import caching and live scores
+from app.caching import get_cache, POPULAR_MATCHUPS
+from app.services.live_scores_service import get_live_scores_service
+
+# Import betting tips generator
+from app.betting_tips import get_betting_tips_generator
 
 # Create blueprint
 routes = Blueprint('routes', __name__)
@@ -29,6 +37,10 @@ predictor = None
 teams = []
 gw1_analyzer = None
 weekly_analyzer = None
+prediction_cache = None
+prediction_cache = None
+live_scores_service = None
+discipline_analyzer = None
 
 
 def convert_numpy_types(obj):
@@ -59,7 +71,7 @@ def generate_comprehensive_insights(predictor_df, home_team, away_team, weekly_a
         # 1. DETECT CURRENT GAMEWEEK FROM ACTUAL DATA
         if weekly_analyzer:
             current_gw = weekly_analyzer.detect_current_gameweek()
-            insights.append(f"📅 Gameweek {current_gw}")
+            insights.append(f"[GW] Gameweek {current_gw}")
     except:
         pass
 
@@ -89,14 +101,14 @@ def generate_comprehensive_insights(predictor_df, home_team, away_team, weekly_a
                     score = f"{match['FTHG']}-{match['FTAG']}"
                     opponent = match['AwayTeam']
                     venue = "H"
-                    result_emoji = "🟢" if match['FTR'] == 'H' else "🟡" if match['FTR'] == 'D' else "🔴"
+                    result_emoji = "[W]" if match['FTR'] == 'H' else "[D]" if match['FTR'] == 'D' else "[L]"
                 else:
                     score = f"{match['FTAG']}-{match['FTHG']}"
                     opponent = match['HomeTeam']
                     venue = "A"
-                    result_emoji = "🟢" if match['FTR'] == 'A' else "🟡" if match['FTR'] == 'D' else "🔴"
+                    result_emoji = "[W]" if match['FTR'] == 'A' else "[D]" if match['FTR'] == 'D' else "[L]"
 
-                insights.append(f"🏆 {home_team} latest: {result_emoji} {score} vs {opponent} ({venue}) - {date}")
+                insights.append(f"[Latest] {home_team} latest: {result_emoji} {score} vs {opponent} ({venue}) - {date}")
 
             # Get AWAY TEAM's latest match from current season
             away_latest_season = latest_season_matches[
@@ -112,14 +124,14 @@ def generate_comprehensive_insights(predictor_df, home_team, away_team, weekly_a
                     score = f"{match['FTHG']}-{match['FTAG']}"
                     opponent = match['AwayTeam']
                     venue = "H"
-                    result_emoji = "🟢" if match['FTR'] == 'H' else "🟡" if match['FTR'] == 'D' else "🔴"
+                    result_emoji = "[W]" if match['FTR'] == 'H' else "[D]" if match['FTR'] == 'D' else "[L]"
                 else:
                     score = f"{match['FTAG']}-{match['FTHG']}"
                     opponent = match['HomeTeam']
                     venue = "A"
-                    result_emoji = "🟢" if match['FTR'] == 'A' else "🟡" if match['FTR'] == 'D' else "🔴"
+                    result_emoji = "[W]" if match['FTR'] == 'A' else "[D]" if match['FTR'] == 'D' else "[L]"
 
-                insights.append(f"✈️ {away_team} latest: {result_emoji} {score} vs {opponent} ({venue}) - {date}")
+                insights.append(f"[Away] {away_team} latest: {result_emoji} {score} vs {opponent} ({venue}) - {date}")
 
     except Exception as e:
         print(f"Latest season results error: {e}")
@@ -171,11 +183,11 @@ def generate_comprehensive_insights(predictor_df, home_team, away_team, weekly_a
             avg_goals_against = goals_against / len(home_recent)
 
             insights.append(
-                f"📈 {home_team} last {len(home_recent)}: {''.join(form_letters)} ({wins}W-{draws}D-{losses}L)")
-            insights.append(f"⚽ {home_team} scoring: {avg_goals_for:.1f} per game, conceding {avg_goals_against:.1f}")
+                f"[Form] {home_team} last {len(home_recent)}: {''.join(form_letters)} ({wins}W-{draws}D-{losses}L)")
+            insights.append(f"[Goals] {home_team} scoring: {avg_goals_for:.1f} per game, conceding {avg_goals_against:.1f}")
 
             if clean_sheets > 0:
-                insights.append(f"🛡️ {home_team}: {clean_sheets}/{len(home_recent)} clean sheets")
+                insights.append(f"[Clean] {home_team}: {clean_sheets}/{len(home_recent)} clean sheets")
 
     except Exception as e:
         print(f"Home team form error: {e}")
@@ -227,11 +239,11 @@ def generate_comprehensive_insights(predictor_df, home_team, away_team, weekly_a
             avg_goals_against = goals_against / len(away_recent)
 
             insights.append(
-                f"📉 {away_team} last {len(away_recent)}: {''.join(form_letters)} ({wins}W-{draws}D-{losses}L)")
-            insights.append(f"⚽ {away_team} scoring: {avg_goals_for:.1f} per game, conceding {avg_goals_against:.1f}")
+                f"[Form] {away_team} last {len(away_recent)}: {''.join(form_letters)} ({wins}W-{draws}D-{losses}L)")
+            insights.append(f"[Goals] {away_team} scoring: {avg_goals_for:.1f} per game, conceding {avg_goals_against:.1f}")
 
             if clean_sheets > 0:
-                insights.append(f"🛡️ {away_team}: {clean_sheets}/{len(away_recent)} clean sheets")
+                insights.append(f"[Clean] {away_team}: {clean_sheets}/{len(away_recent)} clean sheets")
 
     except Exception as e:
         print(f"Away team form error: {e}")
@@ -258,14 +270,14 @@ def generate_comprehensive_insights(predictor_df, home_team, away_team, weekly_a
             btts_count = len(h2h_matches[(h2h_matches['FTHG'] > 0) & (h2h_matches['FTAG'] > 0)])
 
             insights.append(
-                f"🤝 Last {len(h2h_matches)} H2H: {home_team} {home_wins}W-{draws}D-{away_wins}L vs {away_team}")
-            insights.append(f"📊 H2H averages: {avg_goals:.1f} goals per game")
+                f"[H2H] Last {len(h2h_matches)} H2H: {home_team} {home_wins}W-{draws}D-{away_wins}L vs {away_team}")
+            insights.append(f"[Stats] H2H averages: {avg_goals:.1f} goals per game")
 
             if len(h2h_matches) >= 5:
                 insights.append(
-                    f"🎯 Over 2.5 Goals in {over_25_count}/{len(h2h_matches)} recent H2H ({(over_25_count / len(h2h_matches) * 100):.0f}%)")
+                    f"[Target] Over 2.5 Goals in {over_25_count}/{len(h2h_matches)} recent H2H ({(over_25_count / len(h2h_matches) * 100):.0f}%)")
                 insights.append(
-                    f"⚽ Both teams scored in {btts_count}/{len(h2h_matches)} recent H2H ({(btts_count / len(h2h_matches) * 100):.0f}%)")
+                    f"[Goals] Both teams scored in {btts_count}/{len(h2h_matches)} recent H2H ({(btts_count / len(h2h_matches) * 100):.0f}%)")
 
     except Exception as e:
         print(f"H2H analysis error: {e}")
@@ -279,9 +291,9 @@ def generate_comprehensive_insights(predictor_df, home_team, away_team, weekly_a
             home_goals_against = home_at_home['FTAG'].sum()
 
             insights.append(
-                f"🏠 {home_team} at home: {home_wins}/{len(home_at_home)} wins ({(home_wins / len(home_at_home) * 100):.0f}%)")
+                f"[Home] {home_team} at home: {home_wins}/{len(home_at_home)} wins ({(home_wins / len(home_at_home) * 100):.0f}%)")
             insights.append(
-                f"🏠 {home_team} home scoring: {(home_goals_for / len(home_at_home)):.1f} for, {(home_goals_against / len(home_at_home)):.1f} against")
+                f"[Home] {home_team} home scoring: {(home_goals_for / len(home_at_home)):.1f} for, {(home_goals_against / len(home_at_home)):.1f} against")
 
         away_away = predictor_df[predictor_df['AwayTeam'] == away_team].tail(10)
         if len(away_away) >= 5:
@@ -290,9 +302,9 @@ def generate_comprehensive_insights(predictor_df, home_team, away_team, weekly_a
             away_goals_against = away_away['FTHG'].sum()
 
             insights.append(
-                f"✈️ {away_team} away: {away_wins}/{len(away_away)} wins ({(away_wins / len(away_away) * 100):.0f}%)")
+                f"[Away] {away_team} away: {away_wins}/{len(away_away)} wins ({(away_wins / len(away_away) * 100):.0f}%)")
             insights.append(
-                f"✈️ {away_team} away scoring: {(away_goals_for / len(away_away)):.1f} for, {(away_goals_against / len(away_away)):.1f} against")
+                f"[Away] {away_team} away scoring: {(away_goals_for / len(away_away)):.1f} for, {(away_goals_against / len(away_away)):.1f} against")
 
     except Exception as e:
         print(f"Venue analysis error: {e}")
@@ -301,8 +313,8 @@ def generate_comprehensive_insights(predictor_df, home_team, away_team, weekly_a
 
 
 def initialize_predictor():
-    """Initialize prediction system"""
-    global predictor, teams
+    """Initialize prediction system with caching and live scores"""
+    global predictor, teams, prediction_cache, live_scores_service
     try:
         base_dir = os.path.dirname(os.path.abspath(__file__))
         models_path = os.path.join(base_dir, '..', 'models', 'football_models.joblib')
@@ -321,25 +333,25 @@ def initialize_predictor():
         for option in data_options:
             if os.path.exists(option):
                 data_path = option
-                print(f"✅ Found data file: {option}")
+                print(f"[OK] Found data file: {option}")
                 break
 
         if not data_path:
-            print(f"❌ No data file found")
+            print(f"[Error] No data file found")
             return None, []
 
         if not os.path.exists(models_path):
-            print(f"❌ Models file not found: {models_path}")
+            print(f"[Error] Models file not found: {models_path}")
             return None, []
 
         # Load data
         df = pd.read_csv(data_path, low_memory=False)
-        print(f"✅ Data loaded: {df.shape}")
+        print(f"[OK] Data loaded: {df.shape}")
 
         # Create predictor
         predictor = create_bayesian_predictor(df, models_path)
         if predictor is None:
-            print("❌ Failed to create predictor")
+            print("[Error] Failed to create predictor")
             return None, []
 
         # Extract teams
@@ -350,15 +362,42 @@ def initialize_predictor():
         try:
             gw1_analyzer = OpeningWeekendAnalyzer(df)
             weekly_analyzer = WeeklyInsightsAnalyzer(df)
-            print(f"✅ All analyzers initialized")
+            print(f"[OK] All analyzers initialized")
         except Exception as e:
-            print(f"⚠️ Analyzer initialization failed: {e}")
+            print(f"[Warning] Analyzer initialization failed: {e}")
 
-        print(f"✅ System initialized with {len(teams)} teams")
+        # Initialize Discipline Analyzer
+        global discipline_analyzer
+        try:
+            discipline_analyzer = DisciplineAnalyzer(df)
+            print(f"[OK] Discipline Analyzer initialized")
+        except Exception as e:
+            print(f"[Warning] Discipline Analyzer initialization failed: {e}")
+
+        # Initialize caching system
+        try:
+            prediction_cache = get_cache(use_redis=False, max_size=1000, ttl_hours=24)
+            print(f"[OK] Prediction cache initialized")
+            
+            # Warm cache with popular matchups (async in background)
+            # prediction_cache.warm_cache(predictor, POPULAR_MATCHUPS)
+        except Exception as e:
+            print(f"[Warning] Cache initialization failed: {e}")
+            prediction_cache = None
+        
+        # Initialize live scores service
+        try:
+            live_scores_service = get_live_scores_service()
+            print(f"[OK] Live scores service initialized")
+        except Exception as e:
+            print(f"[Warning] Live scores service failed: {e}")
+            live_scores_service = None
+
+        print(f"[OK] System initialized with {len(teams)} teams")
         return predictor, teams
 
     except Exception as e:
-        print(f"❌ Error initializing system: {str(e)}")
+        print(f"[Error] Error initializing system: {str(e)}")
         return None, []
 
 
@@ -374,7 +413,7 @@ def home():
 
 @routes.route('/predict', methods=['GET', 'POST'])
 def predict():
-    """Prediction page"""
+    """Prediction page with caching"""
     if request.method == 'POST':
         home_team = request.form.get('homeTeam')
         away_team = request.form.get('awayTeam')
@@ -386,16 +425,39 @@ def predict():
             return render_template('predict.html', teams=teams, error="Prediction system not available")
 
         try:
-            print(f"🎯 Making prediction: {home_team} vs {away_team}")
-
-            # Get predictions
-            result = predictor.predict_with_full_bayesian_analysis(home_team, away_team)
+            print(f"[Predict] Making prediction: {home_team} vs {away_team}")
+            
+            # Try to get from cache first
+            result = None
+            cache_hit = False
+            if prediction_cache:
+                result = prediction_cache.get(home_team, away_team)
+                if result:
+                    cache_hit = True
+                    print(f"[Cache] HIT: Using cached prediction")
+            
+            # If not in cache, generate prediction
+            if result is None:
+                print(f"[Cache] MISS: Generating new prediction")
+                result = predictor.predict_with_full_bayesian_analysis(home_team, away_team)
+                
+                # Cache the result
+                if prediction_cache:
+                    prediction_cache.set(home_team, away_team, result)
 
             # Convert numpy types
             predictions = convert_numpy_types(result.get('predictions', {}))
             probabilities = convert_numpy_types(result.get('probabilities', {}))
             confidence_intervals = convert_numpy_types(result.get('confidence_intervals', {}))
             poisson_analysis = convert_numpy_types(result.get('poisson_analysis', {}))
+
+            # Format Match Outcome probabilities for display
+            if 'Match Outcome' in probabilities and isinstance(probabilities['Match Outcome'], dict):
+                for outcome, prob in probabilities['Match Outcome'].items():
+                    try:
+                        probabilities['Match Outcome'][outcome] = f"{float(prob) * 100:.1f}%"
+                    except:
+                        pass
 
             # 🚀 GENERATE COMPREHENSIVE DYNAMIC INSIGHTS
             try:
@@ -413,29 +475,61 @@ def predict():
                 total_goals = predictions.get('Total Goals', 'N/A')
 
                 if over_25_pred != 'N/A':
-                    match_insights.append(f"🎯 Over 2.5 Goals prediction: {over_25_pred}")
+                    match_insights.append(f"[Target] Over 2.5 Goals prediction: {over_25_pred}")
 
                 if btts_pred != 'N/A':
-                    match_insights.append(f"⚽ Both teams to score: {btts_pred}")
+                    match_insights.append(f"[Goals] Both teams to score: {btts_pred}")
 
                 if total_goals != 'N/A':
-                    match_insights.append(f"🥅 Expected total goals: {total_goals}")
+                    match_insights.append(f"[Net] Expected total goals: {total_goals}")
+                
+                # Add cache status
+                if cache_hit:
+                    match_insights.insert(0, "[⚡] Instant prediction from cache")
 
             except Exception as e:
-                print(f"⚠️ Comprehensive insights error: {e}")
-                match_insights = [f"⚽ Basic prediction for {home_team} vs {away_team}"]
+                print(f"[Warning] Comprehensive insights error: {e}")
+                match_insights = [f"[Goals] Basic prediction for {home_team} vs {away_team}"]
 
             # Format insights for display
             enhanced_insights = {
                 'key_insights': match_insights[:10]  # Show top 10 insights
             }
 
-            # Format confidence levels
+            # Format confidence levels with fallback
             formatted_confidence = {}
-            for pred_type, confidence_data in confidence_intervals.items():
-                if isinstance(confidence_data, dict):
-                    confidence_level = confidence_data.get('confidence_level', 'Medium')
-                    formatted_confidence[pred_type] = confidence_level
+            # Ensure we have entries for all main predictions
+            target_keys = ['Match Outcome', 'Over 1.5 Goals', 'Over 2.5 Goals', 'Over 3.5 Goals', 'Both Teams to Score']
+            
+            for key in target_keys:
+                if key in confidence_intervals and isinstance(confidence_intervals[key], dict):
+                    formatted_confidence[key] = confidence_intervals[key].get('confidence_level', 'Medium')
+                else:
+                    # Fallback if calculation failed
+                    formatted_confidence[key] = 'Medium'
+            
+            # Generate betting tips
+            betting_tips = None
+            try:
+                tips_gen = get_betting_tips_generator()
+                all_tips = tips_gen.generate_tips(
+                    predictions,
+                    probabilities,
+                    home_team,
+                    away_team
+                )
+                betting_tips = tips_gen.format_tips_for_display(all_tips)
+                print(f"[Tips] Generated {len(all_tips)} betting tips")
+            except Exception as e:
+                print(f"[Warning] Betting tips generation failed: {e}")
+
+            # Get Discipline & Corner Stats
+            advanced_stats = None
+            try:
+                if discipline_analyzer:
+                    advanced_stats = discipline_analyzer.project_match_stats(home_team, away_team)
+            except Exception as e:
+                print(f"[Warning] Advanced stats calculation failed: {e}")
 
             return render_template('predict.html',
                                    teams=teams,
@@ -445,10 +539,13 @@ def predict():
                                    poisson_scorelines=poisson_analysis,
                                    match_insights=enhanced_insights,
                                    home_team=home_team,
-                                   away_team=away_team)
+                                   away_team=away_team,
+                                   cache_hit=cache_hit,
+                                   betting_tips=betting_tips,
+                                   advanced_stats=advanced_stats)
 
         except Exception as e:
-            print(f"❌ Prediction error: {str(e)}")
+            print(f"[Error] Prediction error: {str(e)}")
             import traceback
             traceback.print_exc()
             return render_template('predict.html', teams=teams,
@@ -532,7 +629,7 @@ def gw1_analysis():
         })
 
     except Exception as e:
-        print(f"❌ GW1 analysis error: {e}")
+        print(f"[Error] GW1 analysis error: {e}")
         return jsonify({'status': 'error', 'message': str(e)}), 500
 
 
@@ -577,7 +674,7 @@ def weekly_insights_api():
         })
 
     except Exception as e:
-        print(f"❌ Weekly insights API error: {e}")
+        print(f"[Error] Weekly insights API error: {e}")
         return jsonify({'status': 'error', 'message': str(e)}), 500
 
 
@@ -617,30 +714,59 @@ def api_prediction():
         })
 
     except Exception as e:
-        print(f"❌ Prediction API error: {e}")
+        print(f"[Error] Prediction API error: {e}")
         return jsonify({'status': 'error', 'message': str(e)}), 500
 
 
 @routes.route('/api/save-prediction', methods=['POST'])
 def save_prediction():
-    """Save prediction functionality"""
+    """Save prediction functionality with persistence"""
     try:
         data = request.get_json()
+        
+        # Define storage path
+        storage_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data', 'predictions_history.json')
+        os.makedirs(os.path.dirname(storage_path), exist_ok=True)
+        
+        # Load existing history
+        history = []
+        if os.path.exists(storage_path):
+            try:
+                import json
+                with open(storage_path, 'r') as f:
+                    history = json.load(f)
+            except Exception as e:
+                print(f"[Warning] Could not load history: {e}")
+
+        # Generate unique ID
+        new_id = 1
+        if history:
+            new_id = max(item.get('id', 0) for item in history) + 1
 
         prediction_record = {
-            'id': len(data) + 1,
+            'id': new_id,
             'home_team': data.get('home_team'),
             'away_team': data.get('away_team'),
             'predictions': data.get('predictions', {}),
             'probabilities': data.get('probabilities', {}),
             'confidence_intervals': data.get('confidence_intervals', {}),
             'poisson_analysis': data.get('poisson_analysis', {}),
+            'advanced_stats': data.get('advanced_stats', {}), # Include Phase 3 stats
             'date_saved': datetime.utcnow().isoformat(),
-            'match_date': data.get('match_date', 'TBD'),
-            'season': '2024/25'
+            'match_date': data.get('match_date', datetime.now().strftime('%Y-%m-%d')),
+            'status': 'Pending', # Pending, Correct, Incorrect
+            'result_verified': False,
+            'actual_score': None
         }
+        
+        history.append(prediction_record)
+        
+        # Save back to file
+        import json
+        with open(storage_path, 'w') as f:
+            json.dump(history, f, indent=4)
 
-        print(f"✅ Prediction saved: {prediction_record['home_team']} vs {prediction_record['away_team']}")
+        print(f"[OK] Prediction saved to disk: {prediction_record['home_team']} vs {prediction_record['away_team']}")
 
         return jsonify({
             'status': 'success',
@@ -649,55 +775,339 @@ def save_prediction():
         })
 
     except Exception as e:
-        print(f"❌ Save error: {e}")
+        print(f"[Error] Save error: {e}")
+        return jsonify({'status': 'error', 'message': str(e)}), 500
+
+@routes.route('/accuracy')
+def accuracy_dashboard():
+    """Render accuracy dashboard"""
+    return render_template('accuracy.html')
+
+@routes.route('/api/get-history')
+def get_prediction_history():
+    """Get all saved predictions"""
+    storage_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data', 'predictions_history.json')
+    if not os.path.exists(storage_path):
+        return jsonify([])
+    
+    try:
+        import json
+        with open(storage_path, 'r') as f:
+            history = json.load(f)
+        return jsonify(history)
+    except Exception as e:
+        return jsonify(history)
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+@routes.route('/api/prediction/<int:prediction_id>', methods=['DELETE'])
+def delete_prediction(prediction_id):
+    """Delete a specific prediction"""
+    storage_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data', 'predictions_history.json')
+    if not os.path.exists(storage_path):
+        return jsonify({'status': 'error', 'message': 'No history found'}), 404
+        
+    try:
+        import json
+        with open(storage_path, 'r') as f:
+            history = json.load(f)
+            
+        # Filter out the item to delete
+        new_history = [item for item in history if item.get('id') != prediction_id]
+        
+        if len(new_history) == len(history):
+            return jsonify({'status': 'error', 'message': 'Prediction not found'}), 404
+            
+        with open(storage_path, 'w') as f:
+            json.dump(new_history, f, indent=4)
+            
+        return jsonify({'status': 'success', 'message': f'Prediction {prediction_id} deleted'})
+        
+    except Exception as e:
+        return jsonify({'status': 'error', 'message': str(e)}), 500
+
+@routes.route('/api/history', methods=['DELETE'])
+def clear_history():
+    """Clear all prediction history"""
+    storage_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data', 'predictions_history.json')
+    
+    try:
+        import json
+        # Write empty list
+        with open(storage_path, 'w') as f:
+            json.dump([], f, indent=4)
+            
+        return jsonify({'status': 'success', 'message': 'History cleared'})
+        
+    except Exception as e:
+        return jsonify({'status': 'error', 'message': str(e)}), 500
+
+@routes.route('/api/verify-predictions', methods=['POST'])
+def verify_predictions():
+    """Check pending predictions against actual results"""
+    storage_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data', 'predictions_history.json')
+    if not os.path.exists(storage_path):
+        return jsonify({'status': 'error', 'message': 'No history found'})
+    
+    try:
+        import json
+        with open(storage_path, 'r') as f:
+            history = json.load(f)
+        
+        updated_count = 0
+        service = get_live_scores_service()
+        
+        for record in history:
+            if record.get('status') == 'Pending':
+                # Attempt to verify
+                home_team = record['home_team']
+                
+                # 1. Get Team ID (Try Home, then Away)
+                team_id = service.search_team(record['home_team'])
+                if not team_id:
+                    # Try away team
+                    team_id = service.search_team(record['away_team'])
+                    
+                if not team_id:
+                    print(f"[Verify] Could not find ID for matching: {record['home_team']} vs {record['away_team']}")
+                    continue
+                    
+                # 2. Get Recent Matches (FINISHED)
+                matches_finished = service.get_team_matches(team_id, limit=5, status='FINISHED')
+                
+                # Also get Scheduled to checking if it's just not played yet? 
+                # For verification, we strictly look for FINISHED matches matching the date.
+                
+                # 3. Find matching game
+                target_date = record['match_date'] # YYYY-MM-DD
+                found_match = None
+                
+                for m in matches_finished:
+                    # Date parsing with tolerance
+                    try:
+                        match_dt = datetime.fromisoformat(m['date'].replace('Z', '+00:00'))
+                        target_dt = datetime.strptime(target_date, '%Y-%m-%d')
+                        # Make target_dt offset-aware (assuming UTC for simplicity or naive comparison)
+                        # Best to compare dates only
+                        match_date_str = match_dt.strftime('%Y-%m-%d')
+                        
+                        # Check strict match OR +/- 1 day
+                        delta = abs((match_dt.date() - target_dt.date()).days)
+                        if delta <= 1:
+                            found_match = m
+                            break
+                    except Exception as e:
+                        # Fallback to string match
+                        if m['date'].startswith(target_date):
+                            found_match = m
+                            break
+                
+                if found_match and found_match['status'] == 'FINISHED':
+                    score = found_match['score']['fullTime']
+                    home_score = score['home']
+                    away_score = score['away']
+                    
+                    record['actual_score'] = f"{home_score}-{away_score}"
+                    record['result_verified'] = True
+                    
+                    # Determine Result
+                    if home_score > away_score:
+                        result = "Home Win"
+                    elif away_score > home_score:
+                        result = "Away Win"
+                    else:
+                        result = "Draw"
+                    
+                    # Check against prediction
+                    predicted_outcome = record['predictions'].get('Match Outcome')
+                    if predicted_outcome:
+                        # Normalize string comparison
+                        if "Home Win" in predicted_outcome and result == "Home Win":
+                            record['status'] = 'Correct'
+                        elif "Away Win" in predicted_outcome and result == "Away Win":
+                            record['status'] = 'Correct'
+                        elif "Draw" in predicted_outcome and result == "Draw":
+                            record['status'] = 'Correct'
+                        else:
+                            record['status'] = 'Incorrect'
+                    
+                    # Check Exact Score
+                    predicted_cs = None
+                    if record.get('poisson_analysis') and record['poisson_analysis'].get('most_likely_scorelines'):
+                        predicted_cs = record['poisson_analysis']['most_likely_scorelines'][0]['score'] # e.g. "2-1"
+                    
+                    if predicted_cs == f"{home_score}-{away_score}":
+                        record['exact_score_correct'] = True
+                    else:
+                        record['exact_score_correct'] = False
+                        
+                    updated_count += 1
+        
+        # Save updates
+        if updated_count > 0:
+            with open(storage_path, 'w') as f:
+                json.dump(history, f, indent=4)
+                
+        return jsonify({
+            'status': 'success', 
+            'message': f'Verified {updated_count} predictions',
+            'updated_count': updated_count
+        })
+
+    except Exception as e:
+        print(f"[Error] Verify error: {e}")
         return jsonify({'status': 'error', 'message': str(e)}), 500
 
 
 @routes.route('/api/live-scores', methods=['GET'])
 def live_scores():
     """
-    Fetch live scores from football-data.org API via FootballDataService.
-
-    This endpoint retrieves current live matches through the FootballDataService
-    class, which handles API authentication and communication with 
-    https://api.football-data.org/v4/matches.
-
-    The service fetches matches with status: LIVE, IN_PLAY, PAUSED, SCHEDULED.
-
+    Fetch live scores using enhanced live scores service
     """
     try:
-        # Check if API key is available
-        api_key = os.getenv('API_KEY')
-        if not api_key:
-            print("❌ Live scores error: API key not configured")
+        if not live_scores_service:
             return jsonify({
                 'status': 'error',
-                'message': 'API key not configured',
+                'message': 'Live scores service not available',
                 'timestamp': datetime.utcnow().isoformat()
             }), 500
 
-        football_service = FootballDataService()
-        data = football_service.get_live_matches()
+        # Get live matches
+        matches = live_scores_service.get_live_matches()
 
-        if not data['success']:
-            print("❌ Live scores API error")
-            return jsonify({
-                'status': 'error',
-                'message': data.get('details').get('message'),
-                'timestamp': datetime.utcnow().isoformat()
-            }), 502
-
-        # Return consistent JSON response format
         return jsonify({
             'status': 'success',
-            'data': data.get('data'),
+            'matches': matches,
+            'count': len(matches),
             'timestamp': datetime.utcnow().isoformat()
         })
 
     except Exception as e:
-        print(f"❌ Live scores processing error: {e}")
+        print(f"[Error] Live scores error: {e}")
         return jsonify({
             'status': 'error',
-            'message': 'Internal server error while fetching live scores',
+            'message': str(e),
             'timestamp': datetime.utcnow().isoformat()
         }), 500
+
+
+@routes.route('/api/upcoming-matches', methods=['GET'])
+def upcoming_matches():
+    """Get upcoming matches"""
+    try:
+        if not live_scores_service:
+            return jsonify({'status': 'error', 'message': 'Service not available'}), 500
+        
+        days = request.args.get('days', 7, type=int)
+        competition = request.args.get('competition', None)
+        
+        matches = live_scores_service.get_upcoming_matches(competition, days)
+        
+        return jsonify({
+            'status': 'success',
+            'matches': matches,
+            'count': len(matches),
+            'timestamp': datetime.utcnow().isoformat()
+        })
+    
+    except Exception as e:
+        return jsonify({'status': 'error', 'message': str(e)}), 500
+
+
+@routes.route('/api/cache-stats', methods=['GET'])
+def cache_stats():
+    """Get cache statistics"""
+    try:
+        if not prediction_cache:
+            return jsonify({'status': 'error', 'message': 'Cache not available'}), 500
+        
+        stats = prediction_cache.get_stats()
+        
+        return jsonify({
+            'status': 'success',
+            'cache_stats': stats,
+            'timestamp': datetime.utcnow().isoformat()
+        })
+    
+    except Exception as e:
+        return jsonify({'status': 'error', 'message': str(e)}), 500
+
+
+@routes.route('/statistics', methods=['GET', 'POST'])
+def statistics():
+    """Match statistics dashboard"""
+    if request.method == 'POST':
+        home_team = request.form.get('homeTeam')
+        away_team = request.form.get('awayTeam')
+        
+        if not home_team or not away_team:
+            return render_template('statistics.html', teams=teams, error="Please select both teams")
+        
+        if not predictor:
+            return render_template('statistics.html', teams=teams, error="System not available")
+        
+        try:
+            # Import statistics generator
+            from app.match_statistics import get_statistics_generator
+            
+            stats_gen = get_statistics_generator(predictor.df)
+            stats = stats_gen.generate_full_statistics(home_team, away_team)
+            
+            # Add Advanced Stats (Discipline & Corners)
+            advanced_stats = None
+            if discipline_analyzer:
+                try:
+                    advanced_stats = discipline_analyzer.project_match_stats(home_team, away_team)
+                except Exception as e:
+                    print(f"[Warning] Statistics advanced stats failed: {e}")
+
+            return render_template('statistics.html',
+                                 teams=teams,
+                                 stats=stats,
+                                 home_team=home_team,
+                                 away_team=away_team,
+                                 advanced_stats=advanced_stats)
+        
+        except Exception as e:
+            print(f"[Error] Statistics error: {str(e)}")
+            import traceback
+            traceback.print_exc()
+            return render_template('statistics.html', teams=teams,
+                                 error=f"Statistics generation failed: {str(e)}")
+    
+    return render_template('statistics.html', teams=teams, stats=None)
+
+
+@routes.route('/api/betting-tips', methods=['POST'])
+def api_betting_tips():
+    """API endpoint for betting tips"""
+    try:
+        data = request.get_json()
+        home_team = data.get('home_team')
+        away_team = data.get('away_team')
+        
+        if not home_team or not away_team or not predictor:
+            return jsonify({'status': 'error', 'message': 'Invalid request'}), 400
+        
+        # Get prediction
+        result = predictor.predict_with_full_bayesian_analysis(home_team, away_team)
+        
+        # Generate betting tips
+        tips_gen = get_betting_tips_generator()
+        tips = tips_gen.generate_tips(
+            result.get('predictions', {}),
+            result.get('probabilities', {}),
+            home_team,
+            away_team
+        )
+        
+        formatted_tips = tips_gen.format_tips_for_display(tips)
+        
+        return jsonify({
+            'status': 'success',
+            'tips': formatted_tips,
+            'timestamp': datetime.utcnow().isoformat()
+        })
+    
+    except Exception as e:
+        return jsonify({'status': 'error', 'message': str(e)}), 500

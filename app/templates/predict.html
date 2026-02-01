@@ -2,973 +2,503 @@
 
 {% block content %}
 <div class="dashboard-container">
-    <!-- Enhanced Header for Bayesian System -->
-    <div class="header-section text-center mb-4" style="background: linear-gradient(135deg, #2E8B57, #1e5631); padding: 2rem; border-radius: 15px; color: white;">
-        <h2 class="mb-2">🧠 Enhanced Bayesian Football Predictor</h2>
-        <p class="mb-0">AI predictions with Bayesian inference, logical constraints and exact scorelines</p>
+    <!-- Header -->
+    <div class="welcome-section mb-4">
+        <h1><i class="bi bi-cpu"></i> Advanced Match Analysis</h1>
+        <p class="lead">AI-powered insights with logical constraints and precise scoreline projections</p>
         {% if bayesian_system %}
-        <small class="badge bg-success mt-2">✅ Enhanced Bayesian System Active</small>
+        <span class="pill yes"><i class="bi bi-check-circle"></i> ProPredict System Active</span>
         {% endif %}
     </div>
 
     <!-- Team Selection -->
-    <div class="selection-panel">
-        <h3>Select Match</h3>
-
-        <div id="loadingSpinner" style="display: none; text-align: center; padding: 40px;">
-            <div class="spinner-border text-success" style="width: 3rem; height: 3rem;"></div>
-            <p class="mt-3">🧠 Generating Bayesian prediction...</p>
+    <div class="card mb-4">
+        <div class="card-header">
+            <h4><i class="bi bi-controller"></i> Select Match</h4>
         </div>
+        <div class="card-body">
+            <div id="loadingSpinner" style="display: none; text-align: center; padding: 40px;">
+                <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;"></div>
+                <p class="mt-3 text-muted">Generating analysis...</p>
+            </div>
 
-        <form method="POST" id="predictionForm" novalidate aria-describedby="formErrorSummary">
-            <div class="teams-selection">
-                <div class="team-select">
-                    <label for="homeTeamSelect">🏠 Home Team</label>
-                    <select id="homeTeamSelect" name="homeTeam" required aria-invalid="false" aria-describedby="homeTeamError">
-                        <option value="">Select Home Team</option>
-                        {% for team in teams %}
-                        <option value="{{ team }}">{{ team }}</option>
-                        {% endfor %}
-                    </select>
-                    <div id="homeTeamError" class="invalid-feedback">Please choose a home team.</div>
+            <form method="POST" id="predictionForm" novalidate aria-describedby="formErrorSummary">
+                <div class="row align-items-end">
+                    <div class="col-md-5 mb-3">
+                        <label for="homeTeamSelect" class="form-label">Home Team</label>
+                        <select id="homeTeamSelect" name="homeTeam" class="form-select" required>
+                            <option value="">Select Home Team</option>
+                            {% for team in teams %}
+                            <option value="{{ team }}">{{ team }}</option>
+                            {% endfor %}
+                        </select>
+                        <div id="homeTeamError" class="invalid-feedback">Please choose a home team.</div>
+                    </div>
+
+                    <div class="col-md-2 mb-3 text-center">
+                        <div class="vs-badge">VS</div>
+                    </div>
+
+                    <div class="col-md-5 mb-3">
+                        <label for="awayTeamSelect" class="form-label">Away Team</label>
+                        <select id="awayTeamSelect" name="awayTeam" class="form-select" required>
+                            <option value="">Select Away Team</option>
+                            {% for team in teams %}
+                            <option value="{{ team }}">{{ team }}</option>
+                            {% endfor %}
+                        </select>
+                        <div id="awayTeamError" class="invalid-feedback">Please choose an away team.</div>
+                        <div id="sameTeamsError" class="invalid-feedback">Home and away teams must be different.</div>
+                    </div>
                 </div>
 
-                <div class="vs-badge">VS</div>
-
-                <div class="team-select">
-                    <label for="awayTeamSelect">✈️ Away Team</label>
-                    <select id="awayTeamSelect" name="awayTeam" required aria-invalid="false" aria-describedby="awayTeamError sameTeamsError">
-                        <option value="">Select Away Team</option>
-                        {% for team in teams %}
-                        <option value="{{ team }}">{{ team }}</option>
-                        {% endfor %}
-                    </select>
-                    <div id="awayTeamError" class="invalid-feedback">Please choose an away team.</div>
-                    <div id="sameTeamsError" class="invalid-feedback">Home and away teams must be different.</div>
+                <div id="formErrorSummary" class="text-danger mb-3" role="alert" style="display:none;">
+                    Please correct the errors before submitting.
                 </div>
-            </div>
-            <div id="formErrorSummary" class="text-danger" role="alert" aria-live="polite" style="display:none;">
-                Please correct the errors before submitting.
-            </div>
-            <button type="submit" class="btn-predict">🧠 Get Bayesian Prediction</button>
-        </form>
+
+                <div class="text-center mt-3">
+                    <button type="submit" class="btn-predict"><i class="bi bi-lightning-charge"></i> Generate
+                        Prediction</button>
+                </div>
+            </form>
+        </div>
     </div>
 
     {% if predictions %}
-    <!-- Enhanced Results -->
+    <!-- Results -->
     <div class="prediction-results">
-        <div class="match-header">
-            <h3>{{ home_team }} vs {{ away_team }}</h3>
+        <div class="match-header text-center mb-4">
+            <h2 class="mb-3">{{ home_team }} <span class="text-muted">vs</span> {{ away_team }}</h2>
 
-            <!-- Logical Status -->
             {% if logical_valid %}
-            <div class="alert alert-success d-flex align-items-center mb-3">
-                <i class="fas fa-check-circle me-2"></i>
-                <strong>✅ Bayesian predictions are logically consistent</strong>
-                {% if logical_issues %}
-                <div class="ms-3">
-                    <small>Applied: {{ logical_issues|join(', ') }}</small>
-                </div>
-                {% endif %}
+            <div class="d-inline-block px-3 py-2 rounded"
+                style="background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.2);">
+                <i class="bi bi-shield-check text-success"></i>
+                <small class="text-success fw-bold">Logically Consistent</small>
             </div>
             {% endif %}
 
-            <input type="hidden" id="homeTeamSelected" value="{{ home_team }}">
-            <input type="hidden" id="awayTeamSelected" value="{{ away_team }}">
-            <button id="savePredictionButton" class="btn btn-outline-success">💾 Save Bayesian Prediction</button>
+            <div class="mt-3">
+                <button id="savePredictionButton" class="btn btn-sm btn-outline-primary"><i class="bi bi-save"></i> Save
+                    Analysis</button>
+            </div>
         </div>
 
-        <div class="predictions-grid">
-            <!-- Goal Markets -->
-            <div class="prediction-card goal-markets">
-                <h4>⚽ Bayesian Goal Markets</h4>
-                <div class="goals-predictions">
-                    <div class="goal-item">
-                        <div class="goal-header">
-                            <span>Over 1.5 Goals</span>
-                            <span class="result {{ 'success' if predictions['Over 1.5 Goals'] == 'Yes' else 'danger' }}">
+        <div class="row">
+            <!-- Left Column -->
+            <div class="col-lg-8">
+                <!-- Match Intensity & Set Pieces -->
+                {% if advanced_stats %}
+                <div class="card mb-4">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h4><i class="bi bi-exclamation-triangle"></i> Match Intensity</h4>
+                        <span class="badge bg-{{ advanced_stats.intensity_color }}">{{ advanced_stats.intensity }}
+                            Intensity</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="row text-center mb-4">
+                            <div class="col-6">
+                                <small class="text-muted d-block uppercase mb-1">Projected Cards</small>
+                                <div class="display-6 fw-bold text-{{ advanced_stats.intensity_color }}">
+                                    {{ advanced_stats.projected_total_cards }}
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <small class="text-muted d-block uppercase mb-1">Projected Corners</small>
+                                <div class="display-6 fw-bold text-info">
+                                    {{ advanced_stats.projected_total_corners }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="intensity-details">
+                            <!-- Cards Comparison -->
+                            <div class="mb-3">
+                                <div class="d-flex justify-content-between align-items-center mb-1">
+                                    <small class="text-muted"><i class="bi bi-file-earmark-fill text-warning"></i> Avg
+                                        Cards</small>
+                                </div>
+                                <div class="d-flex align-items-center justify-content-between small">
+                                    <span class="text-white">{{ advanced_stats.home_stats.avg_yellow_cards }} <span
+                                            class="text-muted">({{ home_team }})</span></span>
+                                    <span class="text-white">{{ advanced_stats.away_stats.avg_yellow_cards }} <span
+                                            class="text-muted">({{ away_team }})</span></span>
+                                </div>
+                                <div class="progress mt-1" style="height: 6px; background: rgba(255,255,255,0.1);">
+                                    {% set total_cards = advanced_stats.home_stats.avg_yellow_cards +
+                                    advanced_stats.away_stats.avg_yellow_cards %}
+                                    {% set home_card_pct = (advanced_stats.home_stats.avg_yellow_cards / total_cards *
+                                    100) if total_cards > 0 else 50 %}
+                                    <div class="progress-bar bg-warning" role="progressbar"
+                                        style="width: {{ home_card_pct }}%"></div>
+                                </div>
+                            </div>
+
+                            <!-- Corners Comparison -->
+                            <div class="mb-3">
+                                <div class="d-flex justify-content-between align-items-center mb-1">
+                                    <small class="text-muted"><i class="bi bi-flag-fill text-info"></i> Avg
+                                        Corners</small>
+                                </div>
+                                <div class="d-flex align-items-center justify-content-between small">
+                                    <span class="text-white">{{ advanced_stats.home_stats.avg_corners }} <span
+                                            class="text-muted">({{ home_team }})</span></span>
+                                    <span class="text-white">{{ advanced_stats.away_stats.avg_corners }} <span
+                                            class="text-muted">({{ away_team }})</span></span>
+                                </div>
+                                <div class="progress mt-1" style="height: 6px; background: rgba(255,255,255,0.1);">
+                                    {% set total_corners = advanced_stats.home_stats.avg_corners +
+                                    advanced_stats.away_stats.avg_corners %}
+                                    {% set home_corner_pct = (advanced_stats.home_stats.avg_corners / total_corners *
+                                    100) if total_corners > 0 else 50 %}
+                                    <div class="progress-bar bg-info" role="progressbar"
+                                        style="width: {{ home_corner_pct }}%"></div>
+                                </div>
+                            </div>
+
+                            <!-- H2H Context -->
+                            {% if advanced_stats.h2h_stats.matches > 0 %}
+                            <div class="mt-3 pt-3 border-top border-secondary text-center small text-muted">
+                                <i class="bi bi-clock-history"></i> Last {{ advanced_stats.h2h_stats.matches }} H2H
+                                meetings averaged
+                                <strong class="text-white">{{ advanced_stats.h2h_stats.avg_total_yellow }}</strong>
+                                cards &
+                                <strong class="text-white">{{ advanced_stats.h2h_stats.avg_total_corners }}</strong>
+                                corners
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+
+                <!-- Goal Markets -->
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h4><i class="bi bi-graph-up-arrow"></i> Goal Markets</h4>
+                    </div>
+                    <div class="card-body">
+                        <!-- Over 1.5 -->
+                        <div
+                            class="d-flex justify-content-between align-items-center mb-3 pb-3 border-bottom border-secondary">
+                            <div>
+                                <h6 class="mb-0">Over 1.5 Goals</h6>
+                                <small class="text-muted">Confidence: {{ confidence_intervals.get('Over 1.5 Goals',
+                                    'N/A') }}</small>
+                            </div>
+                            <span class="pill {{ 'yes' if predictions['Over 1.5 Goals'] == 'Yes' else 'no' }}">
                                 {{ predictions['Over 1.5 Goals'] }}
                             </span>
                         </div>
-                        <div class="confidence">
-                            {% if confidence_intervals and confidence_intervals.get('Over 1.5 Goals') %}
-                                {{ confidence_intervals['Over 1.5 Goals'] }}
-                            {% else %}
-                                {{ probabilities.get('Over 1.5 Goals', 'N/A') }} confidence
-                            {% endif %}
-                        </div>
-                    </div>
 
-                    <div class="goal-item featured">
-                        <div class="goal-header">
-                            <span>Over 2.5 Goals</span>
-                            <span class="result {{ 'success' if predictions['Over 2.5 Goals'] == 'Yes' else 'danger' }}">
+                        <!-- Over 2.5 (Featured) -->
+                        <div class="d-flex justify-content-between align-items-center mb-3 pb-3 border-bottom border-secondary"
+                            style="background: rgba(59, 130, 246, 0.05); padding: 10px; border-radius: 8px;">
+                            <div>
+                                <h6 class="mb-0 text-primary">Over 2.5 Goals</h6>
+                                <small class="text-muted">Confidence: {{ confidence_intervals.get('Over 2.5 Goals',
+                                    'N/A') }}</small>
+                            </div>
+                            <span class="pill {{ 'yes' if predictions['Over 2.5 Goals'] == 'Yes' else 'no' }}">
                                 {{ predictions['Over 2.5 Goals'] }}
                             </span>
                         </div>
-                        <div class="confidence">
-                            {% if confidence_intervals and confidence_intervals.get('Over 2.5 Goals') %}
-                                {{ confidence_intervals['Over 2.5 Goals'] }}
-                            {% else %}
-                                {{ probabilities.get('Over 2.5 Goals', 'N/A') }} confidence
-                            {% endif %}
-                        </div>
-                    </div>
 
-                    {% if predictions.get('Over 3.5 Goals') %}
-                    <div class="goal-item">
-                        <div class="goal-header">
-                            <span>Over 3.5 Goals</span>
-                            <span class="result {{ 'success' if predictions['Over 3.5 Goals'] == 'Yes' else 'danger' }}">
-                                {{ predictions['Over 3.5 Goals'] }}
-                            </span>
-                        </div>
-                        <div class="confidence">
-                            {% if confidence_intervals and confidence_intervals.get('Over 3.5 Goals') %}
-                                {{ confidence_intervals['Over 3.5 Goals'] }}
-                            {% else %}
-                                {{ probabilities.get('Over 3.5 Goals', 'N/A') }} confidence
-                            {% endif %}
-                        </div>
-                    </div>
-                    {% endif %}
-
-                    <div class="goal-item">
-                        <div class="goal-header">
-                            <span>Both Teams Score</span>
-                            <span class="result {{ 'success' if predictions['Both Teams to Score'] == 'Yes' else 'danger' }}">
+                        <!-- BTTS -->
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h6 class="mb-0">Both Teams to Score</h6>
+                                <small class="text-muted">Confidence: {{ confidence_intervals.get('Both Teams to Score',
+                                    'N/A') }}</small>
+                            </div>
+                            <span class="pill {{ 'yes' if predictions['Both Teams to Score'] == 'Yes' else 'no' }}">
                                 {{ predictions['Both Teams to Score'] }}
                             </span>
                         </div>
-                        <div class="confidence">
-                            {% if confidence_intervals and confidence_intervals.get('Both Teams to Score') %}
-                                {{ confidence_intervals['Both Teams to Score'] }}
-                            {% else %}
-                                {{ probabilities.get('Both Teams to Score', 'N/A') }} confidence
-                            {% endif %}
-                        </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Match Outcome -->
-            <div class="prediction-card">
-                <h4>🏆 Bayesian Match Outcome</h4>
-                <div class="outcome-result">
-                    <div class="main-prediction">{{ predictions['Match Outcome'] }}</div>
-                    {% if confidence_intervals and confidence_intervals.get('Match Outcome') %}
-                    <div class="outcome-confidence">
-                        <small>Confidence: {{ confidence_intervals['Match Outcome'] }}</small>
+                <!-- Match Outcome -->
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h4><i class="bi bi-trophy"></i> Match Outcome</h4>
                     </div>
-                    {% endif %}
-                    <div class="outcome-probabilities">
+                    <div class="card-body text-center">
+                        <div class="display-4 mb-3 fw-bold text-white">{{ predictions['Match Outcome'] }}</div>
+
                         {% if probabilities['Match Outcome'] is mapping %}
-                        <div class="prob-item">
-                            <span>Home Win</span>
-                            <span>{{ probabilities['Match Outcome']['Home Win'] }}</span>
-                        </div>
-                        <div class="prob-item">
-                            <span>Draw</span>
-                            <span>{{ probabilities['Match Outcome']['Draw'] }}</span>
-                        </div>
-                        <div class="prob-item">
-                            <span>Away Win</span>
-                            <span>{{ probabilities['Match Outcome']['Away Win'] }}</span>
-                        </div>
-                        {% else %}
-                        <div class="prob-item">
-                            <span>Prediction Confidence</span>
-                            <span>{{ probabilities.get('Match Outcome', 'N/A') }}</span>
-                        </div>
-                        {% endif %}
-                    </div>
-                </div>
-            </div>
-
-            <!-- Total Goals -->
-            {% if predictions.get('Total Goals') %}
-            <div class="prediction-card">
-                <h4>⚽ Bayesian Total Goals</h4>
-                <div class="total-goals-result">
-                    <div class="main-prediction">{{ predictions['Total Goals'] }}</div>
-                    {% if confidence_intervals and confidence_intervals.get('Total Goals') %}
-                    <div class="confidence">{{ confidence_intervals['Total Goals'] }}</div>
-                    {% endif %}
-                </div>
-            </div>
-            {% endif %}
-
-            <!-- Poisson Scorelines -->
-            {% if poisson_scorelines %}
-            <div class="prediction-card poisson-card">
-                <h4>🎯 Bayesian Poisson Scorelines</h4>
-                {% if poisson_scorelines.expected_goals %}
-                <div class="expected-goals">
-                    <strong>Expected Goals: {{ poisson_scorelines.expected_goals }}</strong>
-                </div>
-                {% endif %}
-                {% if poisson_scorelines.top_scorelines %}
-                <div class="scoreline-grid">
-                    {% for scoreline in poisson_scorelines.top_scorelines %}
-                    <div class="scoreline-item">
-                        <div class="score">{{ scoreline.score }}</div>
-                        <div class="probability">{{ scoreline.probability }}%</div>
-                    </div>
-                    {% endfor %}
-                </div>
-                {% endif %}
-            </div>
-            {% endif %}
-
-            <!-- Enhanced Team Insights -->
-            {% if team_insights %}
-            <div class="prediction-card insights-card">
-                <h4>🧠 Bayesian Team Analysis</h4>
-                <div class="team-comparison">
-                    <div class="team-stats">
-                        <div class="team-info">
-                            <h6>🏠 {{ home_team }}</h6>
-                            {% if team_insights.home_elo %}
-                            <div>Elo: {{ team_insights.home_elo }}</div>
-                            {% endif %}
-                            {% if team_insights.home_form %}
-                            <div>Form: {{ team_insights.home_form }}</div>
-                            {% endif %}
-                        </div>
-                        {% if team_insights.elo_advantage %}
-                        <div class="advantage">
-                            <div class="elo-diff">
-                                {{ '+' if team_insights.elo_advantage > 0 else '' }}{{ team_insights.elo_advantage }}
+                        <div class="prob-bars mt-4">
+                            <div class="prob-bar home">
+                                <div class="label">
+                                    <span>Home Win</span>
+                                    <span>{{ probabilities['Match Outcome']['Home Win'] }}</span>
+                                </div>
+                                <div class="bar">
+                                    <div class="fill" style="width: {{ probabilities['Match Outcome']['Home Win'] }}">
+                                    </div>
+                                </div>
                             </div>
-                            <small>Elo Advantage</small>
+                            <div class="prob-bar draw mt-3">
+                                <div class="label">
+                                    <span>Draw</span>
+                                    <span>{{ probabilities['Match Outcome']['Draw'] }}</span>
+                                </div>
+                                <div class="bar">
+                                    <div class="fill" style="width: {{ probabilities['Match Outcome']['Draw'] }}"></div>
+                                </div>
+                            </div>
+                            <div class="prob-bar away mt-3">
+                                <div class="label">
+                                    <span>Away Win</span>
+                                    <span>{{ probabilities['Match Outcome']['Away Win'] }}</span>
+                                </div>
+                                <div class="bar">
+                                    <div class="fill" style="width: {{ probabilities['Match Outcome']['Away Win'] }}">
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        {% endif %}
-                        <div class="team-info">
-                            <h6>✈️ {{ away_team }}</h6>
-                            {% if team_insights.away_elo %}
-                            <div>Elo: {{ team_insights.away_elo }}</div>
-                            {% endif %}
-                            {% if team_insights.away_form %}
-                            <div>Form: {{ team_insights.away_form }}</div>
-                            {% endif %}
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Bayesian System Info -->
-                {% if team_insights.bayesian_system %}
-                <div class="bayesian-info mt-3">
-                    <h6>🧠 Enhanced System Details:</h6>
-                    <div class="system-details">
-                        {% if team_insights.models_used %}
-                        <div><strong>Models:</strong> {{ team_insights.models_used|length }} Bayesian models</div>
-                        {% endif %}
-                        {% if team_insights.calibrated_models %}
-                        <div><strong>Calibrated:</strong> {{ team_insights.calibrated_models|length }} models</div>
-                        {% endif %}
-                        {% if team_insights.poisson_available %}
-                        <div><strong>Poisson:</strong> ✅ Available</div>
-                        {% endif %}
-                        {% if team_insights.bayesian_priors_used %}
-                        <div><strong>Priors:</strong> {{ team_insights.bayesian_priors_used|join(', ') }}</div>
                         {% endif %}
                     </div>
                 </div>
-                {% endif %}
-
-                {% if team_insights.key_factors %}
-                <div class="key-factors mt-3">
-                    <h6>🔍 Key Factors:</h6>
-                    <ul>
-                        {% for factor in team_insights.key_factors %}
-                        <li>{{ factor }}</li>
-                        {% endfor %}
-                    </ul>
-                </div>
-                {% endif %}
             </div>
-            {% endif %}
 
-            <!-- Enhanced Insights from match_insights -->
-            {% if match_insights %}
-            <div class="prediction-card insights-deep">
-                <h4>💡 Enhanced Match Insights</h4>
-
-                {% if match_insights.key_insights %}
-                <div class="insight-section">
-                    <h6>Key Insights</h6>
-                    <ul class="insights-list">
-                        {% for insight in match_insights.key_insights %}
-                        <li>{{ insight|safe }}</li>
-                        {% endfor %}
-                    </ul>
-                </div>
-                {% endif %}
-
-                {% if match_insights.shooting_analysis %}
-                <div class="insight-section">
-                    <h6>Shot Analysis</h6>
-                    <div class="shooting-stats">
-                        <div class="team-shooting">
-                            <strong>{{ home_team }} (Home):</strong>
-                            <small>{{ match_insights.shooting_analysis.home.overall_xg_indicators.shot_volume }} volume,
-                                   {{ match_insights.shooting_analysis.home.overall_xg_indicators.clinical_finishing }} finishing</small>
-                        </div>
-                        <div class="team-shooting">
-                            <strong>{{ away_team }} (Away):</strong>
-                            <small>{{ match_insights.shooting_analysis.away.overall_xg_indicators.shot_volume }} volume,
-                                   {{ match_insights.shooting_analysis.away.overall_xg_indicators.clinical_finishing }} finishing</small>
-                        </div>
-                    </div>
-                </div>
-                {% endif %}
-
-                {% if match_insights.corner_analysis %}
-                <div class="insight-section">
-                    <h6>Corner Prediction</h6>
-                    <div class="corner-stats">
-                        <div>Expected Total: <strong>{{ match_insights.corner_analysis.prediction.expected_total_corners }}</strong></div>
-                        <div>Suggestion: <strong>{{ match_insights.corner_analysis.prediction.corner_market_suggestion }}</strong></div>
-                    </div>
-                </div>
-                {% endif %}
-            </div>
-            {% endif %}
-        </div>
-
-        <!-- Enhanced System Status -->
-        <div class="system-status mt-4">
-            <div class="status-grid">
-                <div class="status-item">
-                    <i class="fas fa-brain text-success"></i>
-                    <span>Bayesian Models Active</span>
-                </div>
-                <div class="status-item">
-                    <i class="fas fa-check-circle text-info"></i>
-                    <span>Logical Constraints Enabled</span>
-                </div>
+            <!-- Right Column -->
+            <div class="col-lg-4">
+                <!-- Scorelines -->
                 {% if poisson_scorelines %}
-                <div class="status-item">
-                    <i class="fas fa-target text-warning"></i>
-                    <span>Poisson Scorelines Available</span>
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h4><i class="bi bi-bullseye"></i> Correct Score</h4>
+                    </div>
+                    <div class="card-body">
+                        {% if poisson_scorelines.expected_goals %}
+                        <div class="text-center mb-3 p-3 rounded"
+                            style="background: rgba(59, 130, 246, 0.1); border: 1px solid rgba(59, 130, 246, 0.2);">
+                            <h6 class="text-primary mb-2">Expected Goals (xG)</h6>
+                            <div class="d-flex justify-content-around align-items-center">
+                                <div>
+                                    <small class="text-muted d-block">{{ home_team }}</small>
+                                    <span class="fs-5 fw-bold">{{ poisson_scorelines.expected_goals.home }}</span>
+                                </div>
+                                <div class="text-muted small">vs</div>
+                                <div>
+                                    <small class="text-muted d-block">{{ away_team }}</small>
+                                    <span class="fs-5 fw-bold">{{ poisson_scorelines.expected_goals.away }}</span>
+                                </div>
+                            </div>
+                            <div class="mt-2 pt-2 border-top border-primary-subtle small text-muted">
+                                Total Match xG: <strong>{{ poisson_scorelines.expected_goals.total }}</strong>
+                            </div>
+                        </div>
+                        {% endif %}
+
+                        <div class="row g-2">
+                            {% for scoreline in poisson_scorelines.top_scorelines %}
+                            <div class="col-6">
+                                <div class="p-2 text-center rounded border border-secondary"
+                                    style="background: var(--bg-body);">
+                                    <div class="fw-bold fs-5 text-white">{{ scoreline.score }}</div>
+                                    <div class="small text-muted">{{ scoreline.probability }}%</div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
                 </div>
                 {% endif %}
-                {% if confidence_intervals %}
-                <div class="status-item">
-                    <i class="fas fa-percentage text-primary"></i>
-                    <span>Confidence Intervals</span>
-                </div>
-                {% endif %}
-                {% if team_insights and team_insights.bayesian_system %}
-                <div class="status-item">
-                    <i class="fas fa-cogs text-success"></i>
-                    <span>Enhanced Bayesian System</span>
+
+                <!-- Match Insights (Game Week Stats) -->
+                {% if match_insights and match_insights.key_insights %}
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h4><i class="bi bi-lightbulb"></i> Match Insights</h4>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-group list-group-flush">
+                            {% for insight in match_insights.key_insights %}
+                            <li class="list-group-item bg-transparent text-white border-secondary ps-0">
+                                <i class="bi bi-check2-circle text-success me-2"></i> {{ insight }}
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
                 </div>
                 {% endif %}
             </div>
         </div>
+
+        <!-- Hidden Inputs for Saving -->
+        <input type="hidden" id="homeTeamSelected" value="{{ home_team }}">
+        <input type="hidden" id="awayTeamSelected" value="{{ away_team }}">
+        <script id="predictionsData" type="application/json">
+            {{ predictions | tojson | safe }}
+        </script>
+
     </div>
     {% endif %}
 
     <!-- Error Display -->
     {% if error %}
     <div class="alert alert-danger mt-4">
-        <h5>⚠️ Prediction Error</h5>
+        <h5><i class="bi bi-exclamation-triangle"></i> Analysis Error</h5>
         <p>{{ error }}</p>
-        <small>Please try again or contact support if the issue persists.</small>
     </div>
     {% endif %}
 
     <!-- Saved Predictions -->
     <div class="saved-predictions mt-4">
-        <h4>📋 Saved Bayesian Predictions</h4>
-        <div id="savedPredictionsList"></div>
+        <div class="card">
+            <div class="card-header">
+                <h4><i class="bi bi-bookmark-check"></i> Saved Analyses</h4>
+            </div>
+            <div class="card-body" id="savedPredictionsList"></div>
+        </div>
     </div>
 </div>
 
-<style>
-/* Enhanced styling for Bayesian system */
-.dashboard-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 1rem;
-}
-
-.selection-panel {
-    background: rgba(255, 255, 255, 0.1);
-    padding: 2rem;
-    border-radius: 15px;
-    margin-bottom: 2rem;
-    backdrop-filter: blur(10px);
-}
-
-.teams-selection {
-    display: flex;
-    align-items: end;
-    gap: 1rem;
-    margin-bottom: 2rem;
-    flex-wrap: wrap;
-    justify-content: center;
-}
-
-.team-select {
-    flex: 1;
-    min-width: 200px;
-}
-
-.team-select label {
-    display: block;
-    margin-bottom: 0.5rem;
-    font-weight: bold;
-    color: #2E8B57;
-}
-
-.team-select select {
-    width: 100%;
-    padding: 0.8rem;
-    border: 2px solid #e0e0e0;
-    border-radius: 8px;
-    font-size: 1rem;
-    transition: border-color 0.3s;
-}
-
-.team-select select:focus {
-    border-color: #2E8B57;
-    outline: none;
-}
-
-.vs-badge {
-    background: linear-gradient(45deg, #2E8B57, #32CD32);
-    color: white;
-    padding: 0.8rem 1.5rem;
-    border-radius: 50px;
-    font-weight: bold;
-    font-size: 1.1rem;
-    margin: 0 1rem;
-    align-self: center;
-}
-
-.btn-predict {
-    background: linear-gradient(45deg, #2E8B57, #32CD32);
-    color: white;
-    border: none;
-    padding: 1rem 2rem;
-    border-radius: 10px;
-    font-size: 1.1rem;
-    font-weight: bold;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    display: block;
-    margin: 0 auto;
-}
-
-.btn-predict:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(46, 139, 87, 0.3);
-}
-
-.predictions-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 1.5rem;
-    margin-top: 2rem;
-}
-
-.prediction-card {
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    padding: 1.5rem;
-    border-radius: 15px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    transition: transform 0.3s ease;
-}
-
-.prediction-card:hover {
-    transform: translateY(-3px);
-}
-
-.prediction-card h4 {
-    margin-bottom: 1rem;
-    color: #2E8B57;
-    font-size: 1.2rem;
-}
-
-/* Bayesian specific styles */
-.bayesian-info {
-    background: rgba(46, 139, 87, 0.1);
-    padding: 1rem;
-    border-radius: 8px;
-    border-left: 4px solid #2E8B57;
-}
-
-.system-details {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 0.5rem;
-    font-size: 0.9rem;
-}
-
-.outcome-confidence {
-    text-align: center;
-    margin: 0.5rem 0;
-    color: #666;
-    font-size: 0.9rem;
-}
-
-/* Goal Markets */
-.goal-markets {
-    border-left: 4px solid #2E8B57;
-}
-
-.goal-item {
-    margin-bottom: 1rem;
-    padding: 1rem;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 8px;
-    transition: background 0.3s;
-}
-
-.goal-item:hover {
-    background: rgba(255, 255, 255, 0.15);
-}
-
-.goal-item.featured {
-    border: 2px solid #FFD700;
-    background: rgba(255, 215, 0, 0.1);
-}
-
-.goal-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 0.5rem;
-}
-
-.goal-header span:first-child {
-    font-weight: bold;
-    color: #333;
-}
-
-.result {
-    font-weight: bold;
-    padding: 0.3rem 0.8rem;
-    border-radius: 20px;
-    font-size: 0.9rem;
-}
-
-.result.success {
-    background: #28a745;
-    color: white;
-}
-
-.result.danger {
-    background: #dc3545;
-    color: white;
-}
-
-.confidence {
-    font-size: 0.9rem;
-    color: #666;
-}
-
-/* Match Outcome */
-.main-prediction {
-    font-size: 1.4rem;
-    font-weight: bold;
-    text-align: center;
-    margin-bottom: 1rem;
-    color: #2E8B57;
-}
-
-.prob-item {
-    display: flex;
-    justify-content: space-between;
-    padding: 0.5rem 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-/* Poisson Scorelines */
-.poisson-card {
-    border-left: 4px solid #00CED1;
-}
-
-.expected-goals {
-    text-align: center;
-    margin-bottom: 1rem;
-    padding: 1rem;
-    background: rgba(0, 206, 209, 0.1);
-    border-radius: 8px;
-    color: #00CED1;
-}
-
-.scoreline-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
-    gap: 0.8rem;
-}
-
-.scoreline-item {
-    text-align: center;
-    padding: 1rem;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 8px;
-    transition: transform 0.3s;
-}
-
-.scoreline-item:hover {
-    transform: scale(1.05);
-}
-
-.score {
-    font-weight: bold;
-    font-size: 1.1rem;
-    color: #2E8B57;
-}
-
-.probability {
-    font-size: 0.9rem;
-    color: #00CED1;
-}
-
-/* Team Analysis */
-.insights-card {
-    border-left: 4px solid #9370DB;
-}
-
-.team-stats {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1rem;
-}
-
-.team-info {
-    text-align: center;
-    flex: 1;
-}
-
-.team-info h6 {
-    margin-bottom: 0.5rem;
-    color: #2E8B57;
-}
-
-.advantage {
-    text-align: center;
-    margin: 0 1rem;
-}
-
-.elo-diff {
-    font-size: 1.2rem;
-    font-weight: bold;
-    color: #9370DB;
-}
-
-.key-factors ul {
-    list-style: none;
-    padding: 0;
-}
-
-.key-factors li {
-    padding: 0.3rem 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-/* Enhanced Insights */
-.insights-deep {
-    border-left: 4px solid #FF6B35;
-}
-
-.insight-section {
-    margin-bottom: 1rem;
-    padding-bottom: 1rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.insight-section:last-child {
-    border-bottom: none;
-}
-
-.insight-section h6 {
-    color: #FF6B35;
-    margin-bottom: 0.5rem;
-}
-
-.team-shooting, .corner-stats div {
-    margin-bottom: 0.5rem;
-}
-
-.insights-list {
-    list-style: none;
-    padding: 0;
-}
-
-.insights-list li {
-    padding: 0.5rem 0;
-    border-left: 3px solid #FF6B35;
-    padding-left: 1rem;
-    margin-bottom: 0.5rem;
-    background: rgba(255, 107, 53, 0.1);
-    border-radius: 0 5px 5px 0;
-}
-
-/* System Status */
-.status-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1rem;
-    padding: 1rem;
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 10px;
-}
-
-.status-item {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-size: 0.9rem;
-}
-
-/* Total Goals Card */
-.total-goals-result {
-    text-align: center;
-}
-
-.total-goals-result .main-prediction {
-    font-size: 2rem;
-    color: #FF6B35;
-    margin-bottom: 0.5rem;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-    .teams-selection {
-        flex-direction: column;
-    }
-
-    .vs-badge {
-        margin: 1rem 0;
-        align-self: center;
-    }
-
-    .predictions-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .team-stats {
-        flex-direction: column;
-        gap: 1rem;
-    }
-
-    .system-details {
-        grid-template-columns: 1fr;
-    }
-}
-</style>
-
 <script>
-// Enhanced form handling for Bayesian system
-document.addEventListener('DOMContentLoaded', function() {
-    const form = document.getElementById('predictionForm');
-    const loadingSpinner = document.getElementById('loadingSpinner');
-    const homeSelect = document.getElementById('homeTeamSelect');
-    const awaySelect = document.getElementById('awayTeamSelect');
-    const homeTeamError = document.getElementById('homeTeamError');
-    const awayTeamError = document.getElementById('awayTeamError');
-    const sameTeamsError = document.getElementById('sameTeamsError');
-    const formErrorSummary = document.getElementById('formErrorSummary');
+    // Enhanced form handling
+    document.addEventListener('DOMContentLoaded', function () {
+        const form = document.getElementById('predictionForm');
+        const loadingSpinner = document.getElementById('loadingSpinner');
+        const homeSelect = document.getElementById('homeTeamSelect');
+        const awaySelect = document.getElementById('awayTeamSelect');
+        const homeTeamError = document.getElementById('homeTeamError');
+        const awayTeamError = document.getElementById('awayTeamError');
+        const sameTeamsError = document.getElementById('sameTeamsError');
+        const formErrorSummary = document.getElementById('formErrorSummary');
 
-    function resetErrors() {
-        [homeSelect, awaySelect].forEach(el => {
-            if (!el) return;
-            el.classList.remove('is-invalid');
-            el.setAttribute('aria-invalid', 'false');
-        });
-        [homeTeamError, awayTeamError, sameTeamsError].forEach(el => { if (el) el.style.display = 'none'; });
-        if (formErrorSummary) formErrorSummary.style.display = 'none';
-    }
+        function resetErrors() {
+            [homeSelect, awaySelect].forEach(el => {
+                if (!el) return;
+                el.classList.remove('is-invalid');
+                el.setAttribute('aria-invalid', 'false');
+            });
+            [homeTeamError, awayTeamError, sameTeamsError].forEach(el => { if (el) el.style.display = 'none'; });
+            if (formErrorSummary) formErrorSummary.style.display = 'none';
+        }
 
-    function validateForm() {
-        resetErrors();
-        let isValid = true;
-        let firstInvalid = null;
+        function validateForm() {
+            resetErrors();
+            let isValid = true;
+            let firstInvalid = null;
 
-        const homeVal = homeSelect ? homeSelect.value.trim() : '';
-        const awayVal = awaySelect ? awaySelect.value.trim() : '';
+            const homeVal = homeSelect ? homeSelect.value.trim() : '';
+            const awayVal = awaySelect ? awaySelect.value.trim() : '';
 
-        if (!homeVal) {
-            isValid = false;
-            if (homeSelect) {
-                homeSelect.classList.add('is-invalid');
-                homeSelect.setAttribute('aria-invalid', 'true');
+            if (!homeVal) {
+                isValid = false;
+                if (homeSelect) {
+                    homeSelect.classList.add('is-invalid');
+                    homeSelect.setAttribute('aria-invalid', 'true');
+                    if (homeTeamError) homeTeamError.style.display = 'block';
+                    if (!firstInvalid) firstInvalid = homeSelect;
+                }
             }
-            if (homeTeamError) homeTeamError.style.display = 'block';
-            firstInvalid = firstInvalid || homeSelect;
-        }
 
-        if (!awayVal) {
-            isValid = false;
-            if (awaySelect) {
-                awaySelect.classList.add('is-invalid');
-                awaySelect.setAttribute('aria-invalid', 'true');
+            if (!awayVal) {
+                isValid = false;
+                if (awaySelect) {
+                    awaySelect.classList.add('is-invalid');
+                    awaySelect.setAttribute('aria-invalid', 'true');
+                    if (awayTeamError) awayTeamError.style.display = 'block';
+                    if (!firstInvalid) firstInvalid = awaySelect;
+                }
             }
-            if (awayTeamError) awayTeamError.style.display = 'block';
-            firstInvalid = firstInvalid || awaySelect;
-        }
 
-        if (homeVal && awayVal && homeVal === awayVal) {
-            isValid = false;
-            if (awaySelect) {
-                awaySelect.classList.add('is-invalid');
-                awaySelect.setAttribute('aria-invalid', 'true');
+            if (homeVal && awayVal && homeVal === awayVal) {
+                isValid = false;
+                if (awaySelect) {
+                    awaySelect.classList.add('is-invalid');
+                    awaySelect.setAttribute('aria-invalid', 'true');
+                    if (sameTeamsError) sameTeamsError.style.display = 'block';
+                    if (!firstInvalid) firstInvalid = awaySelect;
+                }
             }
-            if (sameTeamsError) sameTeamsError.style.display = 'block';
-            firstInvalid = firstInvalid || awaySelect;
-        }
 
-        if (!isValid && formErrorSummary) {
-            formErrorSummary.style.display = 'block';
-        }
-
-        if (!isValid && firstInvalid && typeof firstInvalid.focus === 'function') {
-            firstInvalid.focus();
-        }
-
-        return isValid;
-    }
-
-    if (form) {
-        form.addEventListener('submit', function(e) {
-            if (!validateForm()) {
-                e.preventDefault();
-                return;
+            if (!isValid) {
+                if (formErrorSummary) formErrorSummary.style.display = 'block';
+                if (firstInvalid) firstInvalid.focus();
             }
-            loadingSpinner.style.display = 'block';
-        });
-    }
 
-    // Field-specific validation for instant feedback
-    function validateField(field) {
-        if (!field) return;
-        // Remove previous error state for this field
-        if (field === homeSelect) {
-            homeSelect.classList.remove('is-invalid');
-            homeSelect.removeAttribute('aria-invalid');
-            if (homeTeamError) homeTeamError.style.display = 'none';
+            return isValid;
         }
-        if (field === awaySelect) {
-            awaySelect.classList.remove('is-invalid');
-            awaySelect.removeAttribute('aria-invalid');
-            if (awayTeamError) awayTeamError.style.display = 'none';
-        }
-        if (sameTeamsError) sameTeamsError.style.display = 'none';
-        if (formErrorSummary) formErrorSummary.style.display = 'none';
 
-        const homeVal = homeSelect ? homeSelect.value.trim() : '';
-        const awayVal = awaySelect ? awaySelect.value.trim() : '';
+        if (form) {
+            form.addEventListener('submit', function (event) {
+                if (!validateForm()) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                } else {
+                    // Show loading state
+                    form.style.display = 'none';
+                    if (loadingSpinner) loadingSpinner.style.display = 'block';
+                }
+            });
+        }
 
-        // Validate the changed field
-        if (field === homeSelect && !homeVal) {
-            homeSelect.classList.add('is-invalid');
-            homeSelect.setAttribute('aria-invalid', 'true');
-            if (homeTeamError) homeTeamError.style.display = 'block';
-        }
-        if (field === awaySelect && !awayVal) {
-            awaySelect.classList.add('is-invalid');
-            awaySelect.setAttribute('aria-invalid', 'true');
-            if (awayTeamError) awayTeamError.style.display = 'block';
-        }
-        // Validate "same teams" constraint if both have values
-        if (homeVal && awayVal && homeVal === awayVal) {
-            awaySelect.classList.add('is-invalid');
-            awaySelect.setAttribute('aria-invalid', 'true');
-            if (sameTeamsError) sameTeamsError.style.display = 'block';
-        }
-    }
-
-    [homeSelect, awaySelect].forEach(el => {
-        if (!el) return;
-        el.addEventListener('change', () => {
-            // Field-specific validation for instant feedback
-            validateField(el);
-        });
+        // Initial load of saved predictions
+        loadSavedPredictions();
     });
 
-    // Enhanced save prediction functionality
-    const saveBtn = document.getElementById('savePredictionButton');
-    if (saveBtn) {
-        saveBtn.addEventListener('click', function() {
-            const homeTeam = document.getElementById('homeTeamSelected')?.value;
-            const awayTeam = document.getElementById('awayTeamSelected')?.value;
+    function loadSavedPredictions() {
+        fetch('/api/get-history')
+            .then(response => response.json())
+            .then(data => {
+                const list = document.getElementById('savedPredictionsList');
+                if (!list) return;
 
-            if (homeTeam && awayTeam) {
-                const predictionData = {
-                    homeTeam,
-                    awayTeam,
-                    predictions: {{ predictions | tojson if predictions else '{}' }},
-                    probabilities: {{ probabilities | tojson if probabilities else '{}' }},
-                    confidence_intervals: {{ confidence_intervals | tojson if confidence_intervals else '{}' }},
-                    timestamp: new Date().toISOString(),
-                    enhanced: true,
-                    bayesian_system: true
-                };
+                list.innerHTML = '';
+                if (data.length === 0) {
+                    list.innerHTML = '<p class="text-muted text-center">No saved analyses yet.</p>';
+                    return;
+                }
 
-                savePredictionToStorage(predictionData);
-                this.textContent = '✅ Bayesian Prediction Saved!';
-                this.classList.add('btn-success');
+                // Sort by date desc
+                data.sort((a, b) => new Date(b.date_saved) - new Date(a.date_saved));
 
-                setTimeout(() => {
-                    this.textContent = '💾 Save Bayesian Prediction';
-                    this.classList.remove('btn-success');
-                }, 2000);
-            }
-        });
+                const ul = document.createElement('ul');
+                ul.className = 'list-group list-group-flush bg-transparent';
+
+                data.forEach(item => {
+                    const li = document.createElement('li');
+                    li.className = 'list-group-item bg-transparent text-white border-secondary d-flex justify-content-between align-items-center';
+
+                    const dateStr = new Date(item.date_saved).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+                    li.innerHTML = `
+                        <div>
+                            <div class="fw-bold">${item.home_team} vs ${item.away_team}</div>
+                            <small class="text-muted">Saved at: ${dateStr}</small>
+                        </div>
+                        <div class="btn-group">
+                            <a href="/accuracy" class="btn btn-sm btn-outline-info">Details</a>
+                            <button onclick="deletePrediction(${item.id})" class="btn btn-sm btn-outline-danger" title="Delete">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                        </div>
+                    `;
+                    ul.appendChild(li);
+                });
+
+                list.appendChild(ul);
+            });
     }
 
-    loadSavedPredictions();
-});
+    function deletePrediction(id) {
+        if (!confirm('Delete this saved analysis?')) return;
 
-function savePredictionToStorage(data) {
-    try {
-        const existing = JSON.parse(localStorage.getItem('footballPredictions') || '[]');
-        existing.unshift(data);
-        localStorage.setItem('footballPredictions', JSON.stringify(existing.slice(0, 10)));
-    } catch (error) {
-        console.error('Error saving Bayesian prediction:', error);
+        fetch(`/api/prediction/${id}`, { method: 'DELETE' })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    loadSavedPredictions();
+                } else {
+                    alert(data.message);
+                }
+            })
+            .catch(error => console.error('Error:', error));
     }
-}
-
-function loadSavedPredictions() {
-    try {
-        const saved = JSON.parse(localStorage.getItem('footballPredictions') || '[]');
-        const container = document.getElementById('savedPredictionsList');
-
-        if (!container) return;
-
-        if (saved.length === 0) {
-            container.innerHTML = '<p class="text-muted">No saved Bayesian predictions yet.</p>';
-            return;
-        }
-
-        container.innerHTML = saved.map(pred => `
-            <div class="saved-prediction mb-2 p-3" style="background: rgba(255, 255, 255, 0.1); border-radius: 8px;">
-                <div class="d-flex justify-content-between align-items-center">
-                    <strong>${pred.homeTeam} vs ${pred.awayTeam}</strong>
-                    <small>${new Date(pred.timestamp).toLocaleDateString()}</small>
-                </div>
-                <div class="prediction-summary mt-1">
-                    <span class="badge bg-${pred.predictions['Over 2.5 Goals'] === 'Yes' ? 'success' : 'danger'} me-1">
-                        O2.5: ${pred.predictions['Over 2.5 Goals']}
-                    </span>
-                    <span class="badge bg-info">
-                        Outcome: ${pred.predictions['Match Outcome']}
-                    </span>
-                    ${pred.bayesian_system ? '<span class="badge bg-success">🧠 Bayesian</span>' : ''}
-                </div>
-            </div>
-        `).join('');
-    } catch (error) {
-        console.error('Error loading Bayesian predictions:', error);
-    }
-}
 </script>
 {% endblock %}

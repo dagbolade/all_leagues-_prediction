@@ -1,380 +1,314 @@
-/* Minimal styles for Football Predictor Pro - Bootstrap handles most styling */
+/* ========================================
+   ProPredict Analytics - Professional Sports Prediction Platform
+   Dark Theme - Premium, High Contrast, Black & Blue
+   ======================================== */
 
+/* ========== CSS VARIABLES ========== */
+:root {
+    /* Primary Colors */
+    --primary-marketing: #3B82F6;
+    /* Electric Blue */
+    --primary-hover: #2563EB;
+
+    /* Backgrounds */
+    --bg-body: #050505;
+    /* Pure Black */
+    --bg-card: #0F1115;
+    /* Very Dark Gunmetal */
+    --bg-header: #000000;
+    /* Pure Black Header */
+
+    /* Text Colors */
+    --text-main: #FFFFFF;
+    /* Pure White */
+    --text-secondary: #9CA3AF;
+    /* Cool Gray */
+    --text-muted: #6B7280;
+    /* Muted Gray */
+    --text-on-dark: #FFFFFF;
+    /* White */
+
+    /* Status Colors */
+    --success: #10B981;
+    /* Emerald */
+    --warning: #F59E0B;
+    /* Amber */
+    --danger: #EF4444;
+    /* Red */
+
+    /* Spacing & Borders */
+    --radius-card: 8px;
+    --radius-btn: 6px;
+    --border-color: #1F2937;
+    /* Dark Gray Border */
+
+    /* Shadows */
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.5);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -1px rgba(0, 0, 0, 0.3);
+
+    /* Fonts */
+    --font-heading: 'Inter', sans-serif;
+    --font-body: 'Inter', sans-serif;
+}
+
+/* ========== GLOBAL RESET ========== */
 body {
-    background: #f8f9fa;
-    color: #212529;
+    background-color: var(--bg-body);
+    color: var(--text-main);
+    font-family: var(--font-body);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
 }
 
-.container, .dashboard-container {
-    margin-top: 30px;
-    margin-bottom: 30px;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: var(--font-heading);
+    color: var(--text-main);
+    font-weight: 700;
 }
 
-/* Optional: basic card tweaks */
+a {
+    text-decoration: none;
+}
+
+/* ========== NAVBAR ========== */
+.navbar {
+    background-color: var(--bg-header) !important;
+    padding: 1rem 0;
+    box-shadow: var(--shadow-sm);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.navbar-brand {
+    color: var(--text-main) !important;
+    font-weight: 700;
+    font-size: 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.navbar-brand i {
+    color: var(--primary-marketing);
+}
+
+.nav-link {
+    color: #9CA3AF !important;
+    /* Gray-400 */
+    font-weight: 500;
+    transition: color 0.2s;
+}
+
+.nav-link:hover {
+    color: var(--text-main) !important;
+}
+
+.nav-link.active {
+    color: var(--primary-marketing) !important;
+}
+
+/* ========== CARDS ========== */
 .card {
-    border-radius: 10px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.03);
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-sm);
+    margin-bottom: 1.5rem;
 }
 
-/* Optional: navbar active link highlight */
-.navbar-nav .nav-link.active {
-    color: #007bff !important;
-    border-bottom: 2px solid #007bff;
+.card-header {
+    background-color: rgba(255, 255, 255, 0.03);
+    /* Extremely subtle highlight */
+    border-bottom: 1px solid var(--border-color);
+    padding: 1rem 1.5rem;
+    font-weight: 600;
+    color: var(--text-main);
 }
 
-/* Remove all custom hero/banner/fade/gradient/animation styles */
-
-.dashboard-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
+.card-body {
+    padding: 1.5rem;
+    color: var(--text-main);
 }
 
-/* Selection Panel */
-.selection-panel {
-    background: white;
-    border-radius: 15px;
-    padding: 25px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    margin-bottom: 30px;
-}
-
-#threejs-container {
-    width: 100%;
-    height: 400px;
-    margin-top: 30px;
-    position: relative;
-}
-
-.selection-panel h2 {
-    text-align: center;
-    margin-bottom: 5px;
-    color: #2c3e50;
-}
-
-.subtitle {
-    text-align: center;
-    color: #7f8c8d;
-    margin-bottom: 25px;
-}
-
-.teams-selection {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    margin-bottom: 25px;
-}
-
-.team-select {
-    flex: 1;
-}
-
-.team-select select {
-    width: 100%;
-    padding: 12px;
-    border: 2px solid #e9ecef;
-    border-radius: 8px;
-    font-size: 1rem;
-    transition: all 0.3s ease;
-}
-
-.team-select select:focus {
-    border-color: #3498db;
-    box-shadow: 0 0 0 2px rgba(52,152,219,0.2);
-}
-
-.vs-badge {
-    background: #f8f9fa;
-    padding: 15px 25px;
-    border-radius: 50%;
-    font-weight: bold;
-    color: #2c3e50;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-}
-
-.btn-predict {
-    display: block;
-    width: 200px;
-    margin: 0 auto;
-    padding: 12px;
-    background: linear-gradient(135deg, #3498db, #2980b9);
+/* ========== BUTTONS ========== */
+.btn-primary {
+    background-color: var(--primary-marketing);
+    border: 1px solid transparent;
     color: white;
-    border: none;
-    border-radius: 25px;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: transform 0.2s ease;
+    font-weight: 600;
+    padding: 0.5rem 1.25rem;
+    border-radius: var(--radius-btn);
+    box-shadow: var(--shadow-sm);
 }
 
-.btn-predict:hover {
-    transform: translateY(-2px);
+.btn-primary:hover {
+    background-color: var(--primary-hover);
+    color: white;
+    transform: translateY(-1px);
 }
 
-/* Prediction Results */
-.prediction-results {
-    background: white;
-    border-radius: 15px;
-    padding: 25px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    margin-bottom: 30px;
+/* ========== HERO SECTION ========== */
+.welcome-section {
+    background-color: var(--bg-card);
+    padding: 3rem 1rem;
+    border-radius: var(--radius-card);
+    text-align: center;
+    border: 1px solid var(--border-color);
+    margin-bottom: 2rem;
+    box-shadow: var(--shadow-sm);
 }
 
-.match-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 25px;
-    padding-bottom: 15px;
-    border-bottom: 1px solid #e9ecef;
+.welcome-section h1 {
+    font-size: 2.25rem;
+    margin-bottom: 1rem;
+    color: var(--text-main);
+    letter-spacing: -0.025em;
 }
 
-.predictions-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 20px;
+.welcome-section .lead {
+    color: var(--text-secondary);
+    font-size: 1.125rem;
+    margin-bottom: 2rem;
 }
 
-.prediction-card {
-    background: #f8f9fa;
-    border-radius: 12px;
-    padding: 20px;
+/* ========== STATS CARDS ========== */
+.text-white {
+    color: var(--text-main) !important;
 }
 
-.prediction-card h4 {
-    margin-bottom: 20px;
-    color: #2c3e50;
+.text-muted {
+    color: var(--text-secondary) !important;
 }
 
-/* Probability Bars */
-.prob-bar {
-    margin-bottom: 15px;
+/* ========== FORMS & INPUTS ========== */
+select.form-select,
+select {
+    background-color: var(--bg-body);
+    border: 1px solid var(--border-color);
+    color: var(--text-main);
+    padding: 0.5rem;
+    border-radius: var(--radius-btn);
 }
 
-.prob-bar .label {
-    display: block;
-    margin-bottom: 5px;
+select.form-select:focus {
+    border-color: var(--primary-marketing);
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+    outline: none;
 }
 
+/* ========== BADGES & PILLS ========== */
+.pill {
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    display: inline-block;
+}
+
+.pill.yes {
+    background-color: rgba(16, 185, 129, 0.2);
+    color: #34D399;
+    border: 1px solid rgba(16, 185, 129, 0.2);
+}
+
+.pill.no {
+    background-color: rgba(239, 68, 68, 0.2);
+    color: #F87171;
+    border: 1px solid rgba(239, 68, 68, 0.2);
+}
+
+/* ========== PROBABILITY BARS ========== */
 .bar {
+    background-color: #374151;
+    /* Dark Gray */
     height: 8px;
-    background: #e9ecef;
     border-radius: 4px;
     overflow: hidden;
-    margin-bottom: 5px;
+    margin-top: 0.25rem;
 }
 
 .bar .fill {
     height: 100%;
-    transition: width 0.5s ease;
+    border-radius: 4px;
 }
 
-.prob-bar.home .fill { background: #2ecc71; }
-.prob-bar.draw .fill { background: #f1c40f; }
-.prob-bar.away .fill { background: #e74c3c; }
-
-/* Goals & Scores */
-.goal-stat {
-    margin-bottom: 20px;
+.prob-bar.home .fill {
+    background-color: var(--success);
 }
 
-.goal-stat .header {
+.prob-bar.draw .fill {
+    background-color: var(--warning);
+}
+
+.prob-bar.away .fill {
+    background-color: var(--danger);
+}
+
+.prob-bar .label {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 10px;
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    font-weight: 500;
 }
 
-.goal-stat .prediction {
-    font-weight: bold;
-    color: #2ecc71;
+/* ========== LIVE PREDICTIONS SIDEBAR ========== */
+.live-scores-card .card-header {
+    background-color: var(--bg-header) !important;
+    color: white !important;
 }
 
-/* Saved Predictions */
-.saved-predictions {
-    background: white;
-    border-radius: 15px;
-    padding: 20px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+.live-match-item {
+    padding: 1rem;
+    border-bottom: 1px solid var(--border-color);
 }
 
-.saved-prediction-card {
-    font-size: 0.8rem;
-    padding: 2px 8px;
-
+.live-match-item:last-child {
+    border-bottom: none;
 }
 
-.prediction-details {
-    background: rgba(240, 240, 240, 0.9);
-    border-radius: 6px;
-    padding: 10px;
+.live-match-item:hover {
+    background-color: rgba(255, 255, 255, 0.05);
 }
 
-.prediction-item {
-    border: 1px solid #e9ecef;
-    border-radius: 8px;
-    padding: 15px;
-    margin-bottom: 15px;
-    transition: transform 0.2s ease;
+/* ========== UTILITIES ========== */
+.d-flex {
+    display: flex;
 }
 
-.prediction-item:hover {
-    transform: translateY(-2px);
+.justify-content-center {
+    justify-content: center;
 }
 
-/* Animations */
-@keyframes slideIn {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+.align-items-center {
+    align-items: center;
+}
+
+.mb-4 {
+    margin-bottom: 1.5rem;
+}
+
+.mt-4 {
+    margin-top: 1.5rem;
+}
+
+/* Animation Utility */
+.fade-in {
+    animation: fadeIn 0.4s ease-out;
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
-
-.fade-in {
-    animation: fadeIn 0.6s ease;
-}
-
-/* Loading Spinner */
-.loading-spinner {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100px;
-}
-
-/* Add to your styles.css */
-.predictions-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 20px;
-}
-
-.prediction-card {
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    border-radius: 15px;
-    overflow: hidden;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease;
-}
-
-.prediction-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-}
-
-.match-header {
-    background: rgba(0, 0, 0, 0.3);
-    padding: 15px;
-    text-align: center;
-}
-
-.teams {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    font-weight: 600;
-}
-
-.vs {
-    opacity: 0.7;
-    font-size: 0.9em;
-}
-
-.prediction-details {
-    padding: 20px;
-}
-
-.outcome {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-.outcome h4 {
-    margin: 0;
-    color: #2196F3;
-    font-weight: 600;
-}
-
-.additional-predictions {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-}
-
-.prediction-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.pill {
-    padding: 5px 12px;
-    border-radius: 15px;
-    font-weight: 500;
-    font-size: 0.85em;
-}
-
-.pill.yes {
-    background: rgba(76, 175, 80, 0.2);
-    color: #4CAF50;
-}
-
-.pill.no {
-    background: rgba(244, 67, 54, 0.2);
-    color: #F44336;
-}
-
-.loading-container {
-    display: flex;
-    justify-content: center;
-    padding: 40px;
-}
-
-.live-matches-container {
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    border-radius: 15px;
-    padding: 20px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-}
-
-/* Error Card */
-.error-card {
-    border: 2px solid #e74c3c;
-    background: #fff6f6;
-    color: #c0392b;
-    padding: 16px;
-    border-radius: 10px;
-    margin-bottom: 20px;
-}
-
-/* Navbar Active Link */
-.navbar-nav .nav-link.active, .navbar-nav .nav-link:focus {
-    color: #fdbb2d !important;
-    border-bottom: 2px solid #fdbb2d;
-}
-
-/* Section Spacing */
-.section {
-    margin-bottom: 40px;
-}
-
-/* Responsive Tweaks */
-@media (max-width: 991px) {
-    .content-wrapper, .dashboard-container {
-        margin: 10px;
-        padding: 10px;
+    from {
+        opacity: 0;
+        transform: translateY(10px);
     }
-    .selection-panel, .prediction-results, .saved-predictions {
-        padding: 12px;
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
 }

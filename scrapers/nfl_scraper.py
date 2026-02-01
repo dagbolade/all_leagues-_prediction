@@ -52,7 +52,7 @@ class NFLScraper(BaseScraper):
         Returns:
             DataFrame with all games for the season
         """
-        print(f"🏈 Scraping NFL season data for {season}...")
+        print(f"[NFL] Scraping NFL season data for {season}...")
 
         return self._scrape_nfl_season(int(season))
 
@@ -63,7 +63,7 @@ class NFLScraper(BaseScraper):
         # Pro-Football-Reference games URL
         url = f"{self.pfr_base}/years/{year}/games.htm"
 
-        print(f"📥 Fetching: {url}")
+        print(f"[NFL] Fetching: {url}")
         response = self.fetch_url(url)
 
         if not response:
@@ -196,7 +196,7 @@ class NFLScraper(BaseScraper):
         Returns:
             DataFrame with today's games and scores
         """
-        print("🏈 Scraping live NFL scores...")
+        print("[NFL] Scraping live NFL scores...")
 
         url = f"{self.espn_api_base}/scoreboard"
 
@@ -286,7 +286,7 @@ class NFLScraper(BaseScraper):
 
         url = f"{self.pfr_base}/teams/{team_abbr}/{year}.htm"
 
-        print(f"📥 Fetching stats for {team} ({season})")
+        print(f"[NFL] Fetching stats for {team} ({season})")
         response = self.fetch_url(url)
 
         if not response:
@@ -328,7 +328,7 @@ class NFLScraper(BaseScraper):
         """
         date = date or datetime.now()
 
-        print(f"📅 Scraping NFL schedule")
+        print(f"[NFL] Scraping NFL schedule")
 
         # Use ESPN API for schedule
         url = f"{self.espn_api_base}/scoreboard"

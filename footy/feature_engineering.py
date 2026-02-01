@@ -67,7 +67,7 @@ class BayesianFootballFeatureEngineering:
             df['RefOver25Rate'] = 0.55
             return df
 
-        print("🧠 Analyzing referee tendencies with Bayesian updating...")
+        print("[Model] Analyzing referee tendencies with Bayesian updating...")
 
         # Calculate league priors for referee behavior
         league_priors = self._calculate_referee_league_priors(df)
@@ -140,7 +140,7 @@ class BayesianFootballFeatureEngineering:
             lambda x: ref_stats.get(x, {}).get('over_2_5_rate', 0.55)
         )
 
-        print(f"✅ Analyzed {len(ref_stats)} referees with Bayesian updating")
+        print(f"[OK] Analyzed {len(ref_stats)} referees with Bayesian updating")
         return df
 
     def _calculate_referee_league_priors(self, df: pd.DataFrame) -> Dict:
@@ -182,7 +182,7 @@ class BayesianFootballFeatureEngineering:
         df = df.copy()
         df = df.sort_values(['Season', 'Date'])
 
-        print("🧠 Creating Enhanced Bayesian H2H analysis...")
+        print("[Model] Creating Enhanced Bayesian H2H analysis...")
 
         # Calculate league-wide H2H priors
         league_h2h_priors = self._calculate_h2h_league_priors(df)
@@ -343,12 +343,12 @@ class BayesianFootballFeatureEngineering:
                             # Smooth extreme trends
                             df.at[idx, 'H2H_GoalTrend'] = np.clip(raw_trend, -1.0, 1.0)
 
-        print("✅ Enhanced Bayesian H2H analysis completed")
-        print(f"   📊 Generated {len([col for col in df.columns if col.startswith('H2H_')])} H2H features")
-        print(f"   🔄 Rolling windows: 3, 5, 10 meetings")
-        print(f"   🏟️ Venue-specific analysis included")
-        print(f"   🔥 Streak and momentum detection active")
-        print(f"   📈 Trend analysis over time enabled")
+        print("[OK] Enhanced Bayesian H2H analysis completed")
+        print(f"   [Stats] Generated {len([col for col in df.columns if col.startswith('H2H_')])} H2H features")
+        print(f"   [Window] Rolling windows: 3, 5, 10 meetings")
+        print(f"   [Venue] Venue-specific analysis included")
+        print(f"   [Streak] Streak and momentum detection active")
+        print(f"   [Trend] Trend analysis over time enabled")
         return df
 
     def _calculate_h2h_league_priors(self, df: pd.DataFrame) -> Dict:
@@ -717,7 +717,7 @@ class BayesianFootballFeatureEngineering:
         # Match competitiveness indicator
         df['MatchCompetitiveness'] = 1 - np.abs(df['MatchOutcome_HomeProb'] - df['MatchOutcome_AwayProb'])
 
-        print("✅ Bayesian match outcome features created")
+        print("[OK] Bayesian match outcome features created")
         return df
 
     def _calculate_bayesian_home_win_prob(self, df: pd.DataFrame) -> pd.Series:
@@ -803,7 +803,7 @@ class BayesianFootballFeatureEngineering:
         """
         df = df.copy()
 
-        print("⚽ Creating Bayesian goal prediction features...")
+        print("[Goals] Creating Bayesian goal prediction features...")
 
         # Enhanced expected goals using Bayesian team strengths
         if 'ExpectedHomeGoals' in df.columns and 'ExpectedAwayGoals' in df.columns:
@@ -826,7 +826,7 @@ class BayesianFootballFeatureEngineering:
         df['GoalScoringConsistency'] = self._calculate_goal_consistency(df)
         df['GoalVarianceIndicator'] = self._calculate_goal_variance_indicator(df)
 
-        print("✅ Bayesian goal prediction features created")
+        print("[OK] Bayesian goal prediction features created")
         return df
 
     def _calculate_basic_expected_goals(self, df: pd.DataFrame) -> pd.DataFrame:
@@ -1082,7 +1082,7 @@ class BayesianFootballFeatureEngineering:
             else:
                 df['IsEarlySeason'] = 0
 
-        print("🏆 Creating enhanced GW1 features with Bayesian analysis...")
+        print("[GW1] Creating enhanced GW1 features with Bayesian analysis...")
 
         # Calculate team's historical GW1 performance with Bayesian smoothing
         if df['IsEarlySeason'].sum() > 0:
@@ -1165,7 +1165,7 @@ class BayesianFootballFeatureEngineering:
             df['PromotedTeamPenalty'] = 0
             df['PromotedTeamEarlyBonus'] = 0
 
-        print("✅ Enhanced GW1 features with Bayesian analysis created")
+        print("[OK] Enhanced GW1 features with Bayesian analysis created")
         return df
 
     def _calculate_gw1_league_priors(self, gw1_data: pd.DataFrame) -> Dict:
@@ -1215,8 +1215,8 @@ class BayesianFootballFeatureEngineering:
         """
         🚀 COMPLETE: Enhanced feature engineering pipeline with Bayesian inference.
         """
-        print("🚀 Starting ENHANCED Bayesian feature engineering...")
-        print("🧠 Integrates with Bayesian rolling features for realistic predictions")
+        print("[Start] Starting ENHANCED Bayesian feature engineering...")
+        print("[Model] Integrates with Bayesian rolling features for realistic predictions")
         df = df.copy()
 
         # Check what we already have from rolling features
@@ -1224,66 +1224,66 @@ class BayesianFootballFeatureEngineering:
         elo_exists = 'HomeElo' in existing_features
         bayesian_exists = any('Bayesian' in col for col in existing_features)
 
-        print(f"📊 Input features: {len(existing_features)}")
+        print(f"[Stats] Input features: {len(existing_features)}")
         if elo_exists:
-            print("✅ Bayesian Elo ratings available")
+            print("[OK] Bayesian Elo ratings available")
         if bayesian_exists:
-            print("✅ Bayesian rolling features available")
+            print("[OK] Bayesian rolling features available")
 
         # Execute each step in sequence
-        print("🔧 Creating base features...")
+        print("[FIX] Creating base features...")
         df = self.create_base_features(df)
 
-        print("🔧 Encoding teams...")
+        print("[FIX] Encoding teams...")
         df = self.encode_teams(df)
 
-        print("🧠 Creating Bayesian match outcome features...")
+        print("[Model] Creating Bayesian match outcome features...")
         df = self.create_bayesian_match_outcome_features(df)
 
-        print("⚽ Creating Bayesian goal prediction features...")
+        print("[Goals] Creating Bayesian goal prediction features...")
         df = self.create_bayesian_goal_prediction_features(df)
 
-        print("🔧 Creating advanced metrics...")
+        print("[FIX] Creating advanced metrics...")
         df = self.create_advanced_metrics(df)
 
-        print("🔧 Creating team strength indicators...")
+        print("[FIX] Creating team strength indicators...")
         df = self.create_team_strength_indicators(df)
 
-        print("🔧 Creating match context features...")
+        print("[FIX] Creating match context features...")
         df = self.create_match_context(df)
 
-        print("🧠 Creating Bayesian referee analysis...")
+        print("[Model] Creating Bayesian referee analysis...")
         df = self.create_bayesian_referee_analysis(df)
 
-        print("🧠 Creating Bayesian H2H analysis...")
+        print("[Model] Creating Bayesian H2H analysis...")
         df = self.create_bayesian_h2h_analysis(df)
 
-        print("⚽ Creating enhanced goal potential...")
+        print("[Goals] Creating enhanced goal potential...")
         df = self.create_enhanced_goal_potential(df)
 
-        print("🏆 Creating enhanced GW1 features...")
+        print("[GW1] Creating enhanced GW1 features...")
         df = self.create_gw1_enhanced_features(df)
 
         # Handle missing values
-        print("🔧 Handling missing values...")
+        print("[FIX] Handling missing values...")
         df = df.fillna(0)
 
         # Count final features
         final_features = len(df.columns)
         new_features = final_features - len(existing_features)
 
-        print("✅ ENHANCED Bayesian feature engineering completed!")
-        print(f"📊 Added {new_features} new Bayesian features")
-        print(f"📊 Total features: {final_features}")
+        print("[OK] ENHANCED Bayesian feature engineering completed!")
+        print(f"[Stats] Added {new_features} new Bayesian features")
+        print(f"[Stats] Total features: {final_features}")
 
         # Show sample of new Bayesian features
         bayesian_features = [col for col in df.columns if 'Bayesian' in col]
         h2h_features = [col for col in df.columns if 'H2H' in col]
         outcome_features = [col for col in df.columns if 'MatchOutcome' in col]
 
-        print(f"   🧠 Bayesian features: {len(bayesian_features)}")
-        print(f"   🤝 Enhanced H2H features: {len(h2h_features)}")
-        print(f"   🎯 Match outcome features: {len(outcome_features)}")
+        print(f"   [Model] Bayesian features: {len(bayesian_features)}")
+        print(f"   [H2H] Enhanced H2H features: {len(h2h_features)}")
+        print(f"   [Outcome] Match outcome features: {len(outcome_features)}")
 
         return df
 

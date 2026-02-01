@@ -18,7 +18,7 @@ class BayesianMatchPredictor:
     """Enhanced predictor with full Bayesian integration from your enhanced pipeline"""
 
     def __init__(self, df: pd.DataFrame, models_path: str = 'models/football_models.joblib'):
-        print(f"🎯 Initializing BAYESIAN MatchPredictor...")
+        print(f"[Init] Initializing BAYESIAN MatchPredictor...")
 
         self.df = df.copy()
         self.models = {}
@@ -48,7 +48,7 @@ class BayesianMatchPredictor:
         """Load your enhanced Bayesian models with all components"""
         try:
             model_data = joblib.load(models_path)
-            print(f"✅ Loaded Bayesian model data, type: {type(model_data)}")
+            print(f"[OK] Loaded Bayesian model data, type: {type(model_data)}")
 
             if isinstance(model_data, dict):
                 # Load all Bayesian components
@@ -67,23 +67,23 @@ class BayesianMatchPredictor:
                         actual_model = model_info['model']
                         if actual_model is not None:
                             loaded_tasks.append(task)
-                            print(f"✅ Bayesian {task}: {type(actual_model).__name__}")
+                            print(f"[OK] Bayesian {task}: {type(actual_model).__name__}")
 
-                print(f"🧠 Bayesian models loaded: {loaded_tasks}")
-                print(f"🧠 Bayesian priors available: {list(self.bayesian_priors.keys())}")
+                print(f"[Model] Bayesian models loaded: {loaded_tasks}")
+                print(f"[Model] Bayesian priors available: {list(self.bayesian_priors.keys())}")
 
                 if self.poisson_predictor:
-                    print("⚽ Poisson predictor loaded for exact scorelines")
+                    print("[OK] Poisson predictor loaded for exact scorelines")
 
                 if self.calibrated_models:
-                    print(f"📊 Calibrated models available: {list(self.calibrated_models.keys())}")
+                    print(f"[Stats] Calibrated models available: {list(self.calibrated_models.keys())}")
 
             else:
-                print("❌ Bayesian model format not detected")
+                print("[Error] Bayesian model format not detected")
                 raise ValueError("Expected enhanced Bayesian model format")
 
         except Exception as e:
-            print(f"❌ Error loading Bayesian models: {e}")
+            print(f"[Error] Error loading Bayesian models: {e}")
             raise
 
     def _prepare_bayesian_features(self):
@@ -113,11 +113,11 @@ class BayesianMatchPredictor:
         form_features = [col for col in self.feature_columns if 'Form' in col]
         h2h_features = [col for col in self.feature_columns if 'H2H' in col]
 
-        print(f"🧠 Bayesian features prepared: {len(self.feature_columns)} total features")
-        print(f"   🎯 Bayesian features: {len(bayesian_features)}")
-        print(f"   🏆 Elo features: {len(elo_features)}")
-        print(f"   📈 Form features: {len(form_features)}")
-        print(f"   🤝 H2H features: {len(h2h_features)}")
+        print(f"[Model] Bayesian features prepared: {len(self.feature_columns)} total features")
+        print(f"   [Bayes] Bayesian features: {len(bayesian_features)}")
+        print(f"   [Elo] Elo features: {len(elo_features)}")
+        print(f"   [Form] Form features: {len(form_features)}")
+        print(f"   [H2H] H2H features: {len(h2h_features)}")
 
     def _get_bayesian_team_features(self, home_team: str, away_team: str,
                                     match_date: pd.Timestamp = None) -> pd.DataFrame:
@@ -137,7 +137,7 @@ class BayesianMatchPredictor:
             ].copy()
 
         if len(home_matches) == 0 or len(away_matches) == 0:
-            print(f"⚠️ Limited data for {home_team} vs {away_team}")
+            print(f"[Warning] Limited data for {home_team} vs {away_team}")
             # Return zeros for all features
             return pd.DataFrame(0, index=[0], columns=self.feature_columns)
 
@@ -197,15 +197,18 @@ class BayesianMatchPredictor:
                 elif col != 'EloAdvantage':  # Skip EloAdvantage
                     features[col] = 0  # Default zero
 
-        # 🔧 CRITICAL FIX: Properly calculate EloAdvantage
+        # [FIX] CRITICAL FIX: Properly calculate EloAdvantage with Home Advantage Boost
+        HOME_ADVANTAGE = 35  # Standard Elo adjustment for home field advantage
+        
         if 'HomeElo' in features and 'AwayElo' in features:
-            features['EloAdvantage'] = features['HomeElo'] - features['AwayElo']
+            # Add home advantage to home team's Elo before comparing
+            features['EloAdvantage'] = (features['HomeElo'] + HOME_ADVANTAGE) - features['AwayElo']
             print(
-                f"🔧 Fixed EloAdvantage: {features['HomeElo']:.1f} - {features['AwayElo']:.1f} = {features['EloAdvantage']:.1f}")
+                f"[FIX] Fixed EloAdvantage (w/ +35 Home Boost): {features['HomeElo']:.1f} + 35 - {features['AwayElo']:.1f} = {features['EloAdvantage']:.1f}")
         else:
             features['EloAdvantage'] = 0  # Default if Elo values missing
 
-        # 🔧 ADDITIONAL FIXES: Recalculate other derived features properly
+        # [FIX] ADDITIONAL FIXES: Recalculate other derived features properly
 
         # Fix Bayesian match outcome probabilities if they exist
         if 'HomeElo' in features and 'AwayElo' in features and 'EloAdvantage' in features:
@@ -251,18 +254,18 @@ class BayesianMatchPredictor:
         # Create DataFrame
         feature_df = pd.DataFrame([features], columns=self.feature_columns)
 
-        print(f"✅ Bayesian features extracted for {home_team} vs {away_team}")
-        print(f"   📊 Feature vector shape: {feature_df.shape}")
+        print(f"[OK] Bayesian features extracted for {home_team} vs {away_team}")
+        print(f"   [Stats] Feature vector shape: {feature_df.shape}")
 
         # Debug output for key features
         if 'EloAdvantage' in features:
             advantage = features['EloAdvantage']
             if advantage < -100:
-                print(f"   🎯 Strong away advantage: {advantage:.1f} (favors {away_team})")
+                print(f"   [Predict] Strong away advantage: {advantage:.1f} (favors {away_team})")
             elif advantage > 100:
-                print(f"   🎯 Strong home advantage: {advantage:.1f} (favors {home_team})")
+                print(f"   [Predict] Strong home advantage: {advantage:.1f} (favors {home_team})")
             else:
-                print(f"   ⚖️ Close match: {advantage:.1f} Elo difference")
+                print(f"   [Balance] Close match: {advantage:.1f} Elo difference")
 
         return feature_df
 
@@ -330,6 +333,31 @@ class BayesianMatchPredictor:
             if fixed_probabilities['Over 3.5 Goals'] > fixed_probabilities['Over 2.5 Goals']:
                 fixed_probabilities['Over 2.5 Goals'] = fixed_probabilities['Over 3.5 Goals']
                 constraints_applied.append("Bayesian probability hierarchy: P(Over2.5) ≥ P(Over3.5)")
+        
+        # Bayesian Rule 3: Harmonize Total Goals (Regression) with Over/Under (Classification)
+        # If the regression model feels strongly (e.g. > 2.8 goals), it overrides the classification model
+        if 'Total Goals' in fixed_predictions:
+            try:
+                total_goals = float(fixed_predictions['Total Goals'])
+                
+                # Force Over 2.5 if High scoring expected
+                if total_goals >= 2.8 and fixed_predictions.get('Over 2.5 Goals') == 'No':
+                     fixed_predictions['Over 2.5 Goals'] = 'Yes'
+                     fixed_probabilities['Over 2.5 Goals'] = max(fixed_probabilities.get('Over 2.5 Goals', 0.5), 0.6)
+                     constraints_applied.append(f"Bayesian Rule 3a: Total Goals {total_goals} implies Over 2.5 Yes")
+
+                # Force Under 2.5 if Low scoring expected
+                if total_goals <= 2.2 and fixed_predictions.get('Over 2.5 Goals') == 'Yes':
+                     fixed_predictions['Over 2.5 Goals'] = 'No'
+                     fixed_probabilities['Over 2.5 Goals'] = max(fixed_probabilities.get('Over 2.5 Goals', 0.5), 0.6)
+                     constraints_applied.append(f"Bayesian Rule 3b: Total Goals {total_goals} implies Over 2.5 No")
+
+                 # Force Over 1.5 if moderate scoring
+                if total_goals >= 1.8 and fixed_predictions.get('Over 1.5 Goals') == 'No':
+                     fixed_predictions['Over 1.5 Goals'] = 'Yes'
+                     constraints_applied.append(f"Bayesian Rule 3c: Total Goals {total_goals} implies Over 1.5 Yes")
+            except:
+                pass
 
         return fixed_predictions, fixed_probabilities, constraints_applied
 
@@ -353,16 +381,16 @@ class BayesianMatchPredictor:
     def predict_match_bayesian(self, home_team: str, away_team: str) -> Tuple[Dict, Dict]:
         """Make Bayesian predictions using your enhanced models"""
 
-        print(f"🧠 BAYESIAN Prediction: {home_team} vs {away_team}")
+        print(f"[Predict] BAYESIAN Prediction: {home_team} vs {away_team}")
 
         # Get Bayesian features
         feature_matrix = self._get_bayesian_team_features(home_team, away_team)
 
         if feature_matrix.empty:
-            print("❌ Could not generate Bayesian features")
+            print("[Error] Could not generate Bayesian features")
             return {}, {}
 
-        print(f"✅ Bayesian feature matrix ready: {feature_matrix.shape}")
+        print(f"[OK] Bayesian feature matrix ready: {feature_matrix.shape}")
 
         predictions = {}
         probabilities = {}
@@ -418,24 +446,24 @@ class BayesianMatchPredictor:
                                 predictions[display_name] = pred_value
                                 probabilities[display_name] = 0.8
 
-                        print(f"✅ {display_name}: {predictions.get(display_name, 'N/A')}")
+                        print(f"[OK] {display_name}: {predictions.get(display_name, 'N/A')}")
 
                 except Exception as e:
-                    print(f"❌ Bayesian prediction failed for {display_name}: {e}")
+                    print(f"[Error] Bayesian prediction failed for {display_name}: {e}")
                     predictions[display_name] = "Error"
                     probabilities[display_name] = 0.0
 
         # Apply Bayesian logical constraints
-        print("🧠 Applying Bayesian logical constraints...")
+        print("[Model] Applying Bayesian logical constraints...")
         constrained_predictions, constrained_probabilities, constraints_applied = self.apply_bayesian_logical_constraints(
             predictions, probabilities
         )
 
         if constraints_applied:
             for constraint in constraints_applied:
-                print(f"   ✅ Applied {constraint}")
+                print(f"   [OK] Applied {constraint}")
         else:
-            print("   ✅ No Bayesian constraints needed - predictions already logical")
+            print("   [OK] No Bayesian constraints needed - predictions already logical")
 
         # Calculate Bayesian total goals
         if 'Total Goals' not in constrained_predictions:
@@ -443,7 +471,7 @@ class BayesianMatchPredictor:
             constrained_predictions['Total Goals'] = f"{bayesian_total:.1f}"
             constrained_probabilities['Total Goals'] = 0.8
 
-        print(f"✅ Bayesian predictions completed: {len(constrained_predictions)}")
+        print(f"[OK] Bayesian predictions completed: {len(constrained_predictions)}")
         return constrained_predictions, constrained_probabilities
 
     def get_bayesian_confidence_intervals(self, probabilities: Dict) -> Dict:
@@ -480,11 +508,11 @@ class BayesianMatchPredictor:
     def get_poisson_insights(self, home_team: str, away_team: str) -> Dict:
         """Get Poisson-based exact scoreline predictions"""
         if not self.poisson_predictor:
-            print("⚠️ Poisson predictor not available")
+            print("[Warning] Poisson predictor not available")
             return {}
 
         try:
-            print(f"⚽ Getting Poisson scoreline analysis for {home_team} vs {away_team}")
+            print(f"[Poisson] Getting Poisson scoreline analysis for {home_team} vs {away_team}")
 
             # Get Poisson predictions
             poisson_result = self.poisson_predictor.predict_scoreline_probabilities(home_team, away_team)
@@ -514,12 +542,12 @@ class BayesianMatchPredictor:
             return insights
 
         except Exception as e:
-            print(f"❌ Poisson analysis failed: {e}")
+            print(f"[Error] Poisson analysis failed: {e}")
             return {}
 
     def predict_with_full_bayesian_analysis(self, home_team: str, away_team: str) -> Dict:
         """
-        🎯 COMPLETE: Make predictions with full Bayesian analysis and insights
+        [COMPLETE] Make predictions with full Bayesian analysis and insights
         """
         # Get core Bayesian predictions
         predictions, probabilities = self.predict_match_bayesian(home_team, away_team)

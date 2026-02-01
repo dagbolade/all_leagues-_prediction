@@ -20,7 +20,7 @@ class OpeningWeekendAnalyzer:
         if 'BTTS' not in self.df.columns:
             self.df['BTTS'] = ((self.df['FTHG'] > 0) & (self.df['FTAG'] > 0)).astype(int)
 
-        print(f"🔍 Analyzing {len(self.df)} matches for opening weekend patterns...")
+        print(f"[Analyze] Analyzing {len(self.df)} matches for opening weekend patterns...")
 
     def extract_gw1_matches(self):
         """Dynamically extract opening weekend matches from each season"""
@@ -164,9 +164,9 @@ class OpeningWeekendAnalyzer:
             ]
             if len(team_matches) > 0 and 'League' in team_matches.columns:
                 league = team_matches['League'].iloc[-1]  # Get most recent league
-                print(f"🔍 Auto-detected {team_name} league: {league}")
+                print(f"[Detect] Auto-detected {team_name} league: {league}")
             else:
-                print(f"⚠️ Could not detect league for {team_name}, trying all leagues")
+                print(f"[Warning] Could not detect league for {team_name}, trying all leagues")
                 league = None  # Will search all leagues
 
         # Filter for specific team (with or without league filter)

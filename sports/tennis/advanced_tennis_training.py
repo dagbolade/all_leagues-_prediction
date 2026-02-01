@@ -25,7 +25,7 @@ try:
     from hyperopt.early_stop import no_progress_loss
     HYPEROPT_AVAILABLE = True
 except ImportError:
-    print("⚠️ hyperopt not available. Install with: pip install hyperopt")
+    print("[Warning]️ hyperopt not available. Install with: pip install hyperopt")
     HYPEROPT_AVAILABLE = False
 
 warnings.filterwarnings('ignore')
@@ -106,16 +106,16 @@ class AdvancedTennisPredictor:
         """Create models with Bayesian hyperparameter optimization."""
 
         if not HYPEROPT_AVAILABLE:
-            print("⚠️ Using default parameters (hyperopt not available)")
+            print("[Warning]️ Using default parameters (hyperopt not available)")
             return self.create_default_models()
 
-        print(f"🧠 Bayesian optimization for tennis winner prediction...")
+        print(f"[Bayesian] Bayesian optimization for tennis winner prediction...")
 
         search_spaces = self.get_bayesian_search_space()
         optimized_models = []
 
         for model_type, space in search_spaces.items():
-            print(f"   🔍 Optimizing {model_type}...")
+            print(f"   [Optimizing] Optimizing {model_type}...")
 
             trials = Trials()
 
@@ -135,7 +135,7 @@ class AdvancedTennisPredictor:
                 best_params = space_eval(space, best_params)
                 self.hyperopt_trials[model_type] = trials
 
-                print(f"   ✅ {model_type} best loss: {min(trials.losses()):.4f}")
+                print(f"   [OK] {model_type} best loss: {min(trials.losses()):.4f}")
 
                 # Create final model
                 if model_type == 'xgb':
@@ -163,7 +163,7 @@ class AdvancedTennisPredictor:
                 optimized_models.append((model_type, final_model))
 
             except Exception as e:
-                print(f"   ⚠️ {model_type} failed: {e}")
+                print(f"   [Warning]️ {model_type} failed: {e}")
                 continue
 
         return optimized_models
@@ -235,19 +235,19 @@ class AdvancedTennisPredictor:
             'player2_win_rate': 1 - player1_win_rate
         }
 
-        print(f"📊 Player1 win rate: {player1_win_rate:.2%}")
+        print(f"[Metrics] Player1 win rate: {player1_win_rate:.2%}")
         return df, y
 
     def train_models(self, df, feature_cols):
         """Train advanced models with Bayesian optimization."""
-        print("🚀 Starting Advanced Tennis Model Training...")
+        print("[Training] Starting Advanced Tennis Model Training...")
 
         df_processed, y = self.prepare_data(df)
 
         # Time series cross-validation
         tscv = TimeSeriesSplit(n_splits=3)
 
-        print(f"\n🎾 Training match winner prediction...")
+        print(f"\n[Tennis] Training match winner prediction...")
 
         # Prepare features
         X = df_processed[feature_cols].fillna(0)
@@ -259,14 +259,14 @@ class AdvancedTennisPredictor:
             X_selected = selector.fit_transform(X, y)
             selected_features = [feature_cols[i] for i in selector.get_support(indices=True)]
             X = pd.DataFrame(X_selected, columns=selected_features, index=X.index)
-            print(f"   🎯 Selected {len(selected_features)} best features")
+            print(f"   [Selected] Selected {len(selected_features)} best features")
 
         cv_metrics = []
         best_metric = float('-inf')
         best_model = None
 
         for fold, (train_idx, val_idx) in enumerate(tscv.split(X)):
-            print(f"   🔄 Fold {fold + 1}/3...")
+            print(f"   [Fold] Fold {fold + 1}/3...")
 
             X_train, X_val = X.iloc[train_idx], X.iloc[val_idx]
             y_train, y_val = y.iloc[train_idx], y.iloc[val_idx]
@@ -292,7 +292,7 @@ class AdvancedTennisPredictor:
             ll = log_loss(y_val, y_prob)
             f1 = f1_score(y_val, y_pred)
 
-            fold_metrics.append({'accuracy': acc, 'log_loss': ll, 'f1': f1})
+            cv_metrics.append({'accuracy': acc, 'log_loss': ll, 'f1': f1})
 
             if acc > best_metric:
                 best_metric = acc
@@ -306,7 +306,7 @@ class AdvancedTennisPredictor:
             }
 
             # Calibrate probabilities
-            print(f"   🧠 Calibrating probabilities...")
+            print(f"   [Bayesian] Calibrating probabilities...")
             try:
                 calibrated_model = CalibratedClassifierCV(best_model, method='isotonic', cv=3)
                 calibrated_model.fit(X, y)
@@ -315,7 +315,7 @@ class AdvancedTennisPredictor:
                     'features': list(X.columns)
                 }
             except Exception as e:
-                print(f"   ⚠️ Calibration failed: {e}")
+                print(f"   [Warning]️ Calibration failed: {e}")
 
             # Store metrics
             self.metrics['winner'] = {
@@ -324,13 +324,13 @@ class AdvancedTennisPredictor:
                 'f1': np.mean([m['f1'] for m in cv_metrics])
             }
 
-            print(f"\n   📊 Results:")
+            print(f"\n   [Metrics] Results:")
             print(f"      Accuracy: {self.metrics['winner']['accuracy']:.4f}")
             print(f"      Log Loss: {self.metrics['winner']['log_loss']:.4f}")
             print(f"      F1 Score: {self.metrics['winner']['f1']:.4f}")
 
-        print(f"\n🎉 Training completed!")
-        print(f"   🧠 Bayesian trials: {len(self.hyperopt_trials)}")
+        print(f"\n[Complete] Training completed!")
+        print(f"   [Bayesian] Bayesian trials: {len(self.hyperopt_trials)}")
 
     def save_models(self, path):
         """Save all models."""
@@ -342,7 +342,7 @@ class AdvancedTennisPredictor:
             'hyperopt_trials': self.hyperopt_trials
         }
         joblib.dump(save_data, path)
-        print(f"✅ Models saved to {path}")
+        print(f"[OK] Models saved to {path}")
 
     def load_models(self, path):
         """Load all models."""
@@ -352,13 +352,13 @@ class AdvancedTennisPredictor:
         self.metrics = data.get('metrics', {})
         self.bayesian_priors = data.get('bayesian_priors', {})
         self.hyperopt_trials = data.get('hyperopt_trials', {})
-        print(f"✅ Models loaded from {path}")
+        print(f"[OK] Models loaded from {path}")
 
 
 def main():
-    print("🧪 Testing Advanced Tennis Predictor...")
+    print("[Test] Testing Advanced Tennis Predictor...")
     predictor = AdvancedTennisPredictor()
-    print("\n✅ Ready for training with:")
+    print("\n[OK] Ready for training with:")
     print("   - XGBoost, CatBoost, LightGBM")
     print("   - Bayesian hyperparameter optimization")
     print("   - Stacking ensembles")

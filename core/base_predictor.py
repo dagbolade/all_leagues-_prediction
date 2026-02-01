@@ -149,7 +149,7 @@ class BaseSportPredictor(ABC):
         }
 
         joblib.dump(save_data, filepath)
-        print(f"✅ {self.sport_name.title()} models saved to {filepath}")
+        print(f"[OK] {self.sport_name.title()} models saved to {filepath}")
 
     def load_models(self, filepath: Path) -> None:
         """
@@ -168,7 +168,7 @@ class BaseSportPredictor(ABC):
         self.config = save_data.get('config', {})
         self.is_trained = True
 
-        print(f"✅ {self.sport_name.title()} models loaded from {filepath}")
+        print(f"[OK] {self.sport_name.title()} models loaded from {filepath}")
         print(f"   Version: {self.metadata.get('version', 'Unknown')}")
         print(f"   Last trained: {self.metadata.get('last_trained', 'Unknown')}")
 

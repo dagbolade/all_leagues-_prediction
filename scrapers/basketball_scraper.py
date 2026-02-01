@@ -52,7 +52,7 @@ class BasketballScraper(BaseScraper):
         Returns:
             DataFrame with all games for the season
         """
-        print(f"🏀 Scraping {league} season data for {season}...")
+        print(f"[NBA] Scraping {league} season data for {season}...")
 
         if league == 'NBA':
             return self._scrape_nba_season(season)
@@ -73,7 +73,7 @@ class BasketballScraper(BaseScraper):
         # Basketball-Reference uses the end year
         url = f"{self.bbref_base}/leagues/NBA_{year}_games.html"
 
-        print(f"📥 Fetching: {url}")
+        print(f"[NBA] Fetching: {url}")
         response = self.fetch_url(url)
 
         if not response:
@@ -167,7 +167,7 @@ class BasketballScraper(BaseScraper):
         Returns:
             DataFrame with today's games and scores
         """
-        print("🏀 Scraping live NBA scores...")
+        print("[NBA] Scraping live NBA scores...")
 
         url = f"{self.bbref_base}/boxscores/"
 
@@ -245,7 +245,7 @@ class BasketballScraper(BaseScraper):
 
         url = f"{self.bbref_base}/teams/{team_abbr}/{year}.html"
 
-        print(f"📥 Fetching stats for {team} ({season})")
+        print(f"[NBA] Fetching stats for {team} ({season})")
         response = self.fetch_url(url)
 
         if not response:
@@ -288,7 +288,7 @@ class BasketballScraper(BaseScraper):
         date = date or datetime.now()
         date_str = date.strftime('%Y-%m-%d')
 
-        print(f"📅 Scraping NBA schedule for {date_str}")
+        print(f"[NBA] Scraping NBA schedule for {date_str}")
 
         url = f"{self.bbref_base}/boxscores/"
 

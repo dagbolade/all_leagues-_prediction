@@ -1,22 +1,23 @@
 """
 Multi-Sport Routes - Extended from existing football routes
 
-Supports: Football, Basketball, NFL, Tennis
+Supports: Football, Basketball, Tennis
+Uses Advanced Models: XGBoost + CatBoost + LightGBM with Bayesian Optimization
 """
 
 from flask import Blueprint, render_template, request, jsonify
 from pathlib import Path
 import sys
+import joblib
+import logging
 
 # Add project root to path
 project_root = Path(__file__).parent.parent
 sys.path.insert(0, str(project_root))
 
-# Import predictors
-from footy.predictor_utils import create_bayesian_predictor
-from sports.basketball.basketball_predictor import BasketballPredictor
-from sports.nfl.nfl_predictor import NFLPredictor
-from sports.tennis.tennis_predictor import TennisPredictor
+# Configure logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 multi_sport = Blueprint('multi_sport', __name__)
 
@@ -24,54 +25,62 @@ multi_sport = Blueprint('multi_sport', __name__)
 predictors = {
     'football': None,
     'basketball': None,
-    'nfl': None,
     'tennis': None
 }
 
 
 def load_all_predictors():
-    """Load all sport predictors with their trained models."""
+    """Load all sport predictors with advanced trained models."""
     global predictors
 
-    # Load Football (existing system)
+    # Load Football (your existing advanced system)
     try:
-        football_models_path = Path("models/football_models.joblib")
+        football_models_path = Path("models/enhanced_processed_data.pkl")
         if football_models_path.exists():
-            # Load using existing method
-            import joblib
-            football_data = joblib.load(football_models_path)
-            # Create predictor with loaded data
-            # Note: This needs the processed data to work properly
-            print("[Football] Models found but need data loader integration")
+            predictors['football'] = joblib.load(football_models_path)
+            logger.info("[Football] Advanced model loaded")
+        else:
+            logger.warning("[Football] Models not found")
     except Exception as e:
-        print(f"[Football] Error: {e}")
+        logger.error(f"[Football] Error: {e}")
 
-    # Load Basketball
+    # Load Basketball Advanced Models (XGBoost + CatBoost + LightGBM)
     try:
-        basketball = BasketballPredictor()
-        basketball.load_models(Path("models/basketball/basketball_models.joblib"))
-        predictors['basketball'] = basketball
-        print("[Basketball] Loaded")
+        basketball_advanced_path = Path("models/basketball/basketball_advanced_models.joblib")
+        if basketball_advanced_path.exists():
+            predictors['basketball'] = joblib.load(basketball_advanced_path)
+            logger.info("[Basketball] Advanced models loaded (XGBoost + CatBoost + LightGBM)")
+        else:
+            # Fallback to basic model
+            basketball_basic_path = Path("models/basketball/basketball_models.joblib")
+            if basketball_basic_path.exists():
+                predictors['basketball'] = joblib.load(basketball_basic_path)
+                logger.info("[Basketball] Basic model loaded")
+            else:
+                logger.warning("[Basketball] No models found")
     except Exception as e:
-        print(f"[Basketball] Error: {e}")
+        logger.error(f"[Basketball] Error: {e}")
 
-    # Load NFL
+    # Load Tennis Advanced Models (XGBoost + CatBoost + LightGBM)
     try:
-        nfl = NFLPredictor()
-        nfl.load_models(Path("models/nfl/nfl_models.joblib"))
-        predictors['nfl'] = nfl
-        print("[NFL] Loaded")
+        tennis_advanced_path = Path("models/tennis/tennis_advanced_models.joblib")
+        if tennis_advanced_path.exists():
+            predictors['tennis'] = joblib.load(tennis_advanced_path)
+            logger.info("[Tennis] Advanced models loaded (XGBoost + CatBoost + LightGBM)")
+            # Log metrics
+            if 'metrics' in predictors['tennis']:
+                metrics = predictors['tennis']['metrics']
+                logger.info(f"[Tennis] Accuracy: {metrics.get('winner', {}).get('accuracy', 0):.2%}")
+        else:
+            # Fallback to basic model
+            tennis_basic_path = Path("models/tennis/tennis_models.joblib")
+            if tennis_basic_path.exists():
+                predictors['tennis'] = joblib.load(tennis_basic_path)
+                logger.info("[Tennis] Basic model loaded")
+            else:
+                logger.warning("[Tennis] No models found")
     except Exception as e:
-        print(f"[NFL] Error: {e}")
-
-    # Load Tennis
-    try:
-        tennis = TennisPredictor()
-        tennis.load_models(Path("models/tennis/tennis_models.joblib"))
-        predictors['tennis'] = tennis
-        print("[Tennis] Loaded")
-    except Exception as e:
-        print(f"[Tennis] Error: {e}")
+        logger.error(f"[Tennis] Error: {e}")
 
 
 @multi_sport.route('/')
@@ -83,7 +92,7 @@ def home():
 @multi_sport.route('/sport/<sport_name>')
 def sport_page(sport_name):
     """Sport-specific prediction page."""
-    if sport_name not in ['football', 'basketball', 'nfl', 'tennis']:
+    if sport_name not in ['football', 'basketball', 'tennis']:
         return "Sport not found", 404
 
     return render_template(f'multi_sport/{sport_name}.html', sport=sport_name)

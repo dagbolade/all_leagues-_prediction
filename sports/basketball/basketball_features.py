@@ -74,10 +74,19 @@ class BasketballFeatureEngineer:
         # Situational features
         df = self._add_situational_features(df)
 
-        self.feature_names = [col for col in df.columns if col not in [
+        # Exclude non-numeric and target columns + DATA LEAKAGE columns
+        exclude_cols = [
             'Date', 'HomeTeam', 'AwayTeam', 'HomeScore', 'AwayScore', 'Result',
-            'League', 'Season', 'Week'
-        ]]
+            'League', 'Season', 'Week', 'Winner', 'HomeFG', 'AwayFG', 'HomeFG3',
+            'AwayFG3', 'HomeFT', 'AwayFT',  # May be float but from raw data
+            # DATA LEAKAGE - these contain the game result!
+            'PointDiff', 'TotalPoints', 'Over200', 'Over210', 'Over220', 'Over230',
+            'CloseGame', 'Blowout'
+        ]
+
+        # Only keep numeric columns
+        self.feature_names = [col for col in df.columns
+                             if col not in exclude_cols and pd.api.types.is_numeric_dtype(df[col])]
 
         print(f"[NBA] Created {len(self.feature_names)} basketball features")
 

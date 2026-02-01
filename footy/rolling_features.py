@@ -27,7 +27,7 @@ class BayesianRollingFeatureGenerator:
         df = df.copy()
         df = df.sort_values(['Season', 'Date'])
 
-        print("🧠 Calculating BAYESIAN Elo ratings with historical priors...")
+        print("[Model] Calculating BAYESIAN Elo ratings with historical priors...")
 
         # STEP 1: Calculate league-specific Elo priors from historical data
         league_priors = self._calculate_league_elo_priors(df)
@@ -115,7 +115,7 @@ class BayesianRollingFeatureGenerator:
                 final_elos[team] = team_matches['HomeElo'].iloc[-1]
 
         top_teams = sorted(final_elos.items(), key=lambda x: x[1], reverse=True)[:5]
-        print("🏆 Top teams by Bayesian Elo:")
+        print("[Top] Top teams by Bayesian Elo:")
         for team, elo in top_teams:
             print(f"   {team}: {elo:.0f}")
 
@@ -317,7 +317,7 @@ class BayesianRollingFeatureGenerator:
         """
         df = df.copy()
 
-        print("🧠 Calculating Bayesian team strengths...")
+        print("[Model] Calculating Bayesian team strengths...")
 
         # Calculate league averages as priors
         league_avg_home_goals = df['FTHG'].mean()
@@ -374,7 +374,7 @@ class BayesianRollingFeatureGenerator:
             defense_avg = league_avg_away_goals if team_type == 'Home' else league_avg_home_goals
             df[f'{team_type}DefenseStrengthRel'] = df[f'{team_type}DefenseStrength'] / defense_avg
 
-        print("✅ Bayesian team strengths calculated")
+        print("[OK] Bayesian team strengths calculated")
         return df
 
     def identify_promoted_teams_with_penalties(self, df: pd.DataFrame) -> pd.DataFrame:
@@ -634,16 +634,16 @@ class BayesianRollingFeatureGenerator:
         if 'TotalGoals' not in df.columns:
             if 'FTHG' in df.columns and 'FTAG' in df.columns:
                 df['TotalGoals'] = df['FTHG'] + df['FTAG']
-                print("   ✅ Created TotalGoals column for GW1 analysis")
+                print("   [OK] Created TotalGoals column for GW1 analysis")
             else:
-                print("   ⚠️ Cannot create TotalGoals - missing FTHG/FTAG columns")
+                print("   [Warning] Cannot create TotalGoals - missing FTHG/FTAG columns")
                 return df
 
         # Create BTTS if it doesn't exist
         if 'BTTS' not in df.columns:
             if 'FTHG' in df.columns and 'FTAG' in df.columns:
                 df['BTTS'] = ((df['FTHG'] > 0) & (df['FTAG'] > 0)).astype(int)
-                print("   ✅ Created BTTS column for GW1 analysis")
+                print("   [OK] Created BTTS column for GW1 analysis")
 
         # Mark early season matches more accurately
         df['SeasonProgress'] = df.groupby(['League', 'Season'])['Date'].transform(
@@ -664,13 +664,13 @@ class BayesianRollingFeatureGenerator:
             }
 
             self.gw1_stats = gw1_stats
-            print(f"✅ GW1 Analysis Complete:")
-            print(f"   📊 {gw1_stats['total_matches']} matches analyzed")
-            print(f"   ⚽ Avg Goals: {gw1_stats['avg_goals_per_match']:.2f}")
-            print(f"   🏠 Home Win Rate: {gw1_stats['home_win_rate']:.1%}")
-            print(f"   📈 Over 2.5 Rate: {gw1_stats['over_2_5_rate']:.1%}")
+            print(f"[OK] GW1 Analysis Complete:")
+            print(f"   [Stats] {gw1_stats['total_matches']} matches analyzed")
+            print(f"   [Goals] Avg Goals: {gw1_stats['avg_goals_per_match']:.2f}")
+            print(f"   [Home] Home Win Rate: {gw1_stats['home_win_rate']:.1%}")
+            print(f"   [Stats] Over 2.5 Rate: {gw1_stats['over_2_5_rate']:.1%}")
         else:
-            print("   ⚠️ Cannot calculate GW1 stats - insufficient data")
+            print("   [Warning] Cannot calculate GW1 stats - insufficient data")
 
         return df
 
@@ -708,8 +708,8 @@ class BayesianRollingFeatureGenerator:
         df = df.copy()
         df = df.sort_values(['Season', 'Date'])
 
-        print("🚀 Adding BAYESIAN rolling features...")
-        print("✅ All features use .shift(1) - NO DATA LEAKAGE")
+        print("[Start] Adding BAYESIAN rolling features...")
+        print("[OK] All features use .shift(1) - NO DATA LEAKAGE")
 
         # 1. Calculate Bayesian Elo ratings first
         df = self.calculate_bayesian_elo_ratings(df)
@@ -718,23 +718,23 @@ class BayesianRollingFeatureGenerator:
         df = self.calculate_bayesian_team_strengths(df)
 
         # 3. Create basic goal columns FIRST (before GW1 analysis needs them)
-        print("⚽ Creating base goal features...")
+        print("[Goals] Creating base goal features...")
         if 'TotalGoals' not in df.columns:
             if 'FTHG' in df.columns and 'FTAG' in df.columns:
                 df['TotalGoals'] = df['FTHG'] + df['FTAG']
-                print("   ✅ Created TotalGoals column")
+                print("   [OK] Created TotalGoals column")
 
         if 'BTTS' not in df.columns:
             if 'FTHG' in df.columns and 'FTAG' in df.columns:
                 df['BTTS'] = ((df['FTHG'] > 0) & (df['FTAG'] > 0)).astype(int)
-                print("   ✅ Created BTTS column")
+                print("   [OK] Created BTTS column")
 
         # Create Over/Under columns
         for threshold in [1.5, 2.5, 3.5]:
             col_name = f'Over{threshold}'
             if col_name not in df.columns:
                 df[col_name] = (df['TotalGoals'] > threshold).astype(int)
-                print(f"   ✅ Created {col_name} column")
+                print(f"   [OK] Created {col_name} column")
 
         # 4. Calculate GW1 insights (after TotalGoals exists)
         df = self._calculate_gw1_historical_stats(df)
@@ -743,26 +743,26 @@ class BayesianRollingFeatureGenerator:
         df = self.identify_promoted_teams_with_penalties(df)
 
         # 6. Calculate all rolling features (vectorized for speed)
-        print("📊 Calculating team form...")
+        print("[Stats] Calculating team form...")
         df = self._calculate_team_form_vectorized(df)
 
-        print("⚽ Calculating goal features...")
+        print("[Goals] Calculating goal features...")
         df = self._calculate_goal_features_vectorized(df)
 
-        print("🎯 Calculating shot features...")
+        print("[Stats] Calculating shot features...")
         df = self._calculate_shot_features_vectorized(df)
 
-        print("📝 Calculating disciplinary features...")
+        print("[Cards] Calculating disciplinary features...")
         df = self._calculate_disciplinary_features(df)
 
         # 7. Add Bayesian match predictions
         df = self._add_bayesian_match_predictions(df)
 
         # 8. Fill missing values
-        print("🔧 Filling missing values...")
+        print("[FIX] Filling missing values...")
         df = df.fillna(0)
 
-        print("✅ BAYESIAN rolling features completed!")
+        print("[OK] BAYESIAN rolling features completed!")
 
         # Show summary
         feature_count = len([col for col in df.columns if any(x in col for x in

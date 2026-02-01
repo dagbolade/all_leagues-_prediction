@@ -70,10 +70,12 @@ class TennisFeatureEngineer:
         # Tournament context
         df = self._add_tournament_features(df)
 
-        # Exclude non-numeric and target columns
+        # Exclude non-numeric and target columns + DATA LEAKAGE columns
         exclude_cols = [
             'Date', 'Player1', 'Player2', 'Winner', 'Score',
-            'Tournament', 'Round', 'Surface', 'Sets', 'Tour'
+            'Tournament', 'Round', 'Surface', 'Sets', 'Tour',
+            # DATA LEAKAGE - these contain the match result!
+            'Upset'  # Calculated from Winner column
         ]
 
         # Only keep numeric columns

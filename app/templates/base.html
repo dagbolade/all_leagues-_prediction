@@ -1,83 +1,44 @@
 <!-- templates/base.html -->
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Football Predictor Pro - {% block title %}{% endblock %}</title>
+
+    <!-- PWA Meta Tags -->
+    <meta name="description"
+        content="AI-powered football predictions with advanced analytics, live scores, and comprehensive match analysis">
+    <meta name="theme-color" content="#2E8B57">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="FootyPredict">
+
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
+
+    <!-- Apple Touch Icons -->
+    <link rel="apple-touch-icon" href="{{ url_for('static', filename='icons/icon-152x152.png') }}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='icons/icon-192x192.png') }}">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='icons/icon-72x72.png') }}">
+
+    <title>ProPredict Analytics - {% block title %}{% endblock %}</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="{{ url_for('static', filename='css/styles.css') }}" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-    <style>
-        body {
-            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
-            min-height: 100vh;
-            position: relative;
-        }
-
-        .content-wrapper {
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 15px;
-            backdrop-filter: blur(10px);
-            padding: 20px;
-            margin: 20px;
-            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-        }
-
-        .card {
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(4px);
-            border: 1px solid rgba(255, 255, 255, 0.18);
-            transition: transform 0.3s ease;
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
-        }
-
-        .navbar {
-            background: rgba(0, 0, 0, 0.8) !important;
-            backdrop-filter: blur(10px);
-        }
-
-        .prediction-result-card {
-            animation: slideIn 0.5s ease-out;
-        }
-
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-            }
-        }
-
-        .loading-spinner {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100%;
-        }
-
-        .hero-banner {
-            background-image: linear-gradient(to bottom, #1a2a6c, #b21f1f, #fdbb2d);
-            background-size: 100% 300px;
-            background-position: 0% 100%;
-            height: 300px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: #fff;
-        }
-    </style>
+    <link href="{{ url_for('static', filename='css/styles.css') }}" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
 </head>
+
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container">
             <a class="navbar-brand" href="/">
-                <span class="navbar-brand">⚽ Football Predictor Pro</span>
+                <span class="navbar-brand"><i class="bi bi-activity"></i> ProPredict Analytics</span>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
@@ -88,16 +49,43 @@
                         <a class="nav-link {% if request.path == '/' %}active{% endif %}" href="/">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {% if request.path.startswith('/predict') %}active{% endif %}" href="/predict">Make Prediction</a>
+                        <a class="nav-link {% if request.path.startswith('/predict') %}active{% endif %}"
+                            href="/predict">Make Prediction</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {% if request.path.startswith('/my-predictions') %}active{% endif %}" href="/my-predictions">📋 My Predictions</a>
+                        <a class="nav-link {% if request.path.startswith('/statistics') %}active{% endif %}"
+                            href="/statistics"><i class="bi bi-graph-up"></i> Statistics</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="advancedDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-grid-3x3-gap"></i> Advanced
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="advancedDropdown">
+                            <li><a class="dropdown-item" href="/multi"><i class="bi bi-controller"></i> Multi-Sport
+                                    Platform</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="/accuracy"><i
+                                        class="bi bi-patch-check-fill text-success"></i> Accuracy Tracker</a></li>
+                            <li><a class="dropdown-item" href="/advanced/accumulator"><i class="bi bi-layers-fill"></i>
+                                    Accumulator Builder</a></li>
+                            <li><a class="dropdown-item" href="/live-tracker"><i class="bi bi-broadcast"></i> Live
+                                    Tracker</a></li>
+                        </ul>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {% if request.path.startswith('/live-predictions') %}active{% endif %}" href="/live-predictions">Live Predictions</a>
+                        <a class="nav-link {% if request.path.startswith('/my-predictions') %}active{% endif %}"
+                            href="/my-predictions"><i class="bi bi-list-check"></i> My Picks</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {% if request.path.startswith('/results') %}active{% endif %}" href="/results">Results</a>
+                        <a class="nav-link {% if request.path.startswith('/live-predictions') %}active{% endif %}"
+                            href="/live-predictions">Live Predictions</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.path.startswith('/results') %}active{% endif %}"
+                            href="/results">Results</a>
                     </li>
                 </ul>
             </div>
@@ -133,16 +121,23 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- PWA Scripts -->
+    <script src="{{ url_for('static', filename='js/pwa-manager.js') }}"></script>
+
+    <!-- Theme Manager -->
+    <script src="{{ url_for('static', filename='js/theme-manager.js') }}"></script>
+
     <script src="{{ url_for('static', filename='js/live-scores.js') }}"></script>
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/save-predictions.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/save-predictions.js') }}?v=2"></script>
     <script src="{{ url_for('static', filename='js/scroll-to-predictions.js') }}"></script>
     <script src="{{ url_for('static', filename='js/prediction-loading.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="/static/js/three-scene.js"></script>
     <script>
         // Initialize LiveScoresManager
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const liveScores = new LiveScoresManager();
 
             // Update the last updated time
@@ -160,4 +155,5 @@
         });
     </script>
 </body>
+
 </html>

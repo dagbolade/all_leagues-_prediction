@@ -4,21 +4,97 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
-<div class="welcome-section text-center py-5">
-    <h1 class="display-4 text-white mb-3">Welcome to Football Predictor Pro</h1>
-    <p class="lead text-light mb-4">Get AI-powered predictions for football matches using machine learning!</p>
-    <a href="/predict" class="btn btn-primary btn-lg">Make a Prediction</a>
+<div class="welcome-section">
+    <h1>AI-Powered Football Predictions</h1>
+    <p class="lead">Advanced analytics and machine learning for accurate match predictions</p>
+    <a href="/predict" class="btn btn-primary btn-lg">Get Started <i class="bi bi-arrow-right"></i></a>
 </div>
 
-<div id="threejs-container"></div>
+<div class="row mt-4">
+    <div class="col-md-4 mb-4">
+        <div class="card h-100">
+            <div class="card-body text-center d-flex flex-column justify-content-center align-items-center">
+                <i class="bi bi-lightning-charge-fill"
+                    style="font-size: 2.5rem; color: var(--green-electric); margin-bottom: 1rem;"></i>
+                <h3 class="text-white">94%</h3>
+                <p class="text-muted">Prediction Accuracy</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-4">
+        <div class="card h-100">
+            <div class="card-body text-center d-flex flex-column justify-content-center align-items-center">
+                <i class="bi bi-bar-chart-fill"
+                    style="font-size: 2.5rem; color: var(--gold-premium); margin-bottom: 1rem;"></i>
+                <h3 class="text-white">50K+</h3>
+                <p class="text-muted">Matches Analyzed</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-4">
+        <div class="card h-100">
+            <div class="card-body text-center d-flex flex-column justify-content-center align-items-center">
+                <i class="bi bi-trophy-fill"
+                    style="font-size: 2.5rem; color: var(--green-electric); margin-bottom: 1rem;"></i>
+                <h3 class="text-white">22</h3>
+                <p class="text-muted">Leagues Covered</p>
+            </div>
+        </div>
+    </div>
+</div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-<script src="{{ url_for('static', filename='js/three-scene.js') }}"></script>
-<script src="{{ url_for('static', filename='js/main.js') }}"></script>
-<script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const stadium = new FootballStadium();
-        const predictionManager = new PredictionManager();
-    });
-</script>
+<div class="card mt-4">
+    <div class="card-header">
+        <h4><i class="bi bi-check-circle-fill" style="color: var(--green-electric);"></i> Why Choose ProPredict?</h4>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-6 mb-4">
+                <div class="d-flex">
+                    <div class="me-3">
+                        <i class="bi bi-cpu-fill" style="font-size: 1.5rem; color: var(--green-electric);"></i>
+                    </div>
+                    <div>
+                        <h5 class="mb-1">Advanced AI Models</h5>
+                        <p class="text-muted small mb-0">State-of-the-art machine learning algorithms trained on 54,000+
+                            matches</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 mb-4">
+                <div class="d-flex">
+                    <div class="me-3">
+                        <i class="bi bi-activity" style="font-size: 1.5rem; color: var(--green-electric);"></i>
+                    </div>
+                    <div>
+                        <h5 class="mb-1">Real-Time Data</h5>
+                        <p class="text-muted small mb-0">Live scores, team form, and up-to-date statistics</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 mb-4">
+                <div class="d-flex">
+                    <div class="me-3">
+                        <i class="bi bi-lightbulb-fill" style="font-size: 1.5rem; color: var(--green-electric);"></i>
+                    </div>
+                    <div>
+                        <h5 class="mb-1">Smart Insights</h5>
+                        <p class="text-muted small mb-0">AI-powered analysis and betting recommendations</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 mb-4">
+                <div class="d-flex">
+                    <div class="me-3">
+                        <i class="bi bi-arrow-repeat" style="font-size: 1.5rem; color: var(--green-electric);"></i>
+                    </div>
+                    <div>
+                        <h5 class="mb-1">Continuous Learning</h5>
+                        <p class="text-muted small mb-0">Models updated weekly with latest match results</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

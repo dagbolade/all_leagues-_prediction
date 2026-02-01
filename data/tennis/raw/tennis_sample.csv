@@ -1,0 +1,801 @@
+Date,Player1,Player2,Player1Rank,Player2Rank,Tournament,Round,Surface,Winner,Sets,Player1Aces,Player2Aces,Player1DoubleFaults,Player2DoubleFaults,Tour
+2023-01-01,Coco Gauff,Aryna Sabalenka,3,2,Monte Carlo,Round of 16,Hard,Player2,0-2,10,5,2,2,WTA
+2023-01-03,Madison Keys,Maria Sakkari,13,9,ATP 500,Quarter-Final,Clay,Player1,2-1,13,7,2,3,WTA
+2023-01-03,Jessica Pegula,Ons Jabeur,5,6,Paris Masters,Semi-Final,Hard,Player1,2-1,9,8,0,2,WTA
+2023-01-03,Qinwen Zheng,Ons Jabeur,8,6,Cincinnati,Quarter-Final,Grass,Player1,2-0,6,4,1,2,WTA
+2023-01-03,Marketa Vondrousova,Maria Sakkari,7,9,Paris Masters,Round of 16,Hard,Player2,1-2,6,4,3,2,WTA
+2023-01-03,Karen Khachanov,Grigor Dimitrov,16,13,ATP 500,Round of 32,Grass,Player2,1-2,7,7,2,0,ATP
+2023-01-04,Elena Rybakina,Aryna Sabalenka,4,2,Cincinnati,Round of 32,Hard,Player1,2-1,1,10,0,2,WTA
+2023-01-04,Alex de Minaur,Hubert Hurkacz,14,9,Cincinnati,Round of 32,Grass,Player2,1-2,6,11,2,1,ATP
+2023-01-06,Taylor Fritz,Alex de Minaur,10,14,US Open,Round of 32,Hard,Player1,3-1,5,7,2,0,ATP
+2023-01-07,Carlos Alcaraz,Ben Shelton,2,18,Paris Masters,Round of 32,Hard,Player2,0-2,9,8,0,3,ATP
+2023-01-08,Carlos Alcaraz,Daniil Medvedev,2,3,Miami,Round of 32,Clay,Player1,2-1,8,0,1,1,ATP
+2023-01-09,Tommy Paul,Carlos Alcaraz,12,2,Wimbledon,Round of 32,Hard,Player2,1-3,8,10,2,1,ATP
+2023-01-10,Alex de Minaur,Andrey Rublev,14,5,Indian Wells,Quarter-Final,Hard,Player2,0-2,5,4,1,2,ATP
+2023-01-11,Barbora Krejcikova,Beatriz Haddad Maia,11,15,Australian Open,Round of 32,Hard,Player2,2-3,5,0,2,1,WTA
+2023-01-11,Andrey Rublev,Stefanos Tsitsipas,5,6,ATP 500,Round of 32,Hard,Player1,2-0,10,9,1,2,ATP
+2023-01-13,Stefanos Tsitsipas,Novak Djokovic,6,1,Madrid,Round of 16,Grass,Player2,1-2,11,9,1,2,ATP
+2023-01-14,Karen Khachanov,Novak Djokovic,16,1,US Open,Round of 16,Hard,Player2,0-3,5,5,3,2,ATP
+2023-01-14,Holger Rune,Taylor Fritz,7,10,Shanghai,Quarter-Final,Hard,Player2,0-2,5,7,3,0,ATP
+2023-01-16,Jannik Sinner,Daniil Medvedev,4,3,ATP 250,Final,Grass,Player1,2-0,4,6,0,1,ATP
+2023-01-17,Beatriz Haddad Maia,Maria Sakkari,15,9,ATP 250,Final,Clay,Player1,2-0,5,8,2,2,WTA
+2023-01-18,Hubert Hurkacz,Karen Khachanov,9,16,Shanghai,Round of 16,Hard,Player1,2-1,6,10,0,2,ATP
+2023-01-18,Karen Khachanov,Hubert Hurkacz,16,9,Indian Wells,Round of 32,Clay,Player1,2-1,4,5,3,2,ATP
+2023-01-19,Madison Keys,Jessica Pegula,13,5,Indian Wells,Round of 32,Hard,Player2,1-2,8,1,2,1,WTA
+2023-01-20,Jelena Ostapenko,Coco Gauff,12,3,ATP 500,Round of 32,Grass,Player1,2-1,2,3,3,2,WTA
+2023-01-21,Novak Djokovic,Hubert Hurkacz,1,9,US Open,Round of 32,Hard,Player2,0-3,5,6,2,4,ATP
+2023-01-24,Jessica Pegula,Beatriz Haddad Maia,5,15,Rome,Round of 32,Grass,Player2,0-2,4,6,1,0,WTA
+2023-01-24,Tommy Paul,Andrey Rublev,12,5,Monte Carlo,Round of 32,Grass,Player1,2-1,7,0,1,3,ATP
+2023-01-25,Alexander Zverev,Ben Shelton,11,18,French Open,Round of 32,Hard,Player1,3-0,5,9,1,1,ATP
+2023-01-26,Frances Tiafoe,Andrey Rublev,15,5,ATP 500,Round of 16,Hard,Player2,1-2,1,7,2,2,ATP
+2023-01-28,Tommy Paul,Taylor Fritz,12,10,Monte Carlo,Round of 32,Hard,Player2,0-2,0,3,2,0,ATP
+2023-01-29,Frances Tiafoe,Lorenzo Musetti,15,17,Indian Wells,Round of 32,Clay,Player2,0-2,9,8,2,3,ATP
+2023-01-29,Lorenzo Musetti,Holger Rune,17,7,Australian Open,Round of 32,Hard,Player1,3-0,2,11,0,1,ATP
+2023-01-30,Holger Rune,Alexander Zverev,7,11,Australian Open,Round of 16,Clay,Player2,2-3,6,7,0,1,ATP
+2023-01-30,Marketa Vondrousova,Aryna Sabalenka,7,2,Cincinnati,Round of 32,Hard,Player2,0-2,6,9,0,1,WTA
+2023-01-31,Jelena Ostapenko,Jessica Pegula,12,5,Cincinnati,Round of 32,Grass,Player1,2-0,0,6,1,2,WTA
+2023-01-31,Lorenzo Musetti,Alex de Minaur,17,14,Rome,Round of 32,Clay,Player2,1-2,1,3,1,0,ATP
+2023-02-02,Grigor Dimitrov,Frances Tiafoe,13,15,Australian Open,Round of 32,Hard,Player1,3-1,9,7,2,3,ATP
+2023-02-02,Ben Shelton,Stefanos Tsitsipas,18,6,Australian Open,Round of 16,Hard,Player1,3-1,12,2,1,2,ATP
+2023-02-02,Coco Gauff,Madison Keys,3,13,ATP 500,Round of 32,Hard,Player1,2-1,2,6,1,0,WTA
+2023-02-03,Hubert Hurkacz,Holger Rune,9,7,Cincinnati,Final,Hard,Player2,1-2,4,5,3,2,ATP
+2023-02-03,Casper Ruud,Holger Rune,8,7,US Open,Semi-Final,Hard,Player1,3-0,8,7,0,2,ATP
+2023-02-04,Ben Shelton,Novak Djokovic,18,1,ATP 500,Quarter-Final,Grass,Player2,1-2,4,8,0,2,ATP
+2023-02-04,Karolina Muchova,Beatriz Haddad Maia,10,15,ATP 500,Round of 16,Grass,Player1,2-0,5,8,2,2,WTA
+2023-02-06,Beatriz Haddad Maia,Aryna Sabalenka,15,2,Australian Open,Round of 32,Clay,Player2,0-3,0,12,0,2,WTA
+2023-02-06,Iga Swiatek,Jelena Ostapenko,1,12,US Open,Semi-Final,Hard,Player2,2-3,0,10,1,2,WTA
+2023-02-06,Stefanos Tsitsipas,Grigor Dimitrov,6,13,Australian Open,Round of 32,Hard,Player1,3-2,13,6,1,1,ATP
+2023-02-06,Jannik Sinner,Novak Djokovic,4,1,Paris Masters,Quarter-Final,Clay,Player2,1-2,6,5,3,2,ATP
+2023-02-07,Taylor Fritz,Stefanos Tsitsipas,10,6,Wimbledon,Round of 16,Hard,Player1,3-1,5,2,2,2,ATP
+2023-02-09,Hubert Hurkacz,Alexander Zverev,9,11,Wimbledon,Semi-Final,Hard,Player1,3-2,4,7,0,3,ATP
+2023-02-10,Barbora Krejcikova,Elena Rybakina,11,4,Wimbledon,Semi-Final,Hard,Player2,1-3,3,0,1,3,WTA
+2023-02-11,Alexander Zverev,Carlos Alcaraz,11,2,ATP 250,Round of 32,Hard,Player2,0-2,9,6,0,1,ATP
+2023-02-14,Tommy Paul,Novak Djokovic,12,1,Paris Masters,Round of 32,Clay,Player2,1-2,2,0,1,3,ATP
+2023-02-16,Hubert Hurkacz,Stefanos Tsitsipas,9,6,ATP 250,Round of 16,Clay,Player2,1-2,6,4,0,0,ATP
+2023-02-17,Ben Shelton,Grigor Dimitrov,18,13,Paris Masters,Round of 16,Grass,Player2,0-2,9,3,3,2,ATP
+2023-02-17,Lorenzo Musetti,Holger Rune,17,7,Australian Open,Round of 32,Hard,Player2,0-3,3,7,2,2,ATP
+2023-02-18,Casper Ruud,Alex de Minaur,8,14,ATP 500,Round of 32,Hard,Player2,0-2,8,10,1,3,ATP
+2023-02-18,Taylor Fritz,Jannik Sinner,10,4,Paris Masters,Round of 16,Hard,Player1,2-1,4,5,0,2,ATP
+2023-02-18,Frances Tiafoe,Tommy Paul,15,12,Cincinnati,Round of 32,Clay,Player1,2-0,6,9,1,2,ATP
+2023-02-19,Taylor Fritz,Karen Khachanov,10,16,Shanghai,Round of 16,Hard,Player1,2-1,5,7,2,3,ATP
+2023-02-20,Qinwen Zheng,Aryna Sabalenka,8,2,Madrid,Round of 32,Hard,Player2,1-2,6,6,0,3,WTA
+2023-02-20,Madison Keys,Karolina Muchova,13,10,Shanghai,Semi-Final,Clay,Player1,2-0,5,6,3,1,WTA
+2023-02-21,Andrey Rublev,Karen Khachanov,5,16,Miami,Round of 32,Grass,Player1,2-0,2,4,3,2,ATP
+2023-02-21,Andrey Rublev,Taylor Fritz,5,10,Wimbledon,Round of 16,Clay,Player1,3-1,10,10,3,2,ATP
+2023-02-21,Ons Jabeur,Qinwen Zheng,6,8,Paris Masters,Round of 32,Hard,Player2,1-2,10,6,1,1,WTA
+2023-02-23,Ons Jabeur,Daria Kasatkina,6,14,Cincinnati,Final,Grass,Player2,0-2,1,4,3,0,WTA
+2023-02-24,Tommy Paul,Alex de Minaur,12,14,WTA 1000,Round of 16,Grass,Player1,2-1,2,8,1,1,ATP
+2023-02-25,Karen Khachanov,Taylor Fritz,16,10,Miami,Round of 16,Clay,Player1,2-0,5,10,1,2,ATP
+2023-02-25,Holger Rune,Daniil Medvedev,7,3,Paris Masters,Round of 16,Hard,Player1,2-0,8,5,3,2,ATP
+2023-02-25,Stefanos Tsitsipas,Holger Rune,6,7,Miami,Round of 16,Hard,Player1,2-1,8,3,0,1,ATP
+2023-02-28,Jelena Ostapenko,Elena Rybakina,12,4,Wimbledon,Round of 16,Hard,Player2,0-3,0,11,3,2,WTA
+2023-03-01,Jelena Ostapenko,Iga Swiatek,12,1,Shanghai,Round of 16,Clay,Player2,0-2,7,9,0,3,WTA
+2023-03-01,Qinwen Zheng,Madison Keys,8,13,Monte Carlo,Final,Clay,Player1,2-1,5,11,2,1,WTA
+2023-03-01,Tommy Paul,Jannik Sinner,12,4,Monte Carlo,Final,Hard,Player1,2-1,7,6,0,0,ATP
+2023-03-02,Qinwen Zheng,Daria Kasatkina,8,14,Monte Carlo,Round of 16,Hard,Player1,2-0,2,5,2,0,WTA
+2023-03-02,Andrey Rublev,Holger Rune,5,7,Indian Wells,Round of 16,Hard,Player2,1-2,2,2,2,1,ATP
+2023-03-02,Ben Shelton,Taylor Fritz,18,10,Cincinnati,Round of 32,Hard,Player2,0-2,7,1,1,1,ATP
+2023-03-03,Daniil Medvedev,Hubert Hurkacz,3,9,Shanghai,Round of 32,Hard,Player1,2-0,7,1,0,2,ATP
+2023-03-04,Beatriz Haddad Maia,Iga Swiatek,15,1,Indian Wells,Round of 16,Hard,Player2,1-2,6,9,1,1,WTA
+2023-03-04,Aryna Sabalenka,Jelena Ostapenko,2,12,Paris Masters,Quarter-Final,Hard,Player2,0-2,4,9,1,1,WTA
+2023-03-04,Taylor Fritz,Alexander Zverev,10,11,ATP 250,Round of 32,Hard,Player2,1-2,6,16,1,3,ATP
+2023-03-04,Karen Khachanov,Daniil Medvedev,16,3,Miami,Final,Hard,Player2,0-2,6,3,1,0,ATP
+2023-03-05,Ons Jabeur,Beatriz Haddad Maia,6,15,Madrid,Round of 32,Hard,Player2,0-2,4,3,1,1,WTA
+2023-03-08,Barbora Krejcikova,Iga Swiatek,11,1,ATP 500,Round of 32,Hard,Player1,2-0,9,4,1,2,WTA
+2023-03-09,Qinwen Zheng,Madison Keys,8,13,Monte Carlo,Round of 16,Grass,Player2,1-2,4,5,0,2,WTA
+2023-03-10,Tommy Paul,Holger Rune,12,7,WTA 1000,Quarter-Final,Clay,Player2,1-2,6,7,1,2,ATP
+2023-03-11,Alex de Minaur,Ben Shelton,14,18,Madrid,Round of 32,Hard,Player1,2-0,9,5,1,2,ATP
+2023-03-11,Novak Djokovic,Alexander Zverev,1,11,Shanghai,Round of 16,Hard,Player2,0-2,2,8,0,2,ATP
+2023-03-12,Novak Djokovic,Stefanos Tsitsipas,1,6,US Open,Semi-Final,Grass,Player1,3-2,5,0,4,1,ATP
+2023-03-13,Novak Djokovic,Holger Rune,1,7,Australian Open,Semi-Final,Hard,Player1,3-2,0,4,3,1,ATP
+2023-03-13,Maria Sakkari,Coco Gauff,9,3,Madrid,Round of 32,Clay,Player2,1-2,8,3,1,2,WTA
+2023-03-14,Aryna Sabalenka,Karolina Muchova,2,10,Australian Open,Round of 16,Clay,Player2,0-3,7,7,1,0,WTA
+2023-03-14,Maria Sakkari,Daria Kasatkina,9,14,Australian Open,Round of 16,Clay,Player1,3-1,5,4,2,1,WTA
+2023-03-14,Maria Sakkari,Qinwen Zheng,9,8,ATP 500,Round of 32,Clay,Player1,2-0,4,4,1,2,WTA
+2023-03-14,Coco Gauff,Jelena Ostapenko,3,12,Shanghai,Round of 16,Clay,Player1,2-0,1,3,4,1,WTA
+2023-03-16,Frances Tiafoe,Lorenzo Musetti,15,17,ATP 500,Round of 16,Hard,Player2,1-2,13,5,0,1,ATP
+2023-03-16,Daniil Medvedev,Novak Djokovic,3,1,Wimbledon,Round of 32,Grass,Player2,0-3,5,2,1,1,ATP
+2023-03-16,Lorenzo Musetti,Alex de Minaur,17,14,Wimbledon,Round of 32,Clay,Player2,1-3,4,5,1,1,ATP
+2023-03-17,Aryna Sabalenka,Iga Swiatek,2,1,ATP 500,Round of 32,Clay,Player2,1-2,5,10,2,1,WTA
+2023-03-18,Daniil Medvedev,Frances Tiafoe,3,15,US Open,Round of 16,Clay,Player2,2-3,8,4,2,2,ATP
+2023-03-19,Iga Swiatek,Coco Gauff,1,3,Monte Carlo,Round of 16,Grass,Player2,0-2,4,9,1,3,WTA
+2023-03-19,Andrey Rublev,Alex de Minaur,5,14,Shanghai,Round of 16,Clay,Player2,1-2,2,5,1,2,ATP
+2023-03-20,Aryna Sabalenka,Marketa Vondrousova,2,7,ATP 250,Round of 16,Hard,Player1,2-0,2,8,3,2,WTA
+2023-03-20,Qinwen Zheng,Elena Rybakina,8,4,Rome,Round of 32,Hard,Player2,0-2,2,4,2,1,WTA
+2023-03-21,Stefanos Tsitsipas,Carlos Alcaraz,6,2,Rome,Round of 16,Hard,Player2,1-2,11,11,3,1,ATP
+2023-03-21,Casper Ruud,Jannik Sinner,8,4,Monte Carlo,Round of 16,Hard,Player2,1-2,7,2,2,1,ATP
+2023-03-22,Karolina Muchova,Coco Gauff,10,3,ATP 250,Round of 32,Hard,Player2,0-2,8,7,2,3,WTA
+2023-03-22,Karolina Muchova,Daria Kasatkina,10,14,Monte Carlo,Quarter-Final,Clay,Player1,2-0,10,7,2,1,WTA
+2023-03-23,Jelena Ostapenko,Qinwen Zheng,12,8,Madrid,Final,Grass,Player2,1-2,6,7,1,2,WTA
+2023-03-23,Novak Djokovic,Carlos Alcaraz,1,2,Miami,Final,Hard,Player1,2-1,6,10,2,1,ATP
+2023-03-25,Andrey Rublev,Alex de Minaur,5,14,ATP 250,Round of 32,Hard,Player1,2-1,6,12,2,2,ATP
+2023-03-26,Stefanos Tsitsipas,Ben Shelton,6,18,Shanghai,Round of 16,Hard,Player1,2-0,5,4,3,1,ATP
+2023-03-27,Daniil Medvedev,Stefanos Tsitsipas,3,6,Madrid,Round of 16,Hard,Player1,2-1,7,0,2,3,ATP
+2023-03-28,Madison Keys,Qinwen Zheng,13,8,US Open,Round of 32,Hard,Player2,0-3,7,5,2,1,WTA
+2023-03-28,Qinwen Zheng,Iga Swiatek,8,1,US Open,Round of 16,Clay,Player2,1-3,11,8,2,0,WTA
+2023-03-29,Qinwen Zheng,Barbora Krejcikova,8,11,Paris Masters,Round of 32,Hard,Player1,2-1,5,4,1,1,WTA
+2023-03-30,Daria Kasatkina,Marketa Vondrousova,14,7,ATP 250,Round of 16,Clay,Player2,1-2,7,2,2,0,WTA
+2023-04-01,Ons Jabeur,Jessica Pegula,6,5,ATP 500,Round of 16,Hard,Player1,2-0,2,5,1,1,WTA
+2023-04-01,Ons Jabeur,Barbora Krejcikova,6,11,Monte Carlo,Round of 16,Hard,Player1,2-1,0,10,2,1,WTA
+2023-04-02,Stefanos Tsitsipas,Casper Ruud,6,8,Monte Carlo,Round of 16,Hard,Player1,2-1,9,5,1,1,ATP
+2023-04-02,Grigor Dimitrov,Andrey Rublev,13,5,French Open,Round of 32,Hard,Player1,3-0,9,6,1,1,ATP
+2023-04-03,Andrey Rublev,Alexander Zverev,5,11,ATP 500,Round of 32,Hard,Player1,2-0,2,8,2,4,ATP
+2023-04-05,Hubert Hurkacz,Karen Khachanov,9,16,Rome,Round of 32,Hard,Player1,2-0,0,5,3,2,ATP
+2023-04-06,Jelena Ostapenko,Jessica Pegula,12,5,Cincinnati,Semi-Final,Hard,Player1,2-1,6,2,1,2,WTA
+2023-04-07,Andrey Rublev,Karen Khachanov,5,16,Miami,Final,Hard,Player2,0-2,2,7,3,0,ATP
+2023-04-07,Ben Shelton,Lorenzo Musetti,18,17,Indian Wells,Round of 16,Hard,Player2,0-2,5,1,2,1,ATP
+2023-04-08,Marketa Vondrousova,Daria Kasatkina,7,14,Paris Masters,Semi-Final,Clay,Player1,2-0,16,2,1,1,WTA
+2023-04-09,Hubert Hurkacz,Carlos Alcaraz,9,2,Paris Masters,Round of 32,Grass,Player2,0-2,3,7,2,0,ATP
+2023-04-12,Frances Tiafoe,Stefanos Tsitsipas,15,6,Cincinnati,Quarter-Final,Grass,Player2,0-2,11,9,1,1,ATP
+2023-04-14,Novak Djokovic,Tommy Paul,1,12,Miami,Round of 32,Clay,Player1,2-0,5,5,2,3,ATP
+2023-04-15,Elena Rybakina,Barbora Krejcikova,4,11,Wimbledon,Quarter-Final,Hard,Player1,3-1,6,6,3,2,WTA
+2023-04-15,Jannik Sinner,Karen Khachanov,4,16,Rome,Round of 16,Hard,Player1,2-0,4,7,3,1,ATP
+2023-04-15,Grigor Dimitrov,Holger Rune,13,7,Indian Wells,Final,Hard,Player1,2-0,7,4,2,2,ATP
+2023-04-17,Qinwen Zheng,Daria Kasatkina,8,14,Shanghai,Round of 16,Clay,Player1,2-1,1,3,4,2,WTA
+2023-04-18,Frances Tiafoe,Stefanos Tsitsipas,15,6,Cincinnati,Round of 32,Clay,Player1,2-0,4,14,3,1,ATP
+2023-04-20,Ons Jabeur,Iga Swiatek,6,1,French Open,Quarter-Final,Clay,Player2,0-3,3,8,1,2,WTA
+2023-04-20,Casper Ruud,Jannik Sinner,8,4,Wimbledon,Round of 16,Clay,Player1,3-1,9,3,3,3,ATP
+2023-04-21,Karen Khachanov,Frances Tiafoe,16,15,WTA 1000,Round of 16,Hard,Player1,2-0,8,3,0,2,ATP
+2023-04-23,Qinwen Zheng,Iga Swiatek,8,1,Paris Masters,Semi-Final,Clay,Player2,0-2,4,3,3,2,WTA
+2023-04-24,Frances Tiafoe,Jannik Sinner,15,4,WTA 1000,Semi-Final,Hard,Player2,0-2,7,6,2,3,ATP
+2023-04-25,Karen Khachanov,Taylor Fritz,16,10,Paris Masters,Round of 16,Clay,Player1,2-1,0,9,0,1,ATP
+2023-04-26,Stefanos Tsitsipas,Taylor Fritz,6,10,Paris Masters,Semi-Final,Hard,Player1,2-0,1,2,2,2,ATP
+2023-04-26,Alex de Minaur,Lorenzo Musetti,14,17,Wimbledon,Round of 32,Clay,Player1,3-2,10,6,3,1,ATP
+2023-04-26,Hubert Hurkacz,Ben Shelton,9,18,Madrid,Round of 32,Hard,Player1,2-1,10,4,3,0,ATP
+2023-04-27,Casper Ruud,Daniil Medvedev,8,3,ATP 250,Round of 16,Grass,Player2,1-2,6,2,0,1,ATP
+2023-04-28,Daria Kasatkina,Ons Jabeur,14,6,Wimbledon,Quarter-Final,Clay,Player2,0-3,6,7,2,1,WTA
+2023-04-28,Ons Jabeur,Qinwen Zheng,6,8,French Open,Round of 16,Clay,Player2,2-3,1,9,1,2,WTA
+2023-04-30,Jessica Pegula,Karolina Muchova,5,10,Indian Wells,Round of 32,Hard,Player2,0-2,3,8,1,2,WTA
+2023-05-01,Coco Gauff,Elena Rybakina,3,4,French Open,Round of 32,Hard,Player1,3-1,6,6,1,2,WTA
+2023-05-02,Coco Gauff,Madison Keys,3,13,Paris Masters,Quarter-Final,Hard,Player1,2-1,6,5,0,2,WTA
+2023-05-07,Stefanos Tsitsipas,Grigor Dimitrov,6,13,Rome,Round of 16,Grass,Player2,0-2,6,4,1,0,ATP
+2023-05-08,Aryna Sabalenka,Jelena Ostapenko,2,12,Miami,Round of 32,Hard,Player1,2-1,3,7,1,1,WTA
+2023-05-09,Madison Keys,Maria Sakkari,13,9,Indian Wells,Round of 16,Grass,Player2,1-2,3,9,1,2,WTA
+2023-05-09,Alexander Zverev,Holger Rune,11,7,Indian Wells,Round of 32,Clay,Player2,0-2,1,2,1,2,ATP
+2023-05-10,Ons Jabeur,Barbora Krejcikova,6,11,Madrid,Round of 32,Hard,Player1,2-1,5,9,0,1,WTA
+2023-05-10,Frances Tiafoe,Andrey Rublev,15,5,ATP 250,Round of 16,Hard,Player2,0-2,11,7,1,1,ATP
+2023-05-11,Madison Keys,Qinwen Zheng,13,8,Miami,Quarter-Final,Hard,Player1,2-1,4,4,2,2,WTA
+2023-05-12,Jelena Ostapenko,Karolina Muchova,12,10,Miami,Semi-Final,Hard,Player2,1-2,5,4,1,1,WTA
+2023-05-14,Stefanos Tsitsipas,Ben Shelton,6,18,Monte Carlo,Round of 32,Clay,Player1,2-1,6,6,2,3,ATP
+2023-05-14,Casper Ruud,Grigor Dimitrov,8,13,WTA 1000,Semi-Final,Hard,Player1,2-1,7,8,2,3,ATP
+2023-05-15,Andrey Rublev,Grigor Dimitrov,5,13,Rome,Round of 32,Hard,Player2,0-2,2,6,3,2,ATP
+2023-05-15,Madison Keys,Iga Swiatek,13,1,Shanghai,Round of 32,Hard,Player2,1-2,9,7,1,3,WTA
+2023-05-15,Andrey Rublev,Holger Rune,5,7,WTA 1000,Round of 16,Clay,Player2,1-2,1,9,1,3,ATP
+2023-05-16,Ben Shelton,Daniil Medvedev,18,3,WTA 1000,Round of 32,Hard,Player1,2-1,9,5,3,1,ATP
+2023-05-16,Alexander Zverev,Lorenzo Musetti,11,17,Miami,Round of 16,Clay,Player1,2-1,10,9,3,2,ATP
+2023-05-18,Jannik Sinner,Stefanos Tsitsipas,4,6,Madrid,Round of 32,Clay,Player1,2-0,5,5,0,1,ATP
+2023-05-19,Alexander Zverev,Grigor Dimitrov,11,13,Wimbledon,Quarter-Final,Clay,Player1,3-1,10,3,1,2,ATP
+2023-05-19,Lorenzo Musetti,Stefanos Tsitsipas,17,6,Miami,Round of 16,Grass,Player1,2-1,7,13,2,2,ATP
+2023-05-21,Grigor Dimitrov,Daniil Medvedev,13,3,ATP 500,Round of 32,Grass,Player2,0-2,3,5,1,0,ATP
+2023-05-24,Alexander Zverev,Jannik Sinner,11,4,Wimbledon,Round of 32,Clay,Player1,3-2,9,3,2,0,ATP
+2023-05-25,Taylor Fritz,Frances Tiafoe,10,15,Miami,Final,Grass,Player2,1-2,3,3,0,1,ATP
+2023-05-27,Maria Sakkari,Beatriz Haddad Maia,9,15,Monte Carlo,Semi-Final,Hard,Player1,2-1,5,12,1,1,WTA
+2023-05-27,Ons Jabeur,Beatriz Haddad Maia,6,15,ATP 500,Round of 16,Hard,Player2,0-2,5,7,1,1,WTA
+2023-05-29,Karen Khachanov,Holger Rune,16,7,Shanghai,Round of 32,Hard,Player2,0-2,5,4,3,1,ATP
+2023-06-01,Alexander Zverev,Lorenzo Musetti,11,17,ATP 500,Round of 16,Grass,Player2,1-2,9,11,1,2,ATP
+2023-06-01,Grigor Dimitrov,Stefanos Tsitsipas,13,6,Paris Masters,Semi-Final,Grass,Player2,1-2,7,8,2,2,ATP
+2023-06-01,Daniil Medvedev,Lorenzo Musetti,3,17,WTA 1000,Round of 16,Hard,Player1,2-0,5,6,3,2,ATP
+2023-06-02,Hubert Hurkacz,Carlos Alcaraz,9,2,Wimbledon,Quarter-Final,Hard,Player1,3-0,1,7,2,3,ATP
+2023-06-03,Jannik Sinner,Novak Djokovic,4,1,ATP 250,Round of 32,Hard,Player2,1-2,6,3,0,1,ATP
+2023-06-05,Grigor Dimitrov,Andrey Rublev,13,5,Shanghai,Round of 32,Hard,Player2,1-2,6,3,2,2,ATP
+2023-06-06,Lorenzo Musetti,Daniil Medvedev,17,3,ATP 500,Final,Hard,Player1,2-1,6,4,2,2,ATP
+2023-06-06,Andrey Rublev,Grigor Dimitrov,5,13,French Open,Final,Hard,Player2,1-3,1,0,2,0,ATP
+2023-06-13,Jelena Ostapenko,Iga Swiatek,12,1,Miami,Round of 32,Hard,Player2,1-2,4,6,3,1,WTA
+2023-06-13,Frances Tiafoe,Taylor Fritz,15,10,Paris Masters,Round of 32,Hard,Player1,2-0,6,5,1,3,ATP
+2023-06-14,Beatriz Haddad Maia,Jelena Ostapenko,15,12,Cincinnati,Round of 32,Clay,Player1,2-1,7,5,2,2,WTA
+2023-06-14,Qinwen Zheng,Maria Sakkari,8,9,Madrid,Round of 32,Grass,Player2,0-2,3,3,2,0,WTA
+2023-06-15,Casper Ruud,Ben Shelton,8,18,Madrid,Round of 16,Clay,Player1,2-0,8,8,2,2,ATP
+2023-06-17,Qinwen Zheng,Marketa Vondrousova,8,7,Indian Wells,Quarter-Final,Hard,Player2,1-2,5,9,1,0,WTA
+2023-06-17,Beatriz Haddad Maia,Iga Swiatek,15,1,Shanghai,Round of 32,Grass,Player2,1-2,6,9,2,2,WTA
+2023-06-18,Frances Tiafoe,Alex de Minaur,15,14,WTA 1000,Semi-Final,Grass,Player2,0-2,6,6,2,1,ATP
+2023-06-19,Marketa Vondrousova,Ons Jabeur,7,6,Indian Wells,Round of 32,Hard,Player2,0-2,2,7,1,2,WTA
+2023-06-23,Jelena Ostapenko,Qinwen Zheng,12,8,Rome,Quarter-Final,Hard,Player1,2-1,6,0,0,1,WTA
+2023-06-23,Ben Shelton,Alexander Zverev,18,11,Shanghai,Round of 16,Grass,Player2,1-2,4,10,1,1,ATP
+2023-06-24,Frances Tiafoe,Jannik Sinner,15,4,Madrid,Round of 32,Hard,Player1,2-1,0,13,1,2,ATP
+2023-06-25,Elena Rybakina,Qinwen Zheng,4,8,Indian Wells,Round of 32,Clay,Player1,2-1,4,7,1,2,WTA
+2023-06-25,Iga Swiatek,Maria Sakkari,1,9,ATP 500,Round of 32,Grass,Player2,0-2,7,10,4,2,WTA
+2023-06-26,Iga Swiatek,Marketa Vondrousova,1,7,Cincinnati,Round of 32,Hard,Player2,1-2,4,5,1,2,WTA
+2023-06-26,Casper Ruud,Grigor Dimitrov,8,13,Shanghai,Round of 32,Hard,Player1,2-1,9,4,1,2,ATP
+2023-06-27,Karen Khachanov,Taylor Fritz,16,10,Madrid,Round of 32,Clay,Player1,2-0,13,4,1,2,ATP
+2023-06-28,Ons Jabeur,Madison Keys,6,13,Paris Masters,Round of 32,Hard,Player2,1-2,11,6,3,1,WTA
+2023-06-28,Taylor Fritz,Carlos Alcaraz,10,2,WTA 1000,Round of 32,Hard,Player1,2-1,8,10,2,2,ATP
+2023-06-29,Marketa Vondrousova,Jessica Pegula,7,5,ATP 250,Round of 16,Grass,Player2,1-2,2,1,2,4,WTA
+2023-07-02,Madison Keys,Ons Jabeur,13,6,WTA 1000,Round of 32,Grass,Player1,2-1,7,3,3,3,WTA
+2023-07-03,Marketa Vondrousova,Maria Sakkari,7,9,Australian Open,Round of 32,Hard,Player1,3-1,2,7,2,3,WTA
+2023-07-03,Daria Kasatkina,Marketa Vondrousova,14,7,Paris Masters,Semi-Final,Hard,Player2,0-2,2,4,1,1,WTA
+2023-07-03,Jannik Sinner,Holger Rune,4,7,Shanghai,Round of 32,Grass,Player1,2-0,4,6,2,0,ATP
+2023-07-04,Hubert Hurkacz,Ben Shelton,9,18,Paris Masters,Round of 32,Clay,Player1,2-0,7,4,2,1,ATP
+2023-07-04,Jessica Pegula,Beatriz Haddad Maia,5,15,ATP 500,Round of 32,Hard,Player2,0-2,3,3,2,2,WTA
+2023-07-05,Barbora Krejcikova,Coco Gauff,11,3,French Open,Quarter-Final,Hard,Player2,0-3,6,10,2,1,WTA
+2023-07-05,Hubert Hurkacz,Grigor Dimitrov,9,13,Shanghai,Round of 16,Clay,Player2,0-2,5,6,3,1,ATP
+2023-07-06,Jessica Pegula,Jelena Ostapenko,5,12,Shanghai,Quarter-Final,Hard,Player1,2-0,0,8,2,0,WTA
+2023-07-06,Madison Keys,Ons Jabeur,13,6,Paris Masters,Round of 32,Clay,Player2,1-2,9,10,0,1,WTA
+2023-07-08,Coco Gauff,Iga Swiatek,3,1,Paris Masters,Semi-Final,Hard,Player2,0-2,1,8,2,3,WTA
+2023-07-09,Daria Kasatkina,Elena Rybakina,14,4,Indian Wells,Round of 32,Grass,Player2,1-2,5,6,0,3,WTA
+2023-07-11,Coco Gauff,Karolina Muchova,3,10,Cincinnati,Quarter-Final,Hard,Player1,2-1,6,8,2,3,WTA
+2023-07-11,Coco Gauff,Karolina Muchova,3,10,US Open,Round of 32,Clay,Player2,2-3,5,8,3,3,WTA
+2023-07-12,Frances Tiafoe,Novak Djokovic,15,1,Australian Open,Round of 32,Clay,Player2,0-3,12,6,3,1,ATP
+2023-07-13,Carlos Alcaraz,Karen Khachanov,2,16,ATP 500,Round of 32,Clay,Player2,1-2,5,4,0,2,ATP
+2023-07-14,Stefanos Tsitsipas,Hubert Hurkacz,6,9,Australian Open,Round of 16,Grass,Player1,3-1,6,6,3,3,ATP
+2023-07-14,Beatriz Haddad Maia,Jelena Ostapenko,15,12,Shanghai,Quarter-Final,Clay,Player2,1-2,5,9,2,3,WTA
+2023-07-15,Daria Kasatkina,Ons Jabeur,14,6,Shanghai,Quarter-Final,Hard,Player2,0-2,8,0,4,1,WTA
+2023-07-17,Novak Djokovic,Casper Ruud,1,8,ATP 500,Round of 32,Hard,Player1,2-0,4,8,2,3,ATP
+2023-07-17,Barbora Krejcikova,Iga Swiatek,11,1,US Open,Round of 32,Hard,Player2,2-3,9,4,0,1,WTA
+2023-07-19,Qinwen Zheng,Maria Sakkari,8,9,Miami,Round of 32,Grass,Player1,2-1,5,5,2,0,WTA
+2023-07-20,Alex de Minaur,Andrey Rublev,14,5,US Open,Quarter-Final,Hard,Player1,3-1,5,6,2,1,ATP
+2023-07-21,Ben Shelton,Holger Rune,18,7,Madrid,Round of 16,Clay,Player2,0-2,2,8,3,1,ATP
+2023-07-24,Qinwen Zheng,Iga Swiatek,8,1,US Open,Round of 32,Hard,Player1,3-0,6,4,1,1,WTA
+2023-07-25,Frances Tiafoe,Lorenzo Musetti,15,17,Miami,Round of 16,Grass,Player1,2-1,6,12,3,1,ATP
+2023-07-25,Maria Sakkari,Aryna Sabalenka,9,2,French Open,Round of 16,Hard,Player2,2-3,5,10,2,3,WTA
+2023-07-25,Marketa Vondrousova,Daria Kasatkina,7,14,Paris Masters,Round of 16,Hard,Player1,2-1,6,6,3,2,WTA
+2023-07-25,Lorenzo Musetti,Hubert Hurkacz,17,9,Shanghai,Round of 32,Clay,Player1,2-0,6,9,2,3,ATP
+2023-07-28,Jannik Sinner,Taylor Fritz,4,10,Paris Masters,Round of 16,Hard,Player1,2-1,2,5,1,2,ATP
+2023-07-28,Elena Rybakina,Ons Jabeur,4,6,WTA 1000,Round of 32,Grass,Player2,0-2,1,9,2,1,WTA
+2023-07-29,Hubert Hurkacz,Stefanos Tsitsipas,9,6,Cincinnati,Round of 16,Grass,Player2,1-2,8,3,1,1,ATP
+2023-07-31,Jannik Sinner,Taylor Fritz,4,10,Australian Open,Semi-Final,Clay,Player2,1-3,11,2,0,0,ATP
+2023-08-02,Frances Tiafoe,Casper Ruud,15,8,Indian Wells,Round of 16,Clay,Player2,0-2,6,3,1,2,ATP
+2023-08-04,Alex de Minaur,Carlos Alcaraz,14,2,French Open,Semi-Final,Clay,Player2,0-3,5,5,4,1,ATP
+2023-08-04,Jessica Pegula,Barbora Krejcikova,5,11,ATP 500,Round of 32,Hard,Player1,2-1,3,8,2,2,WTA
+2023-08-05,Marketa Vondrousova,Ons Jabeur,7,6,ATP 250,Round of 16,Hard,Player1,2-0,2,3,3,2,WTA
+2023-08-07,Karen Khachanov,Alex de Minaur,16,14,Shanghai,Round of 16,Hard,Player1,2-0,0,11,0,2,ATP
+2023-08-08,Ben Shelton,Hubert Hurkacz,18,9,Australian Open,Round of 32,Grass,Player1,3-1,2,5,3,3,ATP
+2023-08-08,Tommy Paul,Casper Ruud,12,8,US Open,Round of 16,Clay,Player2,0-3,2,1,1,2,ATP
+2023-08-08,Tommy Paul,Ben Shelton,12,18,US Open,Round of 16,Clay,Player1,3-2,4,12,1,0,ATP
+2023-08-10,Tommy Paul,Novak Djokovic,12,1,ATP 500,Round of 32,Hard,Player2,1-2,8,4,3,1,ATP
+2023-08-12,Taylor Fritz,Hubert Hurkacz,10,9,Monte Carlo,Round of 32,Grass,Player1,2-0,6,6,1,2,ATP
+2023-08-14,Ons Jabeur,Daria Kasatkina,6,14,US Open,Round of 16,Hard,Player1,3-1,8,4,1,0,WTA
+2023-08-14,Alexander Zverev,Taylor Fritz,11,10,US Open,Round of 16,Hard,Player1,3-0,4,7,1,1,ATP
+2023-08-15,Carlos Alcaraz,Holger Rune,2,7,ATP 500,Round of 16,Hard,Player1,2-0,6,4,2,3,ATP
+2023-08-17,Lorenzo Musetti,Ben Shelton,17,18,Cincinnati,Quarter-Final,Hard,Player1,2-1,7,2,2,1,ATP
+2023-08-17,Iga Swiatek,Jelena Ostapenko,1,12,Monte Carlo,Round of 16,Grass,Player2,0-2,9,10,1,1,WTA
+2023-08-17,Jessica Pegula,Beatriz Haddad Maia,5,15,Miami,Quarter-Final,Hard,Player1,2-0,6,11,3,1,WTA
+2023-08-18,Grigor Dimitrov,Karen Khachanov,13,16,Wimbledon,Semi-Final,Hard,Player2,0-3,6,2,0,1,ATP
+2023-08-19,Aryna Sabalenka,Marketa Vondrousova,2,7,Wimbledon,Semi-Final,Hard,Player2,1-3,11,2,0,1,WTA
+2023-08-19,Novak Djokovic,Grigor Dimitrov,1,13,Cincinnati,Round of 16,Clay,Player2,1-2,4,5,1,4,ATP
+2023-08-21,Barbora Krejcikova,Daria Kasatkina,11,14,Miami,Round of 16,Hard,Player2,0-2,1,3,3,1,WTA
+2023-08-22,Jannik Sinner,Frances Tiafoe,4,15,ATP 500,Round of 16,Hard,Player1,2-0,2,8,2,2,ATP
+2023-08-24,Tommy Paul,Jannik Sinner,12,4,Monte Carlo,Quarter-Final,Hard,Player2,0-2,0,3,2,3,ATP
+2023-08-24,Ben Shelton,Lorenzo Musetti,18,17,WTA 1000,Quarter-Final,Clay,Player1,2-0,2,8,1,0,ATP
+2023-08-25,Daniil Medvedev,Casper Ruud,3,8,Miami,Round of 32,Grass,Player1,2-0,2,8,1,1,ATP
+2023-08-27,Aryna Sabalenka,Ons Jabeur,2,6,ATP 500,Round of 32,Clay,Player1,2-0,4,6,2,0,WTA
+2023-08-28,Tommy Paul,Daniil Medvedev,12,3,Paris Masters,Round of 32,Hard,Player1,2-0,7,5,0,2,ATP
+2023-08-28,Iga Swiatek,Ons Jabeur,1,6,Rome,Round of 16,Hard,Player2,1-2,7,1,3,2,WTA
+2023-09-01,Karen Khachanov,Lorenzo Musetti,16,17,Wimbledon,Round of 32,Grass,Player1,3-0,2,1,2,2,ATP
+2023-09-01,Tommy Paul,Novak Djokovic,12,1,Cincinnati,Round of 32,Hard,Player2,1-2,7,14,1,1,ATP
+2023-09-04,Daniil Medvedev,Frances Tiafoe,3,15,WTA 1000,Round of 16,Clay,Player2,1-2,7,6,1,1,ATP
+2023-09-04,Tommy Paul,Holger Rune,12,7,WTA 1000,Round of 32,Hard,Player1,2-0,5,0,1,1,ATP
+2023-09-04,Jannik Sinner,Taylor Fritz,4,10,ATP 500,Quarter-Final,Hard,Player1,2-0,5,9,1,2,ATP
+2023-09-06,Tommy Paul,Lorenzo Musetti,12,17,Paris Masters,Round of 32,Hard,Player2,1-2,4,11,2,0,ATP
+2023-09-07,Barbora Krejcikova,Beatriz Haddad Maia,11,15,Paris Masters,Round of 32,Grass,Player1,2-1,11,4,2,2,WTA
+2023-09-08,Casper Ruud,Grigor Dimitrov,8,13,ATP 250,Round of 16,Hard,Player2,0-2,6,8,2,3,ATP
+2023-09-08,Coco Gauff,Daria Kasatkina,3,14,ATP 500,Semi-Final,Clay,Player1,2-1,4,9,1,3,WTA
+2023-09-08,Madison Keys,Maria Sakkari,13,9,Rome,Quarter-Final,Grass,Player2,0-2,10,3,0,2,WTA
+2023-09-09,Alexander Zverev,Lorenzo Musetti,11,17,Monte Carlo,Quarter-Final,Clay,Player1,2-0,5,6,2,1,ATP
+2023-09-10,Jessica Pegula,Qinwen Zheng,5,8,Rome,Round of 32,Hard,Player2,0-2,3,2,2,2,WTA
+2023-09-11,Grigor Dimitrov,Alex de Minaur,13,14,Shanghai,Round of 32,Clay,Player2,0-2,4,8,1,1,ATP
+2023-09-11,Casper Ruud,Tommy Paul,8,12,French Open,Round of 32,Clay,Player2,1-3,8,7,4,1,ATP
+2023-09-12,Madison Keys,Jessica Pegula,13,5,Madrid,Round of 16,Clay,Player1,2-1,9,6,3,1,WTA
+2023-09-12,Novak Djokovic,Daniil Medvedev,1,3,Australian Open,Round of 32,Hard,Player2,2-3,4,4,1,1,ATP
+2023-09-12,Holger Rune,Jannik Sinner,7,4,Paris Masters,Round of 32,Hard,Player2,1-2,10,4,4,0,ATP
+2023-09-16,Beatriz Haddad Maia,Elena Rybakina,15,4,Shanghai,Quarter-Final,Hard,Player2,1-2,8,2,1,2,WTA
+2023-09-16,Barbora Krejcikova,Jelena Ostapenko,11,12,ATP 250,Round of 16,Grass,Player1,2-0,6,9,1,1,WTA
+2023-09-17,Tommy Paul,Alexander Zverev,12,11,Madrid,Round of 32,Hard,Player1,2-1,8,4,1,1,ATP
+2023-09-17,Lorenzo Musetti,Jannik Sinner,17,4,French Open,Round of 32,Clay,Player2,0-3,1,4,2,3,ATP
+2023-09-18,Coco Gauff,Daria Kasatkina,3,14,Madrid,Round of 16,Hard,Player2,1-2,7,13,1,0,WTA
+2023-09-18,Frances Tiafoe,Alex de Minaur,15,14,Madrid,Round of 32,Grass,Player2,1-2,8,0,0,2,ATP
+2023-09-22,Karen Khachanov,Ben Shelton,16,18,Madrid,Round of 32,Clay,Player2,0-2,8,0,3,1,ATP
+2023-09-23,Ben Shelton,Karen Khachanov,18,16,Cincinnati,Round of 16,Grass,Player1,2-0,5,7,1,2,ATP
+2023-09-24,Hubert Hurkacz,Carlos Alcaraz,9,2,French Open,Round of 16,Grass,Player1,3-2,4,0,1,2,ATP
+2023-09-27,Jessica Pegula,Aryna Sabalenka,5,2,Paris Masters,Round of 32,Clay,Player2,1-2,3,7,2,2,WTA
+2023-09-27,Frances Tiafoe,Stefanos Tsitsipas,15,6,Australian Open,Semi-Final,Hard,Player1,3-1,1,5,0,3,ATP
+2023-09-27,Lorenzo Musetti,Alex de Minaur,17,14,Indian Wells,Quarter-Final,Hard,Player2,1-2,7,2,1,1,ATP
+2023-09-28,Andrey Rublev,Lorenzo Musetti,5,17,ATP 500,Round of 16,Clay,Player1,2-0,4,3,2,2,ATP
+2023-09-29,Madison Keys,Qinwen Zheng,13,8,Australian Open,Round of 32,Hard,Player2,1-3,4,2,1,2,WTA
+2023-09-30,Alexander Zverev,Holger Rune,11,7,WTA 1000,Semi-Final,Hard,Player1,2-0,6,7,1,3,ATP
+2023-10-01,Coco Gauff,Maria Sakkari,3,9,Paris Masters,Round of 32,Clay,Player2,0-2,12,3,0,2,WTA
+2023-10-01,Daniil Medvedev,Alex de Minaur,3,14,Shanghai,Round of 32,Clay,Player1,2-0,3,5,1,3,ATP
+2023-10-02,Barbora Krejcikova,Beatriz Haddad Maia,11,15,Shanghai,Round of 32,Grass,Player1,2-0,3,1,1,2,WTA
+2023-10-03,Daria Kasatkina,Beatriz Haddad Maia,14,15,Madrid,Quarter-Final,Hard,Player1,2-1,5,3,2,1,WTA
+2023-10-04,Madison Keys,Jessica Pegula,13,5,Madrid,Round of 32,Hard,Player1,2-0,10,6,1,1,WTA
+2023-10-04,Lorenzo Musetti,Novak Djokovic,17,1,Madrid,Round of 16,Hard,Player1,2-0,4,0,2,3,ATP
+2023-10-04,Stefanos Tsitsipas,Carlos Alcaraz,6,2,Madrid,Round of 16,Grass,Player2,1-2,7,8,2,0,ATP
+2023-10-04,Alex de Minaur,Alexander Zverev,14,11,US Open,Round of 16,Hard,Player1,3-1,9,4,2,1,ATP
+2023-10-05,Coco Gauff,Daria Kasatkina,3,14,WTA 1000,Round of 32,Clay,Player1,2-0,6,10,3,1,WTA
+2023-10-08,Jessica Pegula,Elena Rybakina,5,4,US Open,Round of 16,Hard,Player1,3-1,5,7,0,3,WTA
+2023-10-08,Daniil Medvedev,Taylor Fritz,3,10,Wimbledon,Round of 32,Grass,Player2,0-3,3,0,2,2,ATP
+2023-10-09,Holger Rune,Stefanos Tsitsipas,7,6,Rome,Round of 32,Hard,Player1,2-1,4,4,3,0,ATP
+2023-10-09,Frances Tiafoe,Lorenzo Musetti,15,17,Shanghai,Round of 32,Hard,Player2,1-2,8,5,3,2,ATP
+2023-10-09,Jelena Ostapenko,Jessica Pegula,12,5,Wimbledon,Round of 32,Hard,Player2,1-3,4,8,1,2,WTA
+2023-10-09,Iga Swiatek,Daria Kasatkina,1,14,Rome,Round of 16,Clay,Player1,2-0,3,9,4,2,WTA
+2023-10-09,Alex de Minaur,Karen Khachanov,14,16,Shanghai,Round of 32,Grass,Player1,2-1,4,3,1,1,ATP
+2023-10-10,Casper Ruud,Karen Khachanov,8,16,Shanghai,Round of 32,Clay,Player1,2-0,5,7,3,2,ATP
+2023-10-16,Tommy Paul,Karen Khachanov,12,16,Indian Wells,Round of 16,Hard,Player1,2-1,3,6,1,3,ATP
+2023-10-17,Carlos Alcaraz,Frances Tiafoe,2,15,Australian Open,Semi-Final,Hard,Player1,3-0,5,6,2,2,ATP
+2023-10-17,Maria Sakkari,Beatriz Haddad Maia,9,15,Madrid,Semi-Final,Hard,Player1,2-1,9,4,1,2,WTA
+2023-10-18,Hubert Hurkacz,Grigor Dimitrov,9,13,Rome,Round of 32,Hard,Player2,1-2,5,3,2,1,ATP
+2023-10-18,Alexander Zverev,Karen Khachanov,11,16,Paris Masters,Round of 32,Clay,Player2,0-2,3,2,0,2,ATP
+2023-10-19,Alex de Minaur,Tommy Paul,14,12,WTA 1000,Round of 32,Grass,Player1,2-1,8,6,2,1,ATP
+2023-10-21,Stefanos Tsitsipas,Ben Shelton,6,18,Indian Wells,Round of 16,Hard,Player2,0-2,7,11,2,2,ATP
+2023-10-22,Daria Kasatkina,Jessica Pegula,14,5,ATP 500,Final,Hard,Player1,2-1,5,7,2,1,WTA
+2023-10-25,Lorenzo Musetti,Holger Rune,17,7,Indian Wells,Round of 16,Hard,Player1,2-0,2,2,1,1,ATP
+2023-10-28,Casper Ruud,Ben Shelton,8,18,Madrid,Round of 16,Clay,Player1,2-1,13,1,0,0,ATP
+2023-10-29,Iga Swiatek,Daria Kasatkina,1,14,Australian Open,Round of 32,Clay,Player1,3-2,1,7,2,3,WTA
+2023-10-30,Barbora Krejcikova,Jelena Ostapenko,11,12,Madrid,Round of 32,Hard,Player1,2-1,8,2,2,2,WTA
+2023-10-30,Madison Keys,Aryna Sabalenka,13,2,French Open,Round of 32,Clay,Player2,1-3,3,8,2,2,WTA
+2023-10-30,Karen Khachanov,Taylor Fritz,16,10,US Open,Round of 32,Clay,Player1,3-1,11,8,0,1,ATP
+2023-10-30,Stefanos Tsitsipas,Hubert Hurkacz,6,9,Miami,Quarter-Final,Clay,Player1,2-0,3,3,1,3,ATP
+2023-11-01,Lorenzo Musetti,Taylor Fritz,17,10,Wimbledon,Semi-Final,Clay,Player2,2-3,8,4,1,2,ATP
+2023-11-02,Barbora Krejcikova,Daria Kasatkina,11,14,Australian Open,Round of 32,Hard,Player1,3-0,6,6,1,2,WTA
+2023-11-02,Holger Rune,Ben Shelton,7,18,Wimbledon,Round of 32,Hard,Player1,3-1,13,6,1,0,ATP
+2023-11-02,Maria Sakkari,Aryna Sabalenka,9,2,ATP 250,Round of 16,Hard,Player2,0-2,4,6,1,3,WTA
+2023-11-04,Alex de Minaur,Stefanos Tsitsipas,14,6,ATP 250,Quarter-Final,Hard,Player2,1-2,4,11,0,1,ATP
+2023-11-04,Alex de Minaur,Casper Ruud,14,8,Miami,Round of 16,Clay,Player1,2-0,6,3,2,3,ATP
+2023-11-06,Taylor Fritz,Frances Tiafoe,10,15,Rome,Round of 32,Hard,Player2,0-2,2,6,1,2,ATP
+2023-11-09,Novak Djokovic,Jannik Sinner,1,4,Cincinnati,Round of 16,Hard,Player2,0-2,3,6,1,3,ATP
+2023-11-10,Ons Jabeur,Daria Kasatkina,6,14,Indian Wells,Round of 16,Clay,Player1,2-1,3,6,2,2,WTA
+2023-11-10,Qinwen Zheng,Beatriz Haddad Maia,8,15,Monte Carlo,Final,Hard,Player1,2-0,11,5,2,2,WTA
+2023-11-10,Grigor Dimitrov,Lorenzo Musetti,13,17,French Open,Round of 32,Hard,Player2,1-3,11,3,1,0,ATP
+2023-11-11,Karen Khachanov,Jannik Sinner,16,4,Indian Wells,Round of 32,Hard,Player2,1-2,3,0,2,1,ATP
+2023-11-12,Hubert Hurkacz,Tommy Paul,9,12,US Open,Round of 32,Hard,Player2,1-3,8,6,2,3,ATP
+2023-11-12,Marketa Vondrousova,Qinwen Zheng,7,8,Cincinnati,Round of 32,Hard,Player1,2-0,8,4,2,1,WTA
+2023-11-12,Taylor Fritz,Novak Djokovic,10,1,Wimbledon,Round of 16,Hard,Player2,1-3,6,6,1,1,ATP
+2023-11-12,Alex de Minaur,Tommy Paul,14,12,Madrid,Round of 32,Hard,Player2,1-2,0,7,1,3,ATP
+2023-11-12,Holger Rune,Taylor Fritz,7,10,ATP 500,Round of 16,Hard,Player1,2-0,11,5,2,1,ATP
+2023-11-12,Alexander Zverev,Lorenzo Musetti,11,17,US Open,Round of 16,Clay,Player1,3-0,3,2,3,3,ATP
+2023-11-16,Casper Ruud,Karen Khachanov,8,16,French Open,Quarter-Final,Grass,Player2,0-3,8,8,2,0,ATP
+2023-11-18,Aryna Sabalenka,Jessica Pegula,2,5,Cincinnati,Round of 32,Clay,Player2,1-2,9,5,3,1,WTA
+2023-11-20,Elena Rybakina,Ons Jabeur,4,6,Shanghai,Round of 16,Hard,Player1,2-0,3,0,1,3,WTA
+2023-11-20,Ben Shelton,Andrey Rublev,18,5,Australian Open,Round of 32,Grass,Player2,0-3,7,8,1,0,ATP
+2023-11-21,Casper Ruud,Taylor Fritz,8,10,ATP 250,Round of 32,Hard,Player2,1-2,1,3,1,1,ATP
+2023-11-22,Jelena Ostapenko,Coco Gauff,12,3,Cincinnati,Final,Clay,Player2,1-2,4,7,1,1,WTA
+2023-11-24,Jelena Ostapenko,Barbora Krejcikova,12,11,Monte Carlo,Round of 16,Hard,Player1,2-0,5,7,2,1,WTA
+2023-11-24,Daria Kasatkina,Jessica Pegula,14,5,Cincinnati,Quarter-Final,Hard,Player2,1-2,10,4,0,1,WTA
+2023-11-25,Marketa Vondrousova,Iga Swiatek,7,1,Shanghai,Quarter-Final,Hard,Player1,2-0,8,3,2,2,WTA
+2023-11-26,Hubert Hurkacz,Alex de Minaur,9,14,Monte Carlo,Round of 32,Hard,Player2,0-2,5,7,2,3,ATP
+2023-11-27,Hubert Hurkacz,Alex de Minaur,9,14,Madrid,Final,Clay,Player2,0-2,12,4,2,1,ATP
+2023-11-30,Andrey Rublev,Frances Tiafoe,5,15,Monte Carlo,Semi-Final,Clay,Player1,2-1,3,1,0,1,ATP
+2023-11-30,Maria Sakkari,Ons Jabeur,9,6,Madrid,Final,Clay,Player2,0-2,4,8,1,1,WTA
+2023-12-03,Ben Shelton,Carlos Alcaraz,18,2,Shanghai,Quarter-Final,Hard,Player2,0-2,12,3,2,2,ATP
+2023-12-04,Karen Khachanov,Alexander Zverev,16,11,Shanghai,Round of 32,Grass,Player1,2-0,5,1,1,2,ATP
+2023-12-05,Karen Khachanov,Stefanos Tsitsipas,16,6,Cincinnati,Semi-Final,Hard,Player1,2-0,5,4,2,2,ATP
+2023-12-05,Carlos Alcaraz,Novak Djokovic,2,1,French Open,Round of 16,Hard,Player1,3-1,6,4,1,0,ATP
+2023-12-06,Andrey Rublev,Holger Rune,5,7,Australian Open,Quarter-Final,Grass,Player1,3-1,4,3,1,0,ATP
+2023-12-07,Andrey Rublev,Tommy Paul,5,12,Miami,Round of 32,Hard,Player2,0-2,7,3,3,2,ATP
+2023-12-09,Karolina Muchova,Marketa Vondrousova,10,7,Australian Open,Round of 16,Grass,Player2,1-3,8,6,0,0,WTA
+2023-12-09,Jelena Ostapenko,Barbora Krejcikova,12,11,Indian Wells,Round of 16,Grass,Player1,2-1,5,8,1,2,WTA
+2023-12-09,Aryna Sabalenka,Elena Rybakina,2,4,Wimbledon,Round of 16,Clay,Player2,2-3,4,6,2,1,WTA
+2023-12-10,Carlos Alcaraz,Andrey Rublev,2,5,Miami,Round of 32,Clay,Player1,2-1,2,1,1,0,ATP
+2023-12-10,Qinwen Zheng,Barbora Krejcikova,8,11,Cincinnati,Round of 16,Hard,Player2,0-2,6,3,2,1,WTA
+2023-12-11,Hubert Hurkacz,Daniil Medvedev,9,3,Wimbledon,Round of 32,Clay,Player2,0-3,9,7,3,2,ATP
+2023-12-11,Alexander Zverev,Hubert Hurkacz,11,9,Rome,Round of 16,Grass,Player1,2-0,8,9,3,0,ATP
+2023-12-12,Novak Djokovic,Taylor Fritz,1,10,Paris Masters,Round of 16,Grass,Player1,2-1,5,3,1,1,ATP
+2023-12-12,Holger Rune,Frances Tiafoe,7,15,Australian Open,Round of 16,Grass,Player2,1-3,7,3,0,2,ATP
+2023-12-13,Tommy Paul,Carlos Alcaraz,12,2,Indian Wells,Quarter-Final,Grass,Player1,2-1,7,7,3,2,ATP
+2023-12-13,Frances Tiafoe,Karen Khachanov,15,16,Cincinnati,Round of 32,Hard,Player1,2-1,7,3,2,1,ATP
+2023-12-14,Taylor Fritz,Andrey Rublev,10,5,Paris Masters,Round of 32,Grass,Player2,0-2,8,5,1,3,ATP
+2023-12-14,Alexander Zverev,Lorenzo Musetti,11,17,Madrid,Semi-Final,Hard,Player1,2-1,3,4,0,2,ATP
+2023-12-15,Daniil Medvedev,Novak Djokovic,3,1,Indian Wells,Quarter-Final,Hard,Player1,2-1,5,4,3,4,ATP
+2023-12-16,Iga Swiatek,Ons Jabeur,1,6,Rome,Round of 32,Hard,Player1,2-1,8,6,2,3,WTA
+2023-12-16,Daniil Medvedev,Grigor Dimitrov,3,13,Indian Wells,Round of 16,Hard,Player1,2-1,5,4,1,3,ATP
+2023-12-16,Casper Ruud,Holger Rune,8,7,French Open,Round of 16,Grass,Player1,3-2,3,4,3,0,ATP
+2023-12-18,Jannik Sinner,Alex de Minaur,4,14,ATP 250,Round of 16,Clay,Player1,2-1,9,6,1,2,ATP
+2023-12-18,Lorenzo Musetti,Novak Djokovic,17,1,ATP 500,Round of 32,Clay,Player2,1-2,2,4,3,1,ATP
+2023-12-20,Beatriz Haddad Maia,Daria Kasatkina,15,14,ATP 500,Round of 32,Hard,Player1,2-0,14,3,2,1,WTA
+2023-12-21,Marketa Vondrousova,Jelena Ostapenko,7,12,Wimbledon,Round of 32,Grass,Player1,3-0,6,9,2,0,WTA
+2023-12-22,Barbora Krejcikova,Marketa Vondrousova,11,7,Cincinnati,Round of 32,Grass,Player1,2-1,11,2,4,1,WTA
+2023-12-22,Hubert Hurkacz,Carlos Alcaraz,9,2,Miami,Round of 16,Clay,Player2,1-2,5,4,0,1,ATP
+2023-12-24,Stefanos Tsitsipas,Frances Tiafoe,6,15,ATP 250,Round of 32,Hard,Player2,1-2,8,8,0,2,ATP
+2023-12-24,Stefanos Tsitsipas,Tommy Paul,6,12,Australian Open,Round of 16,Grass,Player1,3-1,2,6,1,0,ATP
+2023-12-24,Andrey Rublev,Alex de Minaur,5,14,Rome,Final,Clay,Player2,0-2,2,9,2,1,ATP
+2023-12-25,Alexander Zverev,Novak Djokovic,11,1,ATP 500,Round of 32,Grass,Player1,2-1,0,7,0,3,ATP
+2023-12-25,Alexander Zverev,Carlos Alcaraz,11,2,WTA 1000,Round of 16,Clay,Player2,1-2,5,7,2,1,ATP
+2023-12-26,Hubert Hurkacz,Andrey Rublev,9,5,Cincinnati,Round of 32,Hard,Player1,2-1,3,6,1,2,ATP
+2023-12-26,Andrey Rublev,Alex de Minaur,5,14,Shanghai,Quarter-Final,Hard,Player1,2-0,9,0,1,0,ATP
+2023-12-27,Lorenzo Musetti,Karen Khachanov,17,16,Madrid,Round of 32,Grass,Player2,1-2,0,8,1,2,ATP
+2023-12-27,Aryna Sabalenka,Beatriz Haddad Maia,2,15,French Open,Round of 16,Clay,Player1,3-2,6,7,2,2,WTA
+2023-12-28,Andrey Rublev,Taylor Fritz,5,10,ATP 250,Round of 32,Hard,Player1,2-1,9,3,0,2,ATP
+2024-01-01,Daniil Medvedev,Frances Tiafoe,3,15,Wimbledon,Round of 16,Clay,Player1,3-0,4,8,0,2,ATP
+2024-01-03,Tommy Paul,Jannik Sinner,12,4,Monte Carlo,Round of 32,Clay,Player2,1-2,9,9,2,2,ATP
+2024-01-03,Grigor Dimitrov,Stefanos Tsitsipas,13,6,Madrid,Round of 16,Hard,Player1,2-0,1,10,2,4,ATP
+2024-01-04,Stefanos Tsitsipas,Taylor Fritz,6,10,Rome,Round of 32,Grass,Player1,2-1,3,6,2,1,ATP
+2024-01-06,Ben Shelton,Casper Ruud,18,8,Wimbledon,Round of 32,Hard,Player2,1-3,9,7,1,1,ATP
+2024-01-07,Karolina Muchova,Beatriz Haddad Maia,10,15,WTA 1000,Round of 16,Hard,Player1,2-0,6,7,0,3,WTA
+2024-01-09,Daria Kasatkina,Barbora Krejcikova,14,11,US Open,Round of 32,Clay,Player1,3-2,8,2,2,2,WTA
+2024-01-09,Qinwen Zheng,Ons Jabeur,8,6,Wimbledon,Semi-Final,Clay,Player2,1-3,7,9,2,1,WTA
+2024-01-11,Maria Sakkari,Karolina Muchova,9,10,Cincinnati,Semi-Final,Grass,Player1,2-0,1,3,2,2,WTA
+2024-01-11,Alexander Zverev,Casper Ruud,11,8,Rome,Quarter-Final,Grass,Player2,0-2,5,5,3,1,ATP
+2024-01-13,Hubert Hurkacz,Novak Djokovic,9,1,ATP 500,Round of 32,Hard,Player1,2-1,5,9,1,1,ATP
+2024-01-14,Marketa Vondrousova,Madison Keys,7,13,Madrid,Round of 32,Clay,Player1,2-1,2,4,2,2,WTA
+2024-01-16,Novak Djokovic,Andrey Rublev,1,5,WTA 1000,Round of 32,Grass,Player1,2-0,1,5,4,1,ATP
+2024-01-16,Frances Tiafoe,Carlos Alcaraz,15,2,Indian Wells,Semi-Final,Clay,Player2,1-2,8,8,3,1,ATP
+2024-01-17,Ons Jabeur,Karolina Muchova,6,10,French Open,Quarter-Final,Clay,Player2,2-3,8,5,2,1,WTA
+2024-01-17,Andrey Rublev,Novak Djokovic,5,1,French Open,Quarter-Final,Hard,Player1,3-0,5,11,3,1,ATP
+2024-01-18,Ben Shelton,Karen Khachanov,18,16,WTA 1000,Round of 16,Clay,Player1,2-0,0,0,2,3,ATP
+2024-01-21,Aryna Sabalenka,Coco Gauff,2,3,Paris Masters,Round of 32,Hard,Player1,2-1,8,8,1,1,WTA
+2024-01-23,Hubert Hurkacz,Carlos Alcaraz,9,2,Cincinnati,Round of 16,Clay,Player1,2-1,6,5,1,1,ATP
+2024-01-24,Alexander Zverev,Casper Ruud,11,8,Miami,Round of 16,Hard,Player2,0-2,9,9,1,1,ATP
+2024-01-24,Hubert Hurkacz,Jannik Sinner,9,4,French Open,Round of 32,Grass,Player1,3-1,3,4,3,0,ATP
+2024-01-25,Barbora Krejcikova,Maria Sakkari,11,9,ATP 500,Round of 16,Grass,Player2,0-2,4,4,1,2,WTA
+2024-01-25,Frances Tiafoe,Hubert Hurkacz,15,9,Indian Wells,Semi-Final,Clay,Player1,2-1,4,3,2,1,ATP
+2024-01-25,Novak Djokovic,Holger Rune,1,7,Shanghai,Semi-Final,Hard,Player1,2-1,2,4,1,0,ATP
+2024-01-27,Lorenzo Musetti,Hubert Hurkacz,17,9,Monte Carlo,Semi-Final,Grass,Player2,0-2,5,3,1,1,ATP
+2024-01-28,Hubert Hurkacz,Holger Rune,9,7,Wimbledon,Semi-Final,Grass,Player2,0-3,6,6,2,2,ATP
+2024-01-29,Aryna Sabalenka,Iga Swiatek,2,1,Rome,Final,Grass,Player2,1-2,4,7,2,2,WTA
+2024-01-29,Andrey Rublev,Ben Shelton,5,18,Paris Masters,Round of 16,Hard,Player1,2-0,7,2,1,3,ATP
+2024-01-29,Karen Khachanov,Lorenzo Musetti,16,17,Wimbledon,Semi-Final,Clay,Player2,2-3,8,5,0,2,ATP
+2024-01-30,Tommy Paul,Hubert Hurkacz,12,9,French Open,Semi-Final,Hard,Player2,0-3,12,8,2,2,ATP
+2024-02-01,Ons Jabeur,Karolina Muchova,6,10,ATP 250,Round of 32,Hard,Player2,1-2,3,2,3,1,WTA
+2024-02-01,Karolina Muchova,Jelena Ostapenko,10,12,Wimbledon,Final,Hard,Player1,3-1,8,4,2,1,WTA
+2024-02-02,Frances Tiafoe,Casper Ruud,15,8,Australian Open,Round of 16,Hard,Player1,3-1,4,13,1,1,ATP
+2024-02-03,Frances Tiafoe,Jannik Sinner,15,4,Shanghai,Round of 32,Grass,Player2,0-2,6,7,1,2,ATP
+2024-02-03,Hubert Hurkacz,Ben Shelton,9,18,US Open,Round of 32,Clay,Player1,3-2,3,7,0,2,ATP
+2024-02-05,Jessica Pegula,Daria Kasatkina,5,14,Cincinnati,Round of 16,Clay,Player2,1-2,5,0,3,2,WTA
+2024-02-08,Carlos Alcaraz,Tommy Paul,2,12,US Open,Quarter-Final,Grass,Player1,3-1,13,2,2,1,ATP
+2024-02-10,Tommy Paul,Alex de Minaur,12,14,Paris Masters,Round of 16,Grass,Player1,2-0,7,4,5,3,ATP
+2024-02-10,Daria Kasatkina,Marketa Vondrousova,14,7,Australian Open,Round of 32,Grass,Player1,3-1,5,4,2,3,WTA
+2024-02-13,Alex de Minaur,Ben Shelton,14,18,Indian Wells,Semi-Final,Hard,Player1,2-1,9,5,3,0,ATP
+2024-02-13,Lorenzo Musetti,Alex de Minaur,17,14,Australian Open,Round of 16,Clay,Player1,3-0,1,5,2,2,ATP
+2024-02-14,Karolina Muchova,Madison Keys,10,13,ATP 250,Round of 32,Hard,Player2,0-2,11,4,0,1,WTA
+2024-02-15,Aryna Sabalenka,Beatriz Haddad Maia,2,15,Rome,Final,Grass,Player2,0-2,6,5,3,3,WTA
+2024-02-15,Stefanos Tsitsipas,Karen Khachanov,6,16,Wimbledon,Round of 16,Grass,Player1,3-2,5,2,0,0,ATP
+2024-02-16,Karen Khachanov,Grigor Dimitrov,16,13,Madrid,Round of 32,Hard,Player1,2-1,10,7,0,0,ATP
+2024-02-17,Ben Shelton,Hubert Hurkacz,18,9,Indian Wells,Round of 32,Clay,Player2,0-2,6,3,2,3,ATP
+2024-02-20,Daniil Medvedev,Alex de Minaur,3,14,Shanghai,Semi-Final,Hard,Player1,2-0,0,9,2,1,ATP
+2024-02-22,Hubert Hurkacz,Casper Ruud,9,8,Miami,Quarter-Final,Clay,Player1,2-0,4,6,1,1,ATP
+2024-02-23,Alex de Minaur,Carlos Alcaraz,14,2,Rome,Semi-Final,Clay,Player1,2-0,7,12,1,2,ATP
+2024-02-23,Stefanos Tsitsipas,Frances Tiafoe,6,15,US Open,Final,Grass,Player1,3-2,11,3,0,2,ATP
+2024-02-26,Marketa Vondrousova,Maria Sakkari,7,9,Madrid,Round of 32,Hard,Player2,1-2,5,6,1,1,WTA
+2024-02-28,Grigor Dimitrov,Daniil Medvedev,13,3,Paris Masters,Round of 16,Clay,Player2,1-2,7,4,1,2,ATP
+2024-02-28,Taylor Fritz,Grigor Dimitrov,10,13,Wimbledon,Quarter-Final,Grass,Player2,0-3,2,8,0,2,ATP
+2024-02-28,Grigor Dimitrov,Taylor Fritz,13,10,Miami,Round of 32,Clay,Player1,2-0,8,10,0,2,ATP
+2024-03-01,Grigor Dimitrov,Daniil Medvedev,13,3,ATP 500,Round of 16,Hard,Player1,2-0,6,10,1,0,ATP
+2024-03-01,Jessica Pegula,Madison Keys,5,13,Shanghai,Round of 32,Hard,Player1,2-1,7,8,0,3,WTA
+2024-03-03,Stefanos Tsitsipas,Novak Djokovic,6,1,Monte Carlo,Round of 16,Hard,Player1,2-0,7,1,3,1,ATP
+2024-03-03,Ons Jabeur,Madison Keys,6,13,US Open,Round of 16,Grass,Player2,0-3,4,0,1,2,WTA
+2024-03-04,Taylor Fritz,Karen Khachanov,10,16,Miami,Quarter-Final,Hard,Player1,2-0,8,9,2,1,ATP
+2024-03-04,Daria Kasatkina,Beatriz Haddad Maia,14,15,Australian Open,Round of 32,Hard,Player1,3-1,7,6,1,3,WTA
+2024-03-05,Ben Shelton,Novak Djokovic,18,1,ATP 250,Round of 16,Hard,Player2,1-2,8,9,0,1,ATP
+2024-03-05,Hubert Hurkacz,Grigor Dimitrov,9,13,ATP 250,Semi-Final,Clay,Player2,1-2,4,8,3,0,ATP
+2024-03-06,Jannik Sinner,Alexander Zverev,4,11,Madrid,Semi-Final,Grass,Player1,2-0,8,7,1,1,ATP
+2024-03-06,Lorenzo Musetti,Grigor Dimitrov,17,13,French Open,Round of 32,Hard,Player1,3-1,9,3,1,2,ATP
+2024-03-07,Barbora Krejcikova,Ons Jabeur,11,6,Shanghai,Quarter-Final,Grass,Player1,2-0,6,4,0,0,WTA
+2024-03-08,Carlos Alcaraz,Casper Ruud,2,8,Rome,Round of 32,Clay,Player2,0-2,8,3,1,1,ATP
+2024-03-09,Taylor Fritz,Lorenzo Musetti,10,17,French Open,Round of 32,Hard,Player1,3-0,4,5,3,3,ATP
+2024-03-09,Karen Khachanov,Lorenzo Musetti,16,17,Monte Carlo,Round of 32,Hard,Player2,1-2,8,8,1,3,ATP
+2024-03-11,Maria Sakkari,Elena Rybakina,9,4,WTA 1000,Round of 32,Clay,Player1,2-0,10,5,3,1,WTA
+2024-03-13,Holger Rune,Carlos Alcaraz,7,2,WTA 1000,Round of 16,Clay,Player1,2-0,3,2,2,2,ATP
+2024-03-14,Hubert Hurkacz,Lorenzo Musetti,9,17,Wimbledon,Quarter-Final,Clay,Player2,2-3,5,7,2,2,ATP
+2024-03-14,Stefanos Tsitsipas,Ben Shelton,6,18,French Open,Round of 16,Clay,Player2,0-3,7,7,3,2,ATP
+2024-03-15,Novak Djokovic,Casper Ruud,1,8,French Open,Round of 32,Grass,Player1,3-1,10,3,2,3,ATP
+2024-03-16,Marketa Vondrousova,Coco Gauff,7,3,Paris Masters,Round of 32,Clay,Player2,1-2,6,3,0,1,WTA
+2024-03-18,Ons Jabeur,Daria Kasatkina,6,14,Miami,Round of 16,Clay,Player1,2-0,6,8,2,1,WTA
+2024-03-18,Stefanos Tsitsipas,Jannik Sinner,6,4,Paris Masters,Round of 16,Hard,Player2,1-2,4,8,2,0,ATP
+2024-03-18,Grigor Dimitrov,Stefanos Tsitsipas,13,6,Wimbledon,Final,Grass,Player1,3-0,8,0,0,2,ATP
+2024-03-20,Karen Khachanov,Lorenzo Musetti,16,17,Cincinnati,Round of 32,Hard,Player2,0-2,10,1,2,2,ATP
+2024-03-20,Alex de Minaur,Frances Tiafoe,14,15,ATP 250,Quarter-Final,Hard,Player1,2-0,7,5,3,0,ATP
+2024-03-22,Beatriz Haddad Maia,Maria Sakkari,15,9,Miami,Round of 32,Clay,Player1,2-0,3,9,2,2,WTA
+2024-03-24,Coco Gauff,Jelena Ostapenko,3,12,WTA 1000,Round of 32,Hard,Player2,0-2,7,8,0,3,WTA
+2024-03-24,Stefanos Tsitsipas,Daniil Medvedev,6,3,Cincinnati,Semi-Final,Hard,Player2,0-2,8,11,1,1,ATP
+2024-03-25,Andrey Rublev,Hubert Hurkacz,5,9,Cincinnati,Round of 32,Clay,Player2,0-2,8,6,3,1,ATP
+2024-03-25,Hubert Hurkacz,Stefanos Tsitsipas,9,6,Australian Open,Round of 16,Grass,Player2,1-3,8,3,2,2,ATP
+2024-03-26,Marketa Vondrousova,Coco Gauff,7,3,Miami,Round of 32,Hard,Player1,2-1,8,0,3,2,WTA
+2024-03-30,Ben Shelton,Stefanos Tsitsipas,18,6,Paris Masters,Round of 16,Clay,Player2,1-2,6,3,2,1,ATP
+2024-03-31,Coco Gauff,Aryna Sabalenka,3,2,Wimbledon,Round of 32,Hard,Player2,0-3,5,0,1,2,WTA
+2024-04-01,Beatriz Haddad Maia,Aryna Sabalenka,15,2,Rome,Round of 16,Clay,Player2,0-2,9,5,3,2,WTA
+2024-04-02,Karen Khachanov,Holger Rune,16,7,French Open,Quarter-Final,Hard,Player1,3-1,5,0,2,0,ATP
+2024-04-02,Tommy Paul,Taylor Fritz,12,10,Rome,Semi-Final,Hard,Player1,2-1,9,4,1,1,ATP
+2024-04-04,Taylor Fritz,Lorenzo Musetti,10,17,Rome,Quarter-Final,Clay,Player1,2-0,8,7,1,2,ATP
+2024-04-04,Jannik Sinner,Frances Tiafoe,4,15,Miami,Round of 16,Hard,Player1,2-0,6,12,0,0,ATP
+2024-04-04,Elena Rybakina,Beatriz Haddad Maia,4,15,French Open,Round of 32,Hard,Player1,3-2,6,7,1,2,WTA
+2024-04-06,Stefanos Tsitsipas,Casper Ruud,6,8,Paris Masters,Round of 32,Clay,Player1,2-0,7,4,3,2,ATP
+2024-04-07,Alex de Minaur,Frances Tiafoe,14,15,French Open,Round of 16,Hard,Player2,2-3,8,8,0,0,ATP
+2024-04-08,Iga Swiatek,Jessica Pegula,1,5,Australian Open,Round of 16,Clay,Player1,3-2,5,8,3,1,WTA
+2024-04-09,Ben Shelton,Hubert Hurkacz,18,9,Cincinnati,Quarter-Final,Clay,Player1,2-0,5,10,2,2,ATP
+2024-04-09,Holger Rune,Daniil Medvedev,7,3,Paris Masters,Round of 16,Hard,Player1,2-1,7,4,1,1,ATP
+2024-04-09,Marketa Vondrousova,Iga Swiatek,7,1,US Open,Round of 32,Clay,Player1,3-0,5,6,2,0,WTA
+2024-04-12,Ben Shelton,Tommy Paul,18,12,US Open,Round of 32,Hard,Player1,3-1,5,6,1,1,ATP
+2024-04-12,Jessica Pegula,Madison Keys,5,13,ATP 250,Quarter-Final,Hard,Player1,2-0,2,1,2,0,WTA
+2024-04-14,Alexander Zverev,Karen Khachanov,11,16,Shanghai,Round of 32,Hard,Player2,1-2,5,2,2,1,ATP
+2024-04-14,Hubert Hurkacz,Tommy Paul,9,12,Monte Carlo,Semi-Final,Clay,Player1,2-1,6,5,4,1,ATP
+2024-04-14,Lorenzo Musetti,Taylor Fritz,17,10,Miami,Round of 16,Grass,Player2,0-2,8,3,2,1,ATP
+2024-04-14,Karolina Muchova,Aryna Sabalenka,10,2,ATP 250,Round of 16,Hard,Player1,2-1,4,5,2,1,WTA
+2024-04-16,Jelena Ostapenko,Barbora Krejcikova,12,11,French Open,Round of 32,Hard,Player1,3-2,7,8,2,2,WTA
+2024-04-17,Andrey Rublev,Frances Tiafoe,5,15,Paris Masters,Semi-Final,Hard,Player2,0-2,8,4,2,1,ATP
+2024-04-17,Jannik Sinner,Stefanos Tsitsipas,4,6,ATP 500,Round of 32,Hard,Player1,2-1,4,7,0,2,ATP
+2024-04-18,Coco Gauff,Ons Jabeur,3,6,ATP 250,Round of 16,Hard,Player2,1-2,6,5,2,1,WTA
+2024-04-19,Holger Rune,Carlos Alcaraz,7,2,WTA 1000,Round of 16,Hard,Player2,1-2,6,2,0,1,ATP
+2024-04-20,Elena Rybakina,Madison Keys,4,13,Madrid,Round of 16,Hard,Player1,2-0,11,4,3,2,WTA
+2024-04-20,Barbora Krejcikova,Elena Rybakina,11,4,Cincinnati,Final,Clay,Player2,0-2,3,6,1,2,WTA
+2024-04-21,Grigor Dimitrov,Andrey Rublev,13,5,Australian Open,Quarter-Final,Grass,Player2,2-3,4,1,0,0,ATP
+2024-04-21,Hubert Hurkacz,Karen Khachanov,9,16,Paris Masters,Round of 16,Hard,Player2,1-2,4,8,0,1,ATP
+2024-04-21,Maria Sakkari,Jessica Pegula,9,5,Madrid,Round of 32,Hard,Player2,0-2,4,7,2,1,WTA
+2024-04-21,Daria Kasatkina,Maria Sakkari,14,9,ATP 250,Round of 16,Clay,Player1,2-1,10,7,2,4,WTA
+2024-04-24,Daria Kasatkina,Maria Sakkari,14,9,French Open,Round of 16,Hard,Player1,3-2,6,8,0,1,WTA
+2024-04-27,Tommy Paul,Ben Shelton,12,18,Rome,Round of 16,Clay,Player2,1-2,0,12,0,0,ATP
+2024-04-27,Carlos Alcaraz,Andrey Rublev,2,5,Cincinnati,Quarter-Final,Hard,Player2,1-2,6,4,2,3,ATP
+2024-04-28,Ben Shelton,Casper Ruud,18,8,US Open,Round of 16,Clay,Player2,2-3,7,7,2,2,ATP
+2024-04-28,Daniil Medvedev,Alexander Zverev,3,11,Shanghai,Round of 32,Hard,Player2,1-2,9,0,2,3,ATP
+2024-04-29,Karen Khachanov,Ben Shelton,16,18,Indian Wells,Round of 16,Clay,Player1,2-1,0,8,1,2,ATP
+2024-04-30,Grigor Dimitrov,Daniil Medvedev,13,3,ATP 250,Round of 16,Hard,Player2,1-2,10,4,0,2,ATP
+2024-04-30,Beatriz Haddad Maia,Qinwen Zheng,15,8,Shanghai,Round of 32,Hard,Player2,0-2,0,9,2,2,WTA
+2024-04-30,Qinwen Zheng,Beatriz Haddad Maia,8,15,Miami,Final,Grass,Player1,2-1,9,7,0,1,WTA
+2024-05-03,Carlos Alcaraz,Lorenzo Musetti,2,17,ATP 250,Round of 32,Clay,Player1,2-0,5,4,0,1,ATP
+2024-05-03,Daniil Medvedev,Andrey Rublev,3,5,Miami,Semi-Final,Hard,Player1,2-0,3,1,2,0,ATP
+2024-05-05,Karen Khachanov,Frances Tiafoe,16,15,Shanghai,Round of 16,Clay,Player1,2-1,6,6,2,2,ATP
+2024-05-06,Coco Gauff,Jessica Pegula,3,5,ATP 250,Round of 16,Clay,Player1,2-1,4,7,3,3,WTA
+2024-05-06,Maria Sakkari,Ons Jabeur,9,6,Wimbledon,Quarter-Final,Hard,Player1,3-1,0,10,2,3,WTA
+2024-05-07,Jelena Ostapenko,Beatriz Haddad Maia,12,15,ATP 500,Quarter-Final,Grass,Player1,2-1,3,11,1,2,WTA
+2024-05-09,Beatriz Haddad Maia,Iga Swiatek,15,1,Madrid,Round of 16,Hard,Player1,2-0,13,7,3,3,WTA
+2024-05-10,Casper Ruud,Carlos Alcaraz,8,2,WTA 1000,Round of 32,Hard,Player2,1-2,6,3,2,2,ATP
+2024-05-10,Casper Ruud,Carlos Alcaraz,8,2,Shanghai,Round of 16,Hard,Player2,0-2,4,1,2,2,ATP
+2024-05-10,Casper Ruud,Daniil Medvedev,8,3,ATP 250,Round of 16,Hard,Player2,0-2,4,6,0,3,ATP
+2024-05-11,Andrey Rublev,Karen Khachanov,5,16,Indian Wells,Round of 32,Hard,Player2,1-2,0,3,0,2,ATP
+2024-05-14,Casper Ruud,Lorenzo Musetti,8,17,Rome,Round of 16,Clay,Player2,0-2,4,6,3,2,ATP
+2024-05-17,Hubert Hurkacz,Tommy Paul,9,12,Wimbledon,Round of 32,Hard,Player1,3-1,2,2,1,2,ATP
+2024-05-17,Coco Gauff,Daria Kasatkina,3,14,ATP 250,Round of 32,Hard,Player1,2-0,11,3,3,1,WTA
+2024-05-17,Stefanos Tsitsipas,Novak Djokovic,6,1,Madrid,Round of 16,Clay,Player1,2-1,10,5,3,2,ATP
+2024-05-20,Alexander Zverev,Ben Shelton,11,18,Paris Masters,Quarter-Final,Hard,Player1,2-1,10,1,2,2,ATP
+2024-05-21,Stefanos Tsitsipas,Holger Rune,6,7,Indian Wells,Round of 16,Grass,Player1,2-1,8,9,1,2,ATP
+2024-05-22,Karolina Muchova,Jessica Pegula,10,5,Rome,Round of 16,Grass,Player2,1-2,2,3,1,3,WTA
+2024-05-22,Daria Kasatkina,Marketa Vondrousova,14,7,Wimbledon,Round of 32,Clay,Player1,3-2,6,3,0,2,WTA
+2024-05-23,Novak Djokovic,Grigor Dimitrov,1,13,Miami,Round of 32,Hard,Player1,2-0,3,10,0,2,ATP
+2024-05-26,Beatriz Haddad Maia,Jessica Pegula,15,5,US Open,Round of 32,Hard,Player2,0-3,7,5,0,2,WTA
+2024-05-28,Frances Tiafoe,Ben Shelton,15,18,Cincinnati,Round of 32,Hard,Player1,2-0,4,4,0,1,ATP
+2024-05-29,Casper Ruud,Grigor Dimitrov,8,13,Australian Open,Semi-Final,Clay,Player2,0-3,4,11,1,2,ATP
+2024-05-30,Aryna Sabalenka,Elena Rybakina,2,4,Rome,Quarter-Final,Clay,Player2,0-2,2,8,0,3,WTA
+2024-05-30,Frances Tiafoe,Holger Rune,15,7,Shanghai,Round of 16,Hard,Player1,2-0,11,11,2,1,ATP
+2024-05-31,Frances Tiafoe,Andrey Rublev,15,5,WTA 1000,Round of 32,Grass,Player2,1-2,7,2,1,1,ATP
+2024-05-31,Ben Shelton,Lorenzo Musetti,18,17,Monte Carlo,Semi-Final,Hard,Player1,2-0,2,9,2,2,ATP
+2024-06-02,Grigor Dimitrov,Jannik Sinner,13,4,US Open,Round of 16,Hard,Player2,2-3,0,9,2,1,ATP
+2024-06-02,Alexander Zverev,Stefanos Tsitsipas,11,6,French Open,Final,Hard,Player2,2-3,9,5,4,0,ATP
+2024-06-02,Andrey Rublev,Holger Rune,5,7,Shanghai,Round of 16,Grass,Player2,0-2,3,9,0,1,ATP
+2024-06-02,Alex de Minaur,Jannik Sinner,14,4,Paris Masters,Round of 32,Clay,Player1,2-1,3,6,1,3,ATP
+2024-06-03,Karen Khachanov,Alex de Minaur,16,14,Rome,Round of 32,Clay,Player1,2-0,9,8,2,1,ATP
+2024-06-03,Iga Swiatek,Madison Keys,1,13,WTA 1000,Quarter-Final,Hard,Player2,1-2,11,3,1,3,WTA
+2024-06-04,Marketa Vondrousova,Aryna Sabalenka,7,2,Australian Open,Semi-Final,Clay,Player2,0-3,7,8,1,1,WTA
+2024-06-05,Ben Shelton,Holger Rune,18,7,Monte Carlo,Round of 32,Grass,Player2,0-2,1,6,0,1,ATP
+2024-06-05,Lorenzo Musetti,Taylor Fritz,17,10,Miami,Final,Clay,Player1,2-1,5,4,3,2,ATP
+2024-06-05,Karolina Muchova,Jelena Ostapenko,10,12,Madrid,Quarter-Final,Hard,Player2,0-2,6,4,1,2,WTA
+2024-06-06,Ons Jabeur,Maria Sakkari,6,9,Monte Carlo,Round of 16,Clay,Player2,1-2,8,6,2,0,WTA
+2024-06-06,Holger Rune,Andrey Rublev,7,5,Rome,Round of 32,Clay,Player2,1-2,5,2,1,2,ATP
+2024-06-07,Jannik Sinner,Casper Ruud,4,8,ATP 500,Final,Hard,Player1,2-0,5,7,1,1,ATP
+2024-06-08,Beatriz Haddad Maia,Madison Keys,15,13,Miami,Round of 16,Clay,Player2,0-2,10,5,1,0,WTA
+2024-06-08,Lorenzo Musetti,Ben Shelton,17,18,Madrid,Round of 32,Hard,Player2,0-2,7,6,0,3,ATP
+2024-06-08,Hubert Hurkacz,Novak Djokovic,9,1,Wimbledon,Round of 32,Hard,Player2,0-3,4,0,1,3,ATP
+2024-06-09,Grigor Dimitrov,Lorenzo Musetti,13,17,Monte Carlo,Round of 32,Clay,Player1,2-0,7,8,3,2,ATP
+2024-06-09,Ons Jabeur,Coco Gauff,6,3,US Open,Round of 16,Clay,Player2,1-3,7,5,1,3,WTA
+2024-06-12,Aryna Sabalenka,Jelena Ostapenko,2,12,Shanghai,Round of 32,Grass,Player2,1-2,4,9,1,1,WTA
+2024-06-12,Iga Swiatek,Coco Gauff,1,3,French Open,Round of 32,Hard,Player1,3-1,4,6,1,2,WTA
+2024-06-12,Jannik Sinner,Tommy Paul,4,12,Indian Wells,Round of 16,Hard,Player1,2-0,7,2,2,1,ATP
+2024-06-13,Karen Khachanov,Frances Tiafoe,16,15,ATP 500,Round of 16,Hard,Player1,2-1,7,10,2,2,ATP
+2024-06-17,Ben Shelton,Alex de Minaur,18,14,Rome,Round of 32,Grass,Player1,2-1,7,6,2,4,ATP
+2024-06-17,Karolina Muchova,Barbora Krejcikova,10,11,Shanghai,Round of 32,Hard,Player1,2-1,9,2,1,3,WTA
+2024-06-17,Alex de Minaur,Andrey Rublev,14,5,Wimbledon,Round of 32,Hard,Player2,0-3,4,6,2,0,ATP
+2024-06-18,Stefanos Tsitsipas,Novak Djokovic,6,1,Monte Carlo,Round of 32,Clay,Player2,1-2,6,2,2,3,ATP
+2024-06-18,Novak Djokovic,Lorenzo Musetti,1,17,US Open,Round of 32,Hard,Player2,1-3,6,5,1,2,ATP
+2024-06-18,Marketa Vondrousova,Maria Sakkari,7,9,Cincinnati,Round of 32,Clay,Player1,2-1,5,5,1,0,WTA
+2024-06-18,Barbora Krejcikova,Jessica Pegula,11,5,Miami,Round of 16,Grass,Player1,2-0,7,4,2,1,WTA
+2024-06-18,Frances Tiafoe,Hubert Hurkacz,15,9,Paris Masters,Round of 32,Grass,Player2,1-2,7,6,2,1,ATP
+2024-06-19,Daniil Medvedev,Alex de Minaur,3,14,ATP 250,Round of 32,Hard,Player2,1-2,4,1,0,3,ATP
+2024-06-19,Grigor Dimitrov,Ben Shelton,13,18,Wimbledon,Semi-Final,Hard,Player1,3-0,2,1,0,3,ATP
+2024-06-20,Beatriz Haddad Maia,Maria Sakkari,15,9,Monte Carlo,Round of 16,Hard,Player1,2-0,3,11,1,2,WTA
+2024-06-20,Jannik Sinner,Alex de Minaur,4,14,US Open,Round of 16,Grass,Player1,3-2,8,6,0,3,ATP
+2024-06-21,Jannik Sinner,Grigor Dimitrov,4,13,Monte Carlo,Quarter-Final,Hard,Player1,2-0,3,5,3,3,ATP
+2024-06-22,Qinwen Zheng,Elena Rybakina,8,4,ATP 250,Round of 32,Hard,Player1,2-1,8,5,1,3,WTA
+2024-06-23,Jelena Ostapenko,Karolina Muchova,12,10,Cincinnati,Semi-Final,Clay,Player1,2-0,6,7,1,3,WTA
+2024-06-26,Stefanos Tsitsipas,Casper Ruud,6,8,Cincinnati,Round of 16,Hard,Player1,2-0,5,4,1,1,ATP
+2024-06-26,Alex de Minaur,Lorenzo Musetti,14,17,Miami,Final,Grass,Player1,2-1,4,7,1,1,ATP
+2024-06-30,Hubert Hurkacz,Holger Rune,9,7,Indian Wells,Quarter-Final,Clay,Player2,0-2,5,4,3,1,ATP
+2024-07-01,Frances Tiafoe,Hubert Hurkacz,15,9,Miami,Quarter-Final,Hard,Player1,2-0,6,4,1,2,ATP
+2024-07-01,Karen Khachanov,Daniil Medvedev,16,3,Indian Wells,Semi-Final,Hard,Player2,0-2,7,4,2,3,ATP
+2024-07-02,Holger Rune,Hubert Hurkacz,7,9,Wimbledon,Quarter-Final,Grass,Player2,2-3,4,2,2,3,ATP
+2024-07-03,Aryna Sabalenka,Jelena Ostapenko,2,12,WTA 1000,Round of 16,Clay,Player2,1-2,3,3,2,0,WTA
+2024-07-04,Carlos Alcaraz,Karen Khachanov,2,16,WTA 1000,Round of 16,Clay,Player2,1-2,13,8,0,2,ATP
+2024-07-05,Daniil Medvedev,Novak Djokovic,3,1,Miami,Round of 16,Hard,Player1,2-1,4,7,2,1,ATP
+2024-07-06,Ons Jabeur,Iga Swiatek,6,1,Wimbledon,Round of 32,Hard,Player1,3-1,3,10,2,2,WTA
+2024-07-06,Madison Keys,Jessica Pegula,13,5,French Open,Round of 32,Grass,Player2,2-3,7,7,2,1,WTA
+2024-07-06,Karolina Muchova,Iga Swiatek,10,1,Miami,Round of 16,Clay,Player2,0-2,1,4,0,2,WTA
+2024-07-07,Taylor Fritz,Alex de Minaur,10,14,Rome,Round of 32,Clay,Player1,2-1,3,6,2,1,ATP
+2024-07-07,Marketa Vondrousova,Karolina Muchova,7,10,French Open,Round of 16,Clay,Player2,1-3,4,3,2,1,WTA
+2024-07-08,Holger Rune,Andrey Rublev,7,5,Rome,Semi-Final,Clay,Player2,1-2,4,8,2,0,ATP
+2024-07-09,Ben Shelton,Frances Tiafoe,18,15,Shanghai,Round of 32,Hard,Player1,2-0,3,5,0,4,ATP
+2024-07-09,Alexander Zverev,Stefanos Tsitsipas,11,6,ATP 500,Round of 16,Hard,Player1,2-1,7,8,1,2,ATP
+2024-07-12,Karolina Muchova,Elena Rybakina,10,4,US Open,Round of 32,Clay,Player2,1-3,4,7,3,2,WTA
+2024-07-14,Lorenzo Musetti,Casper Ruud,17,8,Madrid,Quarter-Final,Clay,Player1,2-0,0,7,3,3,ATP
+2024-07-15,Qinwen Zheng,Iga Swiatek,8,1,Shanghai,Round of 16,Clay,Player1,2-0,4,3,3,1,WTA
+2024-07-17,Hubert Hurkacz,Taylor Fritz,9,10,Cincinnati,Round of 32,Grass,Player2,0-2,10,7,0,2,ATP
+2024-07-18,Carlos Alcaraz,Daniil Medvedev,2,3,Paris Masters,Round of 32,Hard,Player2,1-2,7,10,0,1,ATP
+2024-07-18,Taylor Fritz,Novak Djokovic,10,1,Indian Wells,Round of 32,Hard,Player2,0-2,7,7,1,1,ATP
+2024-07-19,Holger Rune,Andrey Rublev,7,5,Madrid,Round of 16,Grass,Player1,2-0,6,12,1,1,ATP
+2024-07-20,Qinwen Zheng,Jessica Pegula,8,5,Cincinnati,Quarter-Final,Hard,Player2,0-2,8,4,1,1,WTA
+2024-07-21,Stefanos Tsitsipas,Ben Shelton,6,18,Indian Wells,Round of 32,Clay,Player1,2-1,5,8,1,2,ATP
+2024-07-21,Grigor Dimitrov,Casper Ruud,13,8,Monte Carlo,Round of 16,Hard,Player1,2-0,5,4,2,2,ATP
+2024-07-21,Alexander Zverev,Tommy Paul,11,12,Wimbledon,Round of 32,Clay,Player1,3-1,5,8,3,1,ATP
+2024-07-21,Madison Keys,Elena Rybakina,13,4,French Open,Round of 16,Hard,Player2,1-3,5,8,1,2,WTA
+2024-07-22,Hubert Hurkacz,Alex de Minaur,9,14,Rome,Round of 16,Hard,Player2,1-2,6,1,1,3,ATP
+2024-07-23,Barbora Krejcikova,Aryna Sabalenka,11,2,Monte Carlo,Round of 16,Grass,Player1,2-0,8,4,1,1,WTA
+2024-07-24,Karen Khachanov,Taylor Fritz,16,10,French Open,Round of 32,Clay,Player2,0-3,8,8,3,1,ATP
+2024-07-24,Alexander Zverev,Lorenzo Musetti,11,17,Wimbledon,Round of 32,Clay,Player1,3-1,8,4,1,0,ATP
+2024-07-24,Alex de Minaur,Hubert Hurkacz,14,9,ATP 500,Round of 16,Clay,Player2,1-2,4,9,2,1,ATP
+2024-07-24,Hubert Hurkacz,Karen Khachanov,9,16,Monte Carlo,Semi-Final,Hard,Player2,0-2,4,11,3,3,ATP
+2024-07-25,Tommy Paul,Jannik Sinner,12,4,French Open,Quarter-Final,Hard,Player2,2-3,4,8,1,1,ATP
+2024-07-27,Alexander Zverev,Novak Djokovic,11,1,Paris Masters,Round of 16,Clay,Player2,1-2,8,10,0,3,ATP
+2024-07-27,Karen Khachanov,Casper Ruud,16,8,Madrid,Quarter-Final,Grass,Player2,0-2,3,4,0,0,ATP
+2024-07-27,Madison Keys,Karolina Muchova,13,10,Cincinnati,Round of 16,Hard,Player1,2-0,9,5,1,3,WTA
+2024-07-27,Barbora Krejcikova,Qinwen Zheng,11,8,US Open,Semi-Final,Clay,Player1,3-2,11,10,2,4,WTA
+2024-07-27,Qinwen Zheng,Jelena Ostapenko,8,12,Australian Open,Round of 16,Hard,Player2,2-3,3,6,3,1,WTA
+2024-07-28,Madison Keys,Aryna Sabalenka,13,2,Shanghai,Quarter-Final,Hard,Player1,2-1,7,7,2,1,WTA
+2024-07-28,Grigor Dimitrov,Taylor Fritz,13,10,Cincinnati,Round of 16,Hard,Player1,2-1,9,5,1,2,ATP
+2024-07-29,Grigor Dimitrov,Carlos Alcaraz,13,2,Cincinnati,Round of 16,Grass,Player2,1-2,7,6,1,3,ATP
+2024-07-29,Jelena Ostapenko,Iga Swiatek,12,1,US Open,Semi-Final,Hard,Player2,1-3,2,0,2,3,WTA
+2024-08-01,Alexander Zverev,Karen Khachanov,11,16,Monte Carlo,Final,Clay,Player1,2-1,5,7,1,1,ATP
+2024-08-02,Tommy Paul,Alexander Zverev,12,11,Shanghai,Round of 32,Hard,Player1,2-0,10,7,0,1,ATP
+2024-08-02,Novak Djokovic,Ben Shelton,1,18,Cincinnati,Semi-Final,Hard,Player2,0-2,6,0,3,0,ATP
+2024-08-02,Carlos Alcaraz,Tommy Paul,2,12,Madrid,Round of 16,Hard,Player2,0-2,5,3,2,1,ATP
+2024-08-03,Madison Keys,Elena Rybakina,13,4,Indian Wells,Round of 16,Clay,Player2,1-2,5,4,1,2,WTA
+2024-08-03,Ben Shelton,Alex de Minaur,18,14,French Open,Round of 16,Hard,Player2,0-3,7,7,1,2,ATP
+2024-08-04,Hubert Hurkacz,Novak Djokovic,9,1,Madrid,Quarter-Final,Hard,Player2,0-2,4,1,1,3,ATP
+2024-08-06,Maria Sakkari,Daria Kasatkina,9,14,Madrid,Quarter-Final,Grass,Player1,2-0,4,6,2,3,WTA
+2024-08-08,Iga Swiatek,Qinwen Zheng,1,8,US Open,Round of 32,Grass,Player1,3-1,1,4,2,0,WTA
+2024-08-08,Karolina Muchova,Daria Kasatkina,10,14,Shanghai,Round of 16,Grass,Player2,0-2,1,0,1,2,WTA
+2024-08-09,Daniil Medvedev,Jannik Sinner,3,4,Rome,Round of 32,Hard,Player2,1-2,10,3,2,0,ATP
+2024-08-10,Aryna Sabalenka,Iga Swiatek,2,1,Madrid,Round of 32,Hard,Player1,2-1,6,7,2,2,WTA
+2024-08-12,Hubert Hurkacz,Carlos Alcaraz,9,2,Cincinnati,Round of 32,Hard,Player2,1-2,4,6,2,1,ATP
+2024-08-12,Stefanos Tsitsipas,Grigor Dimitrov,6,13,ATP 250,Round of 32,Hard,Player1,2-1,7,0,1,1,ATP
+2024-08-13,Alex de Minaur,Jannik Sinner,14,4,ATP 500,Semi-Final,Clay,Player1,2-0,5,9,3,2,ATP
+2024-08-15,Qinwen Zheng,Karolina Muchova,8,10,Rome,Round of 16,Clay,Player1,2-1,3,6,0,2,WTA
+2024-08-19,Elena Rybakina,Karolina Muchova,4,10,Shanghai,Semi-Final,Grass,Player2,0-2,8,6,3,1,WTA
+2024-08-19,Marketa Vondrousova,Jelena Ostapenko,7,12,US Open,Round of 32,Grass,Player2,0-3,7,2,2,0,WTA
+2024-08-19,Coco Gauff,Barbora Krejcikova,3,11,Rome,Round of 16,Clay,Player1,2-0,5,6,2,2,WTA
+2024-08-19,Karen Khachanov,Tommy Paul,16,12,Cincinnati,Semi-Final,Clay,Player2,0-2,2,10,3,1,ATP
+2024-08-20,Novak Djokovic,Holger Rune,1,7,Shanghai,Semi-Final,Clay,Player2,0-2,6,3,1,0,ATP
+2024-08-21,Maria Sakkari,Aryna Sabalenka,9,2,Indian Wells,Semi-Final,Clay,Player2,0-2,10,6,1,3,WTA
+2024-08-21,Frances Tiafoe,Lorenzo Musetti,15,17,Indian Wells,Quarter-Final,Hard,Player1,2-0,12,3,3,2,ATP
+2024-08-22,Lorenzo Musetti,Hubert Hurkacz,17,9,French Open,Round of 16,Clay,Player2,1-3,6,3,2,1,ATP
+2024-08-24,Ons Jabeur,Iga Swiatek,6,1,US Open,Round of 32,Hard,Player2,1-3,5,0,1,2,WTA
+2024-08-26,Barbora Krejcikova,Aryna Sabalenka,11,2,Shanghai,Semi-Final,Clay,Player2,0-2,0,1,2,0,WTA
+2024-08-26,Jelena Ostapenko,Marketa Vondrousova,12,7,Wimbledon,Quarter-Final,Hard,Player1,3-0,0,7,1,2,WTA
+2024-08-26,Daniil Medvedev,Hubert Hurkacz,3,9,Australian Open,Round of 32,Clay,Player1,3-1,9,9,1,1,ATP
+2024-08-28,Novak Djokovic,Holger Rune,1,7,ATP 500,Round of 32,Hard,Player1,2-1,3,7,2,1,ATP
+2024-08-29,Elena Rybakina,Karolina Muchova,4,10,Shanghai,Semi-Final,Hard,Player2,0-2,9,15,1,0,WTA
+2024-08-30,Ben Shelton,Novak Djokovic,18,1,Indian Wells,Round of 32,Clay,Player1,2-0,5,8,1,1,ATP
+2024-08-31,Novak Djokovic,Karen Khachanov,1,16,US Open,Round of 16,Clay,Player2,1-3,6,9,2,1,ATP
+2024-09-03,Coco Gauff,Ons Jabeur,3,6,Rome,Quarter-Final,Clay,Player1,2-1,5,7,3,2,WTA
+2024-09-03,Daniil Medvedev,Ben Shelton,3,18,Rome,Round of 32,Hard,Player2,1-2,4,7,1,1,ATP
+2024-09-04,Ben Shelton,Karen Khachanov,18,16,Monte Carlo,Round of 32,Hard,Player2,1-2,0,4,3,2,ATP
+2024-09-05,Daria Kasatkina,Maria Sakkari,14,9,Madrid,Round of 32,Clay,Player2,0-2,5,3,1,1,WTA
+2024-09-06,Lorenzo Musetti,Alex de Minaur,17,14,Miami,Semi-Final,Hard,Player2,1-2,4,7,3,4,ATP
+2024-09-08,Alex de Minaur,Andrey Rublev,14,5,Monte Carlo,Round of 32,Clay,Player2,1-2,4,1,1,0,ATP
+2024-09-09,Qinwen Zheng,Barbora Krejcikova,8,11,Wimbledon,Semi-Final,Grass,Player2,0-3,6,3,2,1,WTA
+2024-09-09,Ons Jabeur,Elena Rybakina,6,4,Miami,Round of 32,Hard,Player1,2-1,2,5,2,3,WTA
+2024-09-10,Grigor Dimitrov,Novak Djokovic,13,1,Miami,Round of 32,Hard,Player2,1-2,11,12,1,2,ATP
+2024-09-12,Madison Keys,Marketa Vondrousova,13,7,Wimbledon,Final,Clay,Player1,3-2,8,3,3,0,WTA
+2024-09-12,Daniil Medvedev,Alexander Zverev,3,11,WTA 1000,Round of 32,Hard,Player2,1-2,3,2,2,2,ATP
+2024-09-13,Grigor Dimitrov,Carlos Alcaraz,13,2,French Open,Round of 32,Clay,Player2,1-3,6,3,2,1,ATP
+2024-09-13,Novak Djokovic,Stefanos Tsitsipas,1,6,French Open,Round of 16,Clay,Player2,1-3,7,4,0,0,ATP
+2024-09-14,Alex de Minaur,Novak Djokovic,14,1,Madrid,Round of 16,Clay,Player2,0-2,8,6,0,1,ATP
+2024-09-18,Alex de Minaur,Andrey Rublev,14,5,US Open,Round of 16,Clay,Player1,3-0,9,3,0,3,ATP
+2024-09-19,Tommy Paul,Frances Tiafoe,12,15,Rome,Round of 32,Grass,Player1,2-0,13,9,1,2,ATP
+2024-09-19,Jelena Ostapenko,Beatriz Haddad Maia,12,15,Monte Carlo,Final,Clay,Player1,2-0,1,2,2,1,WTA
+2024-09-19,Frances Tiafoe,Alex de Minaur,15,14,Rome,Round of 16,Grass,Player1,2-1,3,7,1,1,ATP
+2024-09-20,Karolina Muchova,Jessica Pegula,10,5,ATP 500,Round of 32,Grass,Player2,0-2,2,6,1,2,WTA
+2024-09-21,Frances Tiafoe,Novak Djokovic,15,1,Monte Carlo,Round of 16,Clay,Player2,1-2,0,6,3,2,ATP
+2024-09-22,Jannik Sinner,Grigor Dimitrov,4,13,Cincinnati,Quarter-Final,Clay,Player2,0-2,6,8,3,2,ATP
+2024-09-22,Lorenzo Musetti,Karen Khachanov,17,16,Shanghai,Semi-Final,Grass,Player2,1-2,10,6,3,3,ATP
+2024-09-22,Barbora Krejcikova,Madison Keys,11,13,Cincinnati,Round of 16,Clay,Player2,0-2,3,4,3,0,WTA
+2024-09-23,Carlos Alcaraz,Holger Rune,2,7,Paris Masters,Round of 16,Hard,Player2,0-2,8,3,2,0,ATP
+2024-09-24,Tommy Paul,Casper Ruud,12,8,Australian Open,Final,Clay,Player1,3-1,0,4,0,1,ATP
+2024-09-25,Maria Sakkari,Marketa Vondrousova,9,7,Shanghai,Final,Hard,Player1,2-1,1,11,2,2,WTA
+2024-09-26,Holger Rune,Tommy Paul,7,12,Rome,Round of 32,Hard,Player1,2-0,8,8,2,4,ATP
+2024-09-30,Aryna Sabalenka,Daria Kasatkina,2,14,Shanghai,Round of 16,Grass,Player2,1-2,8,2,1,2,WTA
+2024-09-30,Tommy Paul,Holger Rune,12,7,ATP 500,Round of 16,Hard,Player1,2-0,0,4,0,2,ATP
+2024-10-01,Casper Ruud,Tommy Paul,8,12,Miami,Round of 32,Grass,Player1,2-0,3,10,1,1,ATP
+2024-10-01,Novak Djokovic,Stefanos Tsitsipas,1,6,Madrid,Round of 16,Hard,Player2,0-2,5,7,0,1,ATP
+2024-10-02,Andrey Rublev,Karen Khachanov,5,16,WTA 1000,Round of 32,Clay,Player1,2-0,5,6,2,1,ATP
+2024-10-04,Alexander Zverev,Hubert Hurkacz,11,9,Wimbledon,Quarter-Final,Clay,Player1,3-1,2,8,1,2,ATP
+2024-10-04,Barbora Krejcikova,Marketa Vondrousova,11,7,ATP 250,Round of 32,Hard,Player2,1-2,3,4,2,1,WTA
+2024-10-05,Alex de Minaur,Stefanos Tsitsipas,14,6,Paris Masters,Round of 32,Clay,Player2,0-2,1,5,2,2,ATP
+2024-10-06,Qinwen Zheng,Karolina Muchova,8,10,Cincinnati,Quarter-Final,Hard,Player1,2-1,3,2,2,1,WTA
+2024-10-07,Karolina Muchova,Qinwen Zheng,10,8,Monte Carlo,Round of 16,Hard,Player2,0-2,7,9,2,1,WTA
+2024-10-07,Ons Jabeur,Beatriz Haddad Maia,6,15,Cincinnati,Final,Hard,Player2,1-2,8,4,3,4,WTA
+2024-10-07,Ben Shelton,Grigor Dimitrov,18,13,Indian Wells,Round of 32,Clay,Player2,0-2,6,11,1,1,ATP
+2024-10-07,Andrey Rublev,Stefanos Tsitsipas,5,6,Wimbledon,Semi-Final,Clay,Player2,1-3,0,6,1,2,ATP
+2024-10-08,Lorenzo Musetti,Andrey Rublev,17,5,Shanghai,Round of 16,Hard,Player1,2-1,3,10,3,1,ATP
+2024-10-08,Jelena Ostapenko,Beatriz Haddad Maia,12,15,Shanghai,Round of 32,Hard,Player1,2-0,0,9,1,2,WTA
+2024-10-08,Daria Kasatkina,Karolina Muchova,14,10,ATP 250,Round of 16,Hard,Player1,2-0,2,2,4,2,WTA
+2024-10-09,Jelena Ostapenko,Ons Jabeur,12,6,Rome,Quarter-Final,Clay,Player2,0-2,9,7,0,2,WTA
+2024-10-09,Alexander Zverev,Andrey Rublev,11,5,ATP 500,Round of 16,Clay,Player2,0-2,9,2,0,2,ATP
+2024-10-11,Jannik Sinner,Hubert Hurkacz,4,9,Paris Masters,Round of 16,Hard,Player1,2-0,9,3,0,1,ATP
+2024-10-11,Marketa Vondrousova,Ons Jabeur,7,6,ATP 500,Round of 16,Hard,Player2,1-2,11,2,2,3,WTA
+2024-10-13,Alexander Zverev,Tommy Paul,11,12,Madrid,Semi-Final,Grass,Player1,2-0,0,1,2,4,ATP
+2024-10-17,Ben Shelton,Frances Tiafoe,18,15,Australian Open,Quarter-Final,Hard,Player2,1-3,7,6,2,1,ATP
+2024-10-18,Qinwen Zheng,Elena Rybakina,8,4,Miami,Round of 32,Clay,Player1,2-0,7,7,1,1,WTA
+2024-10-20,Jannik Sinner,Holger Rune,4,7,Paris Masters,Round of 32,Clay,Player2,1-2,6,6,0,1,ATP
+2024-10-20,Daniil Medvedev,Alex de Minaur,3,14,WTA 1000,Round of 32,Grass,Player2,1-2,8,7,4,1,ATP
+2024-10-20,Iga Swiatek,Coco Gauff,1,3,Indian Wells,Quarter-Final,Clay,Player1,2-0,0,5,2,2,WTA
+2024-10-21,Daniil Medvedev,Ben Shelton,3,18,Wimbledon,Round of 16,Clay,Player1,3-2,6,10,2,1,ATP
+2024-10-21,Lorenzo Musetti,Grigor Dimitrov,17,13,Shanghai,Round of 32,Clay,Player1,2-0,4,8,2,2,ATP
+2024-10-21,Hubert Hurkacz,Daniil Medvedev,9,3,ATP 250,Round of 32,Hard,Player2,0-2,5,8,1,0,ATP
+2024-10-23,Alexander Zverev,Andrey Rublev,11,5,Wimbledon,Round of 32,Grass,Player1,3-0,6,3,1,1,ATP
+2024-10-23,Tommy Paul,Frances Tiafoe,12,15,French Open,Round of 32,Grass,Player1,3-2,8,4,4,1,ATP
+2024-10-24,Hubert Hurkacz,Stefanos Tsitsipas,9,6,Rome,Round of 32,Clay,Player2,1-2,7,12,0,2,ATP
+2024-10-26,Holger Rune,Ben Shelton,7,18,Wimbledon,Round of 32,Clay,Player1,3-0,3,7,0,0,ATP
+2024-10-27,Qinwen Zheng,Barbora Krejcikova,8,11,Indian Wells,Round of 16,Hard,Player2,1-2,6,6,2,2,WTA
+2024-10-27,Ons Jabeur,Maria Sakkari,6,9,ATP 500,Quarter-Final,Clay,Player1,2-1,2,6,1,2,WTA
+2024-10-29,Novak Djokovic,Alex de Minaur,1,14,Cincinnati,Round of 32,Hard,Player1,2-0,6,7,0,1,ATP
+2024-10-29,Hubert Hurkacz,Tommy Paul,9,12,Shanghai,Semi-Final,Hard,Player2,0-2,7,5,3,0,ATP
+2024-10-29,Aryna Sabalenka,Barbora Krejcikova,2,11,Rome,Round of 32,Clay,Player1,2-1,2,3,2,1,WTA
+2024-11-01,Alexander Zverev,Lorenzo Musetti,11,17,Indian Wells,Round of 16,Clay,Player1,2-0,5,4,3,2,ATP
+2024-11-01,Andrey Rublev,Alex de Minaur,5,14,French Open,Round of 32,Grass,Player1,3-2,10,6,3,2,ATP
+2024-11-01,Alex de Minaur,Andrey Rublev,14,5,Wimbledon,Round of 32,Hard,Player1,3-0,3,6,1,1,ATP
+2024-11-02,Daniil Medvedev,Carlos Alcaraz,3,2,Australian Open,Semi-Final,Clay,Player2,0-3,3,3,0,1,ATP
+2024-11-03,Karolina Muchova,Barbora Krejcikova,10,11,Miami,Round of 16,Clay,Player1,2-0,2,7,0,3,WTA
+2024-11-04,Grigor Dimitrov,Lorenzo Musetti,13,17,Madrid,Round of 16,Hard,Player2,0-2,7,6,3,2,ATP
+2024-11-04,Jannik Sinner,Holger Rune,4,7,Paris Masters,Quarter-Final,Grass,Player2,0-2,5,5,1,2,ATP
+2024-11-06,Carlos Alcaraz,Lorenzo Musetti,2,17,Monte Carlo,Round of 16,Hard,Player2,0-2,7,7,1,0,ATP
+2024-11-06,Grigor Dimitrov,Daniil Medvedev,13,3,ATP 500,Round of 16,Grass,Player1,2-1,1,3,1,1,ATP
+2024-11-07,Maria Sakkari,Marketa Vondrousova,9,7,Shanghai,Round of 32,Hard,Player2,0-2,6,2,4,2,WTA
+2024-11-09,Beatriz Haddad Maia,Aryna Sabalenka,15,2,Australian Open,Round of 16,Clay,Player2,0-3,3,4,1,2,WTA
+2024-11-09,Novak Djokovic,Holger Rune,1,7,Wimbledon,Round of 16,Hard,Player2,2-3,4,4,2,0,ATP
+2024-11-10,Andrey Rublev,Grigor Dimitrov,5,13,Monte Carlo,Quarter-Final,Hard,Player1,2-0,6,3,0,1,ATP
+2024-11-11,Taylor Fritz,Alex de Minaur,10,14,French Open,Semi-Final,Hard,Player1,3-0,8,4,0,2,ATP
+2024-11-11,Madison Keys,Iga Swiatek,13,1,Australian Open,Round of 16,Hard,Player2,1-3,11,2,0,2,WTA
+2024-11-11,Holger Rune,Andrey Rublev,7,5,Australian Open,Round of 32,Clay,Player1,3-1,9,1,2,0,ATP
+2024-11-12,Elena Rybakina,Daria Kasatkina,4,14,Cincinnati,Round of 32,Hard,Player2,1-2,6,7,3,2,WTA
+2024-11-14,Aryna Sabalenka,Coco Gauff,2,3,Rome,Quarter-Final,Grass,Player2,0-2,4,0,2,3,WTA
+2024-11-17,Daria Kasatkina,Iga Swiatek,14,1,ATP 500,Round of 16,Grass,Player2,0-2,3,3,2,1,WTA
+2024-11-17,Daniil Medvedev,Tommy Paul,3,12,Australian Open,Quarter-Final,Grass,Player2,1-3,3,6,1,2,ATP
+2024-11-18,Ben Shelton,Lorenzo Musetti,18,17,Indian Wells,Round of 16,Hard,Player1,2-0,3,1,3,1,ATP
+2024-11-20,Aryna Sabalenka,Iga Swiatek,2,1,Cincinnati,Round of 16,Hard,Player1,2-0,4,5,2,0,WTA
+2024-11-20,Ons Jabeur,Beatriz Haddad Maia,6,15,Wimbledon,Semi-Final,Hard,Player1,3-1,8,5,1,1,WTA
+2024-11-21,Ben Shelton,Karen Khachanov,18,16,Miami,Round of 32,Clay,Player1,2-1,8,4,0,2,ATP
+2024-11-21,Jelena Ostapenko,Qinwen Zheng,12,8,Indian Wells,Quarter-Final,Clay,Player2,1-2,6,3,1,2,WTA
+2024-11-21,Beatriz Haddad Maia,Jelena Ostapenko,15,12,Rome,Round of 16,Hard,Player2,1-2,6,0,3,1,WTA
+2024-11-21,Alexander Zverev,Taylor Fritz,11,10,Wimbledon,Round of 32,Hard,Player1,3-1,5,4,1,3,ATP
+2024-11-25,Qinwen Zheng,Beatriz Haddad Maia,8,15,Paris Masters,Final,Hard,Player1,2-0,6,4,2,1,WTA
+2024-11-25,Alex de Minaur,Novak Djokovic,14,1,ATP 250,Round of 32,Clay,Player2,0-2,5,4,3,0,ATP
+2024-11-25,Casper Ruud,Taylor Fritz,8,10,Madrid,Round of 32,Hard,Player2,1-2,5,2,2,1,ATP
+2024-11-26,Karen Khachanov,Jannik Sinner,16,4,Australian Open,Round of 32,Hard,Player2,2-3,4,4,0,3,ATP
+2024-11-26,Ons Jabeur,Elena Rybakina,6,4,Shanghai,Round of 32,Hard,Player2,1-2,9,7,2,2,WTA
+2024-11-27,Aryna Sabalenka,Qinwen Zheng,2,8,Madrid,Final,Grass,Player2,1-2,11,3,0,2,WTA
+2024-11-28,Tommy Paul,Karen Khachanov,12,16,ATP 500,Round of 32,Clay,Player1,2-1,4,4,2,2,ATP
+2024-11-28,Holger Rune,Frances Tiafoe,7,15,Indian Wells,Final,Hard,Player1,2-0,4,3,2,2,ATP
+2024-11-28,Andrey Rublev,Jannik Sinner,5,4,Madrid,Round of 32,Clay,Player1,2-0,5,5,2,2,ATP
+2024-12-01,Carlos Alcaraz,Jannik Sinner,2,4,ATP 250,Round of 32,Hard,Player2,0-2,10,3,1,2,ATP
+2024-12-01,Qinwen Zheng,Beatriz Haddad Maia,8,15,WTA 1000,Round of 32,Clay,Player2,1-2,5,3,3,2,WTA
+2024-12-01,Marketa Vondrousova,Maria Sakkari,7,9,ATP 500,Round of 32,Grass,Player2,1-2,6,7,0,3,WTA
+2024-12-01,Holger Rune,Alex de Minaur,7,14,Paris Masters,Round of 32,Hard,Player1,2-0,9,9,2,1,ATP
+2024-12-02,Qinwen Zheng,Madison Keys,8,13,Indian Wells,Round of 32,Clay,Player1,2-1,2,3,2,2,WTA
+2024-12-03,Qinwen Zheng,Jelena Ostapenko,8,12,Miami,Semi-Final,Grass,Player2,0-2,9,3,2,0,WTA
+2024-12-03,Novak Djokovic,Carlos Alcaraz,1,2,ATP 500,Semi-Final,Hard,Player2,0-2,5,8,2,2,ATP
+2024-12-05,Alex de Minaur,Frances Tiafoe,14,15,Rome,Round of 32,Clay,Player1,2-0,5,9,0,1,ATP
+2024-12-08,Alexander Zverev,Stefanos Tsitsipas,11,6,Paris Masters,Round of 16,Clay,Player1,2-1,7,9,1,1,ATP
+2024-12-09,Elena Rybakina,Barbora Krejcikova,4,11,Cincinnati,Round of 32,Hard,Player2,1-2,0,2,1,0,WTA
+2024-12-10,Alex de Minaur,Grigor Dimitrov,14,13,Miami,Round of 16,Clay,Player2,0-2,6,5,2,1,ATP
+2024-12-11,Tommy Paul,Grigor Dimitrov,12,13,US Open,Round of 16,Hard,Player2,0-3,6,4,1,1,ATP
+2024-12-11,Daria Kasatkina,Coco Gauff,14,3,Cincinnati,Round of 32,Hard,Player1,2-0,3,4,2,1,WTA
+2024-12-12,Iga Swiatek,Maria Sakkari,1,9,ATP 250,Quarter-Final,Hard,Player1,2-0,9,1,1,1,WTA
+2024-12-13,Ons Jabeur,Aryna Sabalenka,6,2,Cincinnati,Round of 16,Hard,Player1,2-1,7,4,1,2,WTA
+2024-12-14,Tommy Paul,Ben Shelton,12,18,Indian Wells,Round of 32,Hard,Player1,2-1,4,5,1,2,ATP
+2024-12-15,Marketa Vondrousova,Qinwen Zheng,7,8,Madrid,Round of 16,Clay,Player1,2-1,9,9,0,1,WTA
+2024-12-16,Carlos Alcaraz,Karen Khachanov,2,16,Australian Open,Quarter-Final,Hard,Player2,0-3,4,7,1,0,ATP
+2024-12-17,Ben Shelton,Novak Djokovic,18,1,Cincinnati,Round of 32,Clay,Player2,1-2,12,3,2,2,ATP
+2024-12-18,Alex de Minaur,Daniil Medvedev,14,3,Madrid,Round of 16,Grass,Player2,1-2,7,6,0,1,ATP
+2024-12-18,Stefanos Tsitsipas,Ben Shelton,6,18,WTA 1000,Quarter-Final,Grass,Player1,2-0,0,7,1,3,ATP
+2024-12-18,Taylor Fritz,Karen Khachanov,10,16,Rome,Round of 16,Hard,Player2,1-2,5,4,3,2,ATP
+2024-12-18,Beatriz Haddad Maia,Coco Gauff,15,3,Indian Wells,Quarter-Final,Grass,Player1,2-0,4,4,3,2,WTA
+2024-12-18,Elena Rybakina,Madison Keys,4,13,US Open,Semi-Final,Clay,Player1,3-0,7,7,2,2,WTA
+2024-12-20,Hubert Hurkacz,Lorenzo Musetti,9,17,Wimbledon,Round of 16,Hard,Player1,3-0,9,6,0,1,ATP
+2024-12-20,Karolina Muchova,Ons Jabeur,10,6,Miami,Round of 32,Hard,Player2,1-2,5,11,0,1,WTA
+2024-12-21,Jelena Ostapenko,Elena Rybakina,12,4,Indian Wells,Round of 16,Grass,Player2,1-2,8,2,2,4,WTA
+2024-12-21,Alex de Minaur,Andrey Rublev,14,5,Monte Carlo,Round of 32,Hard,Player2,1-2,6,7,2,0,ATP
+2024-12-22,Holger Rune,Hubert Hurkacz,7,9,Indian Wells,Semi-Final,Grass,Player1,2-1,1,10,0,2,ATP
+2024-12-22,Hubert Hurkacz,Jannik Sinner,9,4,US Open,Round of 32,Grass,Player2,1-3,4,8,2,0,ATP
+2024-12-22,Carlos Alcaraz,Tommy Paul,2,12,US Open,Final,Hard,Player2,0-3,7,3,2,2,ATP
+2024-12-24,Ons Jabeur,Jessica Pegula,6,5,ATP 250,Round of 32,Grass,Player1,2-1,7,11,0,3,WTA
+2024-12-24,Elena Rybakina,Jelena Ostapenko,4,12,US Open,Semi-Final,Clay,Player2,0-3,1,8,1,0,WTA
+2024-12-26,Jessica Pegula,Madison Keys,5,13,Paris Masters,Round of 32,Hard,Player1,2-0,1,5,3,2,WTA
+2024-12-29,Madison Keys,Daria Kasatkina,13,14,Madrid,Round of 16,Hard,Player1,2-1,4,7,1,1,WTA
+2024-12-29,Daniil Medvedev,Ben Shelton,3,18,WTA 1000,Semi-Final,Hard,Player1,2-1,8,8,1,3,ATP
+2024-12-30,Carlos Alcaraz,Holger Rune,2,7,ATP 500,Round of 32,Hard,Player1,2-0,5,6,1,1,ATP
+2024-12-30,Alexander Zverev,Grigor Dimitrov,11,13,Paris Masters,Round of 32,Hard,Player1,2-0,6,7,0,1,ATP

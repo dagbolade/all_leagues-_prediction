@@ -1,0 +1,1001 @@
+Date,HomeTeam,AwayTeam,HomeScore,AwayScore,Result,League,Season
+2023-10-01,Denver Nuggets,Milwaukee Bucks,96,111,A,NBA,2023-2024
+2023-10-01,Golden State Warriors,Philadelphia 76ers,128,117,H,NBA,2023-2024
+2023-10-01,Miami Heat,Phoenix Suns,103,101,H,NBA,2023-2024
+2023-10-01,Phoenix Suns,Los Angeles Lakers,112,85,H,NBA,2023-2024
+2023-10-01,Cleveland Cavaliers,Dallas Mavericks,119,89,H,NBA,2023-2024
+2023-10-01,Brooklyn Nets,New York Knicks,112,98,H,NBA,2023-2024
+2023-10-01,Cleveland Cavaliers,Denver Nuggets,109,112,A,NBA,2023-2024
+2023-10-01,Phoenix Suns,Golden State Warriors,103,130,A,NBA,2023-2024
+2023-10-01,Boston Celtics,Phoenix Suns,111,115,A,NBA,2023-2024
+2023-10-01,Brooklyn Nets,Dallas Mavericks,119,94,H,NBA,2023-2024
+2023-10-02,Cleveland Cavaliers,Sacramento Kings,105,112,A,NBA,2023-2024
+2023-10-02,Los Angeles Lakers,Phoenix Suns,116,99,H,NBA,2023-2024
+2023-10-02,Sacramento Kings,Miami Heat,113,91,H,NBA,2023-2024
+2023-10-02,New York Knicks,New Orleans Pelicans,107,122,A,NBA,2023-2024
+2023-10-02,Brooklyn Nets,LA Clippers,112,111,H,NBA,2023-2024
+2023-10-02,LA Clippers,Philadelphia 76ers,119,139,A,NBA,2023-2024
+2023-10-02,Sacramento Kings,Philadelphia 76ers,115,115,A,NBA,2023-2024
+2023-10-02,LA Clippers,Phoenix Suns,115,109,H,NBA,2023-2024
+2023-10-02,Cleveland Cavaliers,New York Knicks,98,95,H,NBA,2023-2024
+2023-10-02,New York Knicks,Los Angeles Lakers,109,104,H,NBA,2023-2024
+2023-10-03,Los Angeles Lakers,New York Knicks,117,97,H,NBA,2023-2024
+2023-10-03,Golden State Warriors,Los Angeles Lakers,118,110,H,NBA,2023-2024
+2023-10-03,Brooklyn Nets,Dallas Mavericks,99,106,A,NBA,2023-2024
+2023-10-03,Denver Nuggets,Philadelphia 76ers,124,122,H,NBA,2023-2024
+2023-10-03,Cleveland Cavaliers,Philadelphia 76ers,115,87,H,NBA,2023-2024
+2023-10-03,Golden State Warriors,Miami Heat,98,117,A,NBA,2023-2024
+2023-10-03,Sacramento Kings,Denver Nuggets,108,96,H,NBA,2023-2024
+2023-10-03,Golden State Warriors,New Orleans Pelicans,109,119,A,NBA,2023-2024
+2023-10-03,New York Knicks,Milwaukee Bucks,107,112,A,NBA,2023-2024
+2023-10-03,New York Knicks,New Orleans Pelicans,100,116,A,NBA,2023-2024
+2023-10-04,New Orleans Pelicans,Denver Nuggets,100,101,A,NBA,2023-2024
+2023-10-04,Boston Celtics,Memphis Grizzlies,116,121,A,NBA,2023-2024
+2023-10-04,Miami Heat,New York Knicks,103,114,A,NBA,2023-2024
+2023-10-04,Sacramento Kings,LA Clippers,126,110,H,NBA,2023-2024
+2023-10-04,Cleveland Cavaliers,Dallas Mavericks,101,104,A,NBA,2023-2024
+2023-10-04,Dallas Mavericks,Cleveland Cavaliers,125,104,H,NBA,2023-2024
+2023-10-04,Dallas Mavericks,Golden State Warriors,110,105,H,NBA,2023-2024
+2023-10-04,Dallas Mavericks,LA Clippers,105,104,H,NBA,2023-2024
+2023-10-04,Cleveland Cavaliers,Philadelphia 76ers,108,112,A,NBA,2023-2024
+2023-10-04,New Orleans Pelicans,Philadelphia 76ers,98,124,A,NBA,2023-2024
+2023-10-05,Los Angeles Lakers,Memphis Grizzlies,86,107,A,NBA,2023-2024
+2023-10-05,Los Angeles Lakers,Dallas Mavericks,111,102,H,NBA,2023-2024
+2023-10-05,Boston Celtics,New York Knicks,107,111,A,NBA,2023-2024
+2023-10-05,Boston Celtics,Miami Heat,114,107,H,NBA,2023-2024
+2023-10-05,New Orleans Pelicans,Denver Nuggets,123,117,H,NBA,2023-2024
+2023-10-05,Memphis Grizzlies,Los Angeles Lakers,100,124,A,NBA,2023-2024
+2023-10-05,Milwaukee Bucks,Boston Celtics,117,134,A,NBA,2023-2024
+2023-10-05,New Orleans Pelicans,Los Angeles Lakers,110,93,H,NBA,2023-2024
+2023-10-05,New Orleans Pelicans,New York Knicks,105,118,A,NBA,2023-2024
+2023-10-05,Milwaukee Bucks,Golden State Warriors,120,115,H,NBA,2023-2024
+2023-10-06,Milwaukee Bucks,Philadelphia 76ers,116,97,H,NBA,2023-2024
+2023-10-06,New Orleans Pelicans,Denver Nuggets,100,104,A,NBA,2023-2024
+2023-10-06,Denver Nuggets,New Orleans Pelicans,105,114,A,NBA,2023-2024
+2023-10-06,Cleveland Cavaliers,Brooklyn Nets,110,112,A,NBA,2023-2024
+2023-10-06,Los Angeles Lakers,Golden State Warriors,122,109,H,NBA,2023-2024
+2023-10-06,Denver Nuggets,Brooklyn Nets,121,95,H,NBA,2023-2024
+2023-10-06,New Orleans Pelicans,Golden State Warriors,106,120,A,NBA,2023-2024
+2023-10-06,Los Angeles Lakers,Dallas Mavericks,117,121,A,NBA,2023-2024
+2023-10-06,Sacramento Kings,Golden State Warriors,116,106,H,NBA,2023-2024
+2023-10-06,Dallas Mavericks,Sacramento Kings,98,94,H,NBA,2023-2024
+2023-10-07,Boston Celtics,Denver Nuggets,111,107,H,NBA,2023-2024
+2023-10-07,Milwaukee Bucks,Los Angeles Lakers,109,103,H,NBA,2023-2024
+2023-10-07,New Orleans Pelicans,Milwaukee Bucks,126,99,H,NBA,2023-2024
+2023-10-07,Golden State Warriors,Los Angeles Lakers,115,85,H,NBA,2023-2024
+2023-10-07,Memphis Grizzlies,Golden State Warriors,94,116,A,NBA,2023-2024
+2023-10-07,Sacramento Kings,Miami Heat,109,112,A,NBA,2023-2024
+2023-10-07,Philadelphia 76ers,Cleveland Cavaliers,86,97,A,NBA,2023-2024
+2023-10-07,Los Angeles Lakers,New York Knicks,120,112,H,NBA,2023-2024
+2023-10-07,Cleveland Cavaliers,Sacramento Kings,143,107,H,NBA,2023-2024
+2023-10-07,New Orleans Pelicans,Los Angeles Lakers,88,105,A,NBA,2023-2024
+2023-10-08,Miami Heat,Golden State Warriors,117,84,H,NBA,2023-2024
+2023-10-08,LA Clippers,Golden State Warriors,98,100,A,NBA,2023-2024
+2023-10-08,Los Angeles Lakers,Milwaukee Bucks,112,93,H,NBA,2023-2024
+2023-10-08,LA Clippers,Miami Heat,117,129,A,NBA,2023-2024
+2023-10-08,Philadelphia 76ers,Boston Celtics,110,94,H,NBA,2023-2024
+2023-10-08,Boston Celtics,Memphis Grizzlies,120,120,A,NBA,2023-2024
+2023-10-08,Memphis Grizzlies,Miami Heat,93,96,A,NBA,2023-2024
+2023-10-08,Denver Nuggets,Memphis Grizzlies,113,111,H,NBA,2023-2024
+2023-10-08,New York Knicks,Cleveland Cavaliers,116,150,A,NBA,2023-2024
+2023-10-08,New York Knicks,Milwaukee Bucks,125,119,H,NBA,2023-2024
+2023-10-09,New Orleans Pelicans,Sacramento Kings,106,117,A,NBA,2023-2024
+2023-10-09,Cleveland Cavaliers,Boston Celtics,111,97,H,NBA,2023-2024
+2023-10-09,Miami Heat,Golden State Warriors,137,85,H,NBA,2023-2024
+2023-10-09,New York Knicks,Miami Heat,105,108,A,NBA,2023-2024
+2023-10-09,Milwaukee Bucks,Memphis Grizzlies,104,121,A,NBA,2023-2024
+2023-10-09,Cleveland Cavaliers,Phoenix Suns,128,109,H,NBA,2023-2024
+2023-10-09,Cleveland Cavaliers,New York Knicks,101,110,A,NBA,2023-2024
+2023-10-09,New York Knicks,Milwaukee Bucks,129,99,H,NBA,2023-2024
+2023-10-09,Philadelphia 76ers,Milwaukee Bucks,94,84,H,NBA,2023-2024
+2023-10-09,Brooklyn Nets,Denver Nuggets,101,101,A,NBA,2023-2024
+2023-10-10,Sacramento Kings,Denver Nuggets,131,99,H,NBA,2023-2024
+2023-10-10,Los Angeles Lakers,Memphis Grizzlies,108,117,A,NBA,2023-2024
+2023-10-10,New Orleans Pelicans,Sacramento Kings,112,114,A,NBA,2023-2024
+2023-10-10,New York Knicks,Denver Nuggets,100,131,A,NBA,2023-2024
+2023-10-10,New York Knicks,Denver Nuggets,111,100,H,NBA,2023-2024
+2023-10-10,Golden State Warriors,Miami Heat,105,98,H,NBA,2023-2024
+2023-10-10,Cleveland Cavaliers,Phoenix Suns,106,100,H,NBA,2023-2024
+2023-10-10,Sacramento Kings,Milwaukee Bucks,118,115,H,NBA,2023-2024
+2023-10-10,Milwaukee Bucks,Los Angeles Lakers,135,102,H,NBA,2023-2024
+2023-10-10,Brooklyn Nets,Memphis Grizzlies,110,117,A,NBA,2023-2024
+2023-10-11,Philadelphia 76ers,Phoenix Suns,121,126,A,NBA,2023-2024
+2023-10-11,New Orleans Pelicans,Denver Nuggets,124,114,H,NBA,2023-2024
+2023-10-11,Cleveland Cavaliers,Boston Celtics,97,110,A,NBA,2023-2024
+2023-10-11,New York Knicks,Golden State Warriors,115,121,A,NBA,2023-2024
+2023-10-11,Los Angeles Lakers,Boston Celtics,96,115,A,NBA,2023-2024
+2023-10-11,New York Knicks,Sacramento Kings,103,92,H,NBA,2023-2024
+2023-10-11,New York Knicks,Golden State Warriors,91,121,A,NBA,2023-2024
+2023-10-11,Brooklyn Nets,Philadelphia 76ers,128,96,H,NBA,2023-2024
+2023-10-11,Sacramento Kings,Boston Celtics,109,87,H,NBA,2023-2024
+2023-10-11,Brooklyn Nets,Phoenix Suns,116,105,H,NBA,2023-2024
+2023-10-12,Philadelphia 76ers,Milwaukee Bucks,115,107,H,NBA,2023-2024
+2023-10-12,Milwaukee Bucks,Memphis Grizzlies,130,85,H,NBA,2023-2024
+2023-10-12,Golden State Warriors,Los Angeles Lakers,102,112,A,NBA,2023-2024
+2023-10-12,Los Angeles Lakers,Philadelphia 76ers,122,110,H,NBA,2023-2024
+2023-10-12,New Orleans Pelicans,Phoenix Suns,119,94,H,NBA,2023-2024
+2023-10-12,Denver Nuggets,Brooklyn Nets,102,91,H,NBA,2023-2024
+2023-10-12,Los Angeles Lakers,LA Clippers,80,107,A,NBA,2023-2024
+2023-10-12,New York Knicks,Memphis Grizzlies,114,106,H,NBA,2023-2024
+2023-10-12,LA Clippers,Milwaukee Bucks,132,120,H,NBA,2023-2024
+2023-10-12,Phoenix Suns,Miami Heat,97,93,H,NBA,2023-2024
+2023-10-13,Memphis Grizzlies,Phoenix Suns,119,116,H,NBA,2023-2024
+2023-10-13,Dallas Mavericks,Denver Nuggets,109,97,H,NBA,2023-2024
+2023-10-13,Denver Nuggets,LA Clippers,84,129,A,NBA,2023-2024
+2023-10-13,Denver Nuggets,Sacramento Kings,100,104,A,NBA,2023-2024
+2023-10-13,Cleveland Cavaliers,Dallas Mavericks,117,124,A,NBA,2023-2024
+2023-10-13,New York Knicks,Miami Heat,112,101,H,NBA,2023-2024
+2023-10-13,Brooklyn Nets,Dallas Mavericks,116,118,A,NBA,2023-2024
+2023-10-13,Phoenix Suns,Sacramento Kings,92,91,H,NBA,2023-2024
+2023-10-13,Milwaukee Bucks,Los Angeles Lakers,102,124,A,NBA,2023-2024
+2023-10-13,LA Clippers,Golden State Warriors,113,125,A,NBA,2023-2024
+2023-10-14,Memphis Grizzlies,Brooklyn Nets,106,107,A,NBA,2023-2024
+2023-10-14,Cleveland Cavaliers,LA Clippers,113,98,H,NBA,2023-2024
+2023-10-14,Los Angeles Lakers,Milwaukee Bucks,115,109,H,NBA,2023-2024
+2023-10-14,LA Clippers,Cleveland Cavaliers,118,103,H,NBA,2023-2024
+2023-10-14,Miami Heat,Phoenix Suns,110,119,A,NBA,2023-2024
+2023-10-14,Memphis Grizzlies,New York Knicks,111,98,H,NBA,2023-2024
+2023-10-14,Milwaukee Bucks,Brooklyn Nets,137,112,H,NBA,2023-2024
+2023-10-14,Sacramento Kings,New Orleans Pelicans,135,98,H,NBA,2023-2024
+2023-10-14,Miami Heat,Golden State Warriors,108,119,A,NBA,2023-2024
+2023-10-14,Cleveland Cavaliers,Phoenix Suns,99,100,A,NBA,2023-2024
+2023-10-15,Brooklyn Nets,Philadelphia 76ers,122,86,H,NBA,2023-2024
+2023-10-15,Cleveland Cavaliers,Phoenix Suns,114,130,A,NBA,2023-2024
+2023-10-15,Los Angeles Lakers,Miami Heat,116,119,A,NBA,2023-2024
+2023-10-15,New York Knicks,Sacramento Kings,94,129,A,NBA,2023-2024
+2023-10-15,Philadelphia 76ers,LA Clippers,109,104,H,NBA,2023-2024
+2023-10-15,Los Angeles Lakers,Golden State Warriors,89,124,A,NBA,2023-2024
+2023-10-15,Miami Heat,Cleveland Cavaliers,113,111,H,NBA,2023-2024
+2023-10-15,Boston Celtics,Brooklyn Nets,90,100,A,NBA,2023-2024
+2023-10-15,New Orleans Pelicans,Denver Nuggets,113,111,H,NBA,2023-2024
+2023-10-15,LA Clippers,Phoenix Suns,110,108,H,NBA,2023-2024
+2023-10-16,Phoenix Suns,Miami Heat,106,88,H,NBA,2023-2024
+2023-10-16,Sacramento Kings,Los Angeles Lakers,111,114,A,NBA,2023-2024
+2023-10-16,Sacramento Kings,Los Angeles Lakers,122,126,A,NBA,2023-2024
+2023-10-16,Cleveland Cavaliers,New Orleans Pelicans,113,99,H,NBA,2023-2024
+2023-10-16,Boston Celtics,Denver Nuggets,111,126,A,NBA,2023-2024
+2023-10-16,Cleveland Cavaliers,Los Angeles Lakers,134,129,H,NBA,2023-2024
+2023-10-16,Sacramento Kings,Memphis Grizzlies,97,104,A,NBA,2023-2024
+2023-10-16,LA Clippers,Denver Nuggets,117,124,A,NBA,2023-2024
+2023-10-16,Boston Celtics,Cleveland Cavaliers,104,103,H,NBA,2023-2024
+2023-10-16,Cleveland Cavaliers,Boston Celtics,122,86,H,NBA,2023-2024
+2023-10-17,Sacramento Kings,New Orleans Pelicans,120,106,H,NBA,2023-2024
+2023-10-17,Milwaukee Bucks,Brooklyn Nets,128,108,H,NBA,2023-2024
+2023-10-17,Cleveland Cavaliers,LA Clippers,121,111,H,NBA,2023-2024
+2023-10-17,Phoenix Suns,Sacramento Kings,89,107,A,NBA,2023-2024
+2023-10-17,Philadelphia 76ers,Phoenix Suns,109,112,A,NBA,2023-2024
+2023-10-17,New York Knicks,LA Clippers,94,116,A,NBA,2023-2024
+2023-10-17,Golden State Warriors,New Orleans Pelicans,96,113,A,NBA,2023-2024
+2023-10-17,Philadelphia 76ers,Brooklyn Nets,109,119,A,NBA,2023-2024
+2023-10-17,New York Knicks,Boston Celtics,93,114,A,NBA,2023-2024
+2023-10-17,Phoenix Suns,Miami Heat,94,92,H,NBA,2023-2024
+2023-10-18,Miami Heat,Phoenix Suns,130,136,A,NBA,2023-2024
+2023-10-18,Cleveland Cavaliers,Brooklyn Nets,95,94,H,NBA,2023-2024
+2023-10-18,Brooklyn Nets,Dallas Mavericks,133,105,H,NBA,2023-2024
+2023-10-18,Philadelphia 76ers,LA Clippers,105,95,H,NBA,2023-2024
+2023-10-18,Los Angeles Lakers,Memphis Grizzlies,112,108,H,NBA,2023-2024
+2023-10-18,LA Clippers,New Orleans Pelicans,109,108,H,NBA,2023-2024
+2023-10-18,Cleveland Cavaliers,Denver Nuggets,131,111,H,NBA,2023-2024
+2023-10-18,Brooklyn Nets,LA Clippers,120,113,H,NBA,2023-2024
+2023-10-18,Memphis Grizzlies,New Orleans Pelicans,95,88,H,NBA,2023-2024
+2023-10-18,New Orleans Pelicans,Dallas Mavericks,100,114,A,NBA,2023-2024
+2023-10-19,Denver Nuggets,Brooklyn Nets,91,110,A,NBA,2023-2024
+2023-10-19,New York Knicks,Milwaukee Bucks,83,103,A,NBA,2023-2024
+2023-10-19,Dallas Mavericks,Sacramento Kings,140,100,H,NBA,2023-2024
+2023-10-19,Miami Heat,Boston Celtics,135,124,H,NBA,2023-2024
+2023-10-19,Cleveland Cavaliers,Golden State Warriors,91,94,A,NBA,2023-2024
+2023-10-19,Milwaukee Bucks,Memphis Grizzlies,93,115,A,NBA,2023-2024
+2023-10-19,Memphis Grizzlies,Sacramento Kings,115,105,H,NBA,2023-2024
+2023-10-19,Phoenix Suns,Denver Nuggets,102,92,H,NBA,2023-2024
+2023-10-19,New Orleans Pelicans,Milwaukee Bucks,119,109,H,NBA,2023-2024
+2023-10-19,LA Clippers,Miami Heat,109,113,A,NBA,2023-2024
+2023-10-20,Miami Heat,Golden State Warriors,116,117,A,NBA,2023-2024
+2023-10-20,Memphis Grizzlies,Philadelphia 76ers,124,106,H,NBA,2023-2024
+2023-10-20,Phoenix Suns,Denver Nuggets,117,98,H,NBA,2023-2024
+2023-10-20,Cleveland Cavaliers,New Orleans Pelicans,121,117,H,NBA,2023-2024
+2023-10-20,Miami Heat,Phoenix Suns,119,108,H,NBA,2023-2024
+2023-10-20,New York Knicks,Memphis Grizzlies,89,122,A,NBA,2023-2024
+2023-10-20,Philadelphia 76ers,Memphis Grizzlies,133,131,H,NBA,2023-2024
+2023-10-20,Boston Celtics,Sacramento Kings,103,111,A,NBA,2023-2024
+2023-10-20,LA Clippers,Phoenix Suns,138,100,H,NBA,2023-2024
+2023-10-20,Golden State Warriors,LA Clippers,103,126,A,NBA,2023-2024
+2023-10-21,Phoenix Suns,Dallas Mavericks,118,105,H,NBA,2023-2024
+2023-10-21,New Orleans Pelicans,Miami Heat,116,116,A,NBA,2023-2024
+2023-10-21,Cleveland Cavaliers,LA Clippers,104,113,A,NBA,2023-2024
+2023-10-21,Golden State Warriors,Cleveland Cavaliers,118,110,H,NBA,2023-2024
+2023-10-21,Dallas Mavericks,Sacramento Kings,130,117,H,NBA,2023-2024
+2023-10-21,Philadelphia 76ers,Denver Nuggets,116,111,H,NBA,2023-2024
+2023-10-21,New York Knicks,Miami Heat,82,126,A,NBA,2023-2024
+2023-10-21,Los Angeles Lakers,Brooklyn Nets,95,88,H,NBA,2023-2024
+2023-10-21,Boston Celtics,LA Clippers,82,125,A,NBA,2023-2024
+2023-10-21,Golden State Warriors,Philadelphia 76ers,120,121,A,NBA,2023-2024
+2023-10-22,Milwaukee Bucks,New Orleans Pelicans,109,120,A,NBA,2023-2024
+2023-10-22,Sacramento Kings,Denver Nuggets,119,120,A,NBA,2023-2024
+2023-10-22,Memphis Grizzlies,Denver Nuggets,105,102,H,NBA,2023-2024
+2023-10-22,Boston Celtics,Memphis Grizzlies,129,107,H,NBA,2023-2024
+2023-10-22,Miami Heat,Denver Nuggets,83,116,A,NBA,2023-2024
+2023-10-22,New York Knicks,Philadelphia 76ers,110,138,A,NBA,2023-2024
+2023-10-22,Philadelphia 76ers,Phoenix Suns,79,103,A,NBA,2023-2024
+2023-10-22,New York Knicks,Boston Celtics,110,106,H,NBA,2023-2024
+2023-10-22,Milwaukee Bucks,Phoenix Suns,118,126,A,NBA,2023-2024
+2023-10-22,Milwaukee Bucks,Cleveland Cavaliers,108,111,A,NBA,2023-2024
+2023-10-23,Miami Heat,Dallas Mavericks,89,100,A,NBA,2023-2024
+2023-10-23,Memphis Grizzlies,New York Knicks,106,102,H,NBA,2023-2024
+2023-10-23,Philadelphia 76ers,New York Knicks,99,110,A,NBA,2023-2024
+2023-10-23,New Orleans Pelicans,Milwaukee Bucks,124,116,H,NBA,2023-2024
+2023-10-23,LA Clippers,Brooklyn Nets,102,102,A,NBA,2023-2024
+2023-10-23,Milwaukee Bucks,Denver Nuggets,104,119,A,NBA,2023-2024
+2023-10-23,Miami Heat,Philadelphia 76ers,116,91,H,NBA,2023-2024
+2023-10-23,LA Clippers,Dallas Mavericks,100,115,A,NBA,2023-2024
+2023-10-23,Dallas Mavericks,Phoenix Suns,99,110,A,NBA,2023-2024
+2023-10-23,Milwaukee Bucks,Brooklyn Nets,91,74,H,NBA,2023-2024
+2023-10-24,Memphis Grizzlies,Los Angeles Lakers,104,108,A,NBA,2023-2024
+2023-10-24,Memphis Grizzlies,Golden State Warriors,115,89,H,NBA,2023-2024
+2023-10-24,Milwaukee Bucks,Denver Nuggets,101,118,A,NBA,2023-2024
+2023-10-24,Brooklyn Nets,New York Knicks,110,90,H,NBA,2023-2024
+2023-10-24,Los Angeles Lakers,Phoenix Suns,137,88,H,NBA,2023-2024
+2023-10-24,Miami Heat,New York Knicks,93,109,A,NBA,2023-2024
+2023-10-24,Denver Nuggets,Los Angeles Lakers,99,88,H,NBA,2023-2024
+2023-10-24,Golden State Warriors,Cleveland Cavaliers,103,121,A,NBA,2023-2024
+2023-10-24,Sacramento Kings,New York Knicks,92,125,A,NBA,2023-2024
+2023-10-24,New Orleans Pelicans,Philadelphia 76ers,90,116,A,NBA,2023-2024
+2023-10-25,Golden State Warriors,New Orleans Pelicans,139,131,H,NBA,2023-2024
+2023-10-25,Los Angeles Lakers,Golden State Warriors,129,107,H,NBA,2023-2024
+2023-10-25,Milwaukee Bucks,Los Angeles Lakers,103,105,A,NBA,2023-2024
+2023-10-25,Golden State Warriors,Memphis Grizzlies,119,92,H,NBA,2023-2024
+2023-10-25,Cleveland Cavaliers,Los Angeles Lakers,121,123,A,NBA,2023-2024
+2023-10-25,Los Angeles Lakers,Brooklyn Nets,101,99,H,NBA,2023-2024
+2023-10-25,Memphis Grizzlies,New Orleans Pelicans,103,113,A,NBA,2023-2024
+2023-10-25,Los Angeles Lakers,New York Knicks,105,105,A,NBA,2023-2024
+2023-10-25,New Orleans Pelicans,Philadelphia 76ers,118,113,H,NBA,2023-2024
+2023-10-25,Memphis Grizzlies,Milwaukee Bucks,89,97,A,NBA,2023-2024
+2023-10-26,Boston Celtics,Philadelphia 76ers,126,117,H,NBA,2023-2024
+2023-10-26,Phoenix Suns,Golden State Warriors,126,119,H,NBA,2023-2024
+2023-10-26,Los Angeles Lakers,New Orleans Pelicans,92,121,A,NBA,2023-2024
+2023-10-26,LA Clippers,Boston Celtics,106,106,A,NBA,2023-2024
+2023-10-26,Milwaukee Bucks,Miami Heat,124,99,H,NBA,2023-2024
+2023-10-26,Dallas Mavericks,Boston Celtics,105,113,A,NBA,2023-2024
+2023-10-26,Brooklyn Nets,Miami Heat,105,111,A,NBA,2023-2024
+2023-10-26,Sacramento Kings,Philadelphia 76ers,109,112,A,NBA,2023-2024
+2023-10-26,New Orleans Pelicans,Los Angeles Lakers,137,74,H,NBA,2023-2024
+2023-10-26,Dallas Mavericks,Philadelphia 76ers,100,127,A,NBA,2023-2024
+2023-10-27,Dallas Mavericks,Miami Heat,97,130,A,NBA,2023-2024
+2023-10-27,Brooklyn Nets,Memphis Grizzlies,113,115,A,NBA,2023-2024
+2023-10-27,Phoenix Suns,Cleveland Cavaliers,111,123,A,NBA,2023-2024
+2023-10-27,Brooklyn Nets,Milwaukee Bucks,100,107,A,NBA,2023-2024
+2023-10-27,Phoenix Suns,Brooklyn Nets,131,107,H,NBA,2023-2024
+2023-10-27,Phoenix Suns,Memphis Grizzlies,104,100,H,NBA,2023-2024
+2023-10-27,LA Clippers,Miami Heat,99,118,A,NBA,2023-2024
+2023-10-27,New York Knicks,Dallas Mavericks,143,105,H,NBA,2023-2024
+2023-10-27,Los Angeles Lakers,Memphis Grizzlies,126,102,H,NBA,2023-2024
+2023-10-27,Sacramento Kings,Boston Celtics,116,99,H,NBA,2023-2024
+2023-10-28,Golden State Warriors,Miami Heat,92,114,A,NBA,2023-2024
+2023-10-28,Phoenix Suns,Cleveland Cavaliers,98,91,H,NBA,2023-2024
+2023-10-28,Los Angeles Lakers,Cleveland Cavaliers,116,86,H,NBA,2023-2024
+2023-10-28,Boston Celtics,Philadelphia 76ers,115,110,H,NBA,2023-2024
+2023-10-28,Phoenix Suns,Dallas Mavericks,117,89,H,NBA,2023-2024
+2023-10-28,Memphis Grizzlies,Los Angeles Lakers,140,106,H,NBA,2023-2024
+2023-10-28,Boston Celtics,Brooklyn Nets,105,110,A,NBA,2023-2024
+2023-10-28,Dallas Mavericks,Philadelphia 76ers,109,129,A,NBA,2023-2024
+2023-10-28,Memphis Grizzlies,Philadelphia 76ers,91,103,A,NBA,2023-2024
+2023-10-28,Golden State Warriors,Boston Celtics,117,119,A,NBA,2023-2024
+2023-10-29,Sacramento Kings,Miami Heat,88,121,A,NBA,2023-2024
+2023-10-29,Cleveland Cavaliers,Memphis Grizzlies,109,115,A,NBA,2023-2024
+2023-10-29,LA Clippers,Cleveland Cavaliers,122,109,H,NBA,2023-2024
+2023-10-29,Philadelphia 76ers,New Orleans Pelicans,116,120,A,NBA,2023-2024
+2023-10-29,Miami Heat,Denver Nuggets,126,120,H,NBA,2023-2024
+2023-10-29,Dallas Mavericks,Sacramento Kings,106,109,A,NBA,2023-2024
+2023-10-29,New Orleans Pelicans,Denver Nuggets,86,104,A,NBA,2023-2024
+2023-10-29,LA Clippers,Phoenix Suns,100,115,A,NBA,2023-2024
+2023-10-29,Philadelphia 76ers,Boston Celtics,126,103,H,NBA,2023-2024
+2023-10-29,LA Clippers,Sacramento Kings,109,100,H,NBA,2023-2024
+2023-10-30,Memphis Grizzlies,Brooklyn Nets,126,123,H,NBA,2023-2024
+2023-10-30,Philadelphia 76ers,Golden State Warriors,99,140,A,NBA,2023-2024
+2023-10-30,Golden State Warriors,Miami Heat,79,123,A,NBA,2023-2024
+2023-10-30,Denver Nuggets,New York Knicks,126,111,H,NBA,2023-2024
+2023-10-30,Milwaukee Bucks,Sacramento Kings,124,118,H,NBA,2023-2024
+2023-10-30,Los Angeles Lakers,Sacramento Kings,93,115,A,NBA,2023-2024
+2023-10-30,Denver Nuggets,Golden State Warriors,110,120,A,NBA,2023-2024
+2023-10-30,New Orleans Pelicans,Golden State Warriors,109,101,H,NBA,2023-2024
+2023-10-30,New Orleans Pelicans,Philadelphia 76ers,101,89,H,NBA,2023-2024
+2023-10-30,Sacramento Kings,Dallas Mavericks,113,82,H,NBA,2023-2024
+2023-10-31,Los Angeles Lakers,LA Clippers,109,106,H,NBA,2023-2024
+2023-10-31,Philadelphia 76ers,LA Clippers,115,116,A,NBA,2023-2024
+2023-10-31,Phoenix Suns,Brooklyn Nets,115,105,H,NBA,2023-2024
+2023-10-31,LA Clippers,Dallas Mavericks,107,97,H,NBA,2023-2024
+2023-10-31,Milwaukee Bucks,New York Knicks,116,89,H,NBA,2023-2024
+2023-10-31,Denver Nuggets,Dallas Mavericks,112,119,A,NBA,2023-2024
+2023-10-31,Sacramento Kings,New York Knicks,108,100,H,NBA,2023-2024
+2023-10-31,New York Knicks,New Orleans Pelicans,117,101,H,NBA,2023-2024
+2023-10-31,Sacramento Kings,Brooklyn Nets,108,101,H,NBA,2023-2024
+2023-10-31,Dallas Mavericks,Los Angeles Lakers,116,122,A,NBA,2023-2024
+2023-11-01,Denver Nuggets,Los Angeles Lakers,140,113,H,NBA,2023-2024
+2023-11-01,Los Angeles Lakers,Sacramento Kings,111,87,H,NBA,2023-2024
+2023-11-01,Boston Celtics,LA Clippers,136,100,H,NBA,2023-2024
+2023-11-01,New York Knicks,New Orleans Pelicans,108,121,A,NBA,2023-2024
+2023-11-01,Philadelphia 76ers,Golden State Warriors,107,86,H,NBA,2023-2024
+2023-11-01,Golden State Warriors,Brooklyn Nets,116,105,H,NBA,2023-2024
+2023-11-01,Memphis Grizzlies,Cleveland Cavaliers,98,97,H,NBA,2023-2024
+2023-11-01,Miami Heat,Dallas Mavericks,107,109,A,NBA,2023-2024
+2023-11-01,Boston Celtics,Denver Nuggets,120,108,H,NBA,2023-2024
+2023-11-01,Golden State Warriors,Dallas Mavericks,116,132,A,NBA,2023-2024
+2023-11-02,New York Knicks,Sacramento Kings,111,128,A,NBA,2023-2024
+2023-11-02,New Orleans Pelicans,Philadelphia 76ers,102,102,A,NBA,2023-2024
+2023-11-02,New Orleans Pelicans,Dallas Mavericks,95,99,A,NBA,2023-2024
+2023-11-02,Phoenix Suns,Memphis Grizzlies,113,100,H,NBA,2023-2024
+2023-11-02,Cleveland Cavaliers,Denver Nuggets,122,106,H,NBA,2023-2024
+2023-11-02,Brooklyn Nets,Memphis Grizzlies,103,115,A,NBA,2023-2024
+2023-11-02,Denver Nuggets,New Orleans Pelicans,100,118,A,NBA,2023-2024
+2023-11-02,Boston Celtics,Sacramento Kings,112,108,H,NBA,2023-2024
+2023-11-02,Los Angeles Lakers,Dallas Mavericks,119,91,H,NBA,2023-2024
+2023-11-02,Philadelphia 76ers,Sacramento Kings,106,110,A,NBA,2023-2024
+2023-11-03,Sacramento Kings,Denver Nuggets,116,108,H,NBA,2023-2024
+2023-11-03,LA Clippers,Cleveland Cavaliers,117,110,H,NBA,2023-2024
+2023-11-03,New York Knicks,Miami Heat,112,112,A,NBA,2023-2024
+2023-11-03,Boston Celtics,Phoenix Suns,122,95,H,NBA,2023-2024
+2023-11-03,Miami Heat,Los Angeles Lakers,88,119,A,NBA,2023-2024
+2023-11-03,Brooklyn Nets,Philadelphia 76ers,103,112,A,NBA,2023-2024
+2023-11-03,New York Knicks,Cleveland Cavaliers,108,83,H,NBA,2023-2024
+2023-11-03,Golden State Warriors,Cleveland Cavaliers,103,130,A,NBA,2023-2024
+2023-11-03,Sacramento Kings,Boston Celtics,95,105,A,NBA,2023-2024
+2023-11-03,Denver Nuggets,Sacramento Kings,97,116,A,NBA,2023-2024
+2023-11-04,Boston Celtics,New Orleans Pelicans,123,123,A,NBA,2023-2024
+2023-11-04,Memphis Grizzlies,Golden State Warriors,117,106,H,NBA,2023-2024
+2023-11-04,New Orleans Pelicans,Phoenix Suns,95,127,A,NBA,2023-2024
+2023-11-04,Dallas Mavericks,Phoenix Suns,109,110,A,NBA,2023-2024
+2023-11-04,Cleveland Cavaliers,Miami Heat,101,99,H,NBA,2023-2024
+2023-11-04,New Orleans Pelicans,Los Angeles Lakers,94,125,A,NBA,2023-2024
+2023-11-04,LA Clippers,Cleveland Cavaliers,116,107,H,NBA,2023-2024
+2023-11-04,Sacramento Kings,Dallas Mavericks,114,113,H,NBA,2023-2024
+2023-11-04,LA Clippers,Memphis Grizzlies,115,115,A,NBA,2023-2024
+2023-11-04,Golden State Warriors,Sacramento Kings,112,116,A,NBA,2023-2024
+2023-11-05,Sacramento Kings,New Orleans Pelicans,97,107,A,NBA,2023-2024
+2023-11-05,Los Angeles Lakers,LA Clippers,101,129,A,NBA,2023-2024
+2023-11-05,Miami Heat,Brooklyn Nets,115,96,H,NBA,2023-2024
+2023-11-05,Phoenix Suns,Miami Heat,92,131,A,NBA,2023-2024
+2023-11-05,New Orleans Pelicans,New York Knicks,108,93,H,NBA,2023-2024
+2023-11-05,Sacramento Kings,Boston Celtics,139,102,H,NBA,2023-2024
+2023-11-05,New Orleans Pelicans,Memphis Grizzlies,119,113,H,NBA,2023-2024
+2023-11-05,Miami Heat,Brooklyn Nets,109,101,H,NBA,2023-2024
+2023-11-05,Philadelphia 76ers,Brooklyn Nets,109,94,H,NBA,2023-2024
+2023-11-05,Miami Heat,New York Knicks,116,129,A,NBA,2023-2024
+2023-11-06,New Orleans Pelicans,Boston Celtics,112,83,H,NBA,2023-2024
+2023-11-06,Los Angeles Lakers,Brooklyn Nets,106,106,A,NBA,2023-2024
+2023-11-06,Milwaukee Bucks,Memphis Grizzlies,97,104,A,NBA,2023-2024
+2023-11-06,Denver Nuggets,Memphis Grizzlies,121,115,H,NBA,2023-2024
+2023-11-06,Boston Celtics,Memphis Grizzlies,126,119,H,NBA,2023-2024
+2023-11-06,Miami Heat,Brooklyn Nets,131,112,H,NBA,2023-2024
+2023-11-06,Philadelphia 76ers,Dallas Mavericks,120,115,H,NBA,2023-2024
+2023-11-06,Sacramento Kings,New Orleans Pelicans,111,119,A,NBA,2023-2024
+2023-11-06,Brooklyn Nets,Miami Heat,134,99,H,NBA,2023-2024
+2023-11-06,Dallas Mavericks,New York Knicks,105,110,A,NBA,2023-2024
+2023-11-07,Miami Heat,New York Knicks,102,102,A,NBA,2023-2024
+2023-11-07,New York Knicks,Golden State Warriors,97,101,A,NBA,2023-2024
+2023-11-07,Denver Nuggets,Phoenix Suns,109,133,A,NBA,2023-2024
+2023-11-07,Boston Celtics,Denver Nuggets,98,117,A,NBA,2023-2024
+2023-11-07,New Orleans Pelicans,Philadelphia 76ers,110,109,H,NBA,2023-2024
+2023-11-07,Brooklyn Nets,Golden State Warriors,103,110,A,NBA,2023-2024
+2023-11-07,LA Clippers,New Orleans Pelicans,106,87,H,NBA,2023-2024
+2023-11-07,Sacramento Kings,Phoenix Suns,121,118,H,NBA,2023-2024
+2023-11-07,Milwaukee Bucks,Miami Heat,95,90,H,NBA,2023-2024
+2023-11-07,Milwaukee Bucks,New York Knicks,91,132,A,NBA,2023-2024
+2023-11-08,Phoenix Suns,Boston Celtics,122,107,H,NBA,2023-2024
+2023-11-08,Boston Celtics,Phoenix Suns,90,101,A,NBA,2023-2024
+2023-11-08,Golden State Warriors,Memphis Grizzlies,127,124,H,NBA,2023-2024
+2023-11-08,LA Clippers,Los Angeles Lakers,114,99,H,NBA,2023-2024
+2023-11-08,New Orleans Pelicans,Sacramento Kings,103,99,H,NBA,2023-2024
+2023-11-08,Sacramento Kings,Boston Celtics,113,104,H,NBA,2023-2024
+2023-11-08,New York Knicks,Dallas Mavericks,116,103,H,NBA,2023-2024
+2023-11-08,LA Clippers,Sacramento Kings,83,110,A,NBA,2023-2024
+2023-11-08,Boston Celtics,Philadelphia 76ers,105,94,H,NBA,2023-2024
+2023-11-08,Dallas Mavericks,New York Knicks,119,93,H,NBA,2023-2024
+2023-11-09,LA Clippers,Los Angeles Lakers,104,112,A,NBA,2023-2024
+2023-11-09,New York Knicks,Denver Nuggets,91,104,A,NBA,2023-2024
+2023-11-09,Golden State Warriors,Denver Nuggets,110,92,H,NBA,2023-2024
+2023-11-09,Brooklyn Nets,New York Knicks,106,122,A,NBA,2023-2024
+2023-11-09,Milwaukee Bucks,Dallas Mavericks,128,118,H,NBA,2023-2024
+2023-11-09,New Orleans Pelicans,Miami Heat,120,122,A,NBA,2023-2024
+2023-11-09,Phoenix Suns,Los Angeles Lakers,114,113,H,NBA,2023-2024
+2023-11-09,Cleveland Cavaliers,New Orleans Pelicans,106,112,A,NBA,2023-2024
+2023-11-09,New York Knicks,Milwaukee Bucks,109,107,H,NBA,2023-2024
+2023-11-09,LA Clippers,Phoenix Suns,108,95,H,NBA,2023-2024
+2023-11-10,Phoenix Suns,Cleveland Cavaliers,110,84,H,NBA,2023-2024
+2023-11-10,Sacramento Kings,Cleveland Cavaliers,111,113,A,NBA,2023-2024
+2023-11-10,Dallas Mavericks,Denver Nuggets,121,73,H,NBA,2023-2024
+2023-11-10,Boston Celtics,Philadelphia 76ers,99,112,A,NBA,2023-2024
+2023-11-10,New Orleans Pelicans,Sacramento Kings,123,95,H,NBA,2023-2024
+2023-11-10,Brooklyn Nets,New York Knicks,113,100,H,NBA,2023-2024
+2023-11-10,New Orleans Pelicans,Miami Heat,107,110,A,NBA,2023-2024
+2023-11-10,Boston Celtics,Los Angeles Lakers,109,132,A,NBA,2023-2024
+2023-11-10,Los Angeles Lakers,Memphis Grizzlies,112,120,A,NBA,2023-2024
+2023-11-10,Cleveland Cavaliers,Memphis Grizzlies,112,113,A,NBA,2023-2024
+2023-11-11,Los Angeles Lakers,Boston Celtics,117,94,H,NBA,2023-2024
+2023-11-11,Phoenix Suns,Miami Heat,87,119,A,NBA,2023-2024
+2023-11-11,Boston Celtics,Golden State Warriors,90,119,A,NBA,2023-2024
+2023-11-11,Los Angeles Lakers,Brooklyn Nets,106,101,H,NBA,2023-2024
+2023-11-11,Memphis Grizzlies,Milwaukee Bucks,124,116,H,NBA,2023-2024
+2023-11-11,Milwaukee Bucks,Denver Nuggets,120,106,H,NBA,2023-2024
+2023-11-11,New York Knicks,Dallas Mavericks,119,103,H,NBA,2023-2024
+2023-11-11,Los Angeles Lakers,Dallas Mavericks,121,91,H,NBA,2023-2024
+2023-11-11,Phoenix Suns,New Orleans Pelicans,126,127,A,NBA,2023-2024
+2023-11-11,LA Clippers,Phoenix Suns,120,82,H,NBA,2023-2024
+2023-11-12,Los Angeles Lakers,Boston Celtics,84,129,A,NBA,2023-2024
+2023-11-12,Miami Heat,Memphis Grizzlies,95,111,A,NBA,2023-2024
+2023-11-12,Sacramento Kings,Brooklyn Nets,110,127,A,NBA,2023-2024
+2023-11-12,Phoenix Suns,Memphis Grizzlies,90,110,A,NBA,2023-2024
+2023-11-12,Milwaukee Bucks,New Orleans Pelicans,122,81,H,NBA,2023-2024
+2023-11-12,Sacramento Kings,Boston Celtics,112,129,A,NBA,2023-2024
+2023-11-12,Phoenix Suns,Philadelphia 76ers,120,106,H,NBA,2023-2024
+2023-11-12,Phoenix Suns,New York Knicks,111,112,A,NBA,2023-2024
+2023-11-12,Golden State Warriors,New Orleans Pelicans,108,91,H,NBA,2023-2024
+2023-11-12,Golden State Warriors,Boston Celtics,114,94,H,NBA,2023-2024
+2023-11-13,Phoenix Suns,Milwaukee Bucks,116,110,H,NBA,2023-2024
+2023-11-13,Cleveland Cavaliers,Golden State Warriors,100,109,A,NBA,2023-2024
+2023-11-13,Sacramento Kings,Boston Celtics,113,107,H,NBA,2023-2024
+2023-11-13,Brooklyn Nets,Dallas Mavericks,97,108,A,NBA,2023-2024
+2023-11-13,Cleveland Cavaliers,Brooklyn Nets,103,114,A,NBA,2023-2024
+2023-11-13,LA Clippers,Philadelphia 76ers,103,114,A,NBA,2023-2024
+2023-11-13,Philadelphia 76ers,Milwaukee Bucks,100,106,A,NBA,2023-2024
+2023-11-13,Miami Heat,Los Angeles Lakers,115,80,H,NBA,2023-2024
+2023-11-13,LA Clippers,Memphis Grizzlies,140,112,H,NBA,2023-2024
+2023-11-13,Brooklyn Nets,Dallas Mavericks,97,113,A,NBA,2023-2024
+2023-11-14,Dallas Mavericks,Sacramento Kings,112,111,H,NBA,2023-2024
+2023-11-14,Los Angeles Lakers,Memphis Grizzlies,99,95,H,NBA,2023-2024
+2023-11-14,Philadelphia 76ers,Golden State Warriors,115,118,A,NBA,2023-2024
+2023-11-14,Dallas Mavericks,Boston Celtics,103,113,A,NBA,2023-2024
+2023-11-14,Denver Nuggets,Boston Celtics,104,100,H,NBA,2023-2024
+2023-11-14,Cleveland Cavaliers,Boston Celtics,139,85,H,NBA,2023-2024
+2023-11-14,Miami Heat,Phoenix Suns,124,127,A,NBA,2023-2024
+2023-11-14,New Orleans Pelicans,Memphis Grizzlies,103,91,H,NBA,2023-2024
+2023-11-14,New York Knicks,Dallas Mavericks,113,107,H,NBA,2023-2024
+2023-11-14,Golden State Warriors,Philadelphia 76ers,100,127,A,NBA,2023-2024
+2023-11-15,Miami Heat,Sacramento Kings,121,121,A,NBA,2023-2024
+2023-11-15,Denver Nuggets,Dallas Mavericks,116,127,A,NBA,2023-2024
+2023-11-15,Denver Nuggets,Sacramento Kings,96,99,A,NBA,2023-2024
+2023-11-15,Dallas Mavericks,Denver Nuggets,110,98,H,NBA,2023-2024
+2023-11-15,Boston Celtics,New York Knicks,102,116,A,NBA,2023-2024
+2023-11-15,Phoenix Suns,Dallas Mavericks,113,118,A,NBA,2023-2024
+2023-11-15,Miami Heat,New York Knicks,95,93,H,NBA,2023-2024
+2023-11-15,Miami Heat,Boston Celtics,130,113,H,NBA,2023-2024
+2023-11-15,Sacramento Kings,Milwaukee Bucks,111,99,H,NBA,2023-2024
+2023-11-15,Milwaukee Bucks,Miami Heat,116,96,H,NBA,2023-2024
+2023-11-16,Dallas Mavericks,Denver Nuggets,99,108,A,NBA,2023-2024
+2023-11-16,Dallas Mavericks,Denver Nuggets,101,122,A,NBA,2023-2024
+2023-11-16,Cleveland Cavaliers,Philadelphia 76ers,103,91,H,NBA,2023-2024
+2023-11-16,Philadelphia 76ers,Miami Heat,124,109,H,NBA,2023-2024
+2023-11-16,Phoenix Suns,Milwaukee Bucks,101,110,A,NBA,2023-2024
+2023-11-16,Denver Nuggets,Los Angeles Lakers,111,137,A,NBA,2023-2024
+2023-11-16,Milwaukee Bucks,Boston Celtics,101,93,H,NBA,2023-2024
+2023-11-16,Dallas Mavericks,Phoenix Suns,95,99,A,NBA,2023-2024
+2023-11-16,Los Angeles Lakers,Cleveland Cavaliers,103,117,A,NBA,2023-2024
+2023-11-16,Brooklyn Nets,Milwaukee Bucks,114,124,A,NBA,2023-2024
+2023-11-17,Cleveland Cavaliers,Phoenix Suns,110,78,H,NBA,2023-2024
+2023-11-17,Los Angeles Lakers,Memphis Grizzlies,136,116,H,NBA,2023-2024
+2023-11-17,Sacramento Kings,Philadelphia 76ers,131,111,H,NBA,2023-2024
+2023-11-17,Golden State Warriors,Philadelphia 76ers,103,105,A,NBA,2023-2024
+2023-11-17,Phoenix Suns,Golden State Warriors,116,97,H,NBA,2023-2024
+2023-11-17,Boston Celtics,LA Clippers,110,110,A,NBA,2023-2024
+2023-11-17,Dallas Mavericks,Boston Celtics,109,117,A,NBA,2023-2024
+2023-11-17,Sacramento Kings,Miami Heat,103,119,A,NBA,2023-2024
+2023-11-17,Golden State Warriors,Brooklyn Nets,116,119,A,NBA,2023-2024
+2023-11-17,Boston Celtics,Dallas Mavericks,121,70,H,NBA,2023-2024
+2023-11-18,LA Clippers,Milwaukee Bucks,112,96,H,NBA,2023-2024
+2023-11-18,LA Clippers,Sacramento Kings,105,115,A,NBA,2023-2024
+2023-11-18,LA Clippers,Miami Heat,90,123,A,NBA,2023-2024
+2023-11-18,LA Clippers,Golden State Warriors,94,111,A,NBA,2023-2024
+2023-11-18,Dallas Mavericks,Boston Celtics,129,106,H,NBA,2023-2024
+2023-11-18,LA Clippers,Philadelphia 76ers,102,87,H,NBA,2023-2024
+2023-11-18,Dallas Mavericks,Golden State Warriors,100,101,A,NBA,2023-2024
+2023-11-18,New Orleans Pelicans,Cleveland Cavaliers,128,124,H,NBA,2023-2024
+2023-11-18,Philadelphia 76ers,Los Angeles Lakers,101,99,H,NBA,2023-2024
+2023-11-18,New York Knicks,Milwaukee Bucks,121,113,H,NBA,2023-2024
+2023-11-19,Boston Celtics,New Orleans Pelicans,104,123,A,NBA,2023-2024
+2023-11-19,New Orleans Pelicans,New York Knicks,114,81,H,NBA,2023-2024
+2023-11-19,Miami Heat,LA Clippers,105,94,H,NBA,2023-2024
+2023-11-19,Phoenix Suns,LA Clippers,103,103,A,NBA,2023-2024
+2023-11-19,Phoenix Suns,Denver Nuggets,114,124,A,NBA,2023-2024
+2023-11-19,Denver Nuggets,Memphis Grizzlies,115,93,H,NBA,2023-2024
+2023-11-19,New York Knicks,Phoenix Suns,114,120,A,NBA,2023-2024
+2023-11-19,Phoenix Suns,Boston Celtics,93,98,A,NBA,2023-2024
+2023-11-19,Memphis Grizzlies,New Orleans Pelicans,89,107,A,NBA,2023-2024
+2023-11-19,Phoenix Suns,Memphis Grizzlies,118,93,H,NBA,2023-2024
+2023-11-20,Golden State Warriors,Brooklyn Nets,122,111,H,NBA,2023-2024
+2023-11-20,Brooklyn Nets,Phoenix Suns,113,99,H,NBA,2023-2024
+2023-11-20,Dallas Mavericks,Los Angeles Lakers,113,105,H,NBA,2023-2024
+2023-11-20,New Orleans Pelicans,Cleveland Cavaliers,117,114,H,NBA,2023-2024
+2023-11-20,Denver Nuggets,Boston Celtics,98,82,H,NBA,2023-2024
+2023-11-20,Los Angeles Lakers,New Orleans Pelicans,108,119,A,NBA,2023-2024
+2023-11-20,New York Knicks,Golden State Warriors,102,107,A,NBA,2023-2024
+2023-11-20,Philadelphia 76ers,Brooklyn Nets,119,122,A,NBA,2023-2024
+2023-11-20,Golden State Warriors,Dallas Mavericks,80,110,A,NBA,2023-2024
+2023-11-20,LA Clippers,Sacramento Kings,97,86,H,NBA,2023-2024
+2023-11-21,Phoenix Suns,LA Clippers,100,106,A,NBA,2023-2024
+2023-11-21,New Orleans Pelicans,Cleveland Cavaliers,112,110,H,NBA,2023-2024
+2023-11-21,Philadelphia 76ers,Brooklyn Nets,107,106,H,NBA,2023-2024
+2023-11-21,Dallas Mavericks,Memphis Grizzlies,121,107,H,NBA,2023-2024
+2023-11-21,Brooklyn Nets,Phoenix Suns,109,95,H,NBA,2023-2024
+2023-11-21,Boston Celtics,Denver Nuggets,119,107,H,NBA,2023-2024
+2023-11-21,New Orleans Pelicans,Cleveland Cavaliers,112,97,H,NBA,2023-2024
+2023-11-21,Dallas Mavericks,Brooklyn Nets,120,82,H,NBA,2023-2024
+2023-11-21,Brooklyn Nets,Dallas Mavericks,103,98,H,NBA,2023-2024
+2023-11-21,Milwaukee Bucks,Miami Heat,109,132,A,NBA,2023-2024
+2023-11-22,Los Angeles Lakers,Dallas Mavericks,118,103,H,NBA,2023-2024
+2023-11-22,Cleveland Cavaliers,Dallas Mavericks,135,116,H,NBA,2023-2024
+2023-11-22,Sacramento Kings,Phoenix Suns,94,110,A,NBA,2023-2024
+2023-11-22,New Orleans Pelicans,Memphis Grizzlies,123,98,H,NBA,2023-2024
+2023-11-22,Dallas Mavericks,Miami Heat,130,111,H,NBA,2023-2024
+2023-11-22,Boston Celtics,Sacramento Kings,102,111,A,NBA,2023-2024
+2023-11-22,Boston Celtics,New Orleans Pelicans,95,107,A,NBA,2023-2024
+2023-11-22,Cleveland Cavaliers,Sacramento Kings,127,102,H,NBA,2023-2024
+2023-11-22,Los Angeles Lakers,Dallas Mavericks,99,110,A,NBA,2023-2024
+2023-11-22,Denver Nuggets,Sacramento Kings,111,97,H,NBA,2023-2024
+2023-11-23,Dallas Mavericks,Phoenix Suns,108,93,H,NBA,2023-2024
+2023-11-23,New Orleans Pelicans,Philadelphia 76ers,119,96,H,NBA,2023-2024
+2023-11-23,Los Angeles Lakers,Phoenix Suns,107,97,H,NBA,2023-2024
+2023-11-23,Brooklyn Nets,Boston Celtics,113,91,H,NBA,2023-2024
+2023-11-23,New Orleans Pelicans,Sacramento Kings,95,113,A,NBA,2023-2024
+2023-11-23,Dallas Mavericks,Sacramento Kings,129,139,A,NBA,2023-2024
+2023-11-23,Brooklyn Nets,Memphis Grizzlies,113,111,H,NBA,2023-2024
+2023-11-23,Sacramento Kings,LA Clippers,119,117,H,NBA,2023-2024
+2023-11-23,Milwaukee Bucks,Cleveland Cavaliers,117,113,H,NBA,2023-2024
+2023-11-23,Miami Heat,Dallas Mavericks,97,108,A,NBA,2023-2024
+2023-11-24,LA Clippers,New York Knicks,124,115,H,NBA,2023-2024
+2023-11-24,Miami Heat,Golden State Warriors,114,97,H,NBA,2023-2024
+2023-11-24,Miami Heat,Dallas Mavericks,105,103,H,NBA,2023-2024
+2023-11-24,New York Knicks,Milwaukee Bucks,121,104,H,NBA,2023-2024
+2023-11-24,New York Knicks,LA Clippers,103,111,A,NBA,2023-2024
+2023-11-24,Brooklyn Nets,Denver Nuggets,107,109,A,NBA,2023-2024
+2023-11-24,Philadelphia 76ers,Boston Celtics,129,126,H,NBA,2023-2024
+2023-11-24,Cleveland Cavaliers,New York Knicks,123,90,H,NBA,2023-2024
+2023-11-24,Golden State Warriors,Denver Nuggets,122,118,H,NBA,2023-2024
+2023-11-24,Brooklyn Nets,Miami Heat,116,102,H,NBA,2023-2024
+2023-11-25,Golden State Warriors,Sacramento Kings,104,97,H,NBA,2023-2024
+2023-11-25,Denver Nuggets,Los Angeles Lakers,109,106,H,NBA,2023-2024
+2023-11-25,Memphis Grizzlies,New York Knicks,112,114,A,NBA,2023-2024
+2023-11-25,Los Angeles Lakers,Denver Nuggets,124,114,H,NBA,2023-2024
+2023-11-25,Memphis Grizzlies,New Orleans Pelicans,123,104,H,NBA,2023-2024
+2023-11-25,Memphis Grizzlies,Denver Nuggets,132,126,H,NBA,2023-2024
+2023-11-25,Dallas Mavericks,Milwaukee Bucks,93,93,A,NBA,2023-2024
+2023-11-25,New York Knicks,Memphis Grizzlies,111,86,H,NBA,2023-2024
+2023-11-25,New York Knicks,Golden State Warriors,122,105,H,NBA,2023-2024
+2023-11-25,New York Knicks,Phoenix Suns,77,98,A,NBA,2023-2024
+2023-11-26,New Orleans Pelicans,Phoenix Suns,120,125,A,NBA,2023-2024
+2023-11-26,Sacramento Kings,Denver Nuggets,106,96,H,NBA,2023-2024
+2023-11-26,Milwaukee Bucks,Dallas Mavericks,106,107,A,NBA,2023-2024
+2023-11-26,Philadelphia 76ers,New York Knicks,98,96,H,NBA,2023-2024
+2023-11-26,Sacramento Kings,Philadelphia 76ers,109,110,A,NBA,2023-2024
+2023-11-26,LA Clippers,Brooklyn Nets,104,116,A,NBA,2023-2024
+2023-11-26,Dallas Mavericks,Sacramento Kings,122,132,A,NBA,2023-2024
+2023-11-26,Phoenix Suns,Milwaukee Bucks,122,99,H,NBA,2023-2024
+2023-11-26,Miami Heat,New Orleans Pelicans,119,97,H,NBA,2023-2024
+2023-11-26,Memphis Grizzlies,Milwaukee Bucks,123,103,H,NBA,2023-2024
+2023-11-27,Philadelphia 76ers,LA Clippers,119,92,H,NBA,2023-2024
+2023-11-27,Brooklyn Nets,Phoenix Suns,94,136,A,NBA,2023-2024
+2023-11-27,Dallas Mavericks,Phoenix Suns,90,121,A,NBA,2023-2024
+2023-11-27,Dallas Mavericks,Los Angeles Lakers,104,101,H,NBA,2023-2024
+2023-11-27,Brooklyn Nets,Dallas Mavericks,112,121,A,NBA,2023-2024
+2023-11-27,Los Angeles Lakers,Dallas Mavericks,106,109,A,NBA,2023-2024
+2023-11-27,Miami Heat,Los Angeles Lakers,100,109,A,NBA,2023-2024
+2023-11-27,Miami Heat,Boston Celtics,94,107,A,NBA,2023-2024
+2023-11-27,Boston Celtics,Denver Nuggets,115,118,A,NBA,2023-2024
+2023-11-27,Boston Celtics,Milwaukee Bucks,117,132,A,NBA,2023-2024
+2023-11-28,Philadelphia 76ers,New Orleans Pelicans,126,108,H,NBA,2023-2024
+2023-11-28,Brooklyn Nets,Golden State Warriors,102,98,H,NBA,2023-2024
+2023-11-28,Milwaukee Bucks,Memphis Grizzlies,123,98,H,NBA,2023-2024
+2023-11-28,Miami Heat,New Orleans Pelicans,113,104,H,NBA,2023-2024
+2023-11-28,Miami Heat,Milwaukee Bucks,105,114,A,NBA,2023-2024
+2023-11-28,Dallas Mavericks,Philadelphia 76ers,120,107,H,NBA,2023-2024
+2023-11-28,Los Angeles Lakers,Memphis Grizzlies,98,107,A,NBA,2023-2024
+2023-11-28,Milwaukee Bucks,Philadelphia 76ers,104,121,A,NBA,2023-2024
+2023-11-28,Golden State Warriors,Miami Heat,88,110,A,NBA,2023-2024
+2023-11-28,Cleveland Cavaliers,Dallas Mavericks,132,120,H,NBA,2023-2024
+2023-11-29,Denver Nuggets,Brooklyn Nets,119,105,H,NBA,2023-2024
+2023-11-29,Philadelphia 76ers,Boston Celtics,115,97,H,NBA,2023-2024
+2023-11-29,Cleveland Cavaliers,Boston Celtics,120,102,H,NBA,2023-2024
+2023-11-29,Golden State Warriors,Cleveland Cavaliers,105,103,H,NBA,2023-2024
+2023-11-29,New Orleans Pelicans,Philadelphia 76ers,113,117,A,NBA,2023-2024
+2023-11-29,Memphis Grizzlies,Phoenix Suns,134,95,H,NBA,2023-2024
+2023-11-29,Miami Heat,Golden State Warriors,112,110,H,NBA,2023-2024
+2023-11-29,Sacramento Kings,Denver Nuggets,109,113,A,NBA,2023-2024
+2023-11-29,Denver Nuggets,Phoenix Suns,123,125,A,NBA,2023-2024
+2023-11-29,Milwaukee Bucks,New York Knicks,107,119,A,NBA,2023-2024
+2023-11-30,Denver Nuggets,Cleveland Cavaliers,102,111,A,NBA,2023-2024
+2023-11-30,Milwaukee Bucks,Brooklyn Nets,103,114,A,NBA,2023-2024
+2023-11-30,Sacramento Kings,Phoenix Suns,115,105,H,NBA,2023-2024
+2023-11-30,Miami Heat,Golden State Warriors,113,116,A,NBA,2023-2024
+2023-11-30,Dallas Mavericks,Phoenix Suns,118,101,H,NBA,2023-2024
+2023-11-30,Cleveland Cavaliers,New York Knicks,90,109,A,NBA,2023-2024
+2023-11-30,Cleveland Cavaliers,Philadelphia 76ers,112,102,H,NBA,2023-2024
+2023-11-30,Golden State Warriors,Phoenix Suns,112,113,A,NBA,2023-2024
+2023-11-30,Boston Celtics,Memphis Grizzlies,96,132,A,NBA,2023-2024
+2023-11-30,New Orleans Pelicans,Miami Heat,119,115,H,NBA,2023-2024
+2023-12-01,Sacramento Kings,New Orleans Pelicans,104,111,A,NBA,2023-2024
+2023-12-01,Golden State Warriors,Dallas Mavericks,115,95,H,NBA,2023-2024
+2023-12-01,Los Angeles Lakers,Dallas Mavericks,120,103,H,NBA,2023-2024
+2023-12-01,LA Clippers,Miami Heat,102,105,A,NBA,2023-2024
+2023-12-01,Dallas Mavericks,Phoenix Suns,127,101,H,NBA,2023-2024
+2023-12-01,Milwaukee Bucks,New York Knicks,118,100,H,NBA,2023-2024
+2023-12-01,Cleveland Cavaliers,Sacramento Kings,113,116,A,NBA,2023-2024
+2023-12-01,Miami Heat,Cleveland Cavaliers,91,90,H,NBA,2023-2024
+2023-12-01,Sacramento Kings,Milwaukee Bucks,98,104,A,NBA,2023-2024
+2023-12-01,Golden State Warriors,LA Clippers,108,124,A,NBA,2023-2024
+2023-12-02,Los Angeles Lakers,Brooklyn Nets,105,107,A,NBA,2023-2024
+2023-12-02,Miami Heat,Philadelphia 76ers,114,99,H,NBA,2023-2024
+2023-12-02,Sacramento Kings,Golden State Warriors,116,118,A,NBA,2023-2024
+2023-12-02,Cleveland Cavaliers,Milwaukee Bucks,110,109,H,NBA,2023-2024
+2023-12-02,Dallas Mavericks,Cleveland Cavaliers,116,134,A,NBA,2023-2024
+2023-12-02,Golden State Warriors,New Orleans Pelicans,92,104,A,NBA,2023-2024
+2023-12-02,Phoenix Suns,Sacramento Kings,108,105,H,NBA,2023-2024
+2023-12-02,Dallas Mavericks,Los Angeles Lakers,87,104,A,NBA,2023-2024
+2023-12-02,Memphis Grizzlies,Phoenix Suns,97,95,H,NBA,2023-2024
+2023-12-02,Sacramento Kings,Dallas Mavericks,115,118,A,NBA,2023-2024
+2023-12-03,Sacramento Kings,Miami Heat,108,105,H,NBA,2023-2024
+2023-12-03,Los Angeles Lakers,LA Clippers,90,102,A,NBA,2023-2024
+2023-12-03,Sacramento Kings,Boston Celtics,132,118,H,NBA,2023-2024
+2023-12-03,New Orleans Pelicans,Milwaukee Bucks,109,89,H,NBA,2023-2024
+2023-12-03,Phoenix Suns,Sacramento Kings,103,108,A,NBA,2023-2024
+2023-12-03,Golden State Warriors,Los Angeles Lakers,96,106,A,NBA,2023-2024
+2023-12-03,Golden State Warriors,Memphis Grizzlies,105,103,H,NBA,2023-2024
+2023-12-03,Phoenix Suns,Golden State Warriors,127,104,H,NBA,2023-2024
+2023-12-03,Golden State Warriors,Phoenix Suns,100,112,A,NBA,2023-2024
+2023-12-03,Milwaukee Bucks,Denver Nuggets,99,96,H,NBA,2023-2024
+2023-12-04,Memphis Grizzlies,Denver Nuggets,120,105,H,NBA,2023-2024
+2023-12-04,Boston Celtics,Los Angeles Lakers,111,102,H,NBA,2023-2024
+2023-12-04,Memphis Grizzlies,Philadelphia 76ers,107,88,H,NBA,2023-2024
+2023-12-04,Dallas Mavericks,Sacramento Kings,137,101,H,NBA,2023-2024
+2023-12-04,Sacramento Kings,Golden State Warriors,94,76,H,NBA,2023-2024
+2023-12-04,Los Angeles Lakers,Sacramento Kings,123,109,H,NBA,2023-2024
+2023-12-04,Los Angeles Lakers,LA Clippers,113,111,H,NBA,2023-2024
+2023-12-04,Los Angeles Lakers,Memphis Grizzlies,81,90,A,NBA,2023-2024
+2023-12-04,New Orleans Pelicans,Sacramento Kings,103,106,A,NBA,2023-2024
+2023-12-04,Dallas Mavericks,Brooklyn Nets,103,118,A,NBA,2023-2024
+2023-12-05,Los Angeles Lakers,Dallas Mavericks,122,109,H,NBA,2023-2024
+2023-12-05,Denver Nuggets,Brooklyn Nets,109,100,H,NBA,2023-2024
+2023-12-05,LA Clippers,Sacramento Kings,105,94,H,NBA,2023-2024
+2023-12-05,Golden State Warriors,New York Knicks,114,117,A,NBA,2023-2024
+2023-12-05,New York Knicks,Cleveland Cavaliers,95,120,A,NBA,2023-2024
+2023-12-05,Brooklyn Nets,Denver Nuggets,119,114,H,NBA,2023-2024
+2023-12-05,Los Angeles Lakers,New Orleans Pelicans,105,114,A,NBA,2023-2024
+2023-12-05,Milwaukee Bucks,LA Clippers,117,121,A,NBA,2023-2024
+2023-12-05,Phoenix Suns,Golden State Warriors,123,134,A,NBA,2023-2024
+2023-12-05,Los Angeles Lakers,Boston Celtics,89,97,A,NBA,2023-2024
+2023-12-06,Dallas Mavericks,Denver Nuggets,131,95,H,NBA,2023-2024
+2023-12-06,Brooklyn Nets,Boston Celtics,112,118,A,NBA,2023-2024
+2023-12-06,Sacramento Kings,Boston Celtics,106,104,H,NBA,2023-2024
+2023-12-06,Miami Heat,Cleveland Cavaliers,112,128,A,NBA,2023-2024
+2023-12-06,Golden State Warriors,LA Clippers,89,100,A,NBA,2023-2024
+2023-12-06,Los Angeles Lakers,Philadelphia 76ers,103,109,A,NBA,2023-2024
+2023-12-06,Phoenix Suns,LA Clippers,86,116,A,NBA,2023-2024
+2023-12-06,Denver Nuggets,Dallas Mavericks,121,113,H,NBA,2023-2024
+2023-12-06,Miami Heat,Cleveland Cavaliers,132,99,H,NBA,2023-2024
+2023-12-06,Denver Nuggets,Brooklyn Nets,122,99,H,NBA,2023-2024
+2023-12-07,Cleveland Cavaliers,New York Knicks,116,113,H,NBA,2023-2024
+2023-12-07,Cleveland Cavaliers,New York Knicks,108,117,A,NBA,2023-2024
+2023-12-07,Philadelphia 76ers,Cleveland Cavaliers,87,122,A,NBA,2023-2024
+2023-12-07,Dallas Mavericks,Miami Heat,122,121,H,NBA,2023-2024
+2023-12-07,Denver Nuggets,Boston Celtics,106,93,H,NBA,2023-2024
+2023-12-07,Milwaukee Bucks,Miami Heat,106,117,A,NBA,2023-2024
+2023-12-07,Milwaukee Bucks,Golden State Warriors,110,106,H,NBA,2023-2024
+2023-12-07,Cleveland Cavaliers,Golden State Warriors,103,105,A,NBA,2023-2024
+2023-12-07,Sacramento Kings,Memphis Grizzlies,123,93,H,NBA,2023-2024
+2023-12-07,Phoenix Suns,Dallas Mavericks,95,100,A,NBA,2023-2024
+2023-12-08,Cleveland Cavaliers,Miami Heat,132,102,H,NBA,2023-2024
+2023-12-08,New York Knicks,Boston Celtics,104,107,A,NBA,2023-2024
+2023-12-08,Memphis Grizzlies,Golden State Warriors,108,112,A,NBA,2023-2024
+2023-12-08,Memphis Grizzlies,LA Clippers,108,103,H,NBA,2023-2024
+2023-12-08,Brooklyn Nets,Golden State Warriors,88,103,A,NBA,2023-2024
+2023-12-08,Phoenix Suns,Memphis Grizzlies,118,103,H,NBA,2023-2024
+2023-12-08,Milwaukee Bucks,Boston Celtics,91,90,H,NBA,2023-2024
+2023-12-08,New Orleans Pelicans,Miami Heat,95,109,A,NBA,2023-2024
+2023-12-08,Los Angeles Lakers,Sacramento Kings,128,111,H,NBA,2023-2024
+2023-12-08,Memphis Grizzlies,Denver Nuggets,88,101,A,NBA,2023-2024
+2023-12-09,New Orleans Pelicans,New York Knicks,94,97,A,NBA,2023-2024
+2023-12-09,Cleveland Cavaliers,Memphis Grizzlies,86,116,A,NBA,2023-2024
+2023-12-09,Cleveland Cavaliers,New Orleans Pelicans,107,94,H,NBA,2023-2024
+2023-12-09,LA Clippers,Boston Celtics,79,104,A,NBA,2023-2024
+2023-12-09,Los Angeles Lakers,Milwaukee Bucks,113,118,A,NBA,2023-2024
+2023-12-09,Dallas Mavericks,Philadelphia 76ers,95,113,A,NBA,2023-2024
+2023-12-09,Phoenix Suns,Dallas Mavericks,109,101,H,NBA,2023-2024
+2023-12-09,Milwaukee Bucks,Denver Nuggets,113,113,A,NBA,2023-2024
+2023-12-09,New York Knicks,New Orleans Pelicans,105,111,A,NBA,2023-2024
+2023-12-09,Los Angeles Lakers,Dallas Mavericks,117,103,H,NBA,2023-2024
+2023-12-10,Cleveland Cavaliers,Miami Heat,108,93,H,NBA,2023-2024
+2023-12-10,New Orleans Pelicans,Cleveland Cavaliers,123,107,H,NBA,2023-2024
+2023-12-10,LA Clippers,Denver Nuggets,92,97,A,NBA,2023-2024
+2023-12-10,Los Angeles Lakers,LA Clippers,102,124,A,NBA,2023-2024
+2023-12-10,Memphis Grizzlies,Dallas Mavericks,126,98,H,NBA,2023-2024
+2023-12-10,Phoenix Suns,LA Clippers,83,87,A,NBA,2023-2024
+2023-12-10,LA Clippers,New Orleans Pelicans,125,112,H,NBA,2023-2024
+2023-12-10,Golden State Warriors,New Orleans Pelicans,123,105,H,NBA,2023-2024
+2023-12-10,New Orleans Pelicans,Philadelphia 76ers,117,72,H,NBA,2023-2024
+2023-12-10,Sacramento Kings,New York Knicks,133,105,H,NBA,2023-2024
+2023-12-11,Memphis Grizzlies,Golden State Warriors,100,112,A,NBA,2023-2024
+2023-12-11,Sacramento Kings,Phoenix Suns,123,101,H,NBA,2023-2024
+2023-12-11,Philadelphia 76ers,Golden State Warriors,121,114,H,NBA,2023-2024
+2023-12-11,Denver Nuggets,LA Clippers,116,116,A,NBA,2023-2024
+2023-12-11,Phoenix Suns,Sacramento Kings,119,117,H,NBA,2023-2024
+2023-12-11,New Orleans Pelicans,Dallas Mavericks,117,113,H,NBA,2023-2024
+2023-12-11,Boston Celtics,New Orleans Pelicans,109,97,H,NBA,2023-2024
+2023-12-11,Sacramento Kings,LA Clippers,90,88,H,NBA,2023-2024
+2023-12-11,Miami Heat,Cleveland Cavaliers,100,104,A,NBA,2023-2024
+2023-12-11,Cleveland Cavaliers,Sacramento Kings,110,115,A,NBA,2023-2024
+2023-12-12,New Orleans Pelicans,Boston Celtics,110,98,H,NBA,2023-2024
+2023-12-12,Brooklyn Nets,New York Knicks,107,108,A,NBA,2023-2024
+2023-12-12,Boston Celtics,Memphis Grizzlies,90,98,A,NBA,2023-2024
+2023-12-12,Cleveland Cavaliers,Boston Celtics,120,100,H,NBA,2023-2024
+2023-12-12,Sacramento Kings,Philadelphia 76ers,119,105,H,NBA,2023-2024
+2023-12-12,New York Knicks,Denver Nuggets,91,106,A,NBA,2023-2024
+2023-12-12,Dallas Mavericks,LA Clippers,110,111,A,NBA,2023-2024
+2023-12-12,Phoenix Suns,Golden State Warriors,99,112,A,NBA,2023-2024
+2023-12-12,Los Angeles Lakers,Philadelphia 76ers,73,110,A,NBA,2023-2024
+2023-12-12,Brooklyn Nets,Milwaukee Bucks,102,110,A,NBA,2023-2024
+2023-12-13,New Orleans Pelicans,Boston Celtics,119,96,H,NBA,2023-2024
+2023-12-13,Milwaukee Bucks,Miami Heat,112,124,A,NBA,2023-2024
+2023-12-13,LA Clippers,Milwaukee Bucks,114,101,H,NBA,2023-2024
+2023-12-13,Boston Celtics,New York Knicks,87,107,A,NBA,2023-2024
+2023-12-13,Boston Celtics,Dallas Mavericks,103,109,A,NBA,2023-2024
+2023-12-13,Cleveland Cavaliers,Los Angeles Lakers,102,108,A,NBA,2023-2024
+2023-12-13,New Orleans Pelicans,Miami Heat,106,109,A,NBA,2023-2024
+2023-12-13,Boston Celtics,Dallas Mavericks,99,121,A,NBA,2023-2024
+2023-12-13,Memphis Grizzlies,Dallas Mavericks,93,98,A,NBA,2023-2024
+2023-12-13,Memphis Grizzlies,Boston Celtics,122,100,H,NBA,2023-2024
+2023-12-14,LA Clippers,Golden State Warriors,120,106,H,NBA,2023-2024
+2023-12-14,New Orleans Pelicans,Philadelphia 76ers,109,131,A,NBA,2023-2024
+2023-12-14,Los Angeles Lakers,New York Knicks,127,119,H,NBA,2023-2024
+2023-12-14,Brooklyn Nets,New Orleans Pelicans,116,98,H,NBA,2023-2024
+2023-12-14,New York Knicks,Phoenix Suns,111,110,H,NBA,2023-2024
+2023-12-14,Sacramento Kings,Dallas Mavericks,112,104,H,NBA,2023-2024
+2023-12-14,Cleveland Cavaliers,Phoenix Suns,108,102,H,NBA,2023-2024
+2023-12-14,New Orleans Pelicans,Denver Nuggets,76,108,A,NBA,2023-2024
+2023-12-14,LA Clippers,Boston Celtics,125,115,H,NBA,2023-2024
+2023-12-14,Dallas Mavericks,New York Knicks,106,111,A,NBA,2023-2024
+2023-12-15,Phoenix Suns,Sacramento Kings,129,100,H,NBA,2023-2024
+2023-12-15,Dallas Mavericks,Brooklyn Nets,114,115,A,NBA,2023-2024
+2023-12-15,Miami Heat,Los Angeles Lakers,117,117,A,NBA,2023-2024
+2023-12-15,New York Knicks,Boston Celtics,118,106,H,NBA,2023-2024
+2023-12-15,Milwaukee Bucks,Boston Celtics,111,103,H,NBA,2023-2024
+2023-12-15,Miami Heat,Denver Nuggets,100,109,A,NBA,2023-2024
+2023-12-15,Memphis Grizzlies,Golden State Warriors,122,114,H,NBA,2023-2024
+2023-12-15,Miami Heat,Memphis Grizzlies,98,109,A,NBA,2023-2024
+2023-12-15,Brooklyn Nets,LA Clippers,113,105,H,NBA,2023-2024
+2023-12-15,Boston Celtics,Denver Nuggets,112,108,H,NBA,2023-2024
+2023-12-16,Golden State Warriors,Brooklyn Nets,99,122,A,NBA,2023-2024
+2023-12-16,Cleveland Cavaliers,Miami Heat,120,96,H,NBA,2023-2024
+2023-12-16,Dallas Mavericks,Milwaukee Bucks,108,102,H,NBA,2023-2024
+2023-12-16,Los Angeles Lakers,Phoenix Suns,89,104,A,NBA,2023-2024
+2023-12-16,Los Angeles Lakers,Dallas Mavericks,100,109,A,NBA,2023-2024
+2023-12-16,LA Clippers,Sacramento Kings,96,102,A,NBA,2023-2024
+2023-12-16,Denver Nuggets,Phoenix Suns,124,98,H,NBA,2023-2024
+2023-12-16,Denver Nuggets,Milwaukee Bucks,121,131,A,NBA,2023-2024
+2023-12-16,New Orleans Pelicans,Memphis Grizzlies,117,131,A,NBA,2023-2024
+2023-12-16,Milwaukee Bucks,New Orleans Pelicans,116,131,A,NBA,2023-2024
+2023-12-17,Philadelphia 76ers,Los Angeles Lakers,91,117,A,NBA,2023-2024
+2023-12-17,New York Knicks,Miami Heat,113,109,H,NBA,2023-2024
+2023-12-17,Boston Celtics,New York Knicks,101,107,A,NBA,2023-2024
+2023-12-17,Cleveland Cavaliers,Brooklyn Nets,111,108,H,NBA,2023-2024
+2023-12-17,Denver Nuggets,Phoenix Suns,135,113,H,NBA,2023-2024
+2023-12-17,Memphis Grizzlies,New Orleans Pelicans,127,111,H,NBA,2023-2024
+2023-12-17,Los Angeles Lakers,Cleveland Cavaliers,119,125,A,NBA,2023-2024
+2023-12-17,Dallas Mavericks,Memphis Grizzlies,104,118,A,NBA,2023-2024
+2023-12-17,Golden State Warriors,Cleveland Cavaliers,110,112,A,NBA,2023-2024
+2023-12-17,Milwaukee Bucks,New Orleans Pelicans,115,95,H,NBA,2023-2024
+2023-12-18,Los Angeles Lakers,Boston Celtics,108,112,A,NBA,2023-2024
+2023-12-18,Miami Heat,New York Knicks,101,108,A,NBA,2023-2024
+2023-12-18,Sacramento Kings,Boston Celtics,115,110,H,NBA,2023-2024
+2023-12-18,Milwaukee Bucks,Phoenix Suns,89,99,A,NBA,2023-2024
+2023-12-18,Boston Celtics,New Orleans Pelicans,115,106,H,NBA,2023-2024
+2023-12-18,Sacramento Kings,Phoenix Suns,117,110,H,NBA,2023-2024
+2023-12-18,Sacramento Kings,Boston Celtics,94,110,A,NBA,2023-2024
+2023-12-18,LA Clippers,Sacramento Kings,123,110,H,NBA,2023-2024
+2023-12-18,Philadelphia 76ers,New York Knicks,113,116,A,NBA,2023-2024
+2023-12-18,Los Angeles Lakers,Cleveland Cavaliers,115,112,H,NBA,2023-2024
+2023-12-19,Cleveland Cavaliers,New York Knicks,90,113,A,NBA,2023-2024
+2023-12-19,Dallas Mavericks,Boston Celtics,101,109,A,NBA,2023-2024
+2023-12-19,Miami Heat,Boston Celtics,115,108,H,NBA,2023-2024
+2023-12-19,Denver Nuggets,Dallas Mavericks,108,93,H,NBA,2023-2024
+2023-12-19,New Orleans Pelicans,Milwaukee Bucks,118,92,H,NBA,2023-2024
+2023-12-19,Denver Nuggets,Los Angeles Lakers,112,93,H,NBA,2023-2024
+2023-12-19,Miami Heat,Sacramento Kings,106,107,A,NBA,2023-2024
+2023-12-19,Brooklyn Nets,Milwaukee Bucks,117,105,H,NBA,2023-2024
+2023-12-19,Brooklyn Nets,New Orleans Pelicans,94,115,A,NBA,2023-2024
+2023-12-19,Cleveland Cavaliers,Philadelphia 76ers,115,116,A,NBA,2023-2024
+2023-12-20,Memphis Grizzlies,Miami Heat,104,107,A,NBA,2023-2024
+2023-12-20,Golden State Warriors,New York Knicks,100,112,A,NBA,2023-2024
+2023-12-20,Dallas Mavericks,Miami Heat,118,105,H,NBA,2023-2024
+2023-12-20,Golden State Warriors,Los Angeles Lakers,93,88,H,NBA,2023-2024
+2023-12-20,Phoenix Suns,LA Clippers,87,120,A,NBA,2023-2024
+2023-12-20,Boston Celtics,Sacramento Kings,114,89,H,NBA,2023-2024
+2023-12-20,Memphis Grizzlies,Boston Celtics,95,116,A,NBA,2023-2024
+2023-12-20,Brooklyn Nets,Memphis Grizzlies,91,108,A,NBA,2023-2024
+2023-12-20,Dallas Mavericks,Phoenix Suns,105,116,A,NBA,2023-2024
+2023-12-20,New York Knicks,Milwaukee Bucks,91,131,A,NBA,2023-2024
+2023-12-21,Golden State Warriors,Miami Heat,129,109,H,NBA,2023-2024
+2023-12-21,Golden State Warriors,Sacramento Kings,119,104,H,NBA,2023-2024
+2023-12-21,Denver Nuggets,Memphis Grizzlies,107,119,A,NBA,2023-2024
+2023-12-21,Milwaukee Bucks,Philadelphia 76ers,105,70,H,NBA,2023-2024
+2023-12-21,Milwaukee Bucks,Sacramento Kings,94,112,A,NBA,2023-2024
+2023-12-21,Golden State Warriors,Philadelphia 76ers,111,104,H,NBA,2023-2024
+2023-12-21,Memphis Grizzlies,Milwaukee Bucks,118,103,H,NBA,2023-2024
+2023-12-21,Los Angeles Lakers,Milwaukee Bucks,102,122,A,NBA,2023-2024
+2023-12-21,Milwaukee Bucks,Golden State Warriors,74,122,A,NBA,2023-2024
+2023-12-21,Phoenix Suns,Dallas Mavericks,114,105,H,NBA,2023-2024
+2023-12-22,LA Clippers,Sacramento Kings,130,137,A,NBA,2023-2024
+2023-12-22,New York Knicks,Dallas Mavericks,107,101,H,NBA,2023-2024
+2023-12-22,Dallas Mavericks,Memphis Grizzlies,103,100,H,NBA,2023-2024
+2023-12-22,Phoenix Suns,Sacramento Kings,121,106,H,NBA,2023-2024
+2023-12-22,Miami Heat,New Orleans Pelicans,102,96,H,NBA,2023-2024
+2023-12-22,Golden State Warriors,New Orleans Pelicans,96,129,A,NBA,2023-2024
+2023-12-22,New York Knicks,Denver Nuggets,120,110,H,NBA,2023-2024
+2023-12-22,Phoenix Suns,Brooklyn Nets,99,96,H,NBA,2023-2024
+2023-12-22,Dallas Mavericks,LA Clippers,93,102,A,NBA,2023-2024
+2023-12-22,Miami Heat,Phoenix Suns,95,109,A,NBA,2023-2024
+2023-12-23,New Orleans Pelicans,Memphis Grizzlies,127,101,H,NBA,2023-2024
+2023-12-23,New Orleans Pelicans,Memphis Grizzlies,111,87,H,NBA,2023-2024
+2023-12-23,Los Angeles Lakers,Cleveland Cavaliers,106,135,A,NBA,2023-2024
+2023-12-23,Los Angeles Lakers,Phoenix Suns,111,113,A,NBA,2023-2024
+2023-12-23,Memphis Grizzlies,Phoenix Suns,127,111,H,NBA,2023-2024
+2023-12-23,LA Clippers,Dallas Mavericks,95,105,A,NBA,2023-2024
+2023-12-23,LA Clippers,Denver Nuggets,119,107,H,NBA,2023-2024
+2023-12-23,Denver Nuggets,Memphis Grizzlies,117,113,H,NBA,2023-2024
+2023-12-23,Los Angeles Lakers,Golden State Warriors,103,114,A,NBA,2023-2024
+2023-12-23,New York Knicks,Miami Heat,115,117,A,NBA,2023-2024
+2023-12-24,Cleveland Cavaliers,New Orleans Pelicans,129,82,H,NBA,2023-2024
+2023-12-24,Los Angeles Lakers,Milwaukee Bucks,125,70,H,NBA,2023-2024
+2023-12-24,New Orleans Pelicans,Milwaukee Bucks,106,107,A,NBA,2023-2024
+2023-12-24,Milwaukee Bucks,Golden State Warriors,109,113,A,NBA,2023-2024
+2023-12-24,Milwaukee Bucks,Dallas Mavericks,120,114,H,NBA,2023-2024
+2023-12-24,Dallas Mavericks,Los Angeles Lakers,131,108,H,NBA,2023-2024
+2023-12-24,Miami Heat,Dallas Mavericks,115,101,H,NBA,2023-2024
+2023-12-24,Golden State Warriors,Milwaukee Bucks,98,104,A,NBA,2023-2024
+2023-12-24,Brooklyn Nets,Dallas Mavericks,104,97,H,NBA,2023-2024
+2023-12-24,Denver Nuggets,Boston Celtics,114,117,A,NBA,2023-2024
+2023-12-25,Phoenix Suns,Dallas Mavericks,118,91,H,NBA,2023-2024
+2023-12-25,Golden State Warriors,Boston Celtics,110,100,H,NBA,2023-2024
+2023-12-25,Sacramento Kings,Phoenix Suns,97,91,H,NBA,2023-2024
+2023-12-25,Los Angeles Lakers,Denver Nuggets,124,97,H,NBA,2023-2024
+2023-12-25,Sacramento Kings,Phoenix Suns,103,87,H,NBA,2023-2024
+2023-12-25,Golden State Warriors,Denver Nuggets,104,106,A,NBA,2023-2024
+2023-12-25,LA Clippers,Denver Nuggets,111,114,A,NBA,2023-2024
+2023-12-25,Miami Heat,Philadelphia 76ers,95,114,A,NBA,2023-2024
+2023-12-25,Golden State Warriors,Denver Nuggets,115,105,H,NBA,2023-2024
+2023-12-25,Dallas Mavericks,Brooklyn Nets,109,104,H,NBA,2023-2024
+2023-12-26,Brooklyn Nets,Los Angeles Lakers,111,96,H,NBA,2023-2024
+2023-12-26,Cleveland Cavaliers,LA Clippers,93,110,A,NBA,2023-2024
+2023-12-26,Milwaukee Bucks,Brooklyn Nets,111,90,H,NBA,2023-2024
+2023-12-26,Denver Nuggets,Cleveland Cavaliers,114,137,A,NBA,2023-2024
+2023-12-26,Golden State Warriors,Boston Celtics,121,92,H,NBA,2023-2024
+2023-12-26,Miami Heat,Memphis Grizzlies,101,110,A,NBA,2023-2024
+2023-12-26,New York Knicks,New Orleans Pelicans,108,110,A,NBA,2023-2024
+2023-12-26,Miami Heat,Milwaukee Bucks,130,124,H,NBA,2023-2024
+2023-12-26,LA Clippers,Boston Celtics,124,120,H,NBA,2023-2024
+2023-12-26,New Orleans Pelicans,Miami Heat,96,96,A,NBA,2023-2024
+2023-12-27,Cleveland Cavaliers,Boston Celtics,107,111,A,NBA,2023-2024
+2023-12-27,Miami Heat,Milwaukee Bucks,122,122,A,NBA,2023-2024
+2023-12-27,Cleveland Cavaliers,Los Angeles Lakers,110,104,H,NBA,2023-2024
+2023-12-27,Los Angeles Lakers,Brooklyn Nets,116,107,H,NBA,2023-2024
+2023-12-27,Milwaukee Bucks,Brooklyn Nets,105,113,A,NBA,2023-2024
+2023-12-27,New Orleans Pelicans,Miami Heat,109,105,H,NBA,2023-2024
+2023-12-27,Golden State Warriors,Phoenix Suns,113,110,H,NBA,2023-2024
+2023-12-27,Cleveland Cavaliers,New Orleans Pelicans,104,88,H,NBA,2023-2024
+2023-12-27,Dallas Mavericks,Cleveland Cavaliers,110,106,H,NBA,2023-2024
+2023-12-27,Los Angeles Lakers,Cleveland Cavaliers,94,116,A,NBA,2023-2024
+2023-12-28,Milwaukee Bucks,Sacramento Kings,114,114,A,NBA,2023-2024
+2023-12-28,LA Clippers,New Orleans Pelicans,98,85,H,NBA,2023-2024
+2023-12-28,Sacramento Kings,Brooklyn Nets,129,127,H,NBA,2023-2024
+2023-12-28,Sacramento Kings,Denver Nuggets,114,113,H,NBA,2023-2024
+2023-12-28,Golden State Warriors,Phoenix Suns,110,116,A,NBA,2023-2024
+2023-12-28,Sacramento Kings,Golden State Warriors,127,116,H,NBA,2023-2024
+2023-12-28,Philadelphia 76ers,Cleveland Cavaliers,100,108,A,NBA,2023-2024
+2023-12-28,Brooklyn Nets,Los Angeles Lakers,111,117,A,NBA,2023-2024
+2023-12-28,Dallas Mavericks,Denver Nuggets,100,91,H,NBA,2023-2024
+2023-12-28,Miami Heat,Phoenix Suns,123,115,H,NBA,2023-2024
+2023-12-29,Phoenix Suns,Boston Celtics,93,116,A,NBA,2023-2024
+2023-12-29,Cleveland Cavaliers,Miami Heat,90,83,H,NBA,2023-2024
+2023-12-29,Cleveland Cavaliers,Memphis Grizzlies,103,118,A,NBA,2023-2024
+2023-12-29,Memphis Grizzlies,Brooklyn Nets,101,108,A,NBA,2023-2024
+2023-12-29,Miami Heat,Dallas Mavericks,104,125,A,NBA,2023-2024
+2023-12-29,Boston Celtics,Brooklyn Nets,101,102,A,NBA,2023-2024
+2023-12-29,New Orleans Pelicans,New York Knicks,119,112,H,NBA,2023-2024
+2023-12-29,New York Knicks,New Orleans Pelicans,101,111,A,NBA,2023-2024
+2023-12-29,Phoenix Suns,Los Angeles Lakers,96,98,A,NBA,2023-2024
+2023-12-29,Philadelphia 76ers,Memphis Grizzlies,84,114,A,NBA,2023-2024
+2023-12-30,LA Clippers,Brooklyn Nets,115,114,H,NBA,2023-2024
+2023-12-30,Denver Nuggets,LA Clippers,96,91,H,NBA,2023-2024
+2023-12-30,Brooklyn Nets,Memphis Grizzlies,107,97,H,NBA,2023-2024
+2023-12-30,Golden State Warriors,Sacramento Kings,93,108,A,NBA,2023-2024
+2023-12-30,Miami Heat,Phoenix Suns,121,113,H,NBA,2023-2024
+2023-12-30,Denver Nuggets,Golden State Warriors,107,107,A,NBA,2023-2024
+2023-12-30,Dallas Mavericks,Sacramento Kings,82,95,A,NBA,2023-2024
+2023-12-30,New Orleans Pelicans,Sacramento Kings,107,79,H,NBA,2023-2024
+2023-12-30,New York Knicks,Los Angeles Lakers,117,112,H,NBA,2023-2024
+2023-12-30,Phoenix Suns,Denver Nuggets,101,119,A,NBA,2023-2024
+2023-12-31,Miami Heat,Los Angeles Lakers,98,86,H,NBA,2023-2024
+2023-12-31,New Orleans Pelicans,Brooklyn Nets,123,130,A,NBA,2023-2024
+2023-12-31,Boston Celtics,Brooklyn Nets,101,95,H,NBA,2023-2024
+2023-12-31,Denver Nuggets,Philadelphia 76ers,100,97,H,NBA,2023-2024
+2023-12-31,Miami Heat,New Orleans Pelicans,115,126,A,NBA,2023-2024
+2023-12-31,Memphis Grizzlies,Sacramento Kings,127,101,H,NBA,2023-2024
+2023-12-31,Los Angeles Lakers,Milwaukee Bucks,99,128,A,NBA,2023-2024
+2023-12-31,Brooklyn Nets,Los Angeles Lakers,102,95,H,NBA,2023-2024
+2023-12-31,New York Knicks,Miami Heat,105,108,A,NBA,2023-2024
+2023-12-31,LA Clippers,New York Knicks,109,131,A,NBA,2023-2024
+2024-01-01,New York Knicks,Sacramento Kings,114,107,H,NBA,2023-2024
+2024-01-01,Los Angeles Lakers,Philadelphia 76ers,113,102,H,NBA,2023-2024
+2024-01-01,Golden State Warriors,Philadelphia 76ers,116,124,A,NBA,2023-2024
+2024-01-01,Memphis Grizzlies,Dallas Mavericks,99,128,A,NBA,2023-2024
+2024-01-01,New York Knicks,Phoenix Suns,118,96,H,NBA,2023-2024
+2024-01-01,New Orleans Pelicans,Dallas Mavericks,120,120,A,NBA,2023-2024
+2024-01-01,Philadelphia 76ers,Los Angeles Lakers,122,106,H,NBA,2023-2024
+2024-01-01,Dallas Mavericks,Golden State Warriors,105,99,H,NBA,2023-2024
+2024-01-01,Denver Nuggets,LA Clippers,125,108,H,NBA,2023-2024
+2024-01-01,Dallas Mavericks,Sacramento Kings,106,107,A,NBA,2023-2024
+2024-01-02,Sacramento Kings,LA Clippers,99,99,A,NBA,2023-2024
+2024-01-02,Philadelphia 76ers,Miami Heat,93,106,A,NBA,2023-2024
+2024-01-02,Philadelphia 76ers,Milwaukee Bucks,111,122,A,NBA,2023-2024
+2024-01-02,Los Angeles Lakers,Sacramento Kings,119,73,H,NBA,2023-2024
+2024-01-02,Miami Heat,New Orleans Pelicans,109,101,H,NBA,2023-2024
+2024-01-02,Golden State Warriors,Denver Nuggets,118,125,A,NBA,2023-2024
+2024-01-02,Denver Nuggets,LA Clippers,92,91,H,NBA,2023-2024
+2024-01-02,Memphis Grizzlies,Brooklyn Nets,116,105,H,NBA,2023-2024
+2024-01-02,Sacramento Kings,Memphis Grizzlies,113,111,H,NBA,2023-2024
+2024-01-02,Dallas Mavericks,New York Knicks,100,110,A,NBA,2023-2024
+2024-01-03,Philadelphia 76ers,New Orleans Pelicans,111,101,H,NBA,2023-2024
+2024-01-03,Dallas Mavericks,Memphis Grizzlies,124,141,A,NBA,2023-2024
+2024-01-03,Sacramento Kings,Denver Nuggets,123,117,H,NBA,2023-2024
+2024-01-03,Golden State Warriors,Miami Heat,118,96,H,NBA,2023-2024
+2024-01-03,Memphis Grizzlies,Denver Nuggets,95,123,A,NBA,2023-2024
+2024-01-03,Miami Heat,Sacramento Kings,104,99,H,NBA,2023-2024
+2024-01-03,LA Clippers,Golden State Warriors,127,103,H,NBA,2023-2024
+2024-01-03,Brooklyn Nets,Phoenix Suns,129,111,H,NBA,2023-2024
+2024-01-03,Cleveland Cavaliers,Brooklyn Nets,129,100,H,NBA,2023-2024
+2024-01-03,New Orleans Pelicans,Philadelphia 76ers,94,112,A,NBA,2023-2024
+2024-01-04,New York Knicks,Memphis Grizzlies,121,118,H,NBA,2023-2024
+2024-01-04,New Orleans Pelicans,Los Angeles Lakers,97,110,A,NBA,2023-2024
+2024-01-04,Golden State Warriors,Memphis Grizzlies,116,107,H,NBA,2023-2024
+2024-01-04,Los Angeles Lakers,LA Clippers,96,118,A,NBA,2023-2024
+2024-01-04,Miami Heat,Golden State Warriors,92,121,A,NBA,2023-2024
+2024-01-04,New York Knicks,Cleveland Cavaliers,88,104,A,NBA,2023-2024
+2024-01-04,Memphis Grizzlies,Milwaukee Bucks,117,114,H,NBA,2023-2024
+2024-01-04,New Orleans Pelicans,Denver Nuggets,118,117,H,NBA,2023-2024
+2024-01-04,Los Angeles Lakers,New York Knicks,107,90,H,NBA,2023-2024
+2024-01-04,Miami Heat,Denver Nuggets,121,105,H,NBA,2023-2024
+2024-01-05,LA Clippers,Phoenix Suns,121,112,H,NBA,2023-2024
+2024-01-05,New Orleans Pelicans,Miami Heat,93,104,A,NBA,2023-2024
+2024-01-05,Philadelphia 76ers,Dallas Mavericks,104,127,A,NBA,2023-2024
+2024-01-05,New York Knicks,Miami Heat,112,103,H,NBA,2023-2024
+2024-01-05,Los Angeles Lakers,Denver Nuggets,139,93,H,NBA,2023-2024
+2024-01-05,New Orleans Pelicans,New York Knicks,112,107,H,NBA,2023-2024
+2024-01-05,Memphis Grizzlies,Cleveland Cavaliers,106,121,A,NBA,2023-2024
+2024-01-05,Sacramento Kings,New Orleans Pelicans,107,101,H,NBA,2023-2024
+2024-01-05,Miami Heat,Denver Nuggets,97,121,A,NBA,2023-2024
+2024-01-05,Denver Nuggets,New Orleans Pelicans,107,108,A,NBA,2023-2024
+2024-01-06,Golden State Warriors,Miami Heat,112,120,A,NBA,2023-2024
+2024-01-06,Dallas Mavericks,Milwaukee Bucks,131,102,H,NBA,2023-2024
+2024-01-06,Memphis Grizzlies,Dallas Mavericks,115,91,H,NBA,2023-2024
+2024-01-06,Philadelphia 76ers,Cleveland Cavaliers,107,114,A,NBA,2023-2024
+2024-01-06,Phoenix Suns,New Orleans Pelicans,117,118,A,NBA,2023-2024
+2024-01-06,Dallas Mavericks,LA Clippers,109,100,H,NBA,2023-2024
+2024-01-06,Boston Celtics,Cleveland Cavaliers,97,125,A,NBA,2023-2024
+2024-01-06,Denver Nuggets,Cleveland Cavaliers,110,92,H,NBA,2023-2024
+2024-01-06,Dallas Mavericks,Cleveland Cavaliers,122,124,A,NBA,2023-2024
+2024-01-06,Brooklyn Nets,Miami Heat,114,95,H,NBA,2023-2024
+2024-01-07,Milwaukee Bucks,Los Angeles Lakers,116,97,H,NBA,2023-2024
+2024-01-07,Miami Heat,Boston Celtics,121,113,H,NBA,2023-2024
+2024-01-07,Sacramento Kings,Boston Celtics,128,118,H,NBA,2023-2024
+2024-01-07,Cleveland Cavaliers,Philadelphia 76ers,98,144,A,NBA,2023-2024
+2024-01-07,Sacramento Kings,New York Knicks,112,94,H,NBA,2023-2024
+2024-01-07,Miami Heat,Boston Celtics,111,117,A,NBA,2023-2024
+2024-01-07,Philadelphia 76ers,New York Knicks,104,106,A,NBA,2023-2024
+2024-01-07,Philadelphia 76ers,Sacramento Kings,100,106,A,NBA,2023-2024
+2024-01-07,New Orleans Pelicans,Milwaukee Bucks,96,115,A,NBA,2023-2024
+2024-01-07,New York Knicks,Memphis Grizzlies,108,110,A,NBA,2023-2024
+2024-01-08,Phoenix Suns,Philadelphia 76ers,120,100,H,NBA,2023-2024
+2024-01-08,Golden State Warriors,Milwaukee Bucks,113,108,H,NBA,2023-2024
+2024-01-08,Philadelphia 76ers,New Orleans Pelicans,103,105,A,NBA,2023-2024
+2024-01-08,Denver Nuggets,New York Knicks,114,111,H,NBA,2023-2024
+2024-01-08,Sacramento Kings,New York Knicks,107,99,H,NBA,2023-2024
+2024-01-08,Boston Celtics,Philadelphia 76ers,102,99,H,NBA,2023-2024
+2024-01-08,Milwaukee Bucks,Boston Celtics,104,104,A,NBA,2023-2024
+2024-01-08,Milwaukee Bucks,New Orleans Pelicans,89,102,A,NBA,2023-2024
+2024-01-08,Philadelphia 76ers,Cleveland Cavaliers,95,95,A,NBA,2023-2024
+2024-01-08,Sacramento Kings,Philadelphia 76ers,105,101,H,NBA,2023-2024

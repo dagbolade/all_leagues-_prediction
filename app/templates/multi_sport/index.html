@@ -1,0 +1,113 @@
+<!-- Multi-Sport Platform Home -->
+{% extends "base.html" %}
+
+{% block title %}Multi-Sport Prediction Platform{% endblock %}
+
+{% block content %}
+<style>
+    .sport-card {
+        transition: transform 0.3s;
+        cursor: pointer;
+        border: none;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    .sport-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 8px 12px rgba(0,0,0,0.2);
+    }
+    .sport-icon {
+        font-size: 4rem;
+        margin-bottom: 1rem;
+    }
+    .football { background: linear-gradient(135deg, #28a745 0%, #20c997 100%); }
+    .basketball { background: linear-gradient(135deg, #fd7e14 0%, #ff922b 100%); }
+    .nfl { background: linear-gradient(135deg, #0d6efd 0%, #0096c7 100%); }
+    .tennis { background: linear-gradient(135deg, #ffc107 0%, #ffb703 100%); }
+</style>
+
+<div class="welcome-section text-center py-5">
+    <h1 class="display-3 text-white mb-3">Multi-Sport Prediction Platform</h1>
+    <p class="lead text-light mb-4">AI-powered predictions for Football, Basketball, NFL, and Tennis</p>
+</div>
+
+<div class="container my-5">
+    <div class="row g-4">
+        <!-- Football Card -->
+        <div class="col-md-6 col-lg-3">
+            <div class="card sport-card football text-white" onclick="window.location='/sport/football'">
+                <div class="card-body text-center py-5">
+                    <div class="sport-icon">⚽</div>
+                    <h3 class="card-title">Football</h3>
+                    <p class="card-text">22 European Leagues</p>
+                    <p class="small">Premier League, La Liga, Serie A...</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Basketball Card -->
+        <div class="col-md-6 col-lg-3">
+            <div class="card sport-card basketball text-white" onclick="window.location='/sport/basketball'">
+                <div class="card-body text-center py-5">
+                    <div class="sport-icon">🏀</div>
+                    <h3 class="card-title">Basketball</h3>
+                    <p class="card-text">NBA Predictions</p>
+                    <p class="small">Spreads, Totals, Winners</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- NFL Card -->
+        <div class="col-md-6 col-lg-3">
+            <div class="card sport-card nfl text-white" onclick="window.location='/sport/nfl'">
+                <div class="card-body text-center py-5">
+                    <div class="sport-icon">🏈</div>
+                    <h3 class="card-title">NFL</h3>
+                    <p class="card-text">American Football</p>
+                    <p class="small">Spreads, Totals, Winners</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tennis Card -->
+        <div class="col-md-6 col-lg-3">
+            <div class="card sport-card tennis text-white" onclick="window.location='/sport/tennis'">
+                <div class="card-body text-center py-5">
+                    <div class="sport-icon">🎾</div>
+                    <h3 class="card-title">Tennis</h3>
+                    <p class="card-text">ATP & WTA</p>
+                    <p class="small">Match Winners, Set Betting</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Stats Section -->
+    <div class="row mt-5">
+        <div class="col-12">
+            <div class="card bg-dark text-white">
+                <div class="card-body">
+                    <h4 class="text-center mb-4">Platform Stats</h4>
+                    <div class="row text-center">
+                        <div class="col-md-3">
+                            <h2 class="text-success">4</h2>
+                            <p>Sports Covered</p>
+                        </div>
+                        <div class="col-md-3">
+                            <h2 class="text-info">17K+</h2>
+                            <p>Matches Analyzed</p>
+                        </div>
+                        <div class="col-md-3">
+                            <h2 class="text-warning">400+</h2>
+                            <p>Features Engineered</p>
+                        </div>
+                        <div class="col-md-3">
+                            <h2 class="text-danger">10+</h2>
+                            <p>ML Models</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

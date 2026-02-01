@@ -1,0 +1,37 @@
+# Railway ignore file
+*.pyc
+__pycache__/
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.venv/
+.git/
+.gitignore
+*.log
+*.pot
+*.mo
+.cache
+.pytest_cache/
+.coverage
+htmlcov/
+dist/
+build/
+*.egg-info/
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Data files (too large for deployment)
+data/basketball/raw/*.csv
+data/nfl/raw/*.csv
+data/football/raw/*.xlsx
+
+# Test files
+test_*.py
+tests/

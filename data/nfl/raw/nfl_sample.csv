@@ -1,0 +1,501 @@
+Date,Week,HomeTeam,AwayTeam,HomeScore,AwayScore,Result,League,Season
+2023-09-01,1,Kansas City Chiefs,Dallas Cowboys,20,22,A,NFL,2023
+2023-09-01,1,Dallas Cowboys,Cincinnati Bengals,20,23,A,NFL,2023
+2023-09-01,1,New England Patriots,Miami Dolphins,23,14,H,NFL,2023
+2023-09-01,1,Baltimore Ravens,Jacksonville Jaguars,34,23,H,NFL,2023
+2023-09-01,1,Dallas Cowboys,Baltimore Ravens,18,29,A,NFL,2023
+2023-09-01,1,Detroit Lions,San Francisco 49ers,22,29,A,NFL,2023
+2023-09-01,1,Tampa Bay Buccaneers,New England Patriots,36,15,H,NFL,2023
+2023-09-01,1,Dallas Cowboys,Cleveland Browns,14,16,A,NFL,2023
+2023-09-01,1,Cleveland Browns,Buffalo Bills,33,26,H,NFL,2023
+2023-09-01,1,Tampa Bay Buccaneers,Green Bay Packers,27,5,H,NFL,2023
+2023-09-01,1,Baltimore Ravens,Los Angeles Rams,14,17,A,NFL,2023
+2023-09-01,1,Buffalo Bills,Los Angeles Rams,23,34,A,NFL,2023
+2023-09-01,1,Jacksonville Jaguars,Miami Dolphins,20,29,A,NFL,2023
+2023-09-01,1,San Francisco 49ers,Buffalo Bills,26,15,H,NFL,2023
+2023-09-01,1,Cincinnati Bengals,Cleveland Browns,31,21,H,NFL,2023
+2023-09-01,1,Seattle Seahawks,Kansas City Chiefs,24,31,A,NFL,2023
+2023-09-08,2,Seattle Seahawks,Cleveland Browns,32,21,H,NFL,2023
+2023-09-08,2,Miami Dolphins,Philadelphia Eagles,16,28,A,NFL,2023
+2023-09-08,2,Tampa Bay Buccaneers,Miami Dolphins,22,22,D,NFL,2023
+2023-09-08,2,San Francisco 49ers,Seattle Seahawks,3,18,A,NFL,2023
+2023-09-08,2,New England Patriots,Miami Dolphins,35,35,D,NFL,2023
+2023-09-08,2,Baltimore Ravens,Cleveland Browns,33,16,H,NFL,2023
+2023-09-08,2,New England Patriots,San Francisco 49ers,33,13,H,NFL,2023
+2023-09-08,2,Seattle Seahawks,New England Patriots,43,39,H,NFL,2023
+2023-09-08,2,Tampa Bay Buccaneers,Miami Dolphins,29,31,A,NFL,2023
+2023-09-08,2,Green Bay Packers,Buffalo Bills,22,16,H,NFL,2023
+2023-09-08,2,Kansas City Chiefs,Baltimore Ravens,27,7,H,NFL,2023
+2023-09-08,2,Seattle Seahawks,Kansas City Chiefs,16,14,H,NFL,2023
+2023-09-08,2,Cincinnati Bengals,Los Angeles Rams,25,25,D,NFL,2023
+2023-09-08,2,Cincinnati Bengals,Green Bay Packers,27,31,A,NFL,2023
+2023-09-08,2,Dallas Cowboys,Kansas City Chiefs,29,28,H,NFL,2023
+2023-09-08,2,Baltimore Ravens,Buffalo Bills,24,33,A,NFL,2023
+2023-09-15,3,Los Angeles Rams,Baltimore Ravens,22,25,A,NFL,2023
+2023-09-15,3,Los Angeles Rams,Tampa Bay Buccaneers,40,18,H,NFL,2023
+2023-09-15,3,Los Angeles Rams,Dallas Cowboys,25,17,H,NFL,2023
+2023-09-15,3,San Francisco 49ers,Dallas Cowboys,20,37,A,NFL,2023
+2023-09-15,3,Jacksonville Jaguars,New England Patriots,26,13,H,NFL,2023
+2023-09-15,3,Los Angeles Rams,Kansas City Chiefs,17,26,A,NFL,2023
+2023-09-15,3,New England Patriots,Tampa Bay Buccaneers,36,19,H,NFL,2023
+2023-09-15,3,Cleveland Browns,Green Bay Packers,31,33,A,NFL,2023
+2023-09-15,3,Green Bay Packers,Tampa Bay Buccaneers,24,15,H,NFL,2023
+2023-09-15,3,Tampa Bay Buccaneers,Kansas City Chiefs,26,9,H,NFL,2023
+2023-09-15,3,Dallas Cowboys,Miami Dolphins,12,12,D,NFL,2023
+2023-09-15,3,Seattle Seahawks,San Francisco 49ers,36,22,H,NFL,2023
+2023-09-15,3,San Francisco 49ers,Philadelphia Eagles,22,20,H,NFL,2023
+2023-09-15,3,San Francisco 49ers,Buffalo Bills,28,22,H,NFL,2023
+2023-09-15,3,Jacksonville Jaguars,Cincinnati Bengals,36,28,H,NFL,2023
+2023-09-15,3,Miami Dolphins,Seattle Seahawks,26,25,H,NFL,2023
+2023-09-22,4,Green Bay Packers,Kansas City Chiefs,31,32,A,NFL,2023
+2023-09-22,4,Los Angeles Rams,San Francisco 49ers,15,10,H,NFL,2023
+2023-09-22,4,Detroit Lions,Cleveland Browns,10,17,A,NFL,2023
+2023-09-22,4,Buffalo Bills,Cleveland Browns,26,21,H,NFL,2023
+2023-09-22,4,Detroit Lions,Buffalo Bills,15,23,A,NFL,2023
+2023-09-22,4,Los Angeles Rams,Seattle Seahawks,24,0,H,NFL,2023
+2023-09-22,4,Green Bay Packers,Detroit Lions,40,18,H,NFL,2023
+2023-09-22,4,Green Bay Packers,Philadelphia Eagles,27,33,A,NFL,2023
+2023-09-22,4,San Francisco 49ers,Cleveland Browns,28,26,H,NFL,2023
+2023-09-22,4,New England Patriots,Kansas City Chiefs,16,34,A,NFL,2023
+2023-09-22,4,Buffalo Bills,Detroit Lions,21,25,A,NFL,2023
+2023-09-22,4,Baltimore Ravens,Kansas City Chiefs,37,17,H,NFL,2023
+2023-09-22,4,San Francisco 49ers,Cincinnati Bengals,32,23,H,NFL,2023
+2023-09-22,4,Philadelphia Eagles,Baltimore Ravens,23,10,H,NFL,2023
+2023-09-22,4,Philadelphia Eagles,Baltimore Ravens,26,22,H,NFL,2023
+2023-09-22,4,Los Angeles Rams,Philadelphia Eagles,30,31,A,NFL,2023
+2023-09-29,5,Detroit Lions,Green Bay Packers,11,11,D,NFL,2023
+2023-09-29,5,Cincinnati Bengals,Seattle Seahawks,30,31,A,NFL,2023
+2023-09-29,5,Buffalo Bills,Miami Dolphins,26,31,A,NFL,2023
+2023-09-29,5,Baltimore Ravens,San Francisco 49ers,35,4,H,NFL,2023
+2023-09-29,5,Philadelphia Eagles,Kansas City Chiefs,22,18,H,NFL,2023
+2023-09-29,5,New England Patriots,Dallas Cowboys,18,19,A,NFL,2023
+2023-09-29,5,Miami Dolphins,Los Angeles Rams,26,19,H,NFL,2023
+2023-09-29,5,Buffalo Bills,Kansas City Chiefs,31,33,A,NFL,2023
+2023-09-29,5,Cincinnati Bengals,Seattle Seahawks,27,18,H,NFL,2023
+2023-09-29,5,Seattle Seahawks,Cincinnati Bengals,27,33,A,NFL,2023
+2023-09-29,5,Seattle Seahawks,Miami Dolphins,34,18,H,NFL,2023
+2023-09-29,5,Baltimore Ravens,New England Patriots,18,27,A,NFL,2023
+2023-09-29,5,Buffalo Bills,Detroit Lions,11,22,A,NFL,2023
+2023-09-29,5,Dallas Cowboys,New England Patriots,15,22,A,NFL,2023
+2023-09-29,5,Green Bay Packers,Miami Dolphins,26,24,H,NFL,2023
+2023-09-29,5,Miami Dolphins,Baltimore Ravens,25,22,H,NFL,2023
+2023-10-06,6,Los Angeles Rams,New England Patriots,24,15,H,NFL,2023
+2023-10-06,6,Seattle Seahawks,Kansas City Chiefs,20,29,A,NFL,2023
+2023-10-06,6,Seattle Seahawks,Miami Dolphins,13,23,A,NFL,2023
+2023-10-06,6,Detroit Lions,Los Angeles Rams,35,24,H,NFL,2023
+2023-10-06,6,Seattle Seahawks,Kansas City Chiefs,17,15,H,NFL,2023
+2023-10-06,6,Jacksonville Jaguars,Miami Dolphins,19,22,A,NFL,2023
+2023-10-06,6,Baltimore Ravens,Green Bay Packers,29,22,H,NFL,2023
+2023-10-06,6,Green Bay Packers,Philadelphia Eagles,30,11,H,NFL,2023
+2023-10-06,6,Buffalo Bills,San Francisco 49ers,28,19,H,NFL,2023
+2023-10-06,6,Los Angeles Rams,Seattle Seahawks,18,14,H,NFL,2023
+2023-10-06,6,Tampa Bay Buccaneers,San Francisco 49ers,32,31,H,NFL,2023
+2023-10-06,6,Philadelphia Eagles,Dallas Cowboys,27,22,H,NFL,2023
+2023-10-06,6,Jacksonville Jaguars,Detroit Lions,18,6,H,NFL,2023
+2023-10-06,6,Baltimore Ravens,Jacksonville Jaguars,23,25,A,NFL,2023
+2023-10-06,6,Philadelphia Eagles,Los Angeles Rams,42,36,H,NFL,2023
+2023-10-06,6,Dallas Cowboys,New England Patriots,14,17,A,NFL,2023
+2023-10-13,7,Cincinnati Bengals,Seattle Seahawks,24,8,H,NFL,2023
+2023-10-13,7,Buffalo Bills,New England Patriots,21,15,H,NFL,2023
+2023-10-13,7,Tampa Bay Buccaneers,Cincinnati Bengals,16,12,H,NFL,2023
+2023-10-13,7,Buffalo Bills,Cleveland Browns,23,15,H,NFL,2023
+2023-10-13,7,Baltimore Ravens,Cincinnati Bengals,14,13,H,NFL,2023
+2023-10-13,7,Los Angeles Rams,Green Bay Packers,22,20,H,NFL,2023
+2023-10-13,7,Dallas Cowboys,Los Angeles Rams,14,4,H,NFL,2023
+2023-10-13,7,Los Angeles Rams,Seattle Seahawks,26,18,H,NFL,2023
+2023-10-13,7,Miami Dolphins,Cincinnati Bengals,23,30,A,NFL,2023
+2023-10-13,7,New England Patriots,Cleveland Browns,29,6,H,NFL,2023
+2023-10-13,7,New England Patriots,Detroit Lions,23,24,A,NFL,2023
+2023-10-13,7,Cleveland Browns,San Francisco 49ers,34,11,H,NFL,2023
+2023-10-13,7,Miami Dolphins,San Francisco 49ers,22,25,A,NFL,2023
+2023-10-13,7,New England Patriots,Baltimore Ravens,24,18,H,NFL,2023
+2023-10-13,7,Baltimore Ravens,Tampa Bay Buccaneers,18,23,A,NFL,2023
+2023-10-13,7,Cleveland Browns,Green Bay Packers,27,11,H,NFL,2023
+2023-10-20,8,Tampa Bay Buccaneers,Dallas Cowboys,27,6,H,NFL,2023
+2023-10-20,8,Los Angeles Rams,Cleveland Browns,21,18,H,NFL,2023
+2023-10-20,8,New England Patriots,Tampa Bay Buccaneers,27,23,H,NFL,2023
+2023-10-20,8,Cleveland Browns,Tampa Bay Buccaneers,17,19,A,NFL,2023
+2023-10-20,8,Cleveland Browns,Green Bay Packers,32,34,A,NFL,2023
+2023-10-20,8,Buffalo Bills,Cincinnati Bengals,21,16,H,NFL,2023
+2023-10-20,8,New England Patriots,Buffalo Bills,22,26,A,NFL,2023
+2023-10-20,8,Miami Dolphins,Jacksonville Jaguars,24,16,H,NFL,2023
+2023-10-20,8,Buffalo Bills,Philadelphia Eagles,24,17,H,NFL,2023
+2023-10-20,8,Miami Dolphins,Green Bay Packers,18,29,A,NFL,2023
+2023-10-20,8,New England Patriots,Green Bay Packers,10,32,A,NFL,2023
+2023-10-20,8,Baltimore Ravens,Miami Dolphins,10,23,A,NFL,2023
+2023-10-20,8,Cincinnati Bengals,New England Patriots,27,18,H,NFL,2023
+2023-10-20,8,Tampa Bay Buccaneers,Baltimore Ravens,18,21,A,NFL,2023
+2023-10-20,8,Jacksonville Jaguars,Los Angeles Rams,27,24,H,NFL,2023
+2023-10-20,8,Seattle Seahawks,Kansas City Chiefs,29,16,H,NFL,2023
+2023-10-27,9,Dallas Cowboys,Cincinnati Bengals,23,13,H,NFL,2023
+2023-10-27,9,Seattle Seahawks,New England Patriots,29,14,H,NFL,2023
+2023-10-27,9,Seattle Seahawks,Philadelphia Eagles,0,18,A,NFL,2023
+2023-10-27,9,San Francisco 49ers,New England Patriots,29,2,H,NFL,2023
+2023-10-27,9,San Francisco 49ers,Los Angeles Rams,34,23,H,NFL,2023
+2023-10-27,9,Cincinnati Bengals,Baltimore Ravens,22,19,H,NFL,2023
+2023-10-27,9,Miami Dolphins,New England Patriots,14,6,H,NFL,2023
+2023-10-27,9,New England Patriots,Buffalo Bills,36,14,H,NFL,2023
+2023-10-27,9,Seattle Seahawks,Cincinnati Bengals,13,27,A,NFL,2023
+2023-10-27,9,Miami Dolphins,Philadelphia Eagles,21,25,A,NFL,2023
+2023-10-27,9,Baltimore Ravens,San Francisco 49ers,12,16,A,NFL,2023
+2023-10-27,9,Tampa Bay Buccaneers,New England Patriots,28,28,D,NFL,2023
+2023-10-27,9,Philadelphia Eagles,Buffalo Bills,15,18,A,NFL,2023
+2023-10-27,9,Los Angeles Rams,Cincinnati Bengals,35,11,H,NFL,2023
+2023-10-27,9,Seattle Seahawks,Jacksonville Jaguars,31,35,A,NFL,2023
+2023-10-27,9,Seattle Seahawks,New England Patriots,21,6,H,NFL,2023
+2023-11-03,10,Buffalo Bills,Jacksonville Jaguars,11,5,H,NFL,2023
+2023-11-03,10,Jacksonville Jaguars,Detroit Lions,33,22,H,NFL,2023
+2023-11-03,10,Los Angeles Rams,Baltimore Ravens,25,24,H,NFL,2023
+2023-11-03,10,Kansas City Chiefs,Jacksonville Jaguars,35,23,H,NFL,2023
+2023-11-03,10,Green Bay Packers,New England Patriots,16,15,H,NFL,2023
+2023-11-03,10,Green Bay Packers,Baltimore Ravens,28,17,H,NFL,2023
+2023-11-03,10,Jacksonville Jaguars,San Francisco 49ers,31,24,H,NFL,2023
+2023-11-03,10,Jacksonville Jaguars,San Francisco 49ers,31,34,A,NFL,2023
+2023-11-03,10,Buffalo Bills,Kansas City Chiefs,29,35,A,NFL,2023
+2023-11-03,10,Los Angeles Rams,Philadelphia Eagles,31,14,H,NFL,2023
+2023-11-03,10,Seattle Seahawks,Green Bay Packers,15,27,A,NFL,2023
+2023-11-03,10,Seattle Seahawks,Detroit Lions,17,26,A,NFL,2023
+2023-11-03,10,Dallas Cowboys,Baltimore Ravens,26,13,H,NFL,2023
+2023-11-03,10,Philadelphia Eagles,Buffalo Bills,21,4,H,NFL,2023
+2023-11-03,10,Buffalo Bills,Seattle Seahawks,20,4,H,NFL,2023
+2023-11-03,10,Cleveland Browns,Cincinnati Bengals,22,18,H,NFL,2023
+2023-11-10,11,Philadelphia Eagles,Detroit Lions,15,36,A,NFL,2023
+2023-11-10,11,Jacksonville Jaguars,Philadelphia Eagles,19,14,H,NFL,2023
+2023-11-10,11,Tampa Bay Buccaneers,Cleveland Browns,25,28,A,NFL,2023
+2023-11-10,11,Seattle Seahawks,Baltimore Ravens,17,21,A,NFL,2023
+2023-11-10,11,Los Angeles Rams,Dallas Cowboys,10,29,A,NFL,2023
+2023-11-10,11,New England Patriots,Green Bay Packers,15,18,A,NFL,2023
+2023-11-10,11,Philadelphia Eagles,Los Angeles Rams,25,6,H,NFL,2023
+2023-11-10,11,New England Patriots,Seattle Seahawks,24,22,H,NFL,2023
+2023-11-10,11,Kansas City Chiefs,Los Angeles Rams,26,22,H,NFL,2023
+2023-11-10,11,San Francisco 49ers,Detroit Lions,29,11,H,NFL,2023
+2023-11-10,11,Detroit Lions,San Francisco 49ers,22,21,H,NFL,2023
+2023-11-10,11,Miami Dolphins,Seattle Seahawks,33,11,H,NFL,2023
+2023-11-10,11,Los Angeles Rams,Seattle Seahawks,16,17,A,NFL,2023
+2023-11-10,11,Jacksonville Jaguars,Kansas City Chiefs,17,23,A,NFL,2023
+2023-11-10,11,Philadelphia Eagles,Detroit Lions,31,26,H,NFL,2023
+2023-11-10,11,Tampa Bay Buccaneers,Cincinnati Bengals,13,14,A,NFL,2023
+2023-11-17,12,Miami Dolphins,Tampa Bay Buccaneers,33,22,H,NFL,2023
+2023-11-17,12,Cincinnati Bengals,Philadelphia Eagles,28,43,A,NFL,2023
+2023-11-17,12,Miami Dolphins,New England Patriots,6,28,A,NFL,2023
+2023-11-17,12,Seattle Seahawks,Dallas Cowboys,12,16,A,NFL,2023
+2023-11-17,12,Baltimore Ravens,Kansas City Chiefs,18,18,D,NFL,2023
+2023-11-17,12,Cincinnati Bengals,Baltimore Ravens,23,23,D,NFL,2023
+2023-11-17,12,Seattle Seahawks,Miami Dolphins,34,23,H,NFL,2023
+2023-11-17,12,Green Bay Packers,Dallas Cowboys,17,7,H,NFL,2023
+2023-11-17,12,Seattle Seahawks,Philadelphia Eagles,14,30,A,NFL,2023
+2023-11-17,12,San Francisco 49ers,Kansas City Chiefs,16,23,A,NFL,2023
+2023-11-17,12,Cincinnati Bengals,Seattle Seahawks,32,29,H,NFL,2023
+2023-11-17,12,Cleveland Browns,Baltimore Ravens,23,29,A,NFL,2023
+2023-11-17,12,Miami Dolphins,Jacksonville Jaguars,14,24,A,NFL,2023
+2023-11-17,12,Jacksonville Jaguars,Cleveland Browns,20,7,H,NFL,2023
+2023-11-17,12,Dallas Cowboys,Los Angeles Rams,21,24,A,NFL,2023
+2023-11-17,12,Philadelphia Eagles,Cleveland Browns,44,15,H,NFL,2023
+2023-11-24,13,Jacksonville Jaguars,Cleveland Browns,25,13,H,NFL,2023
+2023-11-24,13,Tampa Bay Buccaneers,Baltimore Ravens,29,10,H,NFL,2023
+2023-11-24,13,Cincinnati Bengals,Jacksonville Jaguars,23,16,H,NFL,2023
+2023-11-24,13,New England Patriots,Miami Dolphins,17,12,H,NFL,2023
+2023-11-24,13,Green Bay Packers,Seattle Seahawks,36,25,H,NFL,2023
+2023-11-24,13,Detroit Lions,Baltimore Ravens,19,38,A,NFL,2023
+2023-11-24,13,Cleveland Browns,Seattle Seahawks,28,35,A,NFL,2023
+2023-11-24,13,Cincinnati Bengals,San Francisco 49ers,21,19,H,NFL,2023
+2023-11-24,13,Cleveland Browns,Los Angeles Rams,15,30,A,NFL,2023
+2023-11-24,13,Miami Dolphins,Philadelphia Eagles,35,16,H,NFL,2023
+2023-11-24,13,Los Angeles Rams,Green Bay Packers,29,19,H,NFL,2023
+2023-11-24,13,Baltimore Ravens,Los Angeles Rams,25,13,H,NFL,2023
+2023-11-24,13,Tampa Bay Buccaneers,Cleveland Browns,19,19,D,NFL,2023
+2023-11-24,13,San Francisco 49ers,Kansas City Chiefs,13,21,A,NFL,2023
+2023-11-24,13,Los Angeles Rams,Jacksonville Jaguars,14,7,H,NFL,2023
+2023-11-24,13,Tampa Bay Buccaneers,Los Angeles Rams,22,28,A,NFL,2023
+2023-12-01,14,Green Bay Packers,Jacksonville Jaguars,18,36,A,NFL,2023
+2023-12-01,14,Philadelphia Eagles,Cincinnati Bengals,25,25,D,NFL,2023
+2023-12-01,14,Buffalo Bills,Kansas City Chiefs,23,11,H,NFL,2023
+2023-12-01,14,Baltimore Ravens,Los Angeles Rams,17,16,H,NFL,2023
+2023-12-01,14,Jacksonville Jaguars,Buffalo Bills,24,17,H,NFL,2023
+2023-12-01,14,Miami Dolphins,Cincinnati Bengals,17,18,A,NFL,2023
+2023-12-01,14,Detroit Lions,Los Angeles Rams,17,12,H,NFL,2023
+2023-12-01,14,Philadelphia Eagles,Jacksonville Jaguars,31,34,A,NFL,2023
+2023-12-01,14,Cleveland Browns,Buffalo Bills,32,22,H,NFL,2023
+2023-12-01,14,Tampa Bay Buccaneers,Philadelphia Eagles,27,39,A,NFL,2023
+2023-12-01,14,Los Angeles Rams,Green Bay Packers,26,0,H,NFL,2023
+2023-12-01,14,Los Angeles Rams,Tampa Bay Buccaneers,32,15,H,NFL,2023
+2023-12-01,14,Jacksonville Jaguars,Tampa Bay Buccaneers,12,12,D,NFL,2023
+2023-12-01,14,Tampa Bay Buccaneers,Baltimore Ravens,14,30,A,NFL,2023
+2023-12-01,14,Green Bay Packers,Baltimore Ravens,16,8,H,NFL,2023
+2023-12-01,14,Jacksonville Jaguars,Detroit Lions,22,32,A,NFL,2023
+2023-12-08,15,Buffalo Bills,New England Patriots,28,31,A,NFL,2023
+2023-12-08,15,Baltimore Ravens,Green Bay Packers,26,9,H,NFL,2023
+2023-12-08,15,Dallas Cowboys,New England Patriots,21,21,D,NFL,2023
+2023-12-08,15,Jacksonville Jaguars,Miami Dolphins,22,18,H,NFL,2023
+2023-12-08,15,Buffalo Bills,Seattle Seahawks,26,22,H,NFL,2023
+2023-12-08,15,Jacksonville Jaguars,Cincinnati Bengals,21,10,H,NFL,2023
+2023-12-08,15,Cincinnati Bengals,Buffalo Bills,24,7,H,NFL,2023
+2023-12-08,15,Detroit Lions,Miami Dolphins,4,8,A,NFL,2023
+2023-12-08,15,Dallas Cowboys,Detroit Lions,28,17,H,NFL,2023
+2023-12-08,15,Baltimore Ravens,Seattle Seahawks,22,20,H,NFL,2023
+2023-12-08,15,Kansas City Chiefs,Green Bay Packers,27,25,H,NFL,2023
+2023-12-08,15,Dallas Cowboys,Jacksonville Jaguars,29,11,H,NFL,2023
+2023-12-08,15,Tampa Bay Buccaneers,Baltimore Ravens,14,19,A,NFL,2023
+2023-12-08,15,San Francisco 49ers,Cincinnati Bengals,20,10,H,NFL,2023
+2023-12-08,15,Miami Dolphins,Seattle Seahawks,26,1,H,NFL,2023
+2023-12-08,15,San Francisco 49ers,Philadelphia Eagles,32,17,H,NFL,2023
+2023-12-15,16,Philadelphia Eagles,New England Patriots,18,21,A,NFL,2023
+2023-12-15,16,Seattle Seahawks,Detroit Lions,37,36,H,NFL,2023
+2023-12-15,16,New England Patriots,Cleveland Browns,28,21,H,NFL,2023
+2023-12-15,16,Cleveland Browns,Baltimore Ravens,25,10,H,NFL,2023
+2023-12-15,16,Dallas Cowboys,Seattle Seahawks,20,27,A,NFL,2023
+2023-12-15,16,Cleveland Browns,Buffalo Bills,23,20,H,NFL,2023
+2023-12-15,16,Green Bay Packers,Tampa Bay Buccaneers,10,21,A,NFL,2023
+2023-12-15,16,Cleveland Browns,Baltimore Ravens,31,4,H,NFL,2023
+2023-12-15,16,Buffalo Bills,Jacksonville Jaguars,15,35,A,NFL,2023
+2023-12-15,16,Tampa Bay Buccaneers,Cleveland Browns,21,20,H,NFL,2023
+2023-12-15,16,Kansas City Chiefs,Dallas Cowboys,24,25,A,NFL,2023
+2023-12-15,16,New England Patriots,Detroit Lions,16,8,H,NFL,2023
+2023-12-15,16,Seattle Seahawks,Dallas Cowboys,28,29,A,NFL,2023
+2023-12-15,16,Baltimore Ravens,Los Angeles Rams,30,20,H,NFL,2023
+2023-12-15,16,Tampa Bay Buccaneers,Seattle Seahawks,16,10,H,NFL,2023
+2023-12-15,16,Cincinnati Bengals,San Francisco 49ers,24,21,H,NFL,2023
+2023-12-22,17,Jacksonville Jaguars,Detroit Lions,11,7,H,NFL,2023
+2023-12-22,17,Baltimore Ravens,Miami Dolphins,28,16,H,NFL,2023
+2023-12-22,17,Buffalo Bills,Seattle Seahawks,19,33,A,NFL,2023
+2023-12-22,17,Cincinnati Bengals,Kansas City Chiefs,27,24,H,NFL,2023
+2023-12-22,17,Seattle Seahawks,Tampa Bay Buccaneers,25,18,H,NFL,2023
+2023-12-22,17,Buffalo Bills,New England Patriots,34,3,H,NFL,2023
+2023-12-22,17,Seattle Seahawks,Tampa Bay Buccaneers,25,21,H,NFL,2023
+2023-12-22,17,New England Patriots,Jacksonville Jaguars,16,34,A,NFL,2023
+2023-12-22,17,Los Angeles Rams,Detroit Lions,34,11,H,NFL,2023
+2023-12-22,17,Cincinnati Bengals,Jacksonville Jaguars,9,12,A,NFL,2023
+2023-12-22,17,Cincinnati Bengals,Buffalo Bills,14,23,A,NFL,2023
+2023-12-22,17,Cleveland Browns,Baltimore Ravens,40,33,H,NFL,2023
+2023-12-22,17,Buffalo Bills,Cleveland Browns,33,16,H,NFL,2023
+2023-12-22,17,Philadelphia Eagles,Jacksonville Jaguars,31,12,H,NFL,2023
+2023-12-22,17,Seattle Seahawks,Cleveland Browns,29,27,H,NFL,2023
+2023-12-22,17,New England Patriots,Seattle Seahawks,15,20,A,NFL,2023
+2023-12-29,18,Dallas Cowboys,Baltimore Ravens,38,9,H,NFL,2023
+2023-12-29,18,Cleveland Browns,Buffalo Bills,9,20,A,NFL,2023
+2023-12-29,18,Miami Dolphins,Baltimore Ravens,24,18,H,NFL,2023
+2023-12-29,18,Detroit Lions,San Francisco 49ers,23,10,H,NFL,2023
+2023-12-29,18,Detroit Lions,San Francisco 49ers,30,37,A,NFL,2023
+2023-12-29,18,Seattle Seahawks,Detroit Lions,31,21,H,NFL,2023
+2023-12-29,18,Philadelphia Eagles,Green Bay Packers,31,22,H,NFL,2023
+2023-12-29,18,Buffalo Bills,Los Angeles Rams,21,31,A,NFL,2023
+2023-12-29,18,New England Patriots,Miami Dolphins,25,27,A,NFL,2023
+2023-12-29,18,San Francisco 49ers,Kansas City Chiefs,17,15,H,NFL,2023
+2023-12-29,18,Baltimore Ravens,Buffalo Bills,28,6,H,NFL,2023
+2023-12-29,18,Miami Dolphins,Dallas Cowboys,39,11,H,NFL,2023
+2023-12-29,18,New England Patriots,Cincinnati Bengals,12,21,A,NFL,2023
+2023-12-29,18,Jacksonville Jaguars,Detroit Lions,33,17,H,NFL,2023
+2023-12-29,18,Tampa Bay Buccaneers,Philadelphia Eagles,34,30,H,NFL,2023
+2023-12-29,18,Cleveland Browns,Cincinnati Bengals,42,9,H,NFL,2023
+2024-01-05,19,Buffalo Bills,New England Patriots,27,22,H,NFL,2023
+2024-01-05,19,Green Bay Packers,Los Angeles Rams,16,29,A,NFL,2023
+2024-01-05,19,Detroit Lions,San Francisco 49ers,21,24,A,NFL,2023
+2024-01-05,19,San Francisco 49ers,Miami Dolphins,40,21,H,NFL,2023
+2024-01-05,19,Green Bay Packers,Seattle Seahawks,30,27,H,NFL,2023
+2024-01-05,19,Buffalo Bills,Baltimore Ravens,13,17,A,NFL,2023
+2024-01-05,19,Detroit Lions,Baltimore Ravens,22,15,H,NFL,2023
+2024-01-05,19,Green Bay Packers,San Francisco 49ers,20,13,H,NFL,2023
+2024-01-05,19,Baltimore Ravens,Kansas City Chiefs,39,12,H,NFL,2023
+2024-01-05,19,Baltimore Ravens,Miami Dolphins,16,18,A,NFL,2023
+2024-01-05,19,Cincinnati Bengals,Miami Dolphins,32,9,H,NFL,2023
+2024-01-05,19,Miami Dolphins,Jacksonville Jaguars,24,19,H,NFL,2023
+2024-01-05,19,Los Angeles Rams,Detroit Lions,27,25,H,NFL,2023
+2024-01-05,19,Jacksonville Jaguars,Baltimore Ravens,19,24,A,NFL,2023
+2024-01-05,19,San Francisco 49ers,Baltimore Ravens,22,21,H,NFL,2023
+2024-01-05,19,Kansas City Chiefs,Green Bay Packers,21,24,A,NFL,2023
+2024-01-12,20,San Francisco 49ers,Cleveland Browns,25,14,H,NFL,2023
+2024-01-12,20,San Francisco 49ers,Cincinnati Bengals,30,21,H,NFL,2023
+2024-01-12,20,Baltimore Ravens,Jacksonville Jaguars,18,28,A,NFL,2023
+2024-01-12,20,Miami Dolphins,Cleveland Browns,20,19,H,NFL,2023
+2024-01-12,20,Los Angeles Rams,Detroit Lions,17,14,H,NFL,2023
+2024-01-12,20,Los Angeles Rams,Buffalo Bills,23,19,H,NFL,2023
+2024-01-12,20,New England Patriots,Dallas Cowboys,15,27,A,NFL,2023
+2024-01-12,20,Cincinnati Bengals,Detroit Lions,20,26,A,NFL,2023
+2024-01-12,20,Miami Dolphins,Jacksonville Jaguars,17,22,A,NFL,2023
+2024-01-12,20,Miami Dolphins,Philadelphia Eagles,35,31,H,NFL,2023
+2024-01-12,20,Seattle Seahawks,Detroit Lions,23,20,H,NFL,2023
+2024-01-12,20,Baltimore Ravens,Green Bay Packers,28,28,D,NFL,2023
+2024-01-12,20,Kansas City Chiefs,San Francisco 49ers,35,6,H,NFL,2023
+2024-01-12,20,Cincinnati Bengals,New England Patriots,35,20,H,NFL,2023
+2024-01-12,20,New England Patriots,San Francisco 49ers,19,23,A,NFL,2023
+2024-01-12,20,Philadelphia Eagles,Tampa Bay Buccaneers,33,29,H,NFL,2023
+2024-01-19,21,Tampa Bay Buccaneers,New England Patriots,26,25,H,NFL,2023
+2024-01-19,21,Baltimore Ravens,Buffalo Bills,31,19,H,NFL,2023
+2024-01-19,21,Tampa Bay Buccaneers,New England Patriots,24,22,H,NFL,2023
+2024-01-19,21,Philadelphia Eagles,Detroit Lions,16,14,H,NFL,2023
+2024-01-19,21,Tampa Bay Buccaneers,Seattle Seahawks,31,15,H,NFL,2023
+2024-01-19,21,New England Patriots,Seattle Seahawks,27,21,H,NFL,2023
+2024-01-19,21,Los Angeles Rams,New England Patriots,13,10,H,NFL,2023
+2024-01-19,21,Buffalo Bills,San Francisco 49ers,32,19,H,NFL,2023
+2024-01-19,21,Tampa Bay Buccaneers,Seattle Seahawks,18,19,A,NFL,2023
+2024-01-19,21,Cincinnati Bengals,Miami Dolphins,3,9,A,NFL,2023
+2024-01-19,21,Cleveland Browns,Detroit Lions,5,38,A,NFL,2023
+2024-01-19,21,Seattle Seahawks,Dallas Cowboys,27,28,A,NFL,2023
+2024-01-19,21,Cincinnati Bengals,Kansas City Chiefs,25,25,D,NFL,2023
+2024-01-19,21,Los Angeles Rams,Miami Dolphins,30,17,H,NFL,2023
+2024-01-19,21,Dallas Cowboys,Philadelphia Eagles,17,42,A,NFL,2023
+2024-01-19,21,Green Bay Packers,Cleveland Browns,25,13,H,NFL,2023
+2024-01-26,22,Miami Dolphins,Baltimore Ravens,18,25,A,NFL,2023
+2024-01-26,22,Miami Dolphins,Jacksonville Jaguars,25,18,H,NFL,2023
+2024-01-26,22,Kansas City Chiefs,New England Patriots,16,19,A,NFL,2023
+2024-01-26,22,Philadelphia Eagles,Los Angeles Rams,14,9,H,NFL,2023
+2024-01-26,22,New England Patriots,Kansas City Chiefs,19,23,A,NFL,2023
+2024-01-26,22,Philadelphia Eagles,Seattle Seahawks,23,17,H,NFL,2023
+2024-01-26,22,Buffalo Bills,Baltimore Ravens,18,5,H,NFL,2023
+2024-01-26,22,Baltimore Ravens,Los Angeles Rams,33,21,H,NFL,2023
+2024-01-26,22,Baltimore Ravens,Miami Dolphins,26,20,H,NFL,2023
+2024-01-26,22,Detroit Lions,Buffalo Bills,25,7,H,NFL,2023
+2024-01-26,22,Los Angeles Rams,Kansas City Chiefs,16,31,A,NFL,2023
+2024-01-26,22,Cincinnati Bengals,New England Patriots,12,16,A,NFL,2023
+2024-01-26,22,San Francisco 49ers,Baltimore Ravens,32,17,H,NFL,2023
+2024-01-26,22,Miami Dolphins,Cleveland Browns,15,14,H,NFL,2023
+2024-01-26,22,Detroit Lions,New England Patriots,21,10,H,NFL,2023
+2024-01-26,22,Cleveland Browns,Baltimore Ravens,19,11,H,NFL,2023
+2024-02-02,23,Seattle Seahawks,Miami Dolphins,26,34,A,NFL,2023
+2024-02-02,23,Kansas City Chiefs,New England Patriots,34,13,H,NFL,2023
+2024-02-02,23,Green Bay Packers,Kansas City Chiefs,33,11,H,NFL,2023
+2024-02-02,23,Tampa Bay Buccaneers,Los Angeles Rams,25,24,H,NFL,2023
+2024-02-02,23,Baltimore Ravens,San Francisco 49ers,23,10,H,NFL,2023
+2024-02-02,23,Dallas Cowboys,Miami Dolphins,22,12,H,NFL,2023
+2024-02-02,23,Miami Dolphins,Cleveland Browns,21,19,H,NFL,2023
+2024-02-02,23,Philadelphia Eagles,Cincinnati Bengals,21,21,D,NFL,2023
+2024-02-02,23,Cincinnati Bengals,Baltimore Ravens,24,22,H,NFL,2023
+2024-02-02,23,Jacksonville Jaguars,New England Patriots,21,33,A,NFL,2023
+2024-02-02,23,New England Patriots,San Francisco 49ers,16,25,A,NFL,2023
+2024-02-02,23,Kansas City Chiefs,Miami Dolphins,27,29,A,NFL,2023
+2024-02-02,23,Cleveland Browns,Philadelphia Eagles,17,23,A,NFL,2023
+2024-02-02,23,Green Bay Packers,Miami Dolphins,18,26,A,NFL,2023
+2024-02-02,23,Kansas City Chiefs,Detroit Lions,31,29,H,NFL,2023
+2024-02-02,23,Baltimore Ravens,Jacksonville Jaguars,20,23,A,NFL,2023
+2024-02-09,24,Baltimore Ravens,Miami Dolphins,34,16,H,NFL,2023
+2024-02-09,24,Green Bay Packers,San Francisco 49ers,14,24,A,NFL,2023
+2024-02-09,24,Buffalo Bills,Kansas City Chiefs,26,27,A,NFL,2023
+2024-02-09,24,Buffalo Bills,Jacksonville Jaguars,22,16,H,NFL,2023
+2024-02-09,24,Los Angeles Rams,Philadelphia Eagles,12,31,A,NFL,2023
+2024-02-09,24,Baltimore Ravens,Cincinnati Bengals,33,24,H,NFL,2023
+2024-02-09,24,Los Angeles Rams,Jacksonville Jaguars,21,18,H,NFL,2023
+2024-02-09,24,Tampa Bay Buccaneers,New England Patriots,31,10,H,NFL,2023
+2024-02-09,24,Detroit Lions,Green Bay Packers,36,22,H,NFL,2023
+2024-02-09,24,Jacksonville Jaguars,Kansas City Chiefs,22,9,H,NFL,2023
+2024-02-09,24,Green Bay Packers,Buffalo Bills,26,2,H,NFL,2023
+2024-02-09,24,Seattle Seahawks,New England Patriots,20,10,H,NFL,2023
+2024-02-09,24,New England Patriots,Tampa Bay Buccaneers,32,22,H,NFL,2023
+2024-02-09,24,Cleveland Browns,Dallas Cowboys,18,19,A,NFL,2023
+2024-02-09,24,Cleveland Browns,Los Angeles Rams,12,22,A,NFL,2023
+2024-02-09,24,Kansas City Chiefs,Buffalo Bills,28,17,H,NFL,2023
+2024-02-16,25,New England Patriots,Cleveland Browns,29,16,H,NFL,2023
+2024-02-16,25,Philadelphia Eagles,Kansas City Chiefs,25,13,H,NFL,2023
+2024-02-16,25,Los Angeles Rams,Detroit Lions,16,27,A,NFL,2023
+2024-02-16,25,Buffalo Bills,Detroit Lions,20,19,H,NFL,2023
+2024-02-16,25,Kansas City Chiefs,San Francisco 49ers,16,29,A,NFL,2023
+2024-02-16,25,Seattle Seahawks,Buffalo Bills,25,19,H,NFL,2023
+2024-02-16,25,Seattle Seahawks,New England Patriots,24,19,H,NFL,2023
+2024-02-16,25,Detroit Lions,Cleveland Browns,19,21,A,NFL,2023
+2024-02-16,25,Seattle Seahawks,New England Patriots,11,20,A,NFL,2023
+2024-02-16,25,Baltimore Ravens,San Francisco 49ers,23,14,H,NFL,2023
+2024-02-16,25,Green Bay Packers,Cincinnati Bengals,29,9,H,NFL,2023
+2024-02-16,25,New England Patriots,Dallas Cowboys,9,24,A,NFL,2023
+2024-02-16,25,Jacksonville Jaguars,Kansas City Chiefs,32,13,H,NFL,2023
+2024-02-16,25,Kansas City Chiefs,Detroit Lions,27,31,A,NFL,2023
+2024-02-16,25,Los Angeles Rams,Tampa Bay Buccaneers,19,21,A,NFL,2023
+2024-02-16,25,Miami Dolphins,Tampa Bay Buccaneers,21,20,H,NFL,2023
+2024-02-23,26,Miami Dolphins,Cincinnati Bengals,15,40,A,NFL,2023
+2024-02-23,26,Miami Dolphins,Philadelphia Eagles,28,15,H,NFL,2023
+2024-02-23,26,Cincinnati Bengals,Green Bay Packers,18,13,H,NFL,2023
+2024-02-23,26,Green Bay Packers,Cleveland Browns,12,20,A,NFL,2023
+2024-02-23,26,Philadelphia Eagles,Dallas Cowboys,16,0,H,NFL,2023
+2024-02-23,26,Jacksonville Jaguars,Green Bay Packers,38,22,H,NFL,2023
+2024-02-23,26,Detroit Lions,Tampa Bay Buccaneers,15,19,A,NFL,2023
+2024-02-23,26,Jacksonville Jaguars,Philadelphia Eagles,12,11,H,NFL,2023
+2024-02-23,26,Kansas City Chiefs,Tampa Bay Buccaneers,27,15,H,NFL,2023
+2024-02-23,26,Philadelphia Eagles,Jacksonville Jaguars,23,26,A,NFL,2023
+2024-02-23,26,Detroit Lions,Buffalo Bills,21,29,A,NFL,2023
+2024-02-23,26,San Francisco 49ers,Buffalo Bills,24,26,A,NFL,2023
+2024-02-23,26,Seattle Seahawks,Philadelphia Eagles,21,14,H,NFL,2023
+2024-02-23,26,Cincinnati Bengals,Miami Dolphins,10,33,A,NFL,2023
+2024-02-23,26,Baltimore Ravens,San Francisco 49ers,30,18,H,NFL,2023
+2024-02-23,26,Cincinnati Bengals,Dallas Cowboys,28,24,H,NFL,2023
+2024-03-01,27,Cincinnati Bengals,New England Patriots,14,18,A,NFL,2023
+2024-03-01,27,Baltimore Ravens,Dallas Cowboys,41,25,H,NFL,2023
+2024-03-01,27,Seattle Seahawks,Miami Dolphins,29,5,H,NFL,2023
+2024-03-01,27,Detroit Lions,Cincinnati Bengals,18,36,A,NFL,2023
+2024-03-01,27,Los Angeles Rams,Baltimore Ravens,26,22,H,NFL,2023
+2024-03-01,27,Jacksonville Jaguars,Baltimore Ravens,19,23,A,NFL,2023
+2024-03-01,27,Los Angeles Rams,New England Patriots,43,31,H,NFL,2023
+2024-03-01,27,Philadelphia Eagles,Cincinnati Bengals,20,12,H,NFL,2023
+2024-03-01,27,Miami Dolphins,Green Bay Packers,24,21,H,NFL,2023
+2024-03-01,27,Buffalo Bills,Baltimore Ravens,28,12,H,NFL,2023
+2024-03-01,27,Tampa Bay Buccaneers,Cleveland Browns,22,41,A,NFL,2023
+2024-03-01,27,Detroit Lions,Cincinnati Bengals,25,4,H,NFL,2023
+2024-03-01,27,Green Bay Packers,Dallas Cowboys,19,25,A,NFL,2023
+2024-03-01,27,Seattle Seahawks,Green Bay Packers,39,14,H,NFL,2023
+2024-03-01,27,Miami Dolphins,Buffalo Bills,27,7,H,NFL,2023
+2024-03-01,27,Buffalo Bills,Tampa Bay Buccaneers,7,21,A,NFL,2023
+2024-03-08,28,Miami Dolphins,Baltimore Ravens,23,16,H,NFL,2023
+2024-03-08,28,Jacksonville Jaguars,Green Bay Packers,37,23,H,NFL,2023
+2024-03-08,28,Detroit Lions,San Francisco 49ers,43,24,H,NFL,2023
+2024-03-08,28,Los Angeles Rams,Baltimore Ravens,2,15,A,NFL,2023
+2024-03-08,28,Detroit Lions,Seattle Seahawks,18,16,H,NFL,2023
+2024-03-08,28,Los Angeles Rams,Cleveland Browns,16,22,A,NFL,2023
+2024-03-08,28,Buffalo Bills,Green Bay Packers,33,19,H,NFL,2023
+2024-03-08,28,Buffalo Bills,New England Patriots,19,20,A,NFL,2023
+2024-03-08,28,San Francisco 49ers,Philadelphia Eagles,37,35,H,NFL,2023
+2024-03-08,28,Los Angeles Rams,Tampa Bay Buccaneers,18,18,D,NFL,2023
+2024-03-08,28,Jacksonville Jaguars,Dallas Cowboys,25,18,H,NFL,2023
+2024-03-08,28,Cincinnati Bengals,Buffalo Bills,36,27,H,NFL,2023
+2024-03-08,28,Philadelphia Eagles,Cincinnati Bengals,18,38,A,NFL,2023
+2024-03-08,28,San Francisco 49ers,Cincinnati Bengals,17,28,A,NFL,2023
+2024-03-08,28,Kansas City Chiefs,Seattle Seahawks,30,20,H,NFL,2023
+2024-03-08,28,Dallas Cowboys,Cincinnati Bengals,11,23,A,NFL,2023
+2024-03-15,29,Seattle Seahawks,San Francisco 49ers,25,30,A,NFL,2023
+2024-03-15,29,Green Bay Packers,New England Patriots,23,24,A,NFL,2023
+2024-03-15,29,Miami Dolphins,Seattle Seahawks,25,16,H,NFL,2023
+2024-03-15,29,Green Bay Packers,Cincinnati Bengals,15,22,A,NFL,2023
+2024-03-15,29,Detroit Lions,Tampa Bay Buccaneers,19,32,A,NFL,2023
+2024-03-15,29,Dallas Cowboys,Los Angeles Rams,29,23,H,NFL,2023
+2024-03-15,29,Seattle Seahawks,Cleveland Browns,20,14,H,NFL,2023
+2024-03-15,29,Green Bay Packers,Detroit Lions,25,23,H,NFL,2023
+2024-03-15,29,New England Patriots,San Francisco 49ers,16,16,D,NFL,2023
+2024-03-15,29,Dallas Cowboys,Baltimore Ravens,11,19,A,NFL,2023
+2024-03-15,29,Green Bay Packers,Los Angeles Rams,23,19,H,NFL,2023
+2024-03-15,29,New England Patriots,Seattle Seahawks,20,18,H,NFL,2023
+2024-03-15,29,New England Patriots,Los Angeles Rams,20,32,A,NFL,2023
+2024-03-15,29,New England Patriots,Tampa Bay Buccaneers,34,19,H,NFL,2023
+2024-03-15,29,New England Patriots,Kansas City Chiefs,24,14,H,NFL,2023
+2024-03-15,29,Miami Dolphins,Philadelphia Eagles,33,17,H,NFL,2023
+2024-03-22,30,Dallas Cowboys,Buffalo Bills,25,24,H,NFL,2023
+2024-03-22,30,Los Angeles Rams,Cincinnati Bengals,23,22,H,NFL,2023
+2024-03-22,30,Kansas City Chiefs,Detroit Lions,32,27,H,NFL,2023
+2024-03-22,30,New England Patriots,San Francisco 49ers,28,16,H,NFL,2023
+2024-03-22,30,Miami Dolphins,New England Patriots,22,16,H,NFL,2023
+2024-03-22,30,San Francisco 49ers,Cincinnati Bengals,34,28,H,NFL,2023
+2024-03-22,30,Cleveland Browns,Baltimore Ravens,33,17,H,NFL,2023
+2024-03-22,30,San Francisco 49ers,Green Bay Packers,22,22,D,NFL,2023
+2024-03-22,30,San Francisco 49ers,Tampa Bay Buccaneers,18,12,H,NFL,2023
+2024-03-22,30,Cleveland Browns,Tampa Bay Buccaneers,36,8,H,NFL,2023
+2024-03-22,30,Seattle Seahawks,Buffalo Bills,17,26,A,NFL,2023
+2024-03-22,30,Jacksonville Jaguars,Philadelphia Eagles,22,5,H,NFL,2023
+2024-03-22,30,Baltimore Ravens,Cincinnati Bengals,25,29,A,NFL,2023
+2024-03-22,30,Miami Dolphins,Detroit Lions,29,8,H,NFL,2023
+2024-03-22,30,Baltimore Ravens,Buffalo Bills,24,32,A,NFL,2023
+2024-03-22,30,Tampa Bay Buccaneers,Detroit Lions,25,5,H,NFL,2023
+2024-03-29,31,Baltimore Ravens,Cleveland Browns,6,16,A,NFL,2023
+2024-03-29,31,Cleveland Browns,New England Patriots,20,34,A,NFL,2023
+2024-03-29,31,New England Patriots,Los Angeles Rams,27,20,H,NFL,2023
+2024-03-29,31,Miami Dolphins,Kansas City Chiefs,17,20,A,NFL,2023
+2024-03-29,31,Baltimore Ravens,Dallas Cowboys,31,19,H,NFL,2023
+2024-03-29,31,Tampa Bay Buccaneers,Green Bay Packers,25,31,A,NFL,2023
+2024-03-29,31,Tampa Bay Buccaneers,Baltimore Ravens,24,24,D,NFL,2023
+2024-03-29,31,Tampa Bay Buccaneers,Kansas City Chiefs,33,20,H,NFL,2023
+2024-03-29,31,Los Angeles Rams,Seattle Seahawks,21,19,H,NFL,2023
+2024-03-29,31,Philadelphia Eagles,Dallas Cowboys,22,33,A,NFL,2023
+2024-03-29,31,Baltimore Ravens,Green Bay Packers,20,13,H,NFL,2023
+2024-03-29,31,Buffalo Bills,San Francisco 49ers,13,20,A,NFL,2023
+2024-03-29,31,Dallas Cowboys,Cincinnati Bengals,38,18,H,NFL,2023
+2024-03-29,31,Jacksonville Jaguars,San Francisco 49ers,15,21,A,NFL,2023
+2024-03-29,31,Kansas City Chiefs,Detroit Lions,34,26,H,NFL,2023
+2024-03-29,31,Kansas City Chiefs,Green Bay Packers,21,10,H,NFL,2023
+2024-04-05,32,Detroit Lions,Miami Dolphins,9,18,A,NFL,2023
+2024-04-05,32,Buffalo Bills,Kansas City Chiefs,26,13,H,NFL,2023
+2024-04-05,32,Los Angeles Rams,Seattle Seahawks,24,7,H,NFL,2023
+2024-04-05,32,Cleveland Browns,Kansas City Chiefs,23,32,A,NFL,2023

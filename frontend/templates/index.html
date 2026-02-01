@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multi-Sport Prediction AI | Football, Basketball, NFL</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --football-color: #00A651;
+            --basketball-color: #FF6B00;
+            --nfl-color: #013369;
+            --dark-bg: #1a1a1a;
+            --light-bg: #f8f9fa;
+        }
+
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .hero-section {
+            padding: 60px 0;
+            text-align: center;
+            color: white;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 40px;
+            opacity: 0.9;
+        }
+
+        .sports-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .sport-card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .sport-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+        }
+
+        .sport-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+        }
+
+        .sport-card.football::before {
+            background: var(--football-color);
+        }
+
+        .sport-card.basketball::before {
+            background: var(--basketball-color);
+        }
+
+        .sport-card.nfl::before {
+            background: var(--nfl-color);
+        }
+
+        .sport-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+        }
+
+        .sport-card.football .sport-icon {
+            color: var(--football-color);
+        }
+
+        .sport-card.basketball .sport-icon {
+            color: var(--basketball-color);
+        }
+
+        .sport-card.nfl .sport-icon {
+            color: var(--nfl-color);
+        }
+
+        .sport-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .sport-description {
+            font-size: 1.1rem;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .sport-stats {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #333;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: #999;
+            text-transform: uppercase;
+        }
+
+        .btn-predict {
+            padding: 12px 40px;
+            font-size: 1.1rem;
+            border-radius: 50px;
+            font-weight: 600;
+            border: none;
+            transition: all 0.3s ease;
+        }
+
+        .btn-predict.football {
+            background: var(--football-color);
+            color: white;
+        }
+
+        .btn-predict.basketball {
+            background: var(--basketball-color);
+            color: white;
+        }
+
+        .btn-predict.nfl {
+            background: var(--nfl-color);
+            color: white;
+        }
+
+        .btn-predict:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .features-section {
+            background: white;
+            padding: 60px 20px;
+            margin-top: 40px;
+            border-radius: 20px;
+        }
+
+        .feature-item {
+            text-align: center;
+            padding: 30px;
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            color: #667eea;
+            margin-bottom: 20px;
+        }
+
+        .status-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .status-live {
+            background: #10b981;
+            color: white;
+        }
+
+        .status-coming-soon {
+            background: #f59e0b;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="hero-section">
+        <h1 class="hero-title">Multi-Sport Prediction AI</h1>
+        <p class="hero-subtitle">Advanced AI-Powered Predictions for Football, Basketball & NFL</p>
+    </div>
+
+    <div class="sports-container">
+        <!-- Football Card -->
+        <div class="sport-card football" onclick="location.href='/football'">
+            <span class="status-badge status-coming-soon">Coming Soon</span>
+            <div class="sport-icon">
+                <i class="fas fa-futbol"></i>
+            </div>
+            <h2 class="sport-title">Football (Soccer)</h2>
+            <p class="sport-description">
+                Comprehensive predictions for 22 major leagues worldwide. Advanced Bayesian models with 273+ features.
+            </p>
+            <div class="sport-stats">
+                <div class="stat-item">
+                    <div class="stat-value">22</div>
+                    <div class="stat-label">Leagues</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">273+</div>
+                    <div class="stat-label">Features</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">3,769</div>
+                    <div class="stat-label">Games</div>
+                </div>
+            </div>
+            <div class="mt-4">
+                <button class="btn btn-predict football">
+                    Get Predictions <i class="fas fa-arrow-right ms-2"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Basketball Card -->
+        <div class="sport-card basketball" onclick="location.href='/basketball'">
+            <span class="status-badge status-live">Live</span>
+            <div class="sport-icon">
+                <i class="fas fa-basketball-ball"></i>
+            </div>
+            <h2 class="sport-title">Basketball (NBA)</h2>
+            <p class="sport-description">
+                NBA predictions with advanced metrics. ELO ratings, shooting efficiency, and H2H analysis.
+            </p>
+            <div class="sport-stats">
+                <div class="stat-item">
+                    <div class="stat-value">NBA</div>
+                    <div class="stat-label">League</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">~150</div>
+                    <div class="stat-label">Features</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">30</div>
+                    <div class="stat-label">Teams</div>
+                </div>
+            </div>
+            <div class="mt-4">
+                <button class="btn btn-predict basketball">
+                    Get Predictions <i class="fas fa-arrow-right ms-2"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- NFL Card -->
+        <div class="sport-card nfl" onclick="location.href='/nfl'">
+            <span class="status-badge status-live">Live</span>
+            <div class="sport-icon">
+                <i class="fas fa-football-ball"></i>
+            </div>
+            <h2 class="sport-title">NFL (American Football)</h2>
+            <p class="sport-description">
+                Professional NFL predictions. Offensive/defensive metrics, QB performance, and weather impact.
+            </p>
+            <div class="sport-stats">
+                <div class="stat-item">
+                    <div class="stat-value">NFL</div>
+                    <div class="stat-label">League</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">~150</div>
+                    <div class="stat-label">Features</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">32</div>
+                    <div class="stat-label">Teams</div>
+                </div>
+            </div>
+            <div class="mt-4">
+                <button class="btn btn-predict nfl">
+                    Get Predictions <i class="fas fa-arrow-right ms-2"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Features Section -->
+        <div class="features-section">
+            <h2 class="text-center mb-5">Platform Features</h2>
+            <div class="row">
+                <div class="col-md-3 feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h5>AI-Powered</h5>
+                    <p>Advanced machine learning models trained on years of historical data</p>
+                </div>
+                <div class="col-md-3 feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h5>Multiple Markets</h5>
+                    <p>Predictions for winners, spreads, totals, and more</p>
+                </div>
+                <div class="col-md-3 feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h5>Real-Time</h5>
+                    <p>Instant predictions updated with latest team performance</p>
+                </div>
+                <div class="col-md-3 feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h5>Reliable</h5>
+                    <p>Production-grade system built for accuracy and performance</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

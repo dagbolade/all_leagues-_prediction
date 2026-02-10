@@ -354,9 +354,38 @@ def initialize_predictor():
             print(f"[Error] Models file not found: {models_path}")
             return None, []
 
-        # Load data
-        df = pd.read_csv(data_path, low_memory=False)
-        print(f"[OK] Data loaded: {df.shape}")
+        # Load data with LFS pointer validation
+        try:
+            df = pd.read_csv(data_path, low_memory=False)
+            
+            # Check for LFS pointer file (small file size, few rows, missing columns)
+            if len(df) < 100 or 'HomeTeam' not in df.columns:
+                print(f"[Warning] Data file seems invalid (possible Git LFS pointer): {data_path}")
+                print(f"   Rows: {len(df)}, Columns: {df.columns.tolist()}")
+                
+                # Check other options
+                print("[Init] Attempting fallback to other data files...")
+                found_fallback = False
+                for option in data_options:
+                     if option != data_path and os.path.exists(option):
+                         try:
+                             fallback_df = pd.read_csv(option, low_memory=False)
+                             if len(fallback_df) > 100 and 'HomeTeam' in fallback_df.columns:
+                                 df = fallback_df
+                                 print(f"[OK] Fallback successful: {option}")
+                                 found_fallback = True
+                                 break
+                         except:
+                             continue
+                
+                if not found_fallback:
+                    print("[Error] No valid data file found after fallback attempts")
+                    return None, []
+
+            print(f"[OK] Data loaded: {df.shape}")
+        except Exception as e:
+            print(f"[Error] Failed to load data: {e}")
+            return None, []
 
         # Create predictor
         predictor = create_bayesian_predictor(df, models_path)

@@ -317,7 +317,17 @@ def initialize_predictor():
     global predictor, teams, prediction_cache, live_scores_service
     try:
         base_dir = os.path.dirname(os.path.abspath(__file__))
-        models_path = os.path.join(base_dir, '..', 'models', 'football_models.joblib')
+        
+        # Try to load fast models first (from weekly updates)
+        fast_models_path = os.path.join(base_dir, '..', 'models', 'fast_football_models.joblib')
+        original_models_path = os.path.join(base_dir, '..', 'models', 'football_models.joblib')
+        
+        if os.path.exists(fast_models_path):
+            models_path = fast_models_path
+            print(f"[Init] Loading OPTIMIZED fast models from {models_path}")
+        else:
+            models_path = original_models_path
+            print(f"[Init] Loading standard models from {models_path}")
 
         # Try multiple data file options
         data_options = [

@@ -284,7 +284,7 @@ def generate_comprehensive_insights(predictor_df, home_team, away_team, weekly_a
 
     try:
         # 6. VENUE-SPECIFIC PERFORMANCE (HOME TEAM at home, AWAY TEAM away)
-        home_at_home = predictor_df[predictor_df['HomeTeam'] == home_team].tail(10)
+        home_at_home = predictor_df[predictor_df['HomeTeam'] == home_team].sort_values('Date').tail(10)
         if len(home_at_home) >= 5:
             home_wins = len(home_at_home[home_at_home['FTR'] == 'H'])
             home_goals_for = home_at_home['FTHG'].sum()
@@ -295,7 +295,7 @@ def generate_comprehensive_insights(predictor_df, home_team, away_team, weekly_a
             insights.append(
                 f"[Home] {home_team} home scoring: {(home_goals_for / len(home_at_home)):.1f} for, {(home_goals_against / len(home_at_home)):.1f} against")
 
-        away_away = predictor_df[predictor_df['AwayTeam'] == away_team].tail(10)
+        away_away = predictor_df[predictor_df['AwayTeam'] == away_team].sort_values('Date').tail(10)
         if len(away_away) >= 5:
             away_wins = len(away_away[away_away['FTR'] == 'A'])
             away_goals_for = away_away['FTAG'].sum()

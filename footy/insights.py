@@ -222,7 +222,7 @@ class FootballInsights:
             h2h = self.df[
                 ((self.df['HomeTeam'] == team) & (self.df['AwayTeam'] == opponent)) |
                 ((self.df['HomeTeam'] == opponent) & (self.df['AwayTeam'] == team))
-                ].copy()
+                ].sort_values('Date').copy()
 
             if len(h2h) > 0:
                 team_wins = len(h2h[
@@ -454,8 +454,8 @@ class FootballInsights:
 
     def corner_analysis(self, home_team: str, away_team: str) -> dict:
         """Analyze corner patterns for both teams."""
-        home_team_matches = self.df[self.df['HomeTeam'] == home_team].tail(10)
-        away_team_matches = self.df[self.df['AwayTeam'] == away_team].tail(10)
+        home_team_matches = self.df[self.df['HomeTeam'] == home_team].sort_values('Date').tail(10)
+        away_team_matches = self.df[self.df['AwayTeam'] == away_team].sort_values('Date').tail(10)
 
         h2h_matches = self.df[
             ((self.df['HomeTeam'] == home_team) & (self.df['AwayTeam'] == away_team)) |
@@ -525,8 +525,8 @@ class FootballInsights:
     def odds_value_analysis(self, home_team: str, away_team: str) -> dict:
         """Analyze historical odds patterns for teams."""
         # Get recent matches for both teams
-        home_recent = self.df[self.df['HomeTeam'] == home_team].tail(5)
-        away_recent = self.df[self.df['AwayTeam'] == away_team].tail(5)
+        home_recent = self.df[self.df['HomeTeam'] == home_team].sort_values('Date').tail(5)
+        away_recent = self.df[self.df['AwayTeam'] == away_team].sort_values('Date').tail(5)
 
         # Calculate average closing odds
         home_odds_analysis = {

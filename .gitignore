@@ -27,7 +27,7 @@ venv/
 *.xlsx
 
 # Specific large files
-data/processed/enhanced_bayesian_features.csv
+
 data/processed/*.pkl
 models/football_models.joblib
 models/fast_football_models.joblib

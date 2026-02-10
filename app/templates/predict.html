@@ -28,9 +28,13 @@
                         <label for="homeTeamSelect" class="form-label">Home Team</label>
                         <select id="homeTeamSelect" name="homeTeam" class="form-select" required>
                             <option value="">Select Home Team</option>
+                            {% if teams %}
                             {% for team in teams %}
                             <option value="{{ team }}">{{ team }}</option>
                             {% endfor %}
+                            {% else %}
+                            <option value="" disabled>⚠️ No teams loaded (System Initializing)</option>
+                            {% endif %}
                         </select>
                         <div id="homeTeamError" class="invalid-feedback">Please choose a home team.</div>
                     </div>

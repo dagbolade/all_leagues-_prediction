@@ -444,7 +444,11 @@ def debug_status():
 @routes.route('/predict', methods=['GET', 'POST'])
 def predict():
     """Prediction page with caching"""
-    check_initialization()
+    current_predictor, current_teams = check_initialization()
+    
+    # Use explicitly returned teams to avoid global variable issues
+    teams = current_teams
+    predictor = current_predictor
     
     if request.method == 'POST':
 

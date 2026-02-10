@@ -322,12 +322,13 @@ def initialize_predictor():
         fast_models_path = os.path.join(base_dir, '..', 'models', 'fast_football_models.joblib')
         original_models_path = os.path.join(base_dir, '..', 'models', 'football_models.joblib')
         
-        if os.path.exists(fast_models_path):
-            models_path = fast_models_path
-            print(f"[Init] Loading OPTIMIZED fast models from {models_path}")
-        else:
-            models_path = original_models_path
-            print(f"[Init] Loading standard models from {models_path}")
+        # [FIX] Temporarily disable fast models due to XGBoost version mismatch on server
+        # if os.path.exists(fast_models_path):
+        #     models_path = fast_models_path
+        #     print(f"[Init] Loading OPTIMIZED fast models from {models_path}")
+        # else:
+        models_path = original_models_path
+        print(f"[Init] Loading standard models from {models_path}")
 
         # Try multiple data file options
         data_options = [

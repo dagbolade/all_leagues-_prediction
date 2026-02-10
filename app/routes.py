@@ -404,17 +404,40 @@ def initialize_predictor():
 # Initialize predictor
 predictor, teams = initialize_predictor()
 
+def check_initialization():
+    """Ensure system is initialized before serving requests"""
+    global predictor, teams
+    if not teams or not predictor:
+        print("[System] Lazy initialization triggered...")
+        predictor, teams = initialize_predictor()
+    return predictor, teams
 
 @routes.route('/')
 def home():
     """Home page"""
+    check_initialization()
     return render_template('index.html', teams=teams)
+
+
+@routes.route('/api/debug/status')
+def debug_status():
+    """Debug endpoint to check system status"""
+    global predictor, teams
+    return jsonify({
+        'status': 'online',
+        'teams_count': len(teams) if teams else 0,
+        'predictor_loaded': predictor is not None,
+        'teams_sample': teams[:5] if teams else []
+    })
 
 
 @routes.route('/predict', methods=['GET', 'POST'])
 def predict():
     """Prediction page with caching"""
+    check_initialization()
+    
     if request.method == 'POST':
+
         home_team = request.form.get('homeTeam')
         away_team = request.form.get('awayTeam')
 

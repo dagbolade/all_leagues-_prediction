@@ -19,6 +19,7 @@ from footy.weekly_insights_analyzer import WeeklyInsightsAnalyzer
 from footy.insights import FootballInsights
 from footy.advanced_stats import DisciplineAnalyzer
 
+
 # Import api service class
 from app.services.football_service import FootballDataService
 
@@ -37,7 +38,6 @@ predictor = None
 teams = []
 gw1_analyzer = None
 weekly_analyzer = None
-prediction_cache = None
 prediction_cache = None
 live_scores_service = None
 discipline_analyzer = None
@@ -79,7 +79,15 @@ def generate_comprehensive_insights(predictor_df, home_team, away_team, weekly_a
         # 2. GET LATEST ACTUAL MATCH RESULTS (whatever season format exists)
         # Find what seasons actually exist in the data
         available_seasons = predictor_df['Season'].unique()
+        # sort seasons to get the latest one
+        # Assuming format is YYYY-YYYY or YYYY/YY, string sort usually works if consistent
+        # But let's be roboust if possible
         latest_season = sorted(available_seasons)[-1]  # Most recent season
+
+        # Ensure Date is datetime for correct sorting
+        if not pd.api.types.is_datetime64_any_dtype(predictor_df['Date']):
+            predictor_df = predictor_df.copy()
+            predictor_df['Date'] = pd.to_datetime(predictor_df['Date'], errors='coerce')
 
         # Get latest season matches
         latest_season_matches = predictor_df[
@@ -88,6 +96,7 @@ def generate_comprehensive_insights(predictor_df, home_team, away_team, weekly_a
 
         if len(latest_season_matches) > 0:
             # Get HOME TEAM's latest match from current season
+            # tail(1) gets the last row, which should be the latest date if sorted by Date
             home_latest_season = latest_season_matches[
                 (latest_season_matches['HomeTeam'] == home_team) |
                 (latest_season_matches['AwayTeam'] == home_team)
@@ -148,6 +157,14 @@ def generate_comprehensive_insights(predictor_df, home_team, away_team, weekly_a
             goals_for = goals_against = 0
             clean_sheets = 0
 
+            # Iterate through recent matches to build form string
+            # Note: home_recent is sorted desc (newest first), but for form strings usually we want oldest->newest or newest->oldest?
+            # Usually form is displayed simply as W-D-L (last 5)
+            # Let's keep it simply as the letters
+            
+            # Since we want to display form like "WWDLW" where rightmost is latest? Or leftmost?
+            # Standard is usually Left=Most Recent.
+            
             for _, match in home_recent.iterrows():
                 if match['HomeTeam'] == home_team:
                     gf, ga = match['FTHG'], match['FTAG']
@@ -312,6 +329,8 @@ def generate_comprehensive_insights(predictor_df, home_team, away_team, weekly_a
     return insights
 
 
+
+
 def initialize_predictor():
     """Initialize prediction system with caching and live scores"""
     global predictor, teams, prediction_cache, live_scores_service
@@ -405,6 +424,8 @@ def initialize_predictor():
             print(f"[OK] Discipline Analyzer initialized")
         except Exception as e:
             print(f"[Warning] Discipline Analyzer initialization failed: {e}")
+
+
 
         # Initialize caching system
         try:
@@ -527,6 +548,7 @@ def predict():
                     weekly_analyzer,
                     gw1_analyzer
                 )
+
 
                 # Add prediction-specific insights
                 over_25_pred = predictions.get('Over 2.5 Goals', 'N/A')

@@ -1,0 +1,11 @@
+[phases.setup]
+nixPkgs = ['git-lfs']
+
+[phases.install]
+cmds = ['git lfs install', 'git lfs pull']
+
+[phases.build]
+cmds = ['pip install --upgrade pip setuptools wheel', 'pip install -r requirements.txt']
+
+[start]
+cmd = 'gunicorn app.run:app --bind 0.0.0.0:$PORT --timeout 120 --workers 2'

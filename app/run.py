@@ -1,4 +1,19 @@
+# Fix for pkg_resources in Python 3.12+ (MUST BE FIRST)
 import sys
+try:
+    import pkg_resources
+except ImportError:
+    # Python 3.12+ workaround: use importlib.metadata as pkg_resources replacement
+    try:
+        from importlib import metadata as importlib_metadata
+        sys.modules['pkg_resources'] = type(sys)('pkg_resources')
+        sys.modules['pkg_resources'].get_distribution = lambda name: type('obj', (object,), {'version': importlib_metadata.version(name)})()
+        print("[Fix] pkg_resources compatibility shim loaded for Python 3.12+")
+    except Exception as e:
+        # Fallback: create minimal mock
+        sys.modules['pkg_resources'] = type(sys)('pkg_resources')
+        print(f"[Fix] pkg_resources minimal mock loaded: {e}")
+
 from pathlib import Path
 
 # Add project root to path

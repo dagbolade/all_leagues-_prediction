@@ -1,5 +1,19 @@
 # app/routes.py - UPDATED VERSION WITH CACHING AND LIVE SCORES
 
+# Fix for pkg_resources in Python 3.12+ (required for model deserialization)
+import sys
+try:
+    import pkg_resources
+except ImportError:
+    # Python 3.12+ workaround: use importlib.metadata as pkg_resources replacement
+    try:
+        from importlib import metadata as importlib_metadata
+        sys.modules['pkg_resources'] = type(sys)('pkg_resources')
+        sys.modules['pkg_resources'].get_distribution = lambda name: type('obj', (object,), {'version': importlib_metadata.version(name)})()
+    except Exception:
+        # Fallback: create minimal mock
+        sys.modules['pkg_resources'] = type(sys)('pkg_resources')
+
 from datetime import datetime
 import logging
 

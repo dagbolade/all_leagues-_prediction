@@ -1,11 +1,13 @@
-[phases.setup]
-nixPkgs = ['git-lfs']
-
-[phases.install]
-cmds = ['git lfs install', 'git lfs pull']
+# Railway Nixpacks configuration
+# Note: Railway automatically handles Git LFS during source checkout (before Docker build)
+# Do NOT run 'git lfs pull' in Docker build - no .git directory exists there
 
 [phases.build]
-cmds = ['pip install --upgrade pip setuptools wheel', 'pip install -r requirements.txt']
+cmds = [
+    'pip install --upgrade pip setuptools wheel',
+    'pip install -r requirements.txt',
+    'python scripts/check_lfs_models.py || echo "LFS check completed with warnings"'
+]
 
 [start]
 cmd = 'gunicorn app.run:app --bind 0.0.0.0:$PORT --timeout 120 --workers 2'

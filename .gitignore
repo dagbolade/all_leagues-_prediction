@@ -21,6 +21,7 @@ venv/
 # VS Code and JetBrains config
 .vscode/
 .idea/
+.claude/
 
 # Data and model files (optional if large)
 
@@ -29,7 +30,18 @@ venv/
 # Specific large files (tracked via LFS in .gitattributes)
 
 data/processed/*.pkl
-# Note: .joblib files now tracked via Git LFS (see .gitattributes)
-# models/football_models.joblib - TRACKED via LFS
-# models/basketball/*.joblib - TRACKED via LFS
-# models/tennis/*.joblib - TRACKED via LFS
+# Note: .joblib files now tracked as regular git files (no longer LFS)
+
+# Debug and test files
+debug_*.py
+test_*.py
+*_debug.py
+NUL
+
+# Logs
+logs/*.log
+*.log
+
+# Temporary prediction/analysis files
+data/predictions_history.json
+data/temp_*.csv

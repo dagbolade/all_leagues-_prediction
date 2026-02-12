@@ -4,6 +4,15 @@ import pandas as pd
 import numpy as np
 from datetime import datetime, timedelta
 import logging
+import sys
+import io
+
+# Fix encoding issues on Windows console
+if sys.platform == 'win32':
+    try:
+        sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', errors='replace')
+    except:
+        pass  # Ignore if already wrapped or not supported
 
 
 class OpeningWeekendAnalyzer:

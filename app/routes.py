@@ -13,19 +13,8 @@ import numpy as np
 # Enhanced import for predictor
 from footy.predictor_utils import create_bayesian_predictor
 
-# DEBUG: Check directory contents
-try:
-    base_dir_debug = os.path.dirname(os.path.abspath(__file__))
-    data_dir_debug = os.path.join(base_dir_debug, '..', 'data', 'processed')
-    print(f"[DEBUG] Contents of {data_dir_debug}:")
-    if os.path.exists(data_dir_debug):
-        print(os.listdir(data_dir_debug))
-    else:
-        print("[DEBUG] Directory not found!")
-except Exception as e:
-    print(f"[DEBUG] Error checking dir: {e}")
-
 # Import ALL the analyzers
+
 from footy.opening_weekend_analyzer import OpeningWeekendAnalyzer
 from footy.weekly_insights_analyzer import WeeklyInsightsAnalyzer
 from footy.insights import FootballInsights

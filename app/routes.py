@@ -341,8 +341,9 @@ def initialize_predictor():
         models_path = os.path.join(base_dir, '..', 'models', 'football_models.joblib')
         print(f"[Init] Loading standard models from {models_path}")
 
-        # Try multiple data file options
+        # Try multiple data file options - PRIORITIZE ZIP TO BYPASS LFS
         data_options = [
+            os.path.join(base_dir, '..', 'data', 'processed', 'enhanced_bayesian_features.csv.zip'),
             os.path.join(base_dir, '..', 'data', 'processed', 'enhanced_bayesian_features.csv'),
             os.path.join(base_dir, '..', 'data', 'processed', 'enhanced_features.csv'),
             os.path.join(base_dir, '..', 'data', 'processed', 'complete_features.csv'),

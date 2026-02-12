@@ -27,10 +27,13 @@ Thumbs.db
 *.swo
 *~
 
-# Data files (too large for deployment)
+# Data files (raw data - too large, not needed for deployment)
 data/basketball/raw/*.csv
 data/nfl/raw/*.csv
 data/football/raw/*.xlsx
+
+# Note: Model files (.joblib) ARE included in deployment via Git LFS
+# DO NOT add models/*.joblib to this ignore file
 
 # Test files
 test_*.py

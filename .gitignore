@@ -26,8 +26,10 @@ venv/
 
 *.xlsx
 
-# Specific large files
+# Specific large files (tracked via LFS in .gitattributes)
 
 data/processed/*.pkl
-models/football_models.joblib
-models/fast_football_models.joblib
+# Note: .joblib files now tracked via Git LFS (see .gitattributes)
+# models/football_models.joblib - TRACKED via LFS
+# models/basketball/*.joblib - TRACKED via LFS
+# models/tennis/*.joblib - TRACKED via LFS

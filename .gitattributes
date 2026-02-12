@@ -1,3 +1,4 @@
 *.pkl filter=lfs diff=lfs merge=lfs -text
 data/processed/enhanced_bayesian_features.csv filter=lfs diff=lfs merge=lfs -text
+models/**/*.joblib filter=lfs diff=lfs merge=lfs -text
 *.joblib filter=lfs diff=lfs merge=lfs -text

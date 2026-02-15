@@ -1,5 +1,16 @@
 # main.py - ENHANCED BAYESIAN PIPELINE
 
+import sys
+import io
+
+# Fix Windows encoding for emojis
+if sys.platform == 'win32':
+    try:
+        sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', errors='replace')
+        sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding='utf-8', errors='replace')
+    except:
+        pass
+
 import pandas as pd
 from pathlib import Path
 from footy.load_data import load_season_data_any, load_and_merge_multi

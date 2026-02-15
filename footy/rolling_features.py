@@ -562,17 +562,17 @@ class BayesianRollingFeatureGenerator:
 
     def _calculate_shot_features_vectorized(self, df: pd.DataFrame) -> pd.DataFrame:
         """
-        🚀 VECTORIZED: Shot accuracy features.
+        🚀 VECTORIZED: Enhanced shot features with rolling averages and conversion rates.
         """
         df = df.copy()
 
         # Only calculate if shot data exists
         if 'HS' in df.columns and 'AS' in df.columns:
-            # Shot accuracy
+            # Shot accuracy (existing)
             df['HomeShotAccuracy'] = np.where(df['HS'] > 0, df['HST'] / df['HS'], 0)
             df['AwayShotAccuracy'] = np.where(df['AS'] > 0, df['AST'] / df['AS'], 0)
 
-            # Rolling shot accuracy
+            # Rolling shot accuracy (existing)
             df['HomeShotAccuracyRolling'] = df.groupby('HomeTeam')['HomeShotAccuracy'].transform(
                 lambda x: x.shift(1).rolling(5, min_periods=1).mean()
             )
@@ -580,17 +580,214 @@ class BayesianRollingFeatureGenerator:
                 lambda x: x.shift(1).rolling(5, min_periods=1).mean()
             )
 
-            # Goal conversion (goals per shot on target)
+            # Goal conversion (goals per shot on target) - existing
             df['HomeGoalConversion'] = np.where(df['HST'] > 0, df['FTHG'] / df['HST'], 0)
             df['AwayGoalConversion'] = np.where(df['AST'] > 0, df['FTAG'] / df['AST'], 0)
 
-            # Shot pressure (shots on target)
+            # Shot pressure (shots on target) - existing
             df['HomeShotPressure'] = df['HST']
             df['AwayShotPressure'] = df['AST']
 
-            # Expected goals (simple model)
+            # Expected goals (simple model) - existing
             df['HomexG'] = df['HS'] * 0.08 + df['HST'] * 0.25
             df['AwayxG'] = df['AS'] * 0.08 + df['AST'] * 0.25
+
+            # ✨ NEW: Shots on Target Rolling Averages (Last 5 matches)
+            df['HomeShotsOnTargetAvg_Last5'] = df.groupby('HomeTeam')['HST'].transform(
+                lambda x: x.shift(1).rolling(5, min_periods=1).mean()
+            )
+            df['AwayShotsOnTargetAvg_Last5'] = df.groupby('AwayTeam')['AST'].transform(
+                lambda x: x.shift(1).rolling(5, min_periods=1).mean()
+            )
+
+            # ✨ NEW: Shot Conversion Rate (rolling average of goals per SOT)
+            df['HomeShotConversionRate'] = df.groupby('HomeTeam')['HomeGoalConversion'].transform(
+                lambda x: x.shift(1).rolling(5, min_periods=1).mean()
+            )
+            df['AwayShotConversionRate'] = df.groupby('AwayTeam')['AwayGoalConversion'].transform(
+                lambda x: x.shift(1).rolling(5, min_periods=1).mean()
+            )
+
+            # ✨ NEW: Defensive Shots Allowed (how many SOT opponents get)
+            df['HomeDefensiveShotsAllowed_Last5'] = df.groupby('HomeTeam')['AST'].transform(
+                lambda x: x.shift(1).rolling(5, min_periods=1).mean()
+            )
+            df['AwayDefensiveShotsAllowed_Last5'] = df.groupby('AwayTeam')['HST'].transform(
+                lambda x: x.shift(1).rolling(5, min_periods=1).mean()
+            )
+
+            # ✨ NEW: Shot Differential (SOT advantage)
+            df['ShotOnTargetDifferential'] = (
+                df.get('HomeShotsOnTargetAvg_Last5', 0) -
+                df.get('AwayShotsOnTargetAvg_Last5', 0)
+            )
+
+            # ✨ NEW: Goals per Shot on Target (attacking efficiency)
+            df['HomeGoalsPerShotOnTarget_Last5'] = df.groupby('HomeTeam').apply(
+                lambda g: (g['FTHG'].shift(1).rolling(5, min_periods=1).sum() /
+                          (g['HST'].shift(1).rolling(5, min_periods=1).sum() + 0.1))
+            ).reset_index(level=0, drop=True)
+
+            df['AwayGoalsPerShotOnTarget_Last5'] = df.groupby('AwayTeam').apply(
+                lambda g: (g['FTAG'].shift(1).rolling(5, min_periods=1).sum() /
+                          (g['AST'].shift(1).rolling(5, min_periods=1).sum() + 0.1))
+            ).reset_index(level=0, drop=True)
+
+        return df
+
+    def _calculate_halftime_features(self, df: pd.DataFrame) -> pd.DataFrame:
+        """
+        🚀 NEW: Half-time pattern features - 1st vs 2nd half scoring patterns.
+        CRITICAL: Predicts team tendencies to start strong or finish strong.
+        """
+        df = df.copy()
+
+        # Only calculate if half-time data exists
+        if 'HTHG' in df.columns and 'HTAG' in df.columns:
+            print("[HT] Calculating half-time pattern features...")
+
+            # Calculate 1st half and 2nd half goals
+            df['Home1stHalfGoals'] = df['HTHG']
+            df['Home2ndHalfGoals'] = df['FTHG'] - df['HTHG']
+            df['Away1stHalfGoals'] = df['HTAG']
+            df['Away2ndHalfGoals'] = df['FTAG'] - df['HTAG']
+
+            # ✨ Rolling averages for 1st half goals (Last 5 matches)
+            df['Home1stHalfGoalsAvg_Last5'] = df.groupby('HomeTeam')['Home1stHalfGoals'].transform(
+                lambda x: x.shift(1).rolling(5, min_periods=1).mean()
+            )
+            df['Away1stHalfGoalsAvg_Last5'] = df.groupby('AwayTeam')['Away1stHalfGoals'].transform(
+                lambda x: x.shift(1).rolling(5, min_periods=1).mean()
+            )
+
+            # ✨ Rolling averages for 2nd half goals (Last 5 matches)
+            df['Home2ndHalfGoalsAvg_Last5'] = df.groupby('HomeTeam')['Home2ndHalfGoals'].transform(
+                lambda x: x.shift(1).rolling(5, min_periods=1).mean()
+            )
+            df['Away2ndHalfGoalsAvg_Last5'] = df.groupby('AwayTeam')['Away2ndHalfGoals'].transform(
+                lambda x: x.shift(1).rolling(5, min_periods=1).mean()
+            )
+
+            # ✨ Strong Starter indicator (% of games where team scores in 1st half)
+            df['Home1stHalfScored'] = (df['Home1stHalfGoals'] > 0).astype(int)
+            df['Away1stHalfScored'] = (df['Away1stHalfGoals'] > 0).astype(int)
+
+            df['HomeStrongStarter'] = df.groupby('HomeTeam')['Home1stHalfScored'].transform(
+                lambda x: x.shift(1).rolling(5, min_periods=1).mean()
+            )
+            df['AwayStrongStarter'] = df.groupby('AwayTeam')['Away1stHalfScored'].transform(
+                lambda x: x.shift(1).rolling(5, min_periods=1).mean()
+            )
+
+            # ✨ Strong Finisher indicator (% of games where 2nd half goals > 1st half goals)
+            df['HomeStrongFinisherMatch'] = (df['Home2ndHalfGoals'] > df['Home1stHalfGoals']).astype(int)
+            df['AwayStrongFinisherMatch'] = (df['Away2ndHalfGoals'] > df['Away1stHalfGoals']).astype(int)
+
+            df['HomeStrongFinisher'] = df.groupby('HomeTeam')['HomeStrongFinisherMatch'].transform(
+                lambda x: x.shift(1).rolling(5, min_periods=1).mean()
+            )
+            df['AwayStrongFinisher'] = df.groupby('AwayTeam')['AwayStrongFinisherMatch'].transform(
+                lambda x: x.shift(1).rolling(5, min_periods=1).mean()
+            )
+
+            # ✨ Half-time lead conversion rate (when leading at HT, % of wins)
+            df['HomeHalfTimeLeading'] = (df['HTHG'] > df['HTAG']).astype(int)
+            df['AwayHalfTimeLeading'] = (df['HTAG'] > df['HTHG']).astype(int)
+
+            # Calculate if they won when leading at HT
+            df['HomeWonWhenLeadingHT'] = ((df['HTHG'] > df['HTAG']) & (df['FTR'] == 'H')).astype(int)
+            df['AwayWonWhenLeadingHT'] = ((df['HTAG'] > df['HTHG']) & (df['FTR'] == 'A')).astype(int)
+
+            # Conversion rate
+            df['HomeHalfTimeLeadConversion'] = df.groupby('HomeTeam').apply(
+                lambda g: (g['HomeWonWhenLeadingHT'].shift(1).rolling(10, min_periods=1).sum() /
+                          (g['HomeHalfTimeLeading'].shift(1).rolling(10, min_periods=1).sum() + 0.1))
+            ).reset_index(level=0, drop=True)
+
+            df['AwayHalfTimeLeadConversion'] = df.groupby('AwayTeam').apply(
+                lambda g: (g['AwayWonWhenLeadingHT'].shift(1).rolling(10, min_periods=1).sum() /
+                          (g['AwayHalfTimeLeading'].shift(1).rolling(10, min_periods=1).sum() + 0.1))
+            ).reset_index(level=0, drop=True)
+
+            # ✨ 1st Half Over 0.5 Rate (% of 1st halves with goals)
+            df['Home1stHalfOver05'] = (df['Home1stHalfGoals'] > 0.5).astype(int)
+            df['Away1stHalfOver05'] = (df['Away1stHalfGoals'] > 0.5).astype(int)
+
+            df['Home1stHalfOver05Rate'] = df.groupby('HomeTeam')['Home1stHalfOver05'].transform(
+                lambda x: x.shift(1).rolling(5, min_periods=1).mean()
+            )
+            df['Away1stHalfOver05Rate'] = df.groupby('AwayTeam')['Away1stHalfOver05'].transform(
+                lambda x: x.shift(1).rolling(5, min_periods=1).mean()
+            )
+
+            # ✨ 2nd Half Over 0.5 Rate
+            df['Home2ndHalfOver05'] = (df['Home2ndHalfGoals'] > 0.5).astype(int)
+            df['Away2ndHalfOver05'] = (df['Away2ndHalfGoals'] > 0.5).astype(int)
+
+            df['Home2ndHalfOver05Rate'] = df.groupby('HomeTeam')['Home2ndHalfOver05'].transform(
+                lambda x: x.shift(1).rolling(5, min_periods=1).mean()
+            )
+            df['Away2ndHalfOver05Rate'] = df.groupby('AwayTeam')['Away2ndHalfOver05'].transform(
+                lambda x: x.shift(1).rolling(5, min_periods=1).mean()
+            )
+
+            print("[HT] ✅ Created 20+ half-time pattern features")
+
+        else:
+            print("[HT] ⚠️ Half-time data (HTHG, HTAG) not available - skipping")
+
+        return df
+
+    def _calculate_rest_features(self, df: pd.DataFrame) -> pd.DataFrame:
+        """
+        🚀 NEW: Rest days and fixture congestion features.
+        CRITICAL: Predicts fatigue-related performance drops.
+        """
+        df = df.copy()
+
+        print("[REST] Calculating fixture congestion features...")
+
+        # Ensure Date is datetime
+        if 'Date' not in df.columns:
+            print("[REST] ⚠️ Date column missing - skipping rest features")
+            return df
+
+        df['Date'] = pd.to_datetime(df['Date'])
+
+        # Sort by team and date to ensure proper chronological order
+        df = df.sort_values(['HomeTeam', 'Date'])
+
+        # ✨ Days since last match (HOME)
+        df['DaysSinceLastMatch_Home'] = df.groupby('HomeTeam')['Date'].diff().dt.days
+
+        # ✨ Days since last match (AWAY)
+        df = df.sort_values(['AwayTeam', 'Date'])
+        df['DaysSinceLastMatch_Away'] = df.groupby('AwayTeam')['Date'].diff().dt.days
+
+        # Sort back to original order
+        df = df.sort_values(['Season', 'Date'])
+
+        # Fill NaN (first match for each team) with 14 days (2 weeks default)
+        df['DaysSinceLastMatch_Home'] = df['DaysSinceLastMatch_Home'].fillna(14)
+        df['DaysSinceLastMatch_Away'] = df['DaysSinceLastMatch_Away'].fillna(14)
+
+        # ✨ Rest Advantage (Home rest - Away rest)
+        df['RestAdvantage'] = df['DaysSinceLastMatch_Home'] - df['DaysSinceLastMatch_Away']
+
+        # ✨ Has Midweek Match (played in last 4 days)
+        df['HasMidweekMatch_Home'] = (df['DaysSinceLastMatch_Home'] <= 4).astype(int)
+        df['HasMidweekMatch_Away'] = (df['DaysSinceLastMatch_Away'] <= 4).astype(int)
+
+        # ✨ Fixture Congestion Indicator (less than 5 days rest)
+        df['FixtureCongestion_Home'] = (df['DaysSinceLastMatch_Home'] < 5).astype(int)
+        df['FixtureCongestion_Away'] = (df['DaysSinceLastMatch_Away'] < 5).astype(int)
+
+        # ✨ Well Rested Indicator (more than 6 days rest)
+        df['WellRested_Home'] = (df['DaysSinceLastMatch_Home'] > 6).astype(int)
+        df['WellRested_Away'] = (df['DaysSinceLastMatch_Away'] > 6).astype(int)
+
+        print("[REST] ✅ Created 10 fixture congestion features")
+        print(f"[REST] Avg rest days - Home: {df['DaysSinceLastMatch_Home'].mean():.1f}, Away: {df['DaysSinceLastMatch_Away'].mean():.1f}")
 
         return df
 
@@ -646,9 +843,19 @@ class BayesianRollingFeatureGenerator:
                 print("   [OK] Created BTTS column for GW1 analysis")
 
         # Mark early season matches more accurately
-        df['SeasonProgress'] = df.groupby(['League', 'Season'])['Date'].transform(
-            lambda x: (x - x.min()) / (x.max() - x.min() + pd.Timedelta(days=1))
-        )
+        # Use 'Div' if 'League' not available
+        league_col = 'League' if 'League' in df.columns else 'Div'
+
+        if league_col in df.columns:
+            df['SeasonProgress'] = df.groupby([league_col, 'Season'])['Date'].transform(
+                lambda x: (x - x.min()) / (x.max() - x.min() + pd.Timedelta(days=1))
+            )
+        else:
+            # If no league column, just use Season
+            df['SeasonProgress'] = df.groupby('Season')['Date'].transform(
+                lambda x: (x - x.min()) / (x.max() - x.min() + pd.Timedelta(days=1))
+            )
+
         df['IsEarlySeason'] = (df['SeasonProgress'] <= 0.15).astype(int)
 
         # Calculate GW1 stats
@@ -755,6 +962,14 @@ class BayesianRollingFeatureGenerator:
         print("[Cards] Calculating disciplinary features...")
         df = self._calculate_disciplinary_features(df)
 
+        # ✨ NEW: Calculate half-time pattern features
+        print("[HT] Calculating half-time features...")
+        df = self._calculate_halftime_features(df)
+
+        # ✨ NEW: Calculate rest days and fixture congestion
+        print("[REST] Calculating fixture congestion features...")
+        df = self._calculate_rest_features(df)
+
         # 7. Add Bayesian match predictions
         df = self._add_bayesian_match_predictions(df)
 
@@ -767,8 +982,9 @@ class BayesianRollingFeatureGenerator:
         # Show summary
         feature_count = len([col for col in df.columns if any(x in col for x in
                                                               ['Form', 'Scoring', 'Over', 'BTTS', 'Goals', 'Shot',
-                                                               'Elo', 'GW1', 'Bayesian', 'Strength'])])
-        print(f"📊 Created {feature_count} enhanced Bayesian features")
+                                                               'Elo', 'GW1', 'Bayesian', 'Strength', 'Half', 'Rest',
+                                                               'Congestion', 'Conversion', 'Starter', 'Finisher'])])
+        print(f"📊 Created {feature_count} enhanced Bayesian features (including new HT + Rest + Shot features)")
 
         return df
 

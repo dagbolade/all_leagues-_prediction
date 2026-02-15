@@ -225,7 +225,7 @@ class BayesianFootballPredictor:
     def get_bayesian_search_space(self, task: str) -> Dict:
         """Define Bayesian optimization search spaces for each model type."""
 
-        if task == 'match_outcome':
+        if task in ['match_outcome', 'ht_result']:
             # 3-way classification search spaces
             return {
                 'xgb': {
@@ -246,7 +246,8 @@ class BayesianFootballPredictor:
                     'feature_fraction': hp.uniform('feature_fraction', 0.6, 1.0),
                     'bagging_fraction': hp.uniform('bagging_fraction', 0.6, 1.0),
                     'reg_alpha': hp.uniform('reg_alpha', 0, 1),
-                    'reg_lambda': hp.uniform('reg_lambda', 0, 2)
+                    'reg_lambda': hp.uniform('reg_lambda', 0, 2),
+                    'num_class': 3  # ✨ FIX: Explicitly set num_class for multi-class
                 },
                 'catboost': {
                     'iterations': hp.choice('iterations', [200, 300, 500, 700]),
@@ -310,7 +311,7 @@ class BayesianFootballPredictor:
         try:
             # Create model with hyperopt parameters
             if model_type == 'xgb':
-                if task == 'match_outcome':
+                if task in ['match_outcome', 'ht_result']:
                     model = XGBClassifier(
                         objective='multi:softprob',
                         eval_metric='mlogloss',
@@ -334,10 +335,11 @@ class BayesianFootballPredictor:
                     )
 
             elif model_type == 'lgbm':
-                if task == 'match_outcome':
+                if task in ['match_outcome', 'ht_result']:
                     model = LGBMClassifier(
                         objective='multiclass',
                         metric='multi_logloss',
+                        num_class=3,  # ✨ FIX: Explicitly set num_class for multi-class
                         random_state=42,
                         verbose=-1,
                         **params
@@ -360,7 +362,7 @@ class BayesianFootballPredictor:
                     )
 
             elif model_type == 'catboost':
-                if task == 'match_outcome':
+                if task in ['match_outcome', 'ht_result']:
                     model = CatBoostClassifier(
                         loss_function='MultiClass',
                         auto_class_weights='Balanced',
@@ -438,6 +440,42 @@ class BayesianFootballPredictor:
             additional_categories = [
                 'bayesian_goal_features', 'over_under_features', 'goal_scoring_features',
                 'referee_features', 'team_strength_features'
+            ]
+
+        # ✨ NEW: Half-Time markets
+        elif task == 'ht_result':
+            # Half-time result benefits from half-time patterns and match outcome features
+            additional_categories = [
+                'bayesian_match_outcome_features', 'team_strength_features',
+                'h2h_features', 'form_features', 'context_features'
+            ]
+
+        elif task in ['ht_over_0_5', 'ht_over_1_5']:
+            # Half-time over/under benefits from half-time scoring patterns
+            additional_categories = [
+                'bayesian_goal_features', 'goal_scoring_features',
+                'team_strength_features', 'referee_features'
+            ]
+
+        elif task == 'ht_btts':
+            # Half-time BTTS benefits from attacking patterns
+            additional_categories = [
+                'bayesian_goal_features', 'goal_scoring_features',
+                'team_strength_features', 'h2h_features'
+            ]
+
+        elif task == '2h_over_1_5':
+            # 2nd half over/under benefits from fitness and strong finisher patterns
+            additional_categories = [
+                'bayesian_goal_features', 'goal_scoring_features',
+                'team_strength_features', 'referee_features'
+            ]
+
+        elif task in ['home_clean_sheet', 'away_clean_sheet']:
+            # Clean sheets benefit from defensive strength and goal features
+            additional_categories = [
+                'bayesian_goal_features', 'team_strength_features',
+                'h2h_features', 'form_features'
             ]
 
         else:
@@ -541,6 +579,86 @@ class BayesianFootballPredictor:
                 'btts_rate': y['btts'].mean()
             }
 
+        # ✨ NEW: Half-Time Result
+        if 'HTR' in df.columns:
+            # Only include matches with valid half-time data
+            valid_ht_mask = df['HTR'].notna()
+            y['ht_result'] = df['HTR'].map({'H': 0, 'D': 1, 'A': 2})
+
+            # Calculate priors only from valid data
+            valid_htr = df[valid_ht_mask]['HTR']
+            ht_home_win_rate = (valid_htr == 'H').mean()
+            ht_draw_rate = (valid_htr == 'D').mean()
+            ht_away_win_rate = (valid_htr == 'A').mean()
+
+            self.bayesian_priors['ht_result'] = {
+                'home_win': ht_home_win_rate,
+                'draw': ht_draw_rate,
+                'away_win': ht_away_win_rate
+            }
+            valid_count = valid_ht_mask.sum()
+            print(f"   ✅ Half-Time Result target created from {valid_count}/{len(df)} matches (HW: {ht_home_win_rate:.1%}, D: {ht_draw_rate:.1%}, AW: {ht_away_win_rate:.1%})")
+
+        # ✨ NEW: Half-Time Over/Under targets
+        if 'HTHG' in df.columns and 'HTAG' in df.columns:
+            # Only use matches with valid half-time data
+            valid_ht_goals_mask = df['HTHG'].notna() & df['HTAG'].notna()
+            df['HTTotalGoals'] = df['HTHG'] + df['HTAG']
+
+            y['ht_over_0_5'] = (df['HTTotalGoals'] > 0.5).astype(float)
+            y['ht_over_1_5'] = (df['HTTotalGoals'] > 1.5).astype(float)
+
+            # Set NaN for matches without half-time data
+            y['ht_over_0_5'][~valid_ht_goals_mask] = float('nan')
+            y['ht_over_1_5'][~valid_ht_goals_mask] = float('nan')
+
+            # Calculate priors from valid data only
+            valid_ht_total = df[valid_ht_goals_mask]['HTTotalGoals']
+            self.bayesian_priors['ht_over_under'] = {
+                'ht_over_0_5_rate': (valid_ht_total > 0.5).mean(),
+                'ht_over_1_5_rate': (valid_ht_total > 1.5).mean(),
+                'avg_ht_total_goals': valid_ht_total.mean()
+            }
+            print(f"   ✅ Half-Time O/U targets created from {valid_ht_goals_mask.sum()}/{len(df)} matches (O0.5: {self.bayesian_priors['ht_over_under']['ht_over_0_5_rate']:.1%}, O1.5: {self.bayesian_priors['ht_over_under']['ht_over_1_5_rate']:.1%})")
+
+        # ✨ NEW: 2nd Half Over/Under target
+        if 'FTHG' in df.columns and 'FTAG' in df.columns and 'HTHG' in df.columns and 'HTAG' in df.columns:
+            valid_2h_mask = df['HTHG'].notna() & df['HTAG'].notna()
+            df['SecondHalfGoals'] = (df['FTHG'] - df['HTHG']) + (df['FTAG'] - df['HTAG'])
+
+            y['2h_over_1_5'] = (df['SecondHalfGoals'] > 1.5).astype(float)
+            y['2h_over_1_5'][~valid_2h_mask] = float('nan')
+
+            valid_2h_goals = df[valid_2h_mask]['SecondHalfGoals']
+            self.bayesian_priors['2h_over_under'] = {
+                '2h_over_1_5_rate': (valid_2h_goals > 1.5).mean(),
+                'avg_2h_total_goals': valid_2h_goals.mean()
+            }
+            print(f"   ✅ 2nd Half O/U 1.5 target created from {valid_2h_mask.sum()}/{len(df)} matches (O1.5: {self.bayesian_priors['2h_over_under']['2h_over_1_5_rate']:.1%})")
+
+        # ✨ NEW: 1st Half BTTS target
+        if 'HTHG' in df.columns and 'HTAG' in df.columns:
+            valid_ht_btts_mask = df['HTHG'].notna() & df['HTAG'].notna()
+            y['ht_btts'] = ((df['HTHG'] > 0) & (df['HTAG'] > 0)).astype(float)
+            y['ht_btts'][~valid_ht_btts_mask] = float('nan')
+
+            valid_ht_btts = y['ht_btts'][valid_ht_btts_mask]
+            self.bayesian_priors['ht_btts'] = {
+                'ht_btts_rate': valid_ht_btts.mean()
+            }
+            print(f"   ✅ 1st Half BTTS target created from {valid_ht_btts_mask.sum()}/{len(df)} matches (BTTS: {self.bayesian_priors['ht_btts']['ht_btts_rate']:.1%})")
+
+        # ✨ NEW: Clean Sheet targets
+        if 'FTAG' in df.columns and 'FTHG' in df.columns:
+            y['home_clean_sheet'] = (df['FTAG'] == 0).astype(int)
+            y['away_clean_sheet'] = (df['FTHG'] == 0).astype(int)
+
+            self.bayesian_priors['clean_sheet'] = {
+                'home_cs_rate': y['home_clean_sheet'].mean(),
+                'away_cs_rate': y['away_clean_sheet'].mean()
+            }
+            print(f"   ✅ Clean Sheet targets created (Home CS: {y['home_clean_sheet'].mean():.1%}, Away CS: {y['away_clean_sheet'].mean():.1%})")
+
         print(f"📊 Prepared targets: {list(y.keys())}")
         print(f"🧠 Calculated Bayesian priors for {len(self.bayesian_priors)} target types")
         return df, y
@@ -554,6 +672,21 @@ class BayesianFootballPredictor:
 
         print(f"🧠 Starting Bayesian hyperparameter optimization for {task}...")
 
+        # 🚀 SPEED OPTIMIZATION: Use 20% of data for hyperparameter search (5x faster)
+        sample_size = int(len(X_train) * 0.2)
+        sample_size = max(500, min(sample_size, len(X_train)))  # At least 500 samples, at most all data
+
+        if sample_size < len(X_train):
+            print(f"   ⚡ Using {sample_size}/{len(X_train)} samples for hyperparameter search (20% sample)")
+            # Random sample for hyperparameter optimization
+            sample_indices = np.random.choice(len(X_train), size=sample_size, replace=False)
+            X_train_sample = X_train.iloc[sample_indices]
+            y_train_sample = y_train.iloc[sample_indices]
+        else:
+            print(f"   ⚠️ Using all {len(X_train)} samples (dataset too small for sampling)")
+            X_train_sample = X_train
+            y_train_sample = y_train
+
         search_spaces = self.get_bayesian_search_space(task)
         optimized_models = []
 
@@ -563,19 +696,19 @@ class BayesianFootballPredictor:
             # Create trials object for this model
             trials = Trials()
 
-            # Define objective function for this model
+            # Define objective function for this model (using sampled data)
             def objective(params):
-                return self.bayesian_objective(params, X_train, y_train, X_val, y_val, model_type, task)
+                return self.bayesian_objective(params, X_train_sample, y_train_sample, X_val, y_val, model_type, task)
 
-            # Run Bayesian optimization
+            # Run Bayesian optimization on sampled data
             try:
                 best_params = fmin(
                     fn=objective,
                     space=space,
                     algo=tpe.suggest,
-                    max_evals=20,  # Reduced for faster training
+                    max_evals=5,  # Reduced from 20 to 5 for much faster training
                     trials=trials,
-                    early_stop_fn=no_progress_loss(10),
+                    early_stop_fn=no_progress_loss(3),  # Early stop after 3 no-improvement trials
                     verbose=False
                 )
 
@@ -587,9 +720,10 @@ class BayesianFootballPredictor:
 
                 print(f"   ✅ {model_type} optimization completed. Best loss: {min(trials.losses()):.4f}")
 
-                # Create final model with best parameters
+                # 🚀 Create final model with best parameters (will be trained on 100% of data in stacking model)
+                # This is the KEY optimization: hyperopt on 20% sample, final training on 100% data
                 if model_type == 'xgb':
-                    if task == 'match_outcome':
+                    if task in ['match_outcome', 'ht_result']:
                         final_model = XGBClassifier(
                             objective='multi:softprob',
                             eval_metric='mlogloss',
@@ -613,10 +747,11 @@ class BayesianFootballPredictor:
                         )
 
                 elif model_type == 'lgbm':
-                    if task == 'match_outcome':
+                    if task in ['match_outcome', 'ht_result']:
                         final_model = LGBMClassifier(
                             objective='multiclass',
                             metric='multi_logloss',
+                            num_class=3,  # ✨ FIX: Explicitly set num_class for multi-class
                             random_state=42,
                             verbose=-1,
                             **best_params
@@ -639,7 +774,7 @@ class BayesianFootballPredictor:
                         )
 
                 elif model_type == 'catboost':
-                    if task == 'match_outcome':
+                    if task in ['match_outcome', 'ht_result']:
                         final_model = CatBoostClassifier(
                             loss_function='MultiClass',
                             auto_class_weights='Balanced',
@@ -683,7 +818,7 @@ class BayesianFootballPredictor:
         """Fallback: Enhanced base models with good default parameters."""
         common_params = {'random_state': 42}
 
-        if task == 'match_outcome':
+        if task in ['match_outcome', 'ht_result']:
             return [
                 ('xgb', XGBClassifier(
                     n_estimators=400,
@@ -705,6 +840,7 @@ class BayesianFootballPredictor:
                     bagging_fraction=0.8,
                     objective='multiclass',
                     metric='multi_logloss',
+                    num_class=3,  # ✨ FIX: Explicitly set num_class for multi-class
                     verbose=-1,
                     **common_params
                 )),
@@ -777,7 +913,7 @@ class BayesianFootballPredictor:
         base_models = self.create_bayesian_optimized_models(task, X_train, y_train, X_val, y_val)
 
         # Meta-learner with conservative parameters
-        if task == 'match_outcome':
+        if task in ['match_outcome', 'ht_result']:
             meta_clf = XGBClassifier(
                 n_estimators=200,
                 learning_rate=0.08,
@@ -894,8 +1030,8 @@ class BayesianFootballPredictor:
         self.poisson_predictor = PoissonScorelinePredictor()
         self.poisson_predictor.calculate_team_strengths(df_processed)
 
-        # Time series cross-validation
-        tscv = TimeSeriesSplit(n_splits=3)
+        # Time series cross-validation (reduced to 2 folds for faster training)
+        tscv = TimeSeriesSplit(n_splits=2)
 
         for task, y_task in y.items():
             print(f"\n🧠 Training Bayesian-optimized model for {task}...")
@@ -911,6 +1047,18 @@ class BayesianFootballPredictor:
 
             # Prepare feature matrix with feature selection
             X = df_processed[task_features].fillna(0)
+
+            # ✨ Filter out rows with NaN target values (for half-time models with missing data)
+            valid_mask = y_task.notna()
+            if valid_mask.sum() < len(y_task):
+                n_removed = (~valid_mask).sum()
+                print(f"   ⚠️ Filtering {n_removed} rows with missing target data ({valid_mask.sum()} valid rows remaining)")
+                X = X[valid_mask]
+                y_task = y_task[valid_mask]
+
+            if len(y_task) < 100:
+                print(f"   ⚠️ Insufficient data for {task} ({len(y_task)} samples), skipping...")
+                continue
 
             # Feature selection for complex models
             max_features_for_selection = min(60, len(task_features))  # Increased for Bayesian models

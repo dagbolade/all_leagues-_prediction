@@ -49,7 +49,17 @@ class BayesianMatchPredictor:
             'over_2_5': 'Over 2.5 Goals',
             'over_3_5': 'Over 3.5 Goals',
             'total_goals': 'Total Goals',
-            'btts': 'Both Teams to Score'
+            'btts': 'Both Teams to Score',
+            # ✨ NEW: Half-Time Markets
+            'ht_result': '1st Half Result',
+            'ht_over_0_5': '1st Half Over 0.5',
+            'ht_over_1_5': '1st Half Over 1.5',
+            'ht_btts': '1st Half BTTS',
+            # ✨ NEW: 2nd Half Markets
+            '2h_over_1_5': '2nd Half Over 1.5',
+            # ✨ NEW: Clean Sheet Markets
+            'home_clean_sheet': 'Home Clean Sheet',
+            'away_clean_sheet': 'Away Clean Sheet'
         }
 
         # Load enhanced Bayesian models
@@ -436,6 +446,13 @@ class BayesianMatchPredictor:
                             pred_class = np.argmax(proba)
 
                             if task == 'match_outcome':
+                                outcomes = ['Home Win', 'Draw', 'Away Win']
+                                predictions[display_name] = outcomes[pred_class]
+                                probabilities[display_name] = {
+                                    outcomes[i]: proba[i] for i in range(len(outcomes))
+                                }
+                            elif task == 'ht_result':
+                                # ✨ NEW: Half-time result (same as match_outcome)
                                 outcomes = ['Home Win', 'Draw', 'Away Win']
                                 predictions[display_name] = outcomes[pred_class]
                                 probabilities[display_name] = {

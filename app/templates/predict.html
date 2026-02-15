@@ -265,6 +265,117 @@
                         {% endif %}
                     </div>
                 </div>
+
+                <!-- ✨ NEW: Half-Time Markets -->
+                {% if predictions.get('1st Half Result') or predictions.get('1st Half Over 0.5') %}
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h4><i class="bi bi-clock"></i> Half-Time Markets</h4>
+                    </div>
+                    <div class="card-body">
+                        {% if predictions.get('1st Half Result') %}
+                        <!-- HT Result -->
+                        <div class="d-flex justify-content-between align-items-center mb-3 pb-3 border-bottom border-secondary">
+                            <div>
+                                <h6 class="mb-0">1st Half Result</h6>
+                                <small class="text-muted">Predicted outcome at half-time</small>
+                            </div>
+                            <span class="pill yes">
+                                {{ predictions['1st Half Result'] }}
+                            </span>
+                        </div>
+                        {% endif %}
+
+                        {% if predictions.get('1st Half Over 0.5') %}
+                        <!-- HT Over 0.5 -->
+                        <div class="d-flex justify-content-between align-items-center mb-3 pb-3 border-bottom border-secondary">
+                            <div>
+                                <h6 class="mb-0">1st Half Over 0.5 Goals</h6>
+                                <small class="text-muted">At least 1 goal before half-time</small>
+                            </div>
+                            <span class="pill {{ 'yes' if predictions['1st Half Over 0.5'] == 'Yes' else 'no' }}">
+                                {{ predictions['1st Half Over 0.5'] }}
+                            </span>
+                        </div>
+                        {% endif %}
+
+                        {% if predictions.get('1st Half Over 1.5') %}
+                        <!-- HT Over 1.5 -->
+                        <div class="d-flex justify-content-between align-items-center mb-3 pb-3 border-bottom border-secondary">
+                            <div>
+                                <h6 class="mb-0">1st Half Over 1.5 Goals</h6>
+                                <small class="text-muted">At least 2 goals before half-time</small>
+                            </div>
+                            <span class="pill {{ 'yes' if predictions['1st Half Over 1.5'] == 'Yes' else 'no' }}">
+                                {{ predictions['1st Half Over 1.5'] }}
+                            </span>
+                        </div>
+                        {% endif %}
+
+                        {% if predictions.get('1st Half BTTS') %}
+                        <!-- HT BTTS -->
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h6 class="mb-0">1st Half BTTS</h6>
+                                <small class="text-muted">Both teams score before half-time</small>
+                            </div>
+                            <span class="pill {{ 'yes' if predictions['1st Half BTTS'] == 'Yes' else 'no' }}">
+                                {{ predictions['1st Half BTTS'] }}
+                            </span>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endif %}
+
+                <!-- ✨ NEW: 2nd Half & Clean Sheet Markets -->
+                {% if predictions.get('2nd Half Over 1.5') or predictions.get('Home Clean Sheet') %}
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h4><i class="bi bi-shield-check"></i> Additional Markets</h4>
+                    </div>
+                    <div class="card-body">
+                        {% if predictions.get('2nd Half Over 1.5') %}
+                        <!-- 2H Over 1.5 -->
+                        <div class="d-flex justify-content-between align-items-center mb-3 pb-3 border-bottom border-secondary">
+                            <div>
+                                <h6 class="mb-0">2nd Half Over 1.5 Goals</h6>
+                                <small class="text-muted">At least 2 goals in 2nd half</small>
+                            </div>
+                            <span class="pill {{ 'yes' if predictions['2nd Half Over 1.5'] == 'Yes' else 'no' }}">
+                                {{ predictions['2nd Half Over 1.5'] }}
+                            </span>
+                        </div>
+                        {% endif %}
+
+                        {% if predictions.get('Home Clean Sheet') %}
+                        <!-- Home CS -->
+                        <div class="d-flex justify-content-between align-items-center mb-3 pb-3 border-bottom border-secondary">
+                            <div>
+                                <h6 class="mb-0">{{ home_team }} Clean Sheet</h6>
+                                <small class="text-muted">Home team keeps clean sheet</small>
+                            </div>
+                            <span class="pill {{ 'yes' if predictions['Home Clean Sheet'] == 'Yes' else 'no' }}">
+                                {{ predictions['Home Clean Sheet'] }}
+                            </span>
+                        </div>
+                        {% endif %}
+
+                        {% if predictions.get('Away Clean Sheet') %}
+                        <!-- Away CS -->
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h6 class="mb-0">{{ away_team }} Clean Sheet</h6>
+                                <small class="text-muted">Away team keeps clean sheet</small>
+                            </div>
+                            <span class="pill {{ 'yes' if predictions['Away Clean Sheet'] == 'Yes' else 'no' }}">
+                                {{ predictions['Away Clean Sheet'] }}
+                            </span>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endif %}
             </div>
 
             <!-- Right Column -->

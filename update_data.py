@@ -27,7 +27,8 @@ import sys
 # Add project to path
 sys.path.insert(0, str(Path(__file__).parent))
 
-from footy.data_cleaning import clean_and_validate_data
+from footy.data_cleaning import clean_betting_columns
+from footy.load_data import load_season_data_any, load_and_merge_multi
 from footy.rolling_features import BayesianRollingFeatureGenerator
 from footy.feature_engineering import BayesianFootballFeatureEngineering
 
@@ -69,10 +70,16 @@ class IncrementalDataUpdater:
 
         print(f"   Source: {new_data_file}")
 
-        # Load and clean
-        from footy.load_data import load_and_merge_multi_seasons
-        new_df = load_and_merge_multi_seasons([str(new_data_file)])
-        new_df = clean_and_validate_data(new_df)
+        # Extract season name from filename (e.g. all-euro-data-2025-2026.xlsx -> 2025-2026)
+        fname = Path(new_data_file).stem  # e.g. all-euro-data-2025-2026
+        parts = fname.split('-')
+        season = f"{parts[-2]}-{parts[-1]}" if len(parts) >= 2 else "2025-2026"
+
+        # Load and clean using correct functions
+        season_paths = {season: str(new_data_file)}
+        data_by_season, _ = load_season_data_any(season_paths)
+        new_df = load_and_merge_multi(data_by_season)
+        new_df = clean_betting_columns(new_df)
         new_df['Date'] = pd.to_datetime(new_df['Date'])
 
         print(f"✅ Loaded {len(new_df)} total matches from file")
@@ -134,7 +141,7 @@ class IncrementalDataUpdater:
 
         print(f"\n🎯 Updating advanced Bayesian features...")
         feature_engineer = BayesianFootballFeatureEngineering()
-        df_fully_engineered = feature_engineer.engineer_all_bayesian_features(df_with_rolling)
+        df_fully_engineered = feature_engineer.engineer_features(df_with_rolling)
 
         print(f"✅ Feature engineering complete!")
         print(f"   Total features: {len(df_fully_engineered.columns)}")

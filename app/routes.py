@@ -563,7 +563,7 @@ def predict():
 
             # Format insights for display
             enhanced_insights = {
-                'key_insights': match_insights[:10]  # Show top 10 insights
+                'key_insights': match_insights[:25]  # Show up to 25 insights (includes prediction signals)
             }
 
             # Format confidence levels with fallback

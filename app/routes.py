@@ -93,11 +93,17 @@ def generate_comprehensive_insights(predictor_df, home_team, away_team, weekly_a
     try:
         # 2. GET LATEST ACTUAL MATCH RESULTS (whatever season format exists)
         # Find what seasons actually exist in the data
-        available_seasons = predictor_df['Season'].unique()
-        # sort seasons to get the latest one
-        # Assuming format is YYYY-YYYY or YYYY/YY, string sort usually works if consistent
-        # But let's be roboust if possible
-        latest_season = sorted(available_seasons)[-1]  # Most recent season
+        all_seasons = predictor_df['Season'].dropna().unique()
+        
+        # IMPORTANT: filter out corrupted season values (e.g. filenames like 'all-euro-data-2025-2026.xlsx')
+        # Only keep proper YYYY-YYYY format seasons
+        import re as _re
+        valid_seasons = [s for s in all_seasons if _re.match(r'^\d{4}[-/]\d{4}$', str(s))]
+        
+        if not valid_seasons:
+            valid_seasons = list(all_seasons)  # fallback to all if none match
+        
+        latest_season = sorted(valid_seasons)[-1]  # Most recent season
 
         # Ensure Date is datetime for correct sorting
         if not pd.api.types.is_datetime64_any_dtype(predictor_df['Date']):

@@ -233,10 +233,19 @@ class IncrementalDataUpdater:
             predictor = BayesianFootballPredictor()
             models, metrics = predictor.train_models(updated_df)
 
-            # Save models
+            # Save models - must use the full bundle structure expected by BayesianMatchPredictor
             import joblib
             models_path = Path('models/football_models.joblib')
-            joblib.dump(models, models_path)
+            model_bundle = {
+                'models': models,
+                'calibrated_models': getattr(predictor, 'calibrated_models', {}),
+                'poisson_predictor': getattr(predictor, 'poisson_predictor', None),
+                'bayesian_priors': getattr(predictor, 'bayesian_priors', {}),
+                'confidence_adjuster': getattr(predictor, 'confidence_adjuster', None),
+                'feature_categories': getattr(predictor, 'feature_categories', {}),
+                'available_features': getattr(predictor, 'available_features', []),
+            }
+            joblib.dump(model_bundle, models_path)
             print(f"✅ Models retrained and saved to {models_path}")
         else:
             print("\n⏭️  Skipping model retraining (use --retrain to retrain)")

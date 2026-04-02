@@ -24,35 +24,56 @@
 
             <form method="POST" id="predictionForm" novalidate aria-describedby="formErrorSummary">
                 <div class="row align-items-end">
+                    <!-- HOME TEAM PICKER -->
                     <div class="col-md-5 mb-3">
-                        <label for="homeTeamSelect" class="form-label">Home Team</label>
-                        <select id="homeTeamSelect" name="homeTeam" class="form-select" required>
-                            <option value="">Select Home Team</option>
-                            {% if teams %}
-                            {% for team in teams %}
-                            <option value="{{ team }}">{{ team }}</option>
-                            {% endfor %}
-                            {% else %}
-                            <option value="" disabled>⚠️ No teams loaded (System Initializing)</option>
-                            {% endif %}
-                        </select>
-                        <div id="homeTeamError" class="invalid-feedback">Please choose a home team.</div>
+                        <label class="form-label">Home Team</label>
+                        <div class="team-picker" id="homePicker">
+                            <div class="team-picker-input-wrap">
+                                <i class="bi bi-search team-picker-icon"></i>
+                                <input type="text" class="team-picker-search form-control"
+                                    id="homeTeamSearch" placeholder="Search home team..."
+                                    autocomplete="off" autocorrect="off" spellcheck="false">
+                                <i class="bi bi-chevron-down team-picker-arrow" id="homeArrow"></i>
+                            </div>
+                            <div class="team-picker-dropdown" id="homeDropdown" style="display:none;">
+                                <ul class="team-picker-list" id="homeTeamList">
+                                    {% for team in teams %}
+                                    <li class="team-picker-item" data-value="{{ team }}">{{ team }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                            <!-- Hidden real input for form submission -->
+                            <input type="hidden" id="homeTeamSelect" name="homeTeam" required>
+                        </div>
+                        <div id="homeTeamError" class="invalid-feedback" style="display:none;">Please choose a home team.</div>
                     </div>
 
                     <div class="col-md-2 mb-3 text-center">
                         <div class="vs-badge">VS</div>
                     </div>
 
+                    <!-- AWAY TEAM PICKER -->
                     <div class="col-md-5 mb-3">
-                        <label for="awayTeamSelect" class="form-label">Away Team</label>
-                        <select id="awayTeamSelect" name="awayTeam" class="form-select" required>
-                            <option value="">Select Away Team</option>
-                            {% for team in teams %}
-                            <option value="{{ team }}">{{ team }}</option>
-                            {% endfor %}
-                        </select>
-                        <div id="awayTeamError" class="invalid-feedback">Please choose an away team.</div>
-                        <div id="sameTeamsError" class="invalid-feedback">Home and away teams must be different.</div>
+                        <label class="form-label">Away Team</label>
+                        <div class="team-picker" id="awayPicker">
+                            <div class="team-picker-input-wrap">
+                                <i class="bi bi-search team-picker-icon"></i>
+                                <input type="text" class="team-picker-search form-control"
+                                    id="awayTeamSearch" placeholder="Search away team..."
+                                    autocomplete="off" autocorrect="off" spellcheck="false">
+                                <i class="bi bi-chevron-down team-picker-arrow" id="awayArrow"></i>
+                            </div>
+                            <div class="team-picker-dropdown" id="awayDropdown" style="display:none;">
+                                <ul class="team-picker-list" id="awayTeamList">
+                                    {% for team in teams %}
+                                    <li class="team-picker-item" data-value="{{ team }}">{{ team }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                            <input type="hidden" id="awayTeamSelect" name="awayTeam" required>
+                        </div>
+                        <div id="awayTeamError" class="invalid-feedback" style="display:none;">Please choose an away team.</div>
+                        <div id="sameTeamsError" class="invalid-feedback" style="display:none;">Home and away teams must be different.</div>
                     </div>
                 </div>
 
@@ -65,6 +86,232 @@
                         Prediction</button>
                 </div>
             </form>
+
+            <style>
+                .team-picker { position: relative; }
+                .team-picker-input-wrap {
+                    position: relative;
+                    display: flex;
+                    align-items: center;
+                }
+                .team-picker-icon {
+                    position: absolute;
+                    left: 12px;
+                    color: var(--bs-secondary);
+                    pointer-events: none;
+                    z-index: 2;
+                    font-size: 0.9rem;
+                }
+                .team-picker-search {
+                    padding-left: 34px !important;
+                    padding-right: 36px !important;
+                    cursor: pointer;
+                }
+                .team-picker-search.selected {
+                    color: #fff;
+                    font-weight: 600;
+                }
+                .team-picker-arrow {
+                    position: absolute;
+                    right: 12px;
+                    color: var(--bs-secondary);
+                    pointer-events: none;
+                    transition: transform 0.2s;
+                    font-size: 0.85rem;
+                }
+                .team-picker-arrow.open { transform: rotate(180deg); }
+                .team-picker-dropdown {
+                    position: absolute;
+                    top: calc(100% + 4px);
+                    left: 0; right: 0;
+                    z-index: 9999;
+                    background: #1a1f2e;
+                    border: 1px solid rgba(255,255,255,0.12);
+                    border-radius: 10px;
+                    overflow: hidden;
+                    box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+                    backdrop-filter: blur(12px);
+                }
+                .team-picker-list {
+                    list-style: none;
+                    margin: 0;
+                    padding: 0;
+                    max-height: 260px;
+                    overflow-y: auto;
+                    -webkit-overflow-scrolling: touch;
+                }
+                .team-picker-item {
+                    padding: 11px 16px;
+                    color: #d1d5db;
+                    cursor: pointer;
+                    font-size: 0.95rem;
+                    transition: background 0.12s;
+                    border-bottom: 1px solid rgba(255,255,255,0.04);
+                }
+                .team-picker-item:last-child { border-bottom: none; }
+                .team-picker-item:hover,
+                .team-picker-item.highlighted { background: rgba(99,102,241,0.18); color: #fff; }
+                .team-picker-item.selected-item {
+                    background: rgba(99,102,241,0.3);
+                    color: #fff;
+                    font-weight: 600;
+                }
+                .team-picker-item.hidden { display: none; }
+                .team-picker-no-results {
+                    padding: 12px 16px;
+                    color: var(--bs-secondary);
+                    font-size: 0.9rem;
+                    text-align: center;
+                }
+            </style>
+
+            <script>
+            (function() {
+                function setupTeamPicker(searchId, listId, dropdownId, hiddenId, arrowId) {
+                    const search = document.getElementById(searchId);
+                    const list = document.getElementById(listId);
+                    const dropdown = document.getElementById(dropdownId);
+                    const hidden = document.getElementById(hiddenId);
+                    const arrow = document.getElementById(arrowId);
+                    const items = list ? Array.from(list.querySelectorAll('.team-picker-item')) : [];
+                    let isOpen = false;
+                    let highlighted = -1;
+
+                    function openDropdown() {
+                        dropdown.style.display = 'block';
+                        arrow.classList.add('open');
+                        isOpen = true;
+                        filterList(search.value);
+                    }
+
+                    function closeDropdown() {
+                        dropdown.style.display = 'none';
+                        arrow.classList.remove('open');
+                        isOpen = false;
+                        highlighted = -1;
+                        // If no selection made, restore label
+                        if (!hidden.value) search.value = '';
+                    }
+
+                    function selectItem(item) {
+                        const val = item.dataset.value;
+                        hidden.value = val;
+                        search.value = val;
+                        search.classList.add('selected');
+                        items.forEach(i => i.classList.remove('selected-item'));
+                        item.classList.add('selected-item');
+                        closeDropdown();
+                    }
+
+                    function filterList(query) {
+                        const q = query.toLowerCase().trim();
+                        let visibleCount = 0;
+                        items.forEach((item, idx) => {
+                            const name = item.dataset.value.toLowerCase();
+                            const matches = !q || name.includes(q);
+                            item.classList.toggle('hidden', !matches);
+                            if (matches) visibleCount++;
+                        });
+                        // No results msg
+                        let noRes = list.querySelector('.team-picker-no-results');
+                        if (visibleCount === 0) {
+                            if (!noRes) {
+                                noRes = document.createElement('li');
+                                noRes.className = 'team-picker-no-results';
+                                noRes.textContent = 'No teams found';
+                                list.appendChild(noRes);
+                            }
+                        } else if (noRes) {
+                            noRes.remove();
+                        }
+                    }
+
+                    // Open on click/focus
+                    search.addEventListener('click', function() {
+                        if (!isOpen) {
+                            openDropdown();
+                        }
+                    });
+                    search.addEventListener('focus', function() {
+                        if (!isOpen) openDropdown();
+                    });
+
+                    // Filter as user types
+                    search.addEventListener('input', function() {
+                        hidden.value = '';
+                        search.classList.remove('selected');
+                        filterList(this.value);
+                        if (!isOpen) openDropdown();
+                    });
+
+                    // Keyboard navigation
+                    search.addEventListener('keydown', function(e) {
+                        const visible = items.filter(i => !i.classList.contains('hidden'));
+                        if (e.key === 'ArrowDown') {
+                            e.preventDefault();
+                            highlighted = Math.min(highlighted + 1, visible.length - 1);
+                            visible.forEach((i, idx) => i.classList.toggle('highlighted', idx === highlighted));
+                            if (visible[highlighted]) visible[highlighted].scrollIntoView({ block: 'nearest' });
+                        } else if (e.key === 'ArrowUp') {
+                            e.preventDefault();
+                            highlighted = Math.max(highlighted - 1, 0);
+                            visible.forEach((i, idx) => i.classList.toggle('highlighted', idx === highlighted));
+                        } else if (e.key === 'Enter') {
+                            e.preventDefault();
+                            if (highlighted >= 0 && visible[highlighted]) selectItem(visible[highlighted]);
+                        } else if (e.key === 'Escape') {
+                            closeDropdown();
+                        }
+                    });
+
+                    // Click on item
+                    items.forEach(item => {
+                        item.addEventListener('mousedown', function(e) {
+                            e.preventDefault(); // prevent blur before click
+                            selectItem(item);
+                        });
+                        item.addEventListener('touchend', function(e) {
+                            e.preventDefault();
+                            selectItem(item);
+                        });
+                    });
+
+                    // Close on outside click
+                    document.addEventListener('mousedown', function(e) {
+                        if (!search.parentElement.parentElement.contains(e.target)) closeDropdown();
+                    });
+                    document.addEventListener('touchstart', function(e) {
+                        if (!search.parentElement.parentElement.contains(e.target)) closeDropdown();
+                    }, { passive: true });
+                }
+
+                document.addEventListener('DOMContentLoaded', function() {
+                    setupTeamPicker('homeTeamSearch', 'homeTeamList', 'homeDropdown', 'homeTeamSelect', 'homeArrow');
+                    setupTeamPicker('awayTeamSearch', 'awayTeamList', 'awayDropdown', 'awayTeamSelect', 'awayArrow');
+
+                    // Pre-fill if values returned after POST
+                    const homeVal = '{{ home_team if home_team else "" }}';
+                    const awayVal = '{{ away_team if away_team else "" }}';
+                    if (homeVal) {
+                        document.getElementById('homeTeamSelect').value = homeVal;
+                        const s = document.getElementById('homeTeamSearch');
+                        s.value = homeVal;
+                        s.classList.add('selected');
+                        const item = document.querySelector('#homeTeamList [data-value="'+homeVal+'"]');
+                        if (item) item.classList.add('selected-item');
+                    }
+                    if (awayVal) {
+                        document.getElementById('awayTeamSelect').value = awayVal;
+                        const s = document.getElementById('awayTeamSearch');
+                        s.value = awayVal;
+                        s.classList.add('selected');
+                        const item = document.querySelector('#awayTeamList [data-value="'+awayVal+'"]');
+                        if (item) item.classList.add('selected-item');
+                    }
+                });
+            })();
+            </script>
+
         </div>
     </div>
 
@@ -491,18 +738,21 @@
     document.addEventListener('DOMContentLoaded', function () {
         const form = document.getElementById('predictionForm');
         const loadingSpinner = document.getElementById('loadingSpinner');
+        // Hidden inputs carry the actual submitted values
         const homeSelect = document.getElementById('homeTeamSelect');
         const awaySelect = document.getElementById('awayTeamSelect');
+        // Visible search inputs for focus/error styling
+        const homeSearch = document.getElementById('homeTeamSearch');
+        const awaySearch = document.getElementById('awayTeamSearch');
         const homeTeamError = document.getElementById('homeTeamError');
         const awayTeamError = document.getElementById('awayTeamError');
         const sameTeamsError = document.getElementById('sameTeamsError');
         const formErrorSummary = document.getElementById('formErrorSummary');
 
         function resetErrors() {
-            [homeSelect, awaySelect].forEach(el => {
+            [homeSearch, awaySearch].forEach(el => {
                 if (!el) return;
                 el.classList.remove('is-invalid');
-                el.setAttribute('aria-invalid', 'false');
             });
             [homeTeamError, awayTeamError, sameTeamsError].forEach(el => { if (el) el.style.display = 'none'; });
             if (formErrorSummary) formErrorSummary.style.display = 'none';
@@ -518,31 +768,28 @@
 
             if (!homeVal) {
                 isValid = false;
-                if (homeSelect) {
-                    homeSelect.classList.add('is-invalid');
-                    homeSelect.setAttribute('aria-invalid', 'true');
+                if (homeSearch) {
+                    homeSearch.classList.add('is-invalid');
                     if (homeTeamError) homeTeamError.style.display = 'block';
-                    if (!firstInvalid) firstInvalid = homeSelect;
+                    if (!firstInvalid) firstInvalid = homeSearch;
                 }
             }
 
             if (!awayVal) {
                 isValid = false;
-                if (awaySelect) {
-                    awaySelect.classList.add('is-invalid');
-                    awaySelect.setAttribute('aria-invalid', 'true');
+                if (awaySearch) {
+                    awaySearch.classList.add('is-invalid');
                     if (awayTeamError) awayTeamError.style.display = 'block';
-                    if (!firstInvalid) firstInvalid = awaySelect;
+                    if (!firstInvalid) firstInvalid = awaySearch;
                 }
             }
 
             if (homeVal && awayVal && homeVal === awayVal) {
                 isValid = false;
-                if (awaySelect) {
-                    awaySelect.classList.add('is-invalid');
-                    awaySelect.setAttribute('aria-invalid', 'true');
+                if (awaySearch) {
+                    awaySearch.classList.add('is-invalid');
                     if (sameTeamsError) sameTeamsError.style.display = 'block';
-                    if (!firstInvalid) firstInvalid = awaySelect;
+                    if (!firstInvalid) firstInvalid = awaySearch;
                 }
             }
 

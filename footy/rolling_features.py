@@ -588,9 +588,28 @@ class BayesianRollingFeatureGenerator:
             df['HomeShotPressure'] = df['HST']
             df['AwayShotPressure'] = df['AST']
 
-            # Expected goals (simple model) - existing
-            df['HomexG'] = df['HS'] * 0.08 + df['HST'] * 0.25
-            df['AwayxG'] = df['AS'] * 0.08 + df['AST'] * 0.25
+            # Expected goals (Use accurate Understat xG if available, fallback to naive model)
+            naive_hxG = df['HS'] * 0.08 + df['HST'] * 0.25
+            naive_axG = df['AS'] * 0.08 + df['AST'] * 0.25
+            
+            if 'Home_xG' in df.columns and 'Away_xG' in df.columns:
+                df['HomexG'] = df['Home_xG'].fillna(naive_hxG)
+                df['AwayxG'] = df['Away_xG'].fillna(naive_axG)
+            else:
+                df['HomexG'] = naive_hxG
+                df['AwayxG'] = naive_axG
+                
+            # ✨ NEW: True Rolling Expected Goals (3, 5, 10 game averages)
+            for window in [3, 5, 10]:
+                df[f'Home_Rolling_xG_{window}'] = df.groupby('HomeTeam')['HomexG'].transform(
+                    lambda x: x.shift(1).rolling(window, min_periods=1).mean()
+                )
+                df[f'Away_Rolling_xG_{window}'] = df.groupby('AwayTeam')['AwayxG'].transform(
+                    lambda x: x.shift(1).rolling(window, min_periods=1).mean()
+                )
+                
+            # Expected Goals Differential (Advantage)
+            df['Rolling_xG_Advantage'] = df['Home_Rolling_xG_5'] - df['Away_Rolling_xG_5']
 
             # ✨ NEW: Shots on Target Rolling Averages (Last 5 matches)
             df['HomeShotsOnTargetAvg_Last5'] = df.groupby('HomeTeam')['HST'].transform(

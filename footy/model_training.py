@@ -152,6 +152,11 @@ class BayesianFootballPredictor:
                 'BayesianExpectedTotal', 'BayesianOver15Prob', 'BayesianOver25Prob', 'BayesianOver35Prob',
                 'BayesianBTTSProb', 'BayesianGoalPotential', 'ExpectedHomeGoals', 'ExpectedAwayGoals'
             ],
+            'expected_goals_xg_features': [
+                'Home_Rolling_xG_3', 'Home_Rolling_xG_5', 'Home_Rolling_xG_10',
+                'Away_Rolling_xG_3', 'Away_Rolling_xG_5', 'Away_Rolling_xG_10',
+                'Rolling_xG_Advantage'
+            ],
             'form_features': [
                 'HomeForm_3', 'HomeForm_5', 'HomeForm_10',
                 'AwayForm_3', 'AwayForm_5', 'AwayForm_10',
@@ -418,27 +423,27 @@ class BayesianFootballPredictor:
             # Match outcome benefits from Bayesian match outcome features and team strength
             additional_categories = [
                 'bayesian_match_outcome_features', 'team_strength_features',
-                'h2h_features', 'context_features', 'form_features'
+                'h2h_features', 'context_features', 'form_features', 'expected_goals_xg_features'
             ]
 
         elif task in ['over_1_5', 'over_2_5', 'over_3_5']:
             # Over/Under predictions benefit from Bayesian goal features
             additional_categories = [
-                'bayesian_goal_features', 'over_under_features', 'goal_scoring_features',
+                'bayesian_goal_features', 'expected_goals_xg_features', 'over_under_features', 'goal_scoring_features',
                 'referee_features', 'team_strength_features'
             ]
 
         elif task == 'btts':
             # BTTS benefits from attack patterns and Bayesian BTTS features
             additional_categories = [
-                'bayesian_goal_features', 'goal_scoring_features',
+                'bayesian_goal_features', 'expected_goals_xg_features', 'goal_scoring_features',
                 'team_strength_features', 'h2h_features'
             ]
 
         elif task == 'total_goals':
             # Total goals uses Bayesian goal features and all goal-related features
             additional_categories = [
-                'bayesian_goal_features', 'over_under_features', 'goal_scoring_features',
+                'bayesian_goal_features', 'expected_goals_xg_features', 'over_under_features', 'goal_scoring_features',
                 'referee_features', 'team_strength_features'
             ]
 
@@ -447,40 +452,40 @@ class BayesianFootballPredictor:
             # Half-time result benefits from half-time patterns and match outcome features
             additional_categories = [
                 'bayesian_match_outcome_features', 'team_strength_features',
-                'h2h_features', 'form_features', 'context_features'
+                'h2h_features', 'form_features', 'context_features', 'expected_goals_xg_features'
             ]
 
         elif task in ['ht_over_0_5', 'ht_over_1_5']:
             # Half-time over/under benefits from half-time scoring patterns
             additional_categories = [
-                'bayesian_goal_features', 'goal_scoring_features',
+                'bayesian_goal_features', 'expected_goals_xg_features', 'goal_scoring_features',
                 'team_strength_features', 'referee_features'
             ]
 
         elif task == 'ht_btts':
             # Half-time BTTS benefits from attacking patterns
             additional_categories = [
-                'bayesian_goal_features', 'goal_scoring_features',
+                'bayesian_goal_features', 'expected_goals_xg_features', 'goal_scoring_features',
                 'team_strength_features', 'h2h_features'
             ]
 
         elif task == '2h_over_1_5':
             # 2nd half over/under benefits from fitness and strong finisher patterns
             additional_categories = [
-                'bayesian_goal_features', 'goal_scoring_features',
+                'bayesian_goal_features', 'expected_goals_xg_features', 'goal_scoring_features',
                 'team_strength_features', 'referee_features'
             ]
 
         elif task in ['home_clean_sheet', 'away_clean_sheet']:
             # Clean sheets benefit from defensive strength and goal features
             additional_categories = [
-                'bayesian_goal_features', 'team_strength_features',
+                'bayesian_goal_features', 'expected_goals_xg_features', 'team_strength_features',
                 'h2h_features', 'form_features'
             ]
 
         else:
             # Default: use most relevant features
-            additional_categories = ['bayesian_goal_features', 'form_features', 'context_features']
+            additional_categories = ['bayesian_goal_features', 'expected_goals_xg_features', 'form_features', 'context_features']
 
         # Add task-specific features
         task_features = base_features.copy()
@@ -1156,6 +1161,8 @@ class BayesianFootballPredictor:
         print(f"   📊 Trained models: {list(self.models.keys())}")
         print(f"   ⚽ Poisson predictor ready for exact scorelines")
         print(f"   🧠 Bayesian optimization trials: {len(self.hyperopt_trials)}")
+        
+        return self.models, self.metrics
 
     def predict_with_bayesian_constraints(self, X_new):
         """

@@ -124,6 +124,22 @@ class IncrementalDataUpdater:
 
         print(f"✅ Combined dataset: {len(combined_df)} total matches")
 
+        # --- NEW: EXPECTED GOALS (xG) INTEGRATION ---
+        # Backfill or fetch latest xG if it's missing or largely NaN
+        if 'Home_xG' not in combined_df.columns or combined_df['Home_xG'].isna().mean() > 0.3:
+            print("\n🌍 Fetching Expected Goals (xG) data from Understat for the dataset...")
+            try:
+                from footy.xg_scraper import ExpectedGoalsScraper
+                scraper = ExpectedGoalsScraper()
+                combined_df = scraper.merge_xg_to_matches(combined_df)
+                print(f"✅ Successfully integrated Expected Goals mapping!")
+            except Exception as e:
+                print(f"⚠️ Could not fetch xG data: {e}")
+                if 'Home_xG' not in combined_df.columns:
+                    combined_df['Home_xG'] = float('nan')
+                    combined_df['Away_xG'] = float('nan')
+        # --------------------------------------------
+
         # Get list of affected teams (teams with new matches)
         affected_teams = set(new_matches['HomeTeam']) | set(new_matches['AwayTeam'])
         print(f"   Affected teams: {len(affected_teams)} teams need feature updates")
@@ -199,8 +215,8 @@ class IncrementalDataUpdater:
         new_matches = self.find_new_matches(existing_df, new_df)
 
         if len(new_matches) == 0:
-            print("\n✅ Data is already up to date. No action needed.")
-            return True
+            print("\n✅ Data is already up to date. BUT forcing xG backfill update...")
+            # return True
 
         # Step 4: Merge and update features
         updated_df = self.merge_and_update_features(existing_df, new_matches)
@@ -215,7 +231,7 @@ class IncrementalDataUpdater:
             # Import and run model training
             from footy.model_training import BayesianFootballPredictor
             predictor = BayesianFootballPredictor()
-            models, metrics = predictor.train_all_models(updated_df)
+            models, metrics = predictor.train_models(updated_df)
 
             # Save models
             import joblib

@@ -217,17 +217,25 @@ class MatchStatistics:
         
         goals_for = []
         goals_against = []
+        xg_for = []
+        xg_against = []
         clean_sheets = 0
         failed_to_score = 0
         
         for _, match in team_matches.iterrows():
             if match['HomeTeam'] == team:
                 gf, ga = match['FTHG'], match['FTAG']
+                xg_f = match.get('HomexG', 0) if pd.notnull(match.get('HomexG')) else match.get('HS', 0)*0.1
+                xg_a = match.get('AwayxG', 0) if pd.notnull(match.get('AwayxG')) else match.get('AS', 0)*0.1
             else:
                 gf, ga = match['FTAG'], match['FTHG']
+                xg_f = match.get('AwayxG', 0) if pd.notnull(match.get('AwayxG')) else match.get('AS', 0)*0.1
+                xg_a = match.get('HomexG', 0) if pd.notnull(match.get('HomexG')) else match.get('HS', 0)*0.1
             
             goals_for.append(gf)
             goals_against.append(ga)
+            xg_for.append(xg_f)
+            xg_against.append(xg_a)
             
             if ga == 0:
                 clean_sheets += 1
@@ -235,8 +243,10 @@ class MatchStatistics:
                 failed_to_score += 1
         
         return {
-            'avg_goals_scored': round(sum(goals_for) / len(goals_for), 2),
-            'avg_goals_conceded': round(sum(goals_against) / len(goals_against), 2),
+            'avg_goals_scored': round(sum(goals_for) / len(goals_for), 2) if goals_for else 0,
+            'avg_goals_conceded': round(sum(goals_against) / len(goals_against), 2) if goals_against else 0,
+            'avg_xg_created': round(sum(xg_for) / len(xg_for), 2) if xg_for else 0,
+            'avg_xg_conceded': round(sum(xg_against) / len(xg_against), 2) if xg_against else 0,
             'clean_sheets': clean_sheets,
             'failed_to_score': failed_to_score,
             'clean_sheet_percentage': round(clean_sheets / len(team_matches) * 100, 1),

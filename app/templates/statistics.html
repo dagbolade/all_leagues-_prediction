@@ -338,9 +338,17 @@
                             <span class="text-muted">Avg Goals Scored:</span>
                             <strong class="text-white">{{ stats.goal_statistics.home.avg_goals_scored }}</strong>
                         </div>
+                        <div class="d-flex justify-content-between mb-2 pb-2 border-bottom border-secondary" style="background: rgba(16, 185, 129, 0.05);">
+                            <span class="text-muted">Expected Goals (xG) Created:</span>
+                            <strong class="text-success">{{ stats.goal_statistics.home.avg_xg_created }}</strong>
+                        </div>
                         <div class="d-flex justify-content-between mb-2 pb-2 border-bottom border-secondary">
                             <span class="text-muted">Avg Goals Conceded:</span>
                             <strong class="text-white">{{ stats.goal_statistics.home.avg_goals_conceded }}</strong>
+                        </div>
+                        <div class="d-flex justify-content-between mb-2 pb-2 border-bottom border-secondary" style="background: rgba(239, 68, 68, 0.05);">
+                            <span class="text-muted">Expected Goals (xG) Conceded:</span>
+                            <strong class="text-danger">{{ stats.goal_statistics.home.avg_xg_conceded }}</strong>
                         </div>
                         <div class="d-flex justify-content-between mb-2 pb-2 border-bottom border-secondary">
                             <span class="text-muted">Clean Sheets:</span>
@@ -360,9 +368,17 @@
                             <span class="text-muted">Avg Goals Scored:</span>
                             <strong class="text-white">{{ stats.goal_statistics.away.avg_goals_scored }}</strong>
                         </div>
+                        <div class="d-flex justify-content-between mb-2 pb-2 border-bottom border-secondary" style="background: rgba(16, 185, 129, 0.05);">
+                            <span class="text-muted">Expected Goals (xG) Created:</span>
+                            <strong class="text-success">{{ stats.goal_statistics.away.avg_xg_created }}</strong>
+                        </div>
                         <div class="d-flex justify-content-between mb-2 pb-2 border-bottom border-secondary">
                             <span class="text-muted">Avg Goals Conceded:</span>
                             <strong class="text-white">{{ stats.goal_statistics.away.avg_goals_conceded }}</strong>
+                        </div>
+                        <div class="d-flex justify-content-between mb-2 pb-2 border-bottom border-secondary" style="background: rgba(239, 68, 68, 0.05);">
+                            <span class="text-muted">Expected Goals (xG) Conceded:</span>
+                            <strong class="text-danger">{{ stats.goal_statistics.away.avg_xg_conceded }}</strong>
                         </div>
                         <div class="d-flex justify-content-between mb-2 pb-2 border-bottom border-secondary">
                             <span class="text-muted">Clean Sheets:</span>

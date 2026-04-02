@@ -73,6 +73,33 @@ h6 {
 
 a {
     text-decoration: none;
+    transition: all 0.2s ease-in-out;
+}
+
+/* ========== MOBILE OPTIMIZED LAYOUT ========== */
+body {
+    padding-bottom: 80px; /* Space for the bottom navbar on mobile */
+}
+
+@media (min-width: 768px) {
+    body {
+        padding-bottom: 0;
+    }
+}
+
+/* Glassmorphism Classes */
+.glass-effect {
+    background: rgba(15, 17, 21, 0.7);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.glass-nav-effect {
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 /* ========== NAVBAR ========== */
@@ -111,19 +138,76 @@ a {
     color: var(--primary-marketing) !important;
 }
 
+/* ========== MOBILE BOTTOM NAVIGATION ========== */
+.mobile-bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1050;
+    background: rgba(0, 0, 0, 0.9);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 0.5rem 0.5rem calc(0.5rem + env(safe-area-inset-bottom)) 0.5rem;
+    box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.5);
+}
+
+.mobile-nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 0.7rem;
+    padding: 0.5rem;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 12px;
+}
+
+.mobile-nav-item i {
+    font-size: 1.25rem;
+    margin-bottom: 2px;
+    transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.mobile-nav-item:hover, 
+.mobile-nav-item:active {
+    color: var(--text-main);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.mobile-nav-item.active {
+    color: var(--primary-marketing);
+}
+
+.mobile-nav-item.active i {
+    transform: translateY(-2px);
+}
+
 /* ========== CARDS ========== */
 .card {
-    background-color: var(--bg-card);
-    border: 1px solid var(--border-color);
+    background: rgba(15, 17, 21, 0.6);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: var(--radius-card);
-    box-shadow: var(--shadow-sm);
+    box-shadow: var(--shadow-md);
     margin-bottom: 1.5rem;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+div[class*="mt-4"] > .card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
 }
 
 .card-header {
-    background-color: rgba(255, 255, 255, 0.03);
-    /* Extremely subtle highlight */
-    border-bottom: 1px solid var(--border-color);
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.01) 100%);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
     padding: 1rem 1.5rem;
     font-weight: 600;
     color: var(--text-main);
@@ -145,21 +229,54 @@ a {
     box-shadow: var(--shadow-sm);
 }
 
-.btn-primary:hover {
+.btn-primary:active,
+.btn-predict:active {
+    transform: scale(0.94);
+}
+
+.btn-primary:hover,
+.btn-predict:hover {
     background-color: var(--primary-hover);
     color: white;
-    transform: translateY(-1px);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+}
+
+.btn-predict {
+    background: linear-gradient(135deg, var(--primary-marketing) 0%, var(--primary-hover) 100%);
+    color: white;
+    border: none;
+    padding: 0.8rem 2rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-radius: 99px;
+    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
 /* ========== HERO SECTION ========== */
 .welcome-section {
-    background-color: var(--bg-card);
-    padding: 3rem 1rem;
+    background: linear-gradient(135deg, rgba(15, 17, 21, 0.8) 0%, rgba(59, 130, 246, 0.1) 100%);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    padding: 3.5rem 1.5rem;
     border-radius: var(--radius-card);
     text-align: center;
-    border: 1px solid var(--border-color);
+    border: 1px solid rgba(59, 130, 246, 0.2);
     margin-bottom: 2rem;
-    box-shadow: var(--shadow-sm);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    position: relative;
+    overflow: hidden;
+}
+
+.welcome-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.5), transparent);
 }
 
 .welcome-section h1 {

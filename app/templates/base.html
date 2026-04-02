@@ -35,16 +35,16 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark glass-nav-effect sticky-top">
         <div class="container">
             <a class="navbar-brand" href="/">
                 <span class="navbar-brand"><i class="bi bi-activity"></i> ProPredict Analytics</span>
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <button class="navbar-toggler d-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
+            <div class="collapse navbar-collapse d-none d-lg-block" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
                         <a class="nav-link {% if request.path == '/' %}active{% endif %}" href="/">Home</a>
                     </li>
@@ -99,8 +99,8 @@
                 {% block content %}{% endblock %}
             </div>
 
-            <!-- Live Scores Sidebar -->
-            <div class="col-lg-4">
+            <!-- Live Scores Sidebar (Hidden on mobile) -->
+            <div class="col-lg-4 d-none d-lg-block">
                 <div class="card live-scores-card card-accent">
                     <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
                         <h5 class="mb-0">Live Matches</h5>
@@ -154,6 +154,30 @@
             setInterval(updateLastUpdated, 60000);
         });
     </script>
+
+    <!-- 📱 NATIVE MOBILE BOTTOM APP BAR -->
+    <nav class="mobile-bottom-nav d-lg-none">
+        <a href="/" class="mobile-nav-item {% if request.path == '/' %}active{% endif %}">
+            <i class="bi bi-house-door-fill"></i>
+            <span>Home</span>
+        </a>
+        <a href="/predict" class="mobile-nav-item {% if request.path.startswith('/predict') %}active{% endif %}">
+            <i class="bi bi-lightning-charge-fill"></i>
+            <span>Predict</span>
+        </a>
+        <a href="/live-predictions" class="mobile-nav-item {% if request.path.startswith('/live-predictions') %}active{% endif %}">
+            <i class="bi bi-broadcast"></i>
+            <span>Live</span>
+        </a>
+        <a href="/my-predictions" class="mobile-nav-item {% if request.path.startswith('/my-predictions') %}active{% endif %}">
+            <i class="bi bi-list-check"></i>
+            <span>Picks</span>
+        </a>
+        <a href="/statistics" class="mobile-nav-item {% if request.path.startswith('/statistics') %}active{% endif %}">
+            <i class="bi bi-graph-up"></i>
+            <span>Stats</span>
+        </a>
+    </nav>
 </body>
 
 </html>

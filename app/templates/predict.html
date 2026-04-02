@@ -431,15 +431,29 @@
                     </div>
                     <div class="card-body">
                         <ul class="list-group list-group-flush">
+                            {% set in_signals = [false] %}
                             {% for insight in match_insights.key_insights %}
-                            <li class="list-group-item bg-transparent text-white border-secondary ps-0">
-                                <i class="bi bi-check2-circle text-success me-2"></i> {{ insight }}
-                            </li>
+                                {% if '── PREDICTION SIGNALS ──' in insight %}
+                                    {% if in_signals.append(true) %}{% endif %}
+                                    <li class="list-group-item bg-transparent border-secondary ps-0 mt-2">
+                                        <span class="badge text-bg-warning fw-bold w-100 py-1">⚡ PREDICTION SIGNALS</span>
+                                    </li>
+                                {% elif in_signals[-1] %}
+                                    <li class="list-group-item border-secondary ps-0"
+                                        style="background: rgba(245, 158, 11, 0.08); border-left: 3px solid var(--bs-warning) !important;">
+                                        <span class="text-white">{{ insight }}</span>
+                                    </li>
+                                {% else %}
+                                    <li class="list-group-item bg-transparent text-white border-secondary ps-0">
+                                        <i class="bi bi-check2-circle text-success me-2"></i>{{ insight }}
+                                    </li>
+                                {% endif %}
                             {% endfor %}
                         </ul>
                     </div>
                 </div>
                 {% endif %}
+
             </div>
         </div>
 

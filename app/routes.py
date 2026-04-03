@@ -943,41 +943,148 @@ def live_predictions_page():
 
 @routes.route('/api/live-predictions')
 def live_predictions():
-    """Live predictions API"""
+    """Live predictions API - fetches today's scheduled fixtures and runs predictions"""
     try:
-        sample_predictions = []
+        current_predictor, current_teams = check_initialization()
+        svc = get_live_scores_service()
 
-        if predictor and len(teams) >= 4:
-            # Create sample matches
-            sample_matches = [
-                (teams[0], teams[1]),
-                (teams[2], teams[3]),
-            ]
-
-            for home, away in sample_matches:
-                try:
-                    result = predictor.predict_with_full_bayesian_analysis(home, away)
-                    predictions = result.get('predictions', {})
-                    probabilities = result.get('probabilities', {})
-                    confidence_intervals = result.get('confidence_intervals', {})
-                    poisson_analysis = result.get('poisson_analysis', {})
-
-                    sample_predictions.append({
-                        'home_team': home,
-                        'away_team': away,
-                        'predictions': predictions,
-                        'probabilities': probabilities,
-                        'confidence_intervals': confidence_intervals,
-                        'poisson_scorelines': poisson_analysis,
-                        'confidence_level': 'HIGH'
+        # Fetch today's fixtures from the API
+        today = datetime.utcnow().strftime('%Y-%m-%d')
+        fixtures = []
+        try:
+            data = svc._make_request("matches", params={
+                'status': 'SCHEDULED,TIMED',
+                'dateFrom': today,
+                'dateTo': today
+            })
+            if data and 'matches' in data:
+                for match in data['matches']:
+                    fixtures.append({
+                        'home_team': match['homeTeam']['name'],
+                        'away_team': match['awayTeam']['name'],
+                        'competition': match['competition']['name'],
+                        'utc_date': match['utcDate'],
                     })
-                except Exception as e:
-                    print(f"Error creating sample prediction: {e}")
-                    continue
+        except Exception as e:
+            print(f"[Live Predictions] Fixture fetch error: {e}")
+
+        if not fixtures:
+            return jsonify({
+                'status': 'success',
+                'predictions': [],
+                'message': 'No fixtures found for today' if svc.api_key else 'No API key configured',
+                'timestamp': datetime.utcnow().isoformat()
+            })
+
+        # Build local team lookup (same fuzzy logic as weekend predictions)
+        local_teams_lower = {t.lower(): t for t in (current_teams or [])}
+        ALIASES = {
+            'rayo vallecano de madrid': 'vallecano',
+            'cd santa clara': 'santa clara',
+            'paris saint-germain fc': 'paris sg',
+            'bayer 04 leverkusen': 'leverkusen',
+            '1. fsv mainz 05': 'mainz',
+            'eintracht frankfurt': 'ein frankfurt',
+            'borussia mönchengladbach': "m'gladbach",
+            'psv': 'psv eindhoven',
+            'az': 'az alkmaar',
+            'stade rennais fc 1901': 'rennes',
+            'club atlético de madrid': 'ath madrid',
+            'nec': 'nec nijmegen',
+            'fc famalicão': 'famalicao',
+            'são paulo fc': 'sao paulo',
+            'racing club de lens': 'lens'
+        }
+
+        def resolve_team(api_name):
+            api_name = api_name.strip()
+            if api_name in (current_teams or []):
+                return api_name
+            lc = api_name.lower()
+            if lc in ALIASES and ALIASES[lc] in local_teams_lower:
+                return local_teams_lower[ALIASES[lc]]
+            if lc in local_teams_lower:
+                return local_teams_lower[lc]
+            clean = lc
+            for suffix in [' fc', ' cd', ' cf', ' ud', ' afc']:
+                if clean.endswith(suffix):
+                    clean = clean[:-len(suffix)]
+            for prefix in ['cd ', 'fc ', 'rc ']:
+                if clean.startswith(prefix):
+                    clean = clean[len(prefix):]
+            if clean in local_teams_lower:
+                return local_teams_lower[clean]
+            sorted_local = sorted(local_teams_lower.items(), key=lambda x: len(x[0]), reverse=True)
+            for lt_lower, lt in sorted_local:
+                if len(lt_lower) >= 4 and lt_lower in clean:
+                    return lt
+            first_word = clean.split()[0] if clean.split() else ""
+            if len(first_word) >= 5:
+                for lt_lower, lt in local_teams_lower.items():
+                    if first_word in lt_lower:
+                        return lt
+            return None
+
+        # Run predictions on matched fixtures
+        live_predictions_list = []
+        for fix in fixtures:
+            home_local = resolve_team(fix['home_team'])
+            away_local = resolve_team(fix['away_team'])
+
+            if not (home_local and away_local and current_predictor):
+                continue
+
+            try:
+                result = None
+                if prediction_cache:
+                    result = prediction_cache.get(home_local, away_local)
+                if result is None:
+                    result = current_predictor.predict_with_full_bayesian_analysis(home_local, away_local)
+                    if prediction_cache:
+                        prediction_cache.set(home_local, away_local, result)
+
+                predictions_raw = convert_numpy_types(result.get('predictions', {}))
+                probabilities_raw = convert_numpy_types(result.get('probabilities', {}))
+                poisson_analysis = convert_numpy_types(result.get('poisson_analysis', {}))
+                match_insights = convert_numpy_types(result.get('match_insights', {}))
+
+                # Format outcome probabilities as percentages
+                outcome_probs = {}
+                if 'Match Outcome' in probabilities_raw and isinstance(probabilities_raw['Match Outcome'], dict):
+                    for k, v in probabilities_raw['Match Outcome'].items():
+                        try:
+                            outcome_probs[k] = f"{float(v)*100:.0f}%"
+                        except Exception:
+                            outcome_probs[k] = str(v)
+                    probabilities_raw['Match Outcome'] = outcome_probs
+
+                # Derive confidence level from model confidence if available
+                confidence = result.get('confidence', 0)
+                confidence_level = 'HIGH' if confidence >= 0.65 else ('MEDIUM' if confidence >= 0.45 else 'LOW')
+
+                live_predictions_list.append({
+                    'home_team': home_local,
+                    'away_team': away_local,
+                    'api_home': fix['home_team'],
+                    'api_away': fix['away_team'],
+                    'competition': fix['competition'],
+                    'kick_off': fix['utc_date'][11:16],
+                    'predictions': predictions_raw,
+                    'probabilities': probabilities_raw,
+                    'poisson_scorelines': poisson_analysis,
+                    'match_insights': match_insights,
+                    'confidence_level': confidence_level,
+                    'logical_valid': True,
+                })
+            except Exception as e:
+                print(f"[Live Predictions] Prediction failed for {home_local} vs {away_local}: {e}")
+                continue
 
         return jsonify({
             'status': 'success',
-            'predictions': sample_predictions,
+            'predictions': live_predictions_list,
+            'total_fixtures': len(fixtures),
+            'predicted': len(live_predictions_list),
             'timestamp': datetime.utcnow().isoformat()
         })
 

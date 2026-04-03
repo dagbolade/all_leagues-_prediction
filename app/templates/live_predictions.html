@@ -4,12 +4,12 @@
 <div class="container mt-4">
     <!-- Simple Header -->
     <div class="live-header text-center mb-4" style="background: linear-gradient(135deg, #2E8B57, #1e5631); border-radius: 15px; padding: 2rem; color: white;">
-        <h2 class="mb-3">🔴 Live Predictions</h2>
+        <h2 class="mb-3">📅 Today's Predictions</h2>
         <div class="status-badges mb-3">
-            <span class="badge bg-success me-2">✅ Enhanced System Active</span>
-            <span class="badge bg-info">🔧 Logical Constraints Enabled</span>
+            <span class="badge bg-success me-2">✅ Live Fixtures</span>
+            <span class="badge bg-info">🔧 AI Enhanced</span>
         </div>
-        <p class="mb-0">Real-time predictions with AI insights and exact scorelines</p>
+        <p class="mb-0" id="todayDate">Loading today's matches...</p>
         <div class="update-info mt-2">
             <span id="lastUpdated" class="text-warning"></span>
             <span class="badge bg-secondary ms-2" id="predictionCount">Loading...</span>
@@ -370,6 +370,10 @@
 document.addEventListener('DOMContentLoaded', function() {
     let autoRefreshInterval;
 
+    // Show today's date
+    document.getElementById('todayDate').textContent =
+        'Predictions for ' + new Date().toLocaleDateString('en-GB', {weekday:'long', day:'numeric', month:'long', year:'numeric'});
+
     // Load predictions on page load
     loadPredictions();
 
@@ -415,7 +419,7 @@ document.addEventListener('DOMContentLoaded', function() {
             .then(response => response.json())
             .then(data => {
                 if (data.status === 'success') {
-                    displayPredictions(data.predictions);
+                    displayPredictions(data.predictions, data);
                     updateSummary(data.predictions);
                     updateLastUpdated(data.timestamp);
                 } else {
@@ -428,11 +432,16 @@ document.addEventListener('DOMContentLoaded', function() {
             });
     }
 
-    function displayPredictions(predictions) {
+    function displayPredictions(predictions, data) {
         const grid = document.getElementById('predictions-grid');
 
-        if (predictions.length === 0) {
-            grid.innerHTML = '<div class="loading-state"><div class="alert alert-info">No predictions available for today\'s matches.</div></div>';
+        if (!predictions || predictions.length === 0) {
+            const msg = data && data.message ? data.message : "No predictions available for today's matches.";
+            const totalFixtures = data && data.total_fixtures ? data.total_fixtures : 0;
+            const note = totalFixtures > 0
+                ? `<p class="text-muted mt-2">Found ${totalFixtures} fixtures but none matched teams in our dataset.</p>`
+                : '';
+            grid.innerHTML = `<div class="loading-state"><div class="alert alert-info">${msg}${note}</div></div>`;
             return;
         }
 
@@ -444,14 +453,17 @@ document.addEventListener('DOMContentLoaded', function() {
         const highConfidence = pred.confidence_level === 'HIGH';
         const hasPoisson = pred.poisson_scorelines && pred.poisson_scorelines.top_scorelines;
         const hasInsights = pred.match_insights && pred.match_insights.key_insights;
+        const kickOff = pred.kick_off ? `<span class="badge bg-secondary ms-2">${pred.kick_off} UTC</span>` : '';
+        const competition = pred.competition ? `<div style="font-size:0.8rem;color:#aaa;margin-bottom:0.5rem;">${pred.competition}</div>` : '';
 
         return `
             <div class="live-prediction-card ${logicalValid ? 'logical-valid' : ''} ${highConfidence ? 'high-confidence' : ''}"
                  data-confidence="${pred.confidence_level || 'MEDIUM'}"
                  data-logical="${logicalValid}">
 
+                ${competition}
                 <div class="match-title">
-                    ${pred.home_team} vs ${pred.away_team}
+                    ${pred.home_team} vs ${pred.away_team} ${kickOff}
                 </div>
 
                 <!-- Goal Markets -->

@@ -41,6 +41,7 @@ from app.services.football_service import FootballDataService
 # Import caching and live scores
 from app.caching import get_cache, POPULAR_MATCHUPS
 from app.services.live_scores_service import get_live_scores_service
+from app.services.team_resolver import resolve_team as _resolve_team
 
 # Import betting tips generator
 from app.betting_tips import get_betting_tips_generator
@@ -784,75 +785,8 @@ def weekend_predictions():
         print(f"[Weekend] Fixture fetch failed: {e}")
         raw_grouped = {}
 
-    # Build a quick lookup for fuzzy name matching against local team list
-    local_teams_lower = {t.lower(): t for t in (current_teams or [])}
-    
-    # Explicit aliases for notoriously divergent API names vs DB names
-    ALIASES = {
-        'rayo vallecano de madrid': 'vallecano',
-        'cd santa clara': 'santa clara',
-        'paris saint-germain fc': 'paris sg',
-        'sporting kansas city': 'sporting kansas city',
-        'bayer 04 leverkusen': 'leverkusen',
-        '1. fsv mainz 05': 'mainz',
-        'eintracht frankfurt': 'ein frankfurt',
-        'borussia mönchengladbach': "m'gladbach",
-        'psv': 'psv eindhoven',
-        'az': 'az alkmaar',
-        'stade rennais fc 1901': 'rennes',
-        'club atlético de madrid': 'ath madrid',
-        'nec': 'nec nijmegen',
-        'fc famalicão': 'famalicao',
-        'são paulo fc': 'sao paulo',
-        'racing club de lens': 'lens'
-    }
-
     def resolve_team(api_name: str):
-        """Try to match the API team name to a local DB team name."""
-        api_name = api_name.strip()
-        
-        # 1. Exact match
-        if api_name in (current_teams or []):
-            return api_name
-            
-        lc = api_name.lower()
-        
-        # 2. Hardcoded known aliases
-        if lc in ALIASES and ALIASES[lc] in local_teams_lower:
-            return local_teams_lower[ALIASES[lc]]
-            
-        # 3. Case-insensitive exact match
-        if lc in local_teams_lower:
-            return local_teams_lower[lc]
-            
-        # 4. Strip common suffixes/prefixes
-        clean_api = lc
-        for suffix in [' fc', ' cd', ' cf', ' ud', ' afc']:
-            if clean_api.endswith(suffix):
-                clean_api = clean_api[:-len(suffix)]
-        for prefix in ['cd ', 'fc ', 'rc ']:
-            if clean_api.startswith(prefix):
-                clean_api = clean_api[len(prefix):]
-                
-        if clean_api in local_teams_lower:
-            return local_teams_lower[clean_api]
-
-        # 5. Longest substring inclusion (e.g. DB "Vallecano" is inside API "Rayo Vallecano...")
-        # Sort local teams descending by length to avoid partial word collisions
-        sorted_local = sorted(local_teams_lower.items(), key=lambda x: len(x[0]), reverse=True)
-        for lt_lower, lt in sorted_local:
-            if len(lt_lower) >= 4 and lt_lower in clean_api:
-                # E.g. clean_api="cd santa clara", lt_lower="santa clara" => Match!
-                return lt
-                
-        # 6. Generous first-word fallback
-        first_word = clean_api.split()[0] if clean_api.split() else ""
-        if len(first_word) >= 5:
-            for lt_lower, lt in local_teams_lower.items():
-                if first_word in lt_lower:
-                    return lt
-                    
-        return None
+        return _resolve_team(api_name, current_teams or [])
 
     # --- Run predictions for each fixture ---
     weekend_days = {}
@@ -976,60 +910,11 @@ def live_predictions():
                 'timestamp': datetime.utcnow().isoformat()
             })
 
-        # Build local team lookup (same fuzzy logic as weekend predictions)
-        local_teams_lower = {t.lower(): t for t in (current_teams or [])}
-        ALIASES = {
-            'rayo vallecano de madrid': 'vallecano',
-            'cd santa clara': 'santa clara',
-            'paris saint-germain fc': 'paris sg',
-            'bayer 04 leverkusen': 'leverkusen',
-            '1. fsv mainz 05': 'mainz',
-            'eintracht frankfurt': 'ein frankfurt',
-            'borussia mönchengladbach': "m'gladbach",
-            'psv': 'psv eindhoven',
-            'az': 'az alkmaar',
-            'stade rennais fc 1901': 'rennes',
-            'club atlético de madrid': 'ath madrid',
-            'nec': 'nec nijmegen',
-            'fc famalicão': 'famalicao',
-            'são paulo fc': 'sao paulo',
-            'racing club de lens': 'lens'
-        }
-
-        def resolve_team(api_name):
-            api_name = api_name.strip()
-            if api_name in (current_teams or []):
-                return api_name
-            lc = api_name.lower()
-            if lc in ALIASES and ALIASES[lc] in local_teams_lower:
-                return local_teams_lower[ALIASES[lc]]
-            if lc in local_teams_lower:
-                return local_teams_lower[lc]
-            clean = lc
-            for suffix in [' fc', ' cd', ' cf', ' ud', ' afc']:
-                if clean.endswith(suffix):
-                    clean = clean[:-len(suffix)]
-            for prefix in ['cd ', 'fc ', 'rc ']:
-                if clean.startswith(prefix):
-                    clean = clean[len(prefix):]
-            if clean in local_teams_lower:
-                return local_teams_lower[clean]
-            sorted_local = sorted(local_teams_lower.items(), key=lambda x: len(x[0]), reverse=True)
-            for lt_lower, lt in sorted_local:
-                if len(lt_lower) >= 4 and lt_lower in clean:
-                    return lt
-            first_word = clean.split()[0] if clean.split() else ""
-            if len(first_word) >= 5:
-                for lt_lower, lt in local_teams_lower.items():
-                    if first_word in lt_lower:
-                        return lt
-            return None
-
         # Run predictions on matched fixtures
         live_predictions_list = []
         for fix in fixtures:
-            home_local = resolve_team(fix['home_team'])
-            away_local = resolve_team(fix['away_team'])
+            home_local = _resolve_team(fix['home_team'], current_teams or [])
+            away_local = _resolve_team(fix['away_team'], current_teams or [])
 
             if not (home_local and away_local and current_predictor):
                 continue

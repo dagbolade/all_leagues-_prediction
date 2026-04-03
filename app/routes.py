@@ -56,6 +56,18 @@ weekly_analyzer = None
 prediction_cache = None
 live_scores_service = None
 discipline_analyzer = None
+league_teams = {}  # {league_code: [team_names]}
+
+LEAGUE_NAMES = {
+    'E0': '🏴󠁧󠁢󠁥󠁮󠁧󠁿 Premier League', 'E1': '🏴󠁧󠁢󠁥󠁮󠁧󠁿 Championship', 'E2': '🏴󠁧󠁢󠁥󠁮󠁧󠁿 League One',
+    'E3': '🏴󠁧󠁢󠁥󠁮󠁧󠁿 League Two', 'SP1': '🇪🇸 La Liga', 'SP2': '🇪🇸 La Liga 2',
+    'D1': '🇩🇪 Bundesliga', 'D2': '🇩🇪 Bundesliga 2', 'I1': '🇮🇹 Serie A',
+    'I2': '🇮🇹 Serie B', 'F1': '🇫🇷 Ligue 1', 'F2': '🇫🇷 Ligue 2',
+    'N1': '🇳🇱 Eredivisie', 'P1': '🇵🇹 Primeira Liga', 'B1': '🇧🇪 Pro League',
+    'SC0': '🏴󠁧󠁢󠁳󠁣󠁴󠁿 Scottish Prem', 'T1': '🇹🇷 Süper Lig', 'G1': '🇬🇷 Super League',
+    'ARG1': '🇦🇷 Argentine Primera', 'BRA1': '🇧🇷 Brasileirão',
+    'USA1': '🇺🇸 MLS', 'MX1': '🇲🇽 Liga MX',
+}
 
 
 def convert_numpy_types(obj):
@@ -414,7 +426,24 @@ def initialize_predictor():
         except Exception as e:
             print(f"[Warning] Discipline Analyzer initialization failed: {e}")
 
-
+        # Build league -> teams mapping for the league filter UI
+        global league_teams
+        try:
+            import re as _re
+            all_s = df['Season'].dropna().unique()
+            valid_s = [s for s in all_s if _re.match(r'^\d{4}[-/]\d{4}$', str(s))]
+            latest_s = sorted(valid_s)[-1] if valid_s else None
+            src = df[df['Season'] == latest_s] if latest_s else df
+            lt = {}
+            for lg in src['League'].dropna().unique():
+                lg_df = src[src['League'] == lg]
+                lg_t = sorted(set(lg_df['HomeTeam'].dropna().tolist()) | set(lg_df['AwayTeam'].dropna().tolist()))
+                if lg_t:
+                    lt[str(lg)] = lg_t
+            league_teams = lt
+            print(f"[OK] League teams map: {len(league_teams)} leagues")
+        except Exception as e:
+            print(f"[Warning] League teams map failed: {e}")
 
         # Initialize caching system
         try:
@@ -445,6 +474,11 @@ def initialize_predictor():
 
 # Initialize predictor
 predictor, teams = initialize_predictor()
+
+@routes.route('/api/league-teams')
+def api_league_teams():
+    """Return teams grouped by league for the predict page league filter"""
+    return jsonify({'league_teams': league_teams, 'league_names': LEAGUE_NAMES})
 
 def check_initialization():
     """Ensure system is initialized before serving requests"""
@@ -621,7 +655,8 @@ def predict():
             return render_template('predict.html', teams=teams,
                                    error=f"Prediction failed: {str(e)}")
 
-    return render_template('predict.html', teams=teams)
+    return render_template('predict.html', teams=teams,
+                           league_teams=league_teams, league_names=LEAGUE_NAMES)
 
 
 @routes.route('/live-predictions')
@@ -864,8 +899,6 @@ def get_prediction_history():
         import json
         with open(storage_path, 'r') as f:
             history = json.load(f)
-        return jsonify(history)
-    except Exception as e:
         return jsonify(history)
     except Exception as e:
         return jsonify({'error': str(e)}), 500

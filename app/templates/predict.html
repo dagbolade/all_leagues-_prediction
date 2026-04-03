@@ -22,8 +22,59 @@
                 <p class="mt-3 text-muted">Generating analysis...</p>
             </div>
 
+            <!-- League Filter Chips (item 4) -->
+            {% if league_teams %}
+            <div class="league-chips-wrap mb-4">
+                <div class="league-chips" id="leagueChips">
+                    <button type="button" class="league-chip active" data-league="">🌍 All Leagues</button>
+                    {% for code, lg_teams in league_teams.items() | sort %}
+                    <button type="button" class="league-chip" data-league="{{ code }}"
+                            data-teams="{{ lg_teams | tojson | e }}">
+                        {{ league_names.get(code, code) }}
+                    </button>
+                    {% endfor %}
+                </div>
+            </div>
+            <style>
+                .league-chips-wrap {
+                    overflow-x: auto;
+                    -webkit-overflow-scrolling: touch;
+                    scrollbar-width: none;
+                    padding-bottom: 4px;
+                }
+                .league-chips-wrap::-webkit-scrollbar { display: none; }
+                .league-chips {
+                    display: flex;
+                    gap: 8px;
+                    flex-wrap: nowrap;
+                    min-width: max-content;
+                }
+                .league-chip {
+                    padding: 6px 14px;
+                    border-radius: 20px;
+                    border: 1px solid rgba(255,255,255,0.15);
+                    background: rgba(255,255,255,0.05);
+                    color: #9ca3af;
+                    font-size: 0.8rem;
+                    white-space: nowrap;
+                    cursor: pointer;
+                    transition: all 0.15s;
+                    outline: none;
+                }
+                .league-chip:hover { background: rgba(99,102,241,0.2); color: #fff; }
+                .league-chip.active {
+                    background: rgba(99,102,241,0.35);
+                    border-color: rgba(99,102,241,0.6);
+                    color: #fff;
+                    font-weight: 600;
+                    box-shadow: 0 0 10px rgba(99,102,241,0.3);
+                }
+            </style>
+            {% endif %}
+
             <form method="POST" id="predictionForm" novalidate aria-describedby="formErrorSummary">
                 <div class="row align-items-end">
+
                     <!-- HOME TEAM PICKER -->
                     <div class="col-md-5 mb-3">
                         <label class="form-label">Home Team</label>
@@ -167,6 +218,9 @@
 
             <script>
             (function() {
+                // Keep track of currently allowed teams by league filter (null = all allowed)
+                window.allowedTeams = null;
+
                 function setupTeamPicker(searchId, listId, dropdownId, hiddenId, arrowId) {
                     const search = document.getElementById(searchId);
                     const list = document.getElementById(listId);
@@ -189,7 +243,6 @@
                         arrow.classList.remove('open');
                         isOpen = false;
                         highlighted = -1;
-                        // If no selection made, restore label
                         if (!hidden.value) search.value = '';
                     }
 
@@ -206,37 +259,37 @@
                     function filterList(query) {
                         const q = query.toLowerCase().trim();
                         let visibleCount = 0;
-                        items.forEach((item, idx) => {
+                        items.forEach((item) => {
                             const name = item.dataset.value.toLowerCase();
-                            const matches = !q || name.includes(q);
-                            item.classList.toggle('hidden', !matches);
-                            if (matches) visibleCount++;
+                            const matchText = !q || name.includes(q);
+                            const matchLeague = !window.allowedTeams || window.allowedTeams.includes(item.dataset.value);
+                            const isVisible = matchText && matchLeague;
+                            
+                            item.classList.toggle('hidden', !isVisible);
+                            if (isVisible) visibleCount++;
                         });
-                        // No results msg
+                        
                         let noRes = list.querySelector('.team-picker-no-results');
                         if (visibleCount === 0) {
                             if (!noRes) {
                                 noRes = document.createElement('li');
                                 noRes.className = 'team-picker-no-results';
-                                noRes.textContent = 'No teams found';
+                                noRes.textContent = window.allowedTeams ? 'No teams in this league match search' : 'No teams found';
                                 list.appendChild(noRes);
+                            } else {
+                                noRes.textContent = window.allowedTeams ? 'No teams in this league match search' : 'No teams found';
                             }
                         } else if (noRes) {
                             noRes.remove();
                         }
                     }
+                    
+                    // Expose filterList so the league chips can trigger it
+                    search.filterListCallback = () => filterList(search.value);
 
-                    // Open on click/focus
-                    search.addEventListener('click', function() {
-                        if (!isOpen) {
-                            openDropdown();
-                        }
-                    });
-                    search.addEventListener('focus', function() {
-                        if (!isOpen) openDropdown();
-                    });
-
-                    // Filter as user types
+                    search.addEventListener('click', () => { if (!isOpen) openDropdown(); });
+                    search.addEventListener('focus', () => { if (!isOpen) openDropdown(); });
+                    
                     search.addEventListener('input', function() {
                         hidden.value = '';
                         search.classList.remove('selected');
@@ -244,7 +297,6 @@
                         if (!isOpen) openDropdown();
                     });
 
-                    // Keyboard navigation
                     search.addEventListener('keydown', function(e) {
                         const visible = items.filter(i => !i.classList.contains('hidden'));
                         if (e.key === 'ArrowDown') {
@@ -264,23 +316,15 @@
                         }
                     });
 
-                    // Click on item
                     items.forEach(item => {
-                        item.addEventListener('mousedown', function(e) {
-                            e.preventDefault(); // prevent blur before click
-                            selectItem(item);
-                        });
-                        item.addEventListener('touchend', function(e) {
-                            e.preventDefault();
-                            selectItem(item);
-                        });
+                        item.addEventListener('mousedown', e => { e.preventDefault(); selectItem(item); });
+                        item.addEventListener('touchend', e => { e.preventDefault(); selectItem(item); });
                     });
 
-                    // Close on outside click
-                    document.addEventListener('mousedown', function(e) {
+                    document.addEventListener('mousedown', e => {
                         if (!search.parentElement.parentElement.contains(e.target)) closeDropdown();
                     });
-                    document.addEventListener('touchstart', function(e) {
+                    document.addEventListener('touchstart', e => {
                         if (!search.parentElement.parentElement.contains(e.target)) closeDropdown();
                     }, { passive: true });
                 }
@@ -288,6 +332,31 @@
                 document.addEventListener('DOMContentLoaded', function() {
                     setupTeamPicker('homeTeamSearch', 'homeTeamList', 'homeDropdown', 'homeTeamSelect', 'homeArrow');
                     setupTeamPicker('awayTeamSearch', 'awayTeamList', 'awayDropdown', 'awayTeamSelect', 'awayArrow');
+
+                    // Setup League Chips
+                    const chips = document.querySelectorAll('.league-chip');
+                    chips.forEach(chip => {
+                        chip.addEventListener('click', function() {
+                            chips.forEach(c => c.classList.remove('active'));
+                            this.classList.add('active');
+                            const teamsJson = this.getAttribute('data-teams');
+                            window.allowedTeams = teamsJson ? JSON.parse(teamsJson) : null;
+                            
+                            // Re-filter both dropdowns and reset their inputs if current selection is invalid
+                            ['home', 'away'].forEach(prefix => {
+                                const hidden = document.getElementById(prefix + 'TeamSelect');
+                                const search = document.getElementById(prefix + 'TeamSearch');
+                                
+                                if (hidden.value && window.allowedTeams && !window.allowedTeams.includes(hidden.value)) {
+                                    hidden.value = '';
+                                    search.value = '';
+                                    search.classList.remove('selected');
+                                    document.querySelectorAll('#' + prefix + 'TeamList .team-picker-item').forEach(i => i.classList.remove('selected-item'));
+                                }
+                                if (search.filterListCallback) search.filterListCallback();
+                            });
+                        });
+                    });
 
                     // Pre-fill if values returned after POST
                     const homeVal = '{{ home_team if home_team else "" }}';
@@ -838,24 +907,35 @@
                 ul.className = 'list-group list-group-flush bg-transparent';
 
                 data.forEach(item => {
-                    const li = document.createElement('li');
-                    li.className = 'list-group-item bg-transparent text-white border-secondary d-flex justify-content-between align-items-center';
+                    const li = document.createElement('div');
+                    li.className = 'pred-history-card position-relative overflow-hidden mb-3 p-3 rounded shadow-sm border border-secondary';
+                    li.style.background = 'rgba(255, 255, 255, 0.05)';
 
-                    const dateStr = new Date(item.date_saved).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                    const dateStr = new Date(item.date_saved).toLocaleDateString([], { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+                    
+                    // Try to safely extract primary outcome or an insight
+                    let outcomeText = "Analysis Available";
+                    if (item.predictions && item.predictions['Match Outcome']) {
+                        outcomeText = "Win: " + item.predictions['Match Outcome'];
+                    }
 
                     li.innerHTML = `
-                        <div>
-                            <div class="fw-bold">${item.home_team} vs ${item.away_team}</div>
-                            <small class="text-muted">Saved at: ${dateStr}</small>
+                        <div class="d-flex justify-content-between align-items-start mb-2">
+                            <div>
+                                <h6 class="mb-1 text-white fw-bold">${item.home_team} <small class="text-muted fw-normal mx-1">vs</small> ${item.away_team}</h6>
+                                <small class="text-muted"><i class="bi bi-clock me-1"></i>${dateStr}</small>
+                            </div>
+                            <span class="badge bg-primary bg-opacity-25 text-primary border border-primary border-opacity-50">${outcomeText}</span>
                         </div>
-                        <div class="btn-group">
-                            <a href="/accuracy" class="btn btn-sm btn-outline-info">Details</a>
-                            <button onclick="deletePrediction(${item.id})" class="btn btn-sm btn-outline-danger" title="Delete">
-                                <i class="bi bi-trash"></i>
+                        
+                        <div class="d-flex justify-content-between align-items-center mt-3 pt-2 border-top border-secondary border-opacity-50">
+                            <a href="/accuracy" class="btn btn-sm btn-outline-info rounded-pill px-3"><i class="bi bi-graph-up me-1"></i> Track Accuracy</a>
+                            <button onclick="deletePrediction(${item.id})" class="btn btn-sm btn-outline-danger rounded-pill px-3" title="Delete">
+                                <i class="bi bi-trash"></i> Delete
                             </button>
                         </div>
                     `;
-                    ul.appendChild(li);
+                    list.appendChild(li);
                 });
 
                 list.appendChild(ul);

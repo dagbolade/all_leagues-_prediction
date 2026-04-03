@@ -178,6 +178,47 @@
             <span>Stats</span>
         </a>
     </nav>
-</body>
+    <!-- Global Toast Notifications Container -->
+    <div class="toast-container position-fixed top-0 end-0 p-3 mt-5" style="z-index: 2000;">
+        <div id="signalToast" class="toast align-items-center text-white bg-dark border-secondary bg-opacity-75" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="6000" style="backdrop-filter: blur(10px);">
+            <div class="d-flex">
+                <div class="toast-body" id="signalToastBody">
+                    <!-- Toast content injected here by JS -->
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+        </div>
+    </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Global utility to show toast notifications
+        window.showNotification = function(title, message, type = 'info', isImportant = false) {
+            const toastEl = document.getElementById('signalToast');
+            const toastBody = document.getElementById('signalToastBody');
+            if(!toastEl) return;
+            
+            // Set styling based on type
+            let icon = 'bi-info-circle text-info';
+            let borderClass = 'border-info';
+            let bgClass = 'bg-dark';
+            
+            if (type === 'warning') { icon = 'bi-exclamation-triangle text-warning'; borderClass = 'border-warning'; bgClass = 'bg-black'; }
+            if (type === 'success') { icon = 'bi-check-circle text-success'; borderClass = 'border-success'; }
+            if (type === 'danger' || isImportant) { icon = 'bi-lightning-charge-fill text-warning'; borderClass = 'border-warning'; bgClass = 'bg-black'; }
+
+            toastEl.className = `toast align-items-center text-white ${bgClass} border ${borderClass} shadow-lg`;
+            
+            toastBody.innerHTML = `
+                <div class="d-flex flex-column">
+                    <span class="fw-bold mb-1"><i class="bi ${icon} me-2"></i> ${title}</span>
+                    <span class="small text-white-50">${message}</span>
+                </div>
+            `;
+            
+            const bsToast = new bootstrap.Toast(toastEl);
+            bsToast.show();
+        };
+    </script>
+</body>
 </html>

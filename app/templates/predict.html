@@ -770,6 +770,37 @@
                 </div>
                 {% endif %}
 
+                <!-- Trigger Toast Notification for Signals -->
+                {% if match_insights and match_insights.key_insights %}
+                <script>
+                    document.addEventListener('DOMContentLoaded', function() {
+                        {% set signal_alerts = [] %}
+                        {% set in_signals = [false] %}
+                        {% for insight in match_insights.key_insights %}
+                            {% if '── PREDICTION SIGNALS ──' in insight %}
+                                {% if in_signals.append(true) %}{% endif %}
+                            {% elif in_signals[-1] %}
+                                {% if signal_alerts.append(insight) %}{% endif %}
+                            {% endif %}
+                        {% endfor %}
+                        
+                        {% if signal_alerts|length > 0 %}
+                        // Wait a brief moment after load to show the toast
+                        setTimeout(() => {
+                            if (window.showNotification) {
+                                window.showNotification(
+                                    "New Prediction Signal", 
+                                    "{{ signal_alerts[0] }}", 
+                                    "warning", 
+                                    true
+                                );
+                            }
+                        }, 1500);
+                        {% endif %}
+                    });
+                </script>
+                {% endif %}
+
             </div>
         </div>
 

@@ -21,7 +21,7 @@ ALIASES = {
     'club atlético de madrid':        'Ath Madrid',
     'deportivo alavés':               'Alaves',
     'rayo vallecano de madrid':       'Vallecano',
-    'rcd espanyol de barcelona':      None,   # Espanyol not in dataset — blocks wrong 'Barcelona' match
+    'rcd espanyol de barcelona':      'Espanol',
     'real betis balompié':            'Betis',
     'real sociedad de fútbol':        'Sociedad',
 
@@ -44,7 +44,7 @@ ALIASES = {
     # ── Eredivisie / Dutch ─────────────────────────────────────────────────
     'az':                             'AZ Alkmaar',
     'psv':                            'PSV Eindhoven',
-    'nec':                            None,   # NEC Nijmegen not in local dataset
+    'nec':                            'Nijmegen',
 
     # ── Primeira Liga / Portugal ───────────────────────────────────────────
     'fc famalicão':                   'Famalicao',
@@ -62,5 +62,5 @@ ALIASES = {
     # ── Other ──────────────────────────────────────────────────────────────
     'cd santa clara':                 'Santa Clara',
     'racing club de lens':            'Lens',
-    'fortuna sittard':                None,   # blocks wrong 'Fortuna Dusseldorf' match
+    'fortuna sittard':                'For Sittard',
 }

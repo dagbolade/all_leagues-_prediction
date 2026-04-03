@@ -572,7 +572,6 @@ def predict():
                     gw1_analyzer
                 )
 
-
                 # Add prediction-specific insights
                 over_25_pred = predictions.get('Over 2.5 Goals', 'N/A')
                 btts_pred = predictions.get('Both Teams to Score', 'N/A')
@@ -586,7 +585,120 @@ def predict():
 
                 if total_goals != 'N/A':
                     match_insights.append(f"[Net] Expected total goals: {total_goals}")
-                
+
+                # ── DRAW DETECTION ENGINE ──────────────────────────────────
+                draw_signals = []
+                try:
+                    df_copy = predictor.df.copy()
+                    # Ensure FTR column exists (H/D/A)
+                    if 'FTR' in df_copy.columns:
+                        # 1. Team-level draw rate (last 20 home/away matches each)
+                        home_matches = df_copy[
+                            (df_copy['HomeTeam'] == home_team) | (df_copy['AwayTeam'] == home_team)
+                        ].sort_values('Date', ascending=False).head(20) if 'Date' in df_copy.columns else \
+                        df_copy[(df_copy['HomeTeam'] == home_team) | (df_copy['AwayTeam'] == home_team)].tail(20)
+
+                        away_matches = df_copy[
+                            (df_copy['HomeTeam'] == away_team) | (df_copy['AwayTeam'] == away_team)
+                        ].sort_values('Date', ascending=False).head(20) if 'Date' in df_copy.columns else \
+                        df_copy[(df_copy['HomeTeam'] == away_team) | (df_copy['AwayTeam'] == away_team)].tail(20)
+
+                        # Draw = FTR == 'D'
+                        if len(home_matches) >= 5:
+                            home_draw_rate = (home_matches['FTR'] == 'D').mean()
+                            if home_draw_rate >= 0.35:
+                                draw_signals.append(f"⚖️ {home_team} draws {home_draw_rate*100:.0f}% of recent matches (draw-prone team)")
+
+                        if len(away_matches) >= 5:
+                            away_draw_rate = (away_matches['FTR'] == 'D').mean()
+                            if away_draw_rate >= 0.35:
+                                draw_signals.append(f"⚖️ {away_team} draws {away_draw_rate*100:.0f}% of recent matches (draw-prone team)")
+
+                        # 2. H2H draw rate
+                        h2h = df_copy[
+                            ((df_copy['HomeTeam'] == home_team) & (df_copy['AwayTeam'] == away_team)) |
+                            ((df_copy['HomeTeam'] == away_team) & (df_copy['AwayTeam'] == home_team))
+                        ].tail(10)
+
+                        if len(h2h) >= 4:
+                            h2h_draw_rate = (h2h['FTR'] == 'D').mean()
+                            if h2h_draw_rate >= 0.35:
+                                draw_signals.append(f"⚖️ H2H: {h2h_draw_rate*100:.0f}% of head-to-head meetings ended as draws ({len(h2h)} matches)")
+
+                        # 3. League-level draw rate (some leagues are structurally draw-heavy)
+                        HIGH_DRAW_LEAGUES = {
+                            'Championship': 0.28, 'Ligue 2': 0.28, 'Serie B': 0.28,
+                            'Segunda Division': 0.27, 'Bundesliga 2': 0.27, '2. Bundesliga': 0.27,
+                            'Eredivisie': 0.27, 'Scottish Premiership': 0.27,
+                        }
+                        team_league = None
+                        if 'League' in df_copy.columns:
+                            league_guess = df_copy[
+                                (df_copy['HomeTeam'] == home_team) | (df_copy['AwayTeam'] == home_team)
+                            ]['League'].mode()
+                            team_league = str(league_guess.iloc[0]) if not league_guess.empty else None
+
+                        if team_league:
+                            # Check if it matches any known high-draw league (case-insensitive partial match)
+                            for league_name, threshold in HIGH_DRAW_LEAGUES.items():
+                                if league_name.lower() in team_league.lower():
+                                    # Calculate actual league draw rate from data
+                                    league_matches = df_copy[df_copy['League'] == team_league].tail(200)
+                                    if len(league_matches) >= 30:
+                                        actual_rate = (league_matches['FTR'] == 'D').mean()
+                                        if actual_rate >= threshold:
+                                            draw_signals.append(
+                                                f"⚖️ {team_league} is a high-draw league ({actual_rate*100:.0f}% draw rate) — draw probability elevated"
+                                            )
+                                    else:
+                                        draw_signals.append(
+                                            f"⚖️ {team_league} is historically a high-draw league — consider draw as value bet"
+                                        )
+                                    break
+
+                        # 4. Model draw probability signal (if probabilities dict has it)
+                        raw_probs = result.get('probabilities', {})
+                        outcome_probs = raw_probs.get('Match Outcome', {})
+                        if isinstance(outcome_probs, dict):
+                            for k, v in outcome_probs.items():
+                                if 'draw' in k.lower():
+                                    try:
+                                        draw_p = float(str(v).replace('%', '')) / 100 if '%' in str(v) else float(v)
+                                        if draw_p >= 0.28:
+                                            draw_signals.append(
+                                                f"⚖️ Model assigns {draw_p*100:.1f}% draw probability — strong value draw candidate"
+                                            )
+                                    except Exception:
+                                        pass
+
+                        # 5. Both teams in low-scoring form → low goal expectation = draw alert
+                        if 'FTHG' in df_copy.columns and 'FTAG' in df_copy.columns:
+                            home_goals_scored = home_matches['FTHG'].where(
+                                home_matches['HomeTeam'] == home_team, home_matches['FTAG']
+                            ).mean() if len(home_matches) >= 5 else None
+
+                            away_goals_scored = away_matches['FTHG'].where(
+                                away_matches['HomeTeam'] == away_team, away_matches['FTAG']
+                            ).mean() if len(away_matches) >= 5 else None
+
+                            if home_goals_scored and away_goals_scored:
+                                if home_goals_scored < 1.2 and away_goals_scored < 1.2:
+                                    draw_signals.append(
+                                        f"⚖️ Both teams averaging low goals scored ({home_goals_scored:.1f} & {away_goals_scored:.1f}) — low-scoring game, draw possible"
+                                    )
+
+                except Exception as e:
+                    print(f"[Draw Detection] Error: {e}")
+
+                # Inject draw signals into PREDICTION SIGNALS section
+                if draw_signals:
+                    # Find or create the PREDICTION SIGNALS separator
+                    has_signal_sep = any('PREDICTION SIGNALS' in i for i in match_insights)
+                    if not has_signal_sep:
+                        match_insights.append("── PREDICTION SIGNALS ──")
+                    match_insights.extend(draw_signals)
+                # ──────────────────────────────────────────────────────────
+
                 # Add cache status
                 if cache_hit:
                     match_insights.insert(0, "[⚡] Instant prediction from cache")
@@ -597,7 +709,7 @@ def predict():
 
             # Format insights for display
             enhanced_insights = {
-                'key_insights': match_insights[:25]  # Show up to 25 insights (includes prediction signals)
+                'key_insights': match_insights[:30]  # Expanded to 30 to accommodate draw signals
             }
 
             # Format confidence levels with fallback

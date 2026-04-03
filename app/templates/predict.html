@@ -29,7 +29,7 @@
                     <button type="button" class="league-chip active" data-league="">🌍 All Leagues</button>
                     {% for code, lg_teams in league_teams.items() | sort %}
                     <button type="button" class="league-chip" data-league="{{ code }}"
-                            data-teams="{{ lg_teams | tojson | e }}">
+                            data-teams='{{ lg_teams | tojson }}'>
                         {{ league_names.get(code, code) }}
                     </button>
                     {% endfor %}
@@ -157,10 +157,23 @@
                     padding-left: 34px !important;
                     padding-right: 36px !important;
                     cursor: pointer;
+                    color: #e2e8f0 !important;
+                    background: rgba(255,255,255,0.07) !important;
+                    border-color: rgba(255,255,255,0.15) !important;
+                    caret-color: #fff;
                 }
+                .team-picker-search:focus {
+                    background: rgba(255,255,255,0.1) !important;
+                    border-color: rgba(99,102,241,0.6) !important;
+                    box-shadow: 0 0 0 3px rgba(99,102,241,0.2) !important;
+                    color: #fff !important;
+                }
+                .team-picker-search::placeholder { color: rgba(255,255,255,0.35) !important; }
                 .team-picker-search.selected {
-                    color: #fff;
+                    color: #fff !important;
                     font-weight: 600;
+                    background: rgba(99,102,241,0.15) !important;
+                    border-color: rgba(99,102,241,0.5) !important;
                 }
                 .team-picker-arrow {
                     position: absolute;

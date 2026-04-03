@@ -77,6 +77,7 @@
                             <th scope="col">Prediction</th>
                             <th scope="col">Result</th>
                             <th scope="col">Status</th>
+                            <th scope="col"></th>
                         </tr>
                     </thead>
                     <tbody id="historyTableBody">
@@ -198,10 +199,10 @@
             <td><small class="text-muted">${dateStr}</small></td>
             <td>
                 <div class="fw-bold">${item.home_team} vs ${item.away_team}</div>
-                <small class="text-muted">${item.match_date}</small>
+                <small class="text-muted">${item.match_date || '--'}</small>
             </td>
             <td>
-                <div class="text-primary">${item.predictions['Match Outcome'] || 'N/A'}</div>
+                <div class="text-primary">${item.predictions?.['Match Outcome'] || 'N/A'}</div>
                 <small class="text-muted">CS: ${getTopScore(item.poisson_analysis)}</small>
             </td>
             <td>${actualScore}</td>
@@ -217,8 +218,11 @@
     }
 
     function getTopScore(poisson) {
-        if (poisson && poisson.most_likely_scorelines && poisson.most_likely_scorelines.length > 0) {
-            return poisson.most_likely_scorelines[0].score;
+        if (!poisson) return '-';
+        // Support both old and new key names
+        const scorelines = poisson.most_likely_scorelines || poisson.top_scorelines;
+        if (scorelines && scorelines.length > 0) {
+            return scorelines[0].score || scorelines[0];
         }
         return '-';
     }

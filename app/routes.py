@@ -786,21 +786,64 @@ def weekend_predictions():
 
     # Build a quick lookup for fuzzy name matching against local team list
     local_teams_lower = {t.lower(): t for t in (current_teams or [])}
+    
+    # Explicit aliases for notoriously divergent API names vs DB names
+    ALIASES = {
+        'rayo vallecano de madrid': 'vallecano',
+        'cd santa clara': 'santa clara',
+        'paris saint-germain fc': 'paris sg',
+        'sporting kansas city': 'sporting kansas city',
+        'bayer 04 leverkusen': 'leverkusen',
+        '1. fsv mainz 05': 'mainz',
+        'eintracht frankfurt': 'ein frankfurt',
+        'borussia mönchengladbach': "m'gladbach"
+    }
 
     def resolve_team(api_name: str):
-        """Try to match the API team name to a local team name."""
-        # Exact
+        """Try to match the API team name to a local DB team name."""
+        api_name = api_name.strip()
+        
+        # 1. Exact match
         if api_name in (current_teams or []):
             return api_name
-        # Case-insensitive
+            
         lc = api_name.lower()
+        
+        # 2. Hardcoded known aliases
+        if lc in ALIASES and ALIASES[lc] in local_teams_lower:
+            return local_teams_lower[ALIASES[lc]]
+            
+        # 3. Case-insensitive exact match
         if lc in local_teams_lower:
             return local_teams_lower[lc]
-        # Partial match – e.g. "Manchester United FC" → "Man United"
-        for lt_lower, lt in local_teams_lower.items():
-            first_word = lc.split()[0]
-            if len(first_word) >= 4 and first_word in lt_lower:
+            
+        # 4. Strip common suffixes/prefixes
+        clean_api = lc
+        for suffix in [' fc', ' cd', ' cf', ' ud', ' afc']:
+            if clean_api.endswith(suffix):
+                clean_api = clean_api[:-len(suffix)]
+        for prefix in ['cd ', 'fc ', 'rc ']:
+            if clean_api.startswith(prefix):
+                clean_api = clean_api[len(prefix):]
+                
+        if clean_api in local_teams_lower:
+            return local_teams_lower[clean_api]
+
+        # 5. Longest substring inclusion (e.g. DB "Vallecano" is inside API "Rayo Vallecano...")
+        # Sort local teams descending by length to avoid partial word collisions
+        sorted_local = sorted(local_teams_lower.items(), key=lambda x: len(x[0]), reverse=True)
+        for lt_lower, lt in sorted_local:
+            if len(lt_lower) >= 4 and lt_lower in clean_api:
+                # E.g. clean_api="cd santa clara", lt_lower="santa clara" => Match!
                 return lt
+                
+        # 6. Generous first-word fallback
+        first_word = clean_api.split()[0] if clean_api.split() else ""
+        if len(first_word) >= 5:
+            for lt_lower, lt in local_teams_lower.items():
+                if first_word in lt_lower:
+                    return lt
+                    
         return None
 
     # --- Run predictions for each fixture ---

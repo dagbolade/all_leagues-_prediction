@@ -796,7 +796,15 @@ def weekend_predictions():
         'bayer 04 leverkusen': 'leverkusen',
         '1. fsv mainz 05': 'mainz',
         'eintracht frankfurt': 'ein frankfurt',
-        'borussia mönchengladbach': "m'gladbach"
+        'borussia mönchengladbach': "m'gladbach",
+        'psv': 'psv eindhoven',
+        'az': 'az alkmaar',
+        'stade rennais fc 1901': 'rennes',
+        'club atlético de madrid': 'ath madrid',
+        'nec': 'nec nijmegen',
+        'fc famalicão': 'famalicao',
+        'são paulo fc': 'sao paulo',
+        'racing club de lens': 'lens'
     }
 
     def resolve_team(api_name: str):

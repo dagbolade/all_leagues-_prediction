@@ -390,6 +390,28 @@
                         const item = document.querySelector('#awayTeamList [data-value="'+awayVal+'"]');
                         if (item) item.classList.add('selected-item');
                     }
+                    
+                    // Auto-fill from Weekend Predictions (sessionStorage)
+                    const prefillH = sessionStorage.getItem('prefill_home');
+                    const prefillA = sessionStorage.getItem('prefill_away');
+                    if (prefillH && prefillA && document.getElementById('predictionForm')) {
+                        sessionStorage.removeItem('prefill_home');
+                        sessionStorage.removeItem('prefill_away');
+                        
+                        document.getElementById('homeTeamSelect').value = prefillH;
+                        document.getElementById('awayTeamSelect').value = prefillA;
+                        
+                        const hSearch = document.getElementById('homeTeamSearch');
+                        const aSearch = document.getElementById('awayTeamSearch');
+                        
+                        hSearch.value = prefillH;
+                        hSearch.classList.add('selected');
+                        aSearch.value = prefillA;
+                        aSearch.classList.add('selected');
+                        
+                        // Small delay before submit to let UI stabilize visually
+                        setTimeout(() => document.getElementById('predictionForm').submit(), 150);
+                    }
                 });
             })();
             </script>

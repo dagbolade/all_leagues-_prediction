@@ -216,30 +216,10 @@ document.querySelectorAll('.day-tab-btn').forEach(btn => {
     });
 });
 
-// Pre-fill the predict form and submit
+// Pre-fill the predict form and submit via Predict page
 function preFillAndSubmit(home, away) {
     sessionStorage.setItem('prefill_home', home);
     sessionStorage.setItem('prefill_away', away);
 }
-// On predict page load, auto-fill from sessionStorage
-document.addEventListener('DOMContentLoaded', function() {
-    const h = sessionStorage.getItem('prefill_home');
-    const a = sessionStorage.getItem('prefill_away');
-    if (h && a && document.getElementById('predictionForm')) {
-        sessionStorage.removeItem('prefill_home');
-        sessionStorage.removeItem('prefill_away');
-        // set hidden inputs
-        const hHidden = document.getElementById('homeTeamSelect');
-        const aHidden = document.getElementById('awayTeamSelect');
-        const hSearch = document.getElementById('homeTeamSearch');
-        const aSearch = document.getElementById('awayTeamSearch');
-        if (hHidden) hHidden.value = h;
-        if (aHidden) aHidden.value = a;
-        if (hSearch) { hSearch.value = h; hSearch.classList.add('selected'); }
-        if (aSearch) { aSearch.value = a; aSearch.classList.add('selected'); }
-        // short delay then submit
-        setTimeout(() => document.getElementById('predictionForm').submit(), 300);
-    }
-});
 </script>
 {% endblock %}

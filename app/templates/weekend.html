@@ -1,0 +1,245 @@
+{% extends "base.html" %}
+{% block title %}Weekend Predictions{% endblock %}
+
+{% block content %}
+<div class="dashboard-container">
+    <!-- Header -->
+    <div class="welcome-section mb-4">
+        <h1><i class="bi bi-calendar-week"></i> Weekend Predictions</h1>
+        <p class="lead">Auto-generated predictions for every game this Fri–Sun</p>
+        {% if total_predicted > 0 %}
+        <span class="pill yes"><i class="bi bi-check-circle"></i> {{ total_predicted }} matches predicted</span>
+        {% endif %}
+    </div>
+
+    {% if no_api_key %}
+    <!-- No API Key Banner -->
+    <div class="alert d-flex align-items-start gap-3 mb-4"
+         style="background: rgba(239,68,68,0.12); border: 1px solid rgba(239,68,68,0.3); border-radius: 12px;">
+        <i class="bi bi-exclamation-triangle-fill text-danger fs-4 mt-1"></i>
+        <div>
+            <h5 class="mb-1 text-danger">Football Data API Key Required</h5>
+            <p class="mb-2 small text-muted">
+                To auto-fetch this weekend's fixture list, add your free API key from
+                <a href="https://www.football-data.org/" target="_blank" class="text-info">football-data.org</a>
+                to your <code>.env</code> file:
+            </p>
+            <code style="background:rgba(0,0,0,0.4);padding:6px 12px;border-radius:6px;font-size:0.85rem;">
+                FOOTBALL_DATA_API_KEY=your_key_here
+            </code>
+            <p class="mt-2 small text-muted mb-0">Restart Flask after adding the key.</p>
+        </div>
+    </div>
+    {% elif not weekend_days %}
+    <div class="card text-center py-5">
+        <div class="card-body">
+            <i class="bi bi-calendar-x display-4 text-muted mb-3 d-block"></i>
+            <h5 class="text-muted">No scheduled fixtures found for this weekend</h5>
+            <p class="text-muted small">Try again closer to the weekend or check your API quota.</p>
+        </div>
+    </div>
+    {% else %}
+    
+    <!-- Weekend Days Tabs -->
+    <div class="mb-3 d-flex gap-2 flex-wrap">
+        {% for date_str, day_data in weekend_days.items() %}
+        <button class="day-tab-btn btn btn-sm {% if loop.first %}active{% endif %}" 
+                data-day="{{ date_str }}">
+            {{ day_data.label }}
+            <span class="badge ms-1" style="background:rgba(99,102,241,0.4);">{{ day_data.fixtures|length }}</span>
+        </button>
+        {% endfor %}
+    </div>
+
+    <!-- Day Panels -->
+    {% for date_str, day_data in weekend_days.items() %}
+    <div class="day-panel {% if not loop.first %}d-none{% endif %}" id="panel-{{ date_str }}">
+        <div class="row g-3">
+            {% for fix in day_data.fixtures %}
+            <div class="col-12 col-md-6 col-xl-4">
+                <div class="card h-100 position-relative 
+                    {% if fix.prediction %}weekend-card-predicted{% elif fix.matched %}weekend-card-warn{% else %}weekend-card-unknown{% endif %}"
+                    style="border-radius: 14px; overflow:hidden;">
+                    
+                    <!-- Competition badge -->
+                    <div class="px-3 pt-3 pb-1 d-flex justify-content-between align-items-center">
+                        <small class="text-muted fw-semibold text-truncate" style="max-width:70%;">
+                            <i class="bi bi-trophy me-1"></i>{{ fix.competition }}
+                        </small>
+                        <small class="text-muted"><i class="bi bi-clock me-1"></i>{{ fix.kick_off }} UTC</small>
+                    </div>
+                    
+                    <!-- Teams -->
+                    <div class="card-body pt-1 pb-2">
+                        <div class="d-flex align-items-center justify-content-between mb-3 gap-2">
+                            <div class="text-center flex-fill">
+                                <div class="fw-bold text-white fs-6 lh-sm">{{ fix.home_team }}</div>
+                                <small class="text-muted">Home</small>
+                            </div>
+                            <div class="vs-badge flex-shrink-0">vs</div>
+                            <div class="text-center flex-fill">
+                                <div class="fw-bold text-white fs-6 lh-sm">{{ fix.away_team }}</div>
+                                <small class="text-muted">Away</small>
+                            </div>
+                        </div>
+
+                        {% if fix.prediction %}
+                        <!-- Prediction row -->
+                        <div class="prediction-row mt-2">
+                            <!-- Outcome -->
+                            <div class="pred-chip outcome-chip">
+                                {% set outcome = fix.prediction.outcome %}
+                                {% if 'Home' in outcome %}
+                                    <i class="bi bi-house-fill me-1 text-success"></i>
+                                {% elif 'Away' in outcome %}
+                                    <i class="bi bi-airplane-fill me-1 text-danger"></i>
+                                {% else %}
+                                    <i class="bi bi-dash-circle me-1 text-warning"></i>
+                                {% endif %}
+                                <span class="fw-bold">{{ outcome }}</span>
+                            </div>
+
+                            <!-- Probability breakdown if available -->
+                            {% if fix.prediction.outcome_probs %}
+                            <div class="d-flex gap-1 mt-2 flex-wrap">
+                                {% for k, v in fix.prediction.outcome_probs.items() %}
+                                <span class="badge" style="background:rgba(255,255,255,0.08); color:#ccc; font-size:0.7rem; font-weight:500;">
+                                    {{ k }}: {{ v }}
+                                </span>
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+
+                            <!-- Market chips -->
+                            <div class="d-flex gap-2 mt-2 flex-wrap">
+                                <span class="market-chip {% if fix.prediction.over25 == 'Yes' %}chip-yes{% else %}chip-no{% endif %}">
+                                    Ov 2.5: {{ fix.prediction.over25 }}
+                                </span>
+                                <span class="market-chip {% if fix.prediction.btts == 'Yes' %}chip-yes{% else %}chip-no{% endif %}">
+                                    BTTS: {{ fix.prediction.btts }}
+                                </span>
+                            </div>
+                        </div>
+                        
+                        <!-- Deep analysis link -->
+                        <a href="/predict" 
+                           onclick="preFillAndSubmit('{{ fix.home_team }}', '{{ fix.away_team }}')"
+                           class="btn btn-sm btn-outline-info w-100 mt-3 rounded-pill">
+                            <i class="bi bi-search me-1"></i> Full Analysis
+                        </a>
+
+                        {% elif fix.error %}
+                        <div class="text-muted small mt-2 text-center">
+                            <i class="bi bi-info-circle me-1"></i>
+                            {% if 'not in local' in fix.error %}
+                                Teams not in our dataset
+                            {% else %}
+                                Prediction unavailable
+                            {% endif %}
+                        </div>
+                        {% else %}
+                        <div class="text-muted small mt-2 text-center">
+                            <i class="bi bi-hourglass-split me-1"></i> Pending
+                        </div>
+                        {% endif %}
+                    </div>
+
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endfor %}
+
+    <!-- Legend -->
+    <div class="mt-4 d-flex gap-3 flex-wrap small text-muted">
+        <span><span class="badge" style="background:rgba(99,102,241,0.3);">●</span> Predicted</span>
+        <span><span class="badge" style="background:rgba(245,158,11,0.3);">●</span> Matched – prediction error</span>
+        <span><span class="badge" style="background:rgba(107,114,128,0.3);">●</span> Teams not in dataset</span>
+    </div>
+    {% endif %}
+</div>
+
+<!-- Styles -->
+<style>
+.day-tab-btn {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.12);
+    color: #9ca3af;
+    border-radius: 20px;
+    transition: all 0.15s;
+}
+.day-tab-btn.active, .day-tab-btn:hover {
+    background: rgba(99,102,241,0.3);
+    border-color: rgba(99,102,241,0.5);
+    color: #fff;
+}
+.weekend-card-predicted { border: 1px solid rgba(99,102,241,0.35) !important; background: rgba(99,102,241,0.05); }
+.weekend-card-warn      { border: 1px solid rgba(245,158,11,0.3) !important; background: rgba(245,158,11,0.04); }
+.weekend-card-unknown   { border: 1px solid rgba(107,114,128,0.25) !important; }
+.vs-badge {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    background: rgba(99,102,241,0.25);
+    color: #a5b4fc;
+    font-size: 0.7rem;
+    font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+}
+.prediction-row { border-top: 1px solid rgba(255,255,255,0.08); padding-top: 10px; }
+.pred-chip {
+    display: inline-flex; align-items: center;
+    padding: 5px 12px; border-radius: 20px;
+    background: rgba(99,102,241,0.18);
+    font-size: 0.85rem; color: #e2e8f0;
+}
+.market-chip {
+    padding: 3px 10px; border-radius: 14px;
+    font-size: 0.75rem; font-weight: 600;
+}
+.chip-yes { background: rgba(16,185,129,0.2); color: #34d399; border: 1px solid rgba(16,185,129,0.3); }
+.chip-no  { background: rgba(239,68,68,0.15); color: #f87171; border: 1px solid rgba(239,68,68,0.3); }
+.outcome-chip.win  { background: rgba(16,185,129,0.2); }
+.outcome-chip.loss { background: rgba(239,68,68,0.15); }
+.outcome-chip.draw { background: rgba(245,158,11,0.15); }
+</style>
+
+<script>
+// Day tab switching
+document.querySelectorAll('.day-tab-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+        document.querySelectorAll('.day-tab-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.day-panel').forEach(p => p.classList.add('d-none'));
+        this.classList.add('active');
+        const panel = document.getElementById('panel-' + this.dataset.day);
+        if (panel) panel.classList.remove('d-none');
+    });
+});
+
+// Pre-fill the predict form and submit
+function preFillAndSubmit(home, away) {
+    sessionStorage.setItem('prefill_home', home);
+    sessionStorage.setItem('prefill_away', away);
+}
+// On predict page load, auto-fill from sessionStorage
+document.addEventListener('DOMContentLoaded', function() {
+    const h = sessionStorage.getItem('prefill_home');
+    const a = sessionStorage.getItem('prefill_away');
+    if (h && a && document.getElementById('predictionForm')) {
+        sessionStorage.removeItem('prefill_home');
+        sessionStorage.removeItem('prefill_away');
+        // set hidden inputs
+        const hHidden = document.getElementById('homeTeamSelect');
+        const aHidden = document.getElementById('awayTeamSelect');
+        const hSearch = document.getElementById('homeTeamSearch');
+        const aSearch = document.getElementById('awayTeamSearch');
+        if (hHidden) hHidden.value = h;
+        if (aHidden) aHidden.value = a;
+        if (hSearch) { hSearch.value = h; hSearch.classList.add('selected'); }
+        if (aSearch) { aSearch.value = a; aSearch.classList.add('selected'); }
+        // short delay then submit
+        setTimeout(() => document.getElementById('predictionForm').submit(), 300);
+    }
+});
+</script>
+{% endblock %}

@@ -146,6 +146,21 @@ class LiveScoresService:
             return matches
         
         return []
+    
+    def get_upcoming_fixtures(self, days: int = 7, competition: str = None) -> List[Dict[str, Any]]:
+        """
+        Get upcoming fixtures
+        
+        Args:
+            days: Number of days ahead to look for fixtures
+            competition: Optional competition code (e.g., 'PL' for Premier League)
+        
+        Returns:
+            List of upcoming fixture dictionaries
+        """
+        if not self.api_key:
+            return []
+            
         date_from = datetime.now().strftime('%Y-%m-%d')
         date_to = (datetime.now() + timedelta(days=days)).strftime('%Y-%m-%d')
         
@@ -179,6 +194,67 @@ class LiveScoresService:
             return matches
         
         return []
+    
+    def get_weekend_fixtures(self) -> Dict[str, List[Dict[str, Any]]]:
+        """
+        Get all fixtures for the upcoming Fri/Sat/Sun (or current weekend if Fri-Sun today).
+        
+        Returns:
+            Dict keyed by date string, each containing a list of fixture dicts
+        """
+        if not self.api_key:
+            return {}
+        
+        now = datetime.utcnow()
+        # Find the upcoming Friday (or today if it is already Fri/Sat/Sun)
+        weekday = now.weekday()  # Mon=0 ... Sun=6
+        
+        # Days to the next or current Friday
+        if weekday == 4:   # Friday
+            days_to_fri = 0
+        elif weekday == 5:  # Saturday
+            days_to_fri = -1
+        elif weekday == 6:  # Sunday
+            days_to_fri = -2
+        else:
+            # Mon(0) Tue(1) Wed(2) Thu(3) -> next Friday
+            days_to_fri = 4 - weekday
+        
+        friday = now + timedelta(days=days_to_fri)
+        weekend_dates = [friday + timedelta(days=i) for i in range(3)]  # Fri, Sat, Sun
+        
+        date_from = weekend_dates[0].strftime('%Y-%m-%d')
+        date_to = weekend_dates[2].strftime('%Y-%m-%d')
+        
+        # Fetch all scheduled matches across tracked competitions
+        data = self._make_request("matches", params={
+            'status': 'SCHEDULED',
+            'dateFrom': date_from,
+            'dateTo': date_to
+        })
+        
+        # Group by date
+        grouped: Dict[str, List[Dict]] = {d.strftime('%Y-%m-%d'): [] for d in weekend_dates}
+        
+        if data and 'matches' in data:
+            for match in data['matches']:
+                utc_date = match['utcDate']  # e.g. "2026-04-05T15:00:00Z"
+                match_date = utc_date[:10]  # "2026-04-05"
+                
+                if match_date in grouped:
+                    grouped[match_date].append({
+                        'id': match['id'],
+                        'competition': match['competition']['name'],
+                        'competition_code': match['competition']['code'],
+                        'home_team': match['homeTeam']['name'],
+                        'away_team': match['awayTeam']['name'],
+                        'utc_date': utc_date,
+                        'kick_off': utc_date[11:16],  # "15:00"
+                    })
+        
+        logger.info(f"Weekend fixtures (Fri-Sun {date_from} to {date_to}): {sum(len(v) for v in grouped.values())} matches")
+        return grouped
+
     
     def get_match_details(self, match_id: int) -> Optional[Dict[str, Any]]:
         """

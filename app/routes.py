@@ -659,10 +659,123 @@ def predict():
                            league_teams=league_teams, league_names=LEAGUE_NAMES)
 
 
+@routes.route('/weekend-predictions')
+def weekend_predictions():
+    """Auto-generate predictions for all Fri/Sat/Sun games this weekend"""
+    current_predictor, current_teams = check_initialization()
+    svc = get_live_scores_service()
+
+    # --- Get fixtures from API ---
+    try:
+        raw_grouped = svc.get_weekend_fixtures()
+    except Exception as e:
+        print(f"[Weekend] Fixture fetch failed: {e}")
+        raw_grouped = {}
+
+    # Build a quick lookup for fuzzy name matching against local team list
+    local_teams_lower = {t.lower(): t for t in (current_teams or [])}
+
+    def resolve_team(api_name: str):
+        """Try to match the API team name to a local team name."""
+        # Exact
+        if api_name in (current_teams or []):
+            return api_name
+        # Case-insensitive
+        lc = api_name.lower()
+        if lc in local_teams_lower:
+            return local_teams_lower[lc]
+        # Partial match – e.g. "Manchester United FC" → "Man United"
+        for lt_lower, lt in local_teams_lower.items():
+            first_word = lc.split()[0]
+            if len(first_word) >= 4 and first_word in lt_lower:
+                return lt
+        return None
+
+    # --- Run predictions for each fixture ---
+    weekend_days = {}
+    total_predicted = 0
+
+    for date_str, fixtures in sorted(raw_grouped.items()):
+        day_dt = datetime.strptime(date_str, '%Y-%m-%d')
+        day_label = day_dt.strftime('%A, %d %B')  # e.g. "Saturday, 05 April"
+
+        day_results = []
+        for fix in fixtures:
+            home_local = resolve_team(fix['home_team'])
+            away_local = resolve_team(fix['away_team'])
+
+            pred_data = None
+            error_msg = None
+
+            if home_local and away_local and current_predictor:
+                try:
+                    # Use cache if available
+                    result = None
+                    if prediction_cache:
+                        result = prediction_cache.get(home_local, away_local)
+                    if result is None:
+                        result = current_predictor.predict_with_full_bayesian_analysis(
+                            home_local, away_local)
+                        if prediction_cache:
+                            prediction_cache.set(home_local, away_local, result)
+
+                    preds = convert_numpy_types(result.get('predictions', {}))
+                    probs = convert_numpy_types(result.get('probabilities', {}))
+
+                    # Simplify outcome probabilities
+                    outcome_probs = {}
+                    if 'Match Outcome' in probs and isinstance(probs['Match Outcome'], dict):
+                        for k, v in probs['Match Outcome'].items():
+                            try:
+                                outcome_probs[k] = f"{float(v)*100:.0f}%"
+                            except Exception:
+                                outcome_probs[k] = str(v)
+
+                    pred_data = {
+                        'outcome': preds.get('Match Outcome', 'Unknown'),
+                        'outcome_probs': outcome_probs,
+                        'over25': preds.get('Over 2.5 Goals', 'Unknown'),
+                        'btts': preds.get('Both Teams to Score', 'Unknown'),
+                    }
+                    total_predicted += 1
+                except Exception as e:
+                    error_msg = str(e)
+                    print(f"[Weekend] Prediction failed for {home_local} vs {away_local}: {e}")
+            elif not (home_local and away_local):
+                error_msg = "Teams not in local dataset"
+
+            day_results.append({
+                'api_home': fix['home_team'],
+                'api_away': fix['away_team'],
+                'home_team': home_local or fix['home_team'],
+                'away_team': away_local or fix['away_team'],
+                'competition': fix['competition'],
+                'kick_off': fix['kick_off'],
+                'prediction': pred_data,
+                'error': error_msg,
+                'matched': bool(home_local and away_local),
+            })
+
+        if day_results:
+            weekend_days[date_str] = {
+                'label': day_label,
+                'fixtures': day_results
+            }
+
+    no_api_key = not svc.api_key
+    return render_template(
+        'weekend.html',
+        weekend_days=weekend_days,
+        total_predicted=total_predicted,
+        no_api_key=no_api_key,
+    )
+
+
 @routes.route('/live-predictions')
 def live_predictions_page():
     """Live predictions page"""
     return render_template('live_predictions.html')
+
 
 
 @routes.route('/api/live-predictions')

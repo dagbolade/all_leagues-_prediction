@@ -112,8 +112,7 @@ def basketball_predict():
     try:
         from sports.basketball.basketball_features import BasketballFeatureEngineer
 
-        models      = _basketball_data.get('models', {})
-        feature_cols = _basketball_data.get('feature_cols', [])
+        models = _basketball_data.get('models', {})
 
         game_df = pd.DataFrame([{
             'Date':      pd.Timestamp.now(),
@@ -127,23 +126,20 @@ def basketball_predict():
         fe = BasketballFeatureEngineer()
         game_features = fe.engineer_features(game_df)
 
-        # Keep only columns the model was trained on
-        available = [c for c in feature_cols if c in game_features.columns]
-        X = game_features[available].fillna(0)
-        if len(available) < len(feature_cols):
-            # Pad missing columns with zeros
-            for col in feature_cols:
-                if col not in X.columns:
-                    X[col] = 0
-            X = X[feature_cols]
+        def get_X(task):
+            """Return feature matrix aligned to the task's selected features."""
+            cols = models[task].get('features', [])
+            row = {}
+            for c in cols:
+                row[c] = float(game_features[c].iloc[0]) if c in game_features.columns else 0.0
+            return pd.DataFrame([row])[cols]
 
         result = {}
 
-        # Winner
+        # Game winner
         if 'match_outcome' in models:
-            model = models['match_outcome']['model']
-            prob  = model.predict_proba(X)[0]
-            # prob[0]=Away wins, prob[1]=Home wins
+            X = get_X('match_outcome')
+            prob      = models['match_outcome']['model'].predict_proba(X)[0]
             home_prob = float(prob[1])
             away_prob = float(prob[0])
             result['winner']        = home if home_prob > away_prob else away
@@ -151,26 +147,50 @@ def basketball_predict():
             result['away_win_prob'] = round(away_prob * 100, 1)
             result['confidence']    = round(max(home_prob, away_prob) * 100, 1)
 
-        # Total Points prediction
+        # Total points (regression)
         if 'total_points' in models:
-            tp_model = models['total_points']['model']
-            total    = float(tp_model.predict(X)[0])
+            X     = get_X('total_points')
+            total = float(models['total_points']['model'].predict(X)[0])
             result['total_points']       = round(total, 1)
             result['total_points_range'] = f"{round(total - 10, 1)}–{round(total + 10, 1)}"
 
-        # Over/Under (various thresholds)
-        for key in ['over_220', 'over_215', 'over_225']:
+        # Over/Under lines — return both if available
+        ou_markets = []
+        for key, line in [('over_220', 220), ('over_225', 225)]:
             if key in models:
-                ou_model  = models[key]['model']
-                ou_prob   = ou_model.predict_proba(X)[0]
-                threshold = key.split('_')[1]
-                result['over_under'] = {
-                    'line':       int(threshold),
-                    'prediction': f"Over {threshold}" if ou_prob[1] > ou_prob[0] else f"Under {threshold}",
-                    'over_prob':  round(float(ou_prob[1]) * 100, 1),
-                    'under_prob': round(float(ou_prob[0]) * 100, 1),
-                }
-                break  # only need one
+                X      = get_X(key)
+                prob   = models[key]['model'].predict_proba(X)[0]
+                over_p = round(float(prob[1]) * 100, 1)
+                under_p = round(float(prob[0]) * 100, 1)
+                ou_markets.append({
+                    'line':       line,
+                    'prediction': f"Over {line}" if prob[1] > prob[0] else f"Under {line}",
+                    'over_prob':  over_p,
+                    'under_prob': under_p,
+                })
+        if ou_markets:
+            result['over_under_markets'] = ou_markets
+
+        # Team totals
+        team_totals = []
+        if 'home_over_110' in models:
+            X    = get_X('home_over_110')
+            prob = models['home_over_110']['model'].predict_proba(X)[0]
+            team_totals.append({
+                'label': f'{home} over 110',
+                'prediction': 'Over 110' if prob[1] > prob[0] else 'Under 110',
+                'prob': round(float(max(prob)) * 100, 1),
+            })
+        if 'away_over_108' in models:
+            X    = get_X('away_over_108')
+            prob = models['away_over_108']['model'].predict_proba(X)[0]
+            team_totals.append({
+                'label': f'{away} over 108',
+                'prediction': 'Over 108' if prob[1] > prob[0] else 'Under 108',
+                'prob': round(float(max(prob)) * 100, 1),
+            })
+        if team_totals:
+            result['team_totals'] = team_totals
 
         return jsonify(result)
 
@@ -194,8 +214,7 @@ def tennis_predict():
     try:
         from sports.tennis.tennis_features import TennisFeatureEngineer
 
-        models       = _tennis_data.get('models', {})
-        feature_cols = _tennis_data.get('feature_cols', [])
+        models = _tennis_data.get('models', {})
 
         match_df = pd.DataFrame([{
             'Date':       pd.Timestamp.now(),
@@ -211,27 +230,52 @@ def tennis_predict():
         fe             = TennisFeatureEngineer()
         match_features = fe.engineer_features(match_df)
 
-        available = [c for c in feature_cols if c in match_features.columns]
-        X = match_features[available].fillna(0)
-        for col in feature_cols:
-            if col not in X.columns:
-                X[col] = 0
-        X = X[feature_cols]
+        def get_X(task):
+            cols = models[task].get('features', [])
+            row  = {}
+            for c in cols:
+                row[c] = float(match_features[c].iloc[0]) if c in match_features.columns else 0.0
+            return pd.DataFrame([row])[cols]
 
-        result = {}
+        result = {
+            'player1': player1,
+            'player2': player2,
+        }
 
+        # Match winner
         if 'winner' in models:
-            model = models['winner']['model']
-            prob  = model.predict_proba(X)[0]
-            # prob[0]=Player2 wins, prob[1]=Player1 wins
+            X       = get_X('winner')
+            prob    = models['winner']['model'].predict_proba(X)[0]
             p1_prob = float(prob[1])
             p2_prob = float(prob[0])
-            result['winner']       = player1 if p1_prob > p2_prob else player2
-            result['p1_win_prob']  = round(p1_prob * 100, 1)
-            result['p2_win_prob']  = round(p2_prob * 100, 1)
-            result['confidence']   = round(max(p1_prob, p2_prob) * 100, 1)
-            result['player1']      = player1
-            result['player2']      = player2
+            result['winner']      = player1 if p1_prob > p2_prob else player2
+            result['p1_win_prob'] = round(p1_prob * 100, 1)
+            result['p2_win_prob'] = round(p2_prob * 100, 1)
+            result['confidence']  = round(max(p1_prob, p2_prob) * 100, 1)
+
+        # First set winner
+        if 'first_set' in models:
+            X       = get_X('first_set')
+            prob    = models['first_set']['model'].predict_proba(X)[0]
+            p1_prob = float(prob[1])
+            p2_prob = float(prob[0])
+            result['first_set'] = {
+                'winner':     player1 if p1_prob > p2_prob else player2,
+                'p1_prob':    round(p1_prob * 100, 1),
+                'p2_prob':    round(p2_prob * 100, 1),
+                'confidence': round(max(p1_prob, p2_prob) * 100, 1),
+            }
+
+        # Goes to distance (3+ sets)
+        if 'goes_distance' in models:
+            X       = get_X('goes_distance')
+            prob    = models['goes_distance']['model'].predict_proba(X)[0]
+            goes    = float(prob[1]) > float(prob[0])
+            result['goes_distance'] = {
+                'prediction': 'Goes to 3 sets' if goes else 'Straight sets',
+                'prob_3sets': round(float(prob[1]) * 100, 1),
+                'prob_straight': round(float(prob[0]) * 100, 1),
+            }
 
         return jsonify(result)
 

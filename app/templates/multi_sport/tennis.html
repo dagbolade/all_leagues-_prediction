@@ -125,8 +125,20 @@
                             </div>
                         </div>
 
-                        <!-- Confidence chip -->
-                        <div class="d-flex gap-2 flex-wrap" id="marketChips"></div>
+                        <!-- Main chips -->
+                        <div class="d-flex gap-2 flex-wrap mb-2" id="marketChips"></div>
+
+                        <!-- First set -->
+                        <div id="firstSetDiv" class="d-none">
+                            <div class="small text-muted mb-1 mt-2">First Set Winner</div>
+                            <div class="d-flex gap-2 flex-wrap" id="firstSetChips"></div>
+                        </div>
+
+                        <!-- Goes to distance -->
+                        <div id="distanceDiv" class="d-none">
+                            <div class="small text-muted mb-1 mt-2">Match Length</div>
+                            <div class="d-flex gap-2 flex-wrap" id="distanceChips"></div>
+                        </div>
 
                     </div>
                 </div>
@@ -260,12 +272,39 @@ function renderResult(p1, p2, surface, data) {
     const chips = document.getElementById('marketChips');
     chips.innerHTML = '';
     if (data.confidence) {
-        chips.innerHTML += `<span class="market-chip-tennis chip-conf">Confidence: ${data.confidence.toFixed(1)}%</span>`;
+        chips.innerHTML += `<span class="market-chip-tennis chip-conf">Confidence: ${data.confidence}%</span>`;
     }
-    // Surface context chip
     const surfaceColors = { Hard: '#60a5fa', Clay: '#f97316', Grass: '#34d399', Carpet: '#a78bfa' };
     const sc = surfaceColors[surface] || '#9ca3af';
     chips.innerHTML += `<span class="market-chip-tennis" style="background:rgba(255,255,255,0.06);color:${sc};border:1px solid ${sc}40;">${surface}</span>`;
+
+    // First set winner
+    const fsDiv   = document.getElementById('firstSetDiv');
+    const fsChips = document.getElementById('firstSetChips');
+    fsChips.innerHTML = '';
+    if (data.first_set) {
+        const fs = data.first_set;
+        fsChips.innerHTML += `<span class="market-chip-tennis chip-conf">${fs.winner} wins 1st set (${fs.confidence}%)</span>`;
+        fsChips.innerHTML += `<span class="market-chip-tennis" style="background:rgba(255,255,255,0.04);color:#9ca3af;border:1px solid rgba(255,255,255,0.1);">P1: ${fs.p1_prob}% · P2: ${fs.p2_prob}%</span>`;
+        fsDiv.classList.remove('d-none');
+    } else {
+        fsDiv.classList.add('d-none');
+    }
+
+    // Goes to distance
+    const distDiv   = document.getElementById('distanceDiv');
+    const distChips = document.getElementById('distanceChips');
+    distChips.innerHTML = '';
+    if (data.goes_distance) {
+        const gd = data.goes_distance;
+        const goes = gd.prediction === 'Goes to 3 sets';
+        const cls  = goes ? 'chip-conf' : '';
+        distChips.innerHTML += `<span class="market-chip-tennis ${cls}" style="${!goes ? 'background:rgba(16,185,129,0.15);color:#34d399;border:1px solid rgba(16,185,129,0.3);' : ''}">${gd.prediction}</span>`;
+        distChips.innerHTML += `<span class="market-chip-tennis" style="background:rgba(255,255,255,0.04);color:#9ca3af;border:1px solid rgba(255,255,255,0.1);">3 sets: ${gd.prob_3sets}% · Straight: ${gd.prob_straight}%</span>`;
+        distDiv.classList.remove('d-none');
+    } else {
+        distDiv.classList.add('d-none');
+    }
 }
 
 function setLoading(on) {

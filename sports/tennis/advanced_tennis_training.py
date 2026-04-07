@@ -221,125 +221,168 @@ class AdvancedTennisPredictor:
 
         return stacking_model
 
+    @staticmethod
+    def _parse_score(score_str):
+        """Parse tennis score string into structured info.
+
+        Returns dict with: num_sets, first_set_winner (1=P1, 0=P2, None=unknown)
+        """
+        if pd.isna(score_str):
+            return {'num_sets': None, 'first_set_p1': None}
+        parts = str(score_str).split()
+        # Keep only parts that look like set scores (start with digit)
+        sets = [p for p in parts if p and p[0].isdigit()]
+        if not sets:
+            return {'num_sets': None, 'first_set_p1': None}
+        num_sets = len(sets)
+        # Parse first set: "6-4" or "7-6(3)"
+        try:
+            first = sets[0].split('(')[0]  # strip tiebreak e.g. "7-6(3)" -> "7-6"
+            a, b = first.split('-')
+            first_set_p1 = 1 if int(a) > int(b) else 0
+        except Exception:
+            first_set_p1 = None
+        return {'num_sets': num_sets, 'first_set_p1': first_set_p1}
+
     def prepare_data(self, df):
-        """Prepare training data."""
+        """Prepare training data with multiple targets."""
         df = df.sort_values('Date').copy()
 
-        # Target: Player1 wins = 1, Player2 wins = 0
-        y = (df['Winner'] == 'Player1').astype(int)
+        targets = {}
 
-        # Calculate Bayesian priors
-        player1_win_rate = y.mean()
+        # Target 1: Match winner (Player1 wins = 1)
+        targets['winner'] = (df['Winner'] == 'Player1').astype(int)
+        player1_win_rate = targets['winner'].mean()
         self.bayesian_priors = {
             'player1_win_rate': player1_win_rate,
             'player2_win_rate': 1 - player1_win_rate
         }
-
         print(f"[Metrics] Player1 win rate: {player1_win_rate:.2%}")
-        return df, y
 
-    def train_models(self, df, feature_cols):
-        """Train advanced models with Bayesian optimization."""
-        print("[Training] Starting Advanced Tennis Model Training...")
+        # Parse score for additional targets
+        if 'Score' in df.columns:
+            parsed = df['Score'].apply(self._parse_score)
+            df['_num_sets']    = parsed.apply(lambda x: x['num_sets'])
+            df['_first_set_p1'] = parsed.apply(lambda x: x['first_set_p1'])
 
-        df_processed, y = self.prepare_data(df)
+            # Target 2: First set winner (Player1 wins first set = 1)
+            mask_fs = df['_first_set_p1'].notna()
+            if mask_fs.sum() > 1000:
+                targets['first_set'] = df.loc[mask_fs, '_first_set_p1'].astype(int)
+                print(f"[Metrics] First set P1 rate: {targets['first_set'].mean():.2%} ({mask_fs.sum()} matches)")
 
-        # Time series cross-validation
+            # Target 3: Goes to distance (3+ sets for BO3, i.e. not straight sets)
+            mask_sets = df['_num_sets'].notna()
+            if mask_sets.sum() > 1000:
+                goes_3 = (df.loc[mask_sets, '_num_sets'] >= 3).astype(int)
+                targets['goes_distance'] = goes_3
+                print(f"[Metrics] Goes distance (3+ sets) rate: {goes_3.mean():.2%} ({mask_sets.sum()} matches)")
+
+        print(f"[Metrics] Training {len(targets)} tasks: {list(targets.keys())}")
+        return df, targets
+
+    def _train_single_task(self, task, X_full, y_task, feature_cols):
+        """Train one task with CV, return best model and metrics."""
         tscv = TimeSeriesSplit(n_splits=3)
 
-        print(f"\n[Tennis] Training match winner prediction...")
-
-        # Prepare features
-        X = df_processed[feature_cols].fillna(0)
+        # Align index between X and y
+        common_idx = X_full.index.intersection(y_task.index)
+        X = X_full.loc[common_idx].fillna(0)
+        y = y_task.loc[common_idx]
 
         # Feature selection
         max_features = min(50, len(feature_cols))
-        if len(feature_cols) > max_features:
+        selected_features = feature_cols
+        if X.shape[1] > max_features:
             selector = SelectKBest(f_classif, k=max_features)
-            X_selected = selector.fit_transform(X, y)
+            X_sel = selector.fit_transform(X, y)
             selected_features = [feature_cols[i] for i in selector.get_support(indices=True)]
-            X = pd.DataFrame(X_selected, columns=selected_features, index=X.index)
-            print(f"   [Selected] Selected {len(selected_features)} best features")
+            X = pd.DataFrame(X_sel, columns=selected_features, index=X.index)
+            print(f"   [Selected] {len(selected_features)} best features")
 
         cv_metrics = []
         best_metric = float('-inf')
         best_model = None
 
         for fold, (train_idx, val_idx) in enumerate(tscv.split(X)):
-            print(f"   [Fold] Fold {fold + 1}/3...")
-
+            print(f"   [Fold] Fold {fold + 1}/3…")
             X_train, X_val = X.iloc[train_idx], X.iloc[val_idx]
             y_train, y_val = y.iloc[train_idx], y.iloc[val_idx]
 
-            # SMOTE for balance
             try:
-                min_samples = min(sum(y_train == 0), sum(y_train == 1))
-                k_neighbors = min(5, min_samples - 1)
-                if k_neighbors > 0:
-                    smote = SMOTE(random_state=42, k_neighbors=k_neighbors)
+                min_s = min(sum(y_train == 0), sum(y_train == 1))
+                k = min(5, min_s - 1)
+                if k > 0:
+                    smote = SMOTE(random_state=42, k_neighbors=k)
                     X_train, y_train = smote.fit_resample(X_train, y_train)
-            except:
+            except Exception:
                 pass
 
-            # Create stacking model
             model = self.create_stacking_model(X_train, y_train, X_val, y_val)
             model.fit(X_train, y_train)
 
-            # Evaluate
             y_pred = model.predict(X_val)
             y_prob = model.predict_proba(X_val)
             acc = accuracy_score(y_val, y_pred)
-            ll = log_loss(y_val, y_prob)
-            f1 = f1_score(y_val, y_pred)
-
+            ll  = log_loss(y_val, y_prob)
+            f1  = f1_score(y_val, y_pred)
             cv_metrics.append({'accuracy': acc, 'log_loss': ll, 'f1': f1})
 
             if acc > best_metric:
                 best_metric = acc
-                best_model = model
+                best_model  = model
 
-        # Store best model
-        if best_model is not None:
-            self.models['winner'] = {
-                'model': best_model,
-                'features': list(X.columns)
-            }
+        if best_model is None:
+            return None, selected_features, {}
 
-            # Calibrate probabilities
-            print(f"   [Bayesian] Calibrating probabilities...")
-            try:
-                calibrated_model = CalibratedClassifierCV(best_model, method='isotonic', cv=3)
-                calibrated_model.fit(X, y)
-                self.calibrated_models['winner'] = {
-                    'model': calibrated_model,
-                    'features': list(X.columns)
-                }
-            except Exception as e:
-                print(f"   [Warning]️ Calibration failed: {e}")
+        self.models[task] = {'model': best_model, 'features': list(X.columns)}
 
-            # Store metrics
-            self.metrics['winner'] = {
-                'accuracy': np.mean([m['accuracy'] for m in cv_metrics]),
-                'log_loss': np.mean([m['log_loss'] for m in cv_metrics]),
-                'f1': np.mean([m['f1'] for m in cv_metrics])
-            }
+        try:
+            cal = CalibratedClassifierCV(best_model, method='isotonic', cv=3)
+            cal.fit(X, y)
+            self.calibrated_models[task] = {'model': cal, 'features': list(X.columns)}
+        except Exception as e:
+            print(f"   [Warning] Calibration failed: {e}")
 
-            print(f"\n   [Metrics] Results:")
-            print(f"      Accuracy: {self.metrics['winner']['accuracy']:.4f}")
-            print(f"      Log Loss: {self.metrics['winner']['log_loss']:.4f}")
-            print(f"      F1 Score: {self.metrics['winner']['f1']:.4f}")
+        metrics = {
+            'accuracy': np.mean([m['accuracy'] for m in cv_metrics]),
+            'log_loss': np.mean([m['log_loss'] for m in cv_metrics]),
+            'f1':       np.mean([m['f1']       for m in cv_metrics]),
+        }
+        self.metrics[task] = metrics
+        print(f"   [Metrics] Acc={metrics['accuracy']:.4f}  LL={metrics['log_loss']:.4f}  F1={metrics['f1']:.4f}")
+        return best_model, list(X.columns), metrics
 
-        print(f"\n[Complete] Training completed!")
-        print(f"   [Bayesian] Bayesian trials: {len(self.hyperopt_trials)}")
+    def train_models(self, df, feature_cols):
+        """Train advanced models for all targets."""
+        print("[Training] Starting Advanced Tennis Model Training...")
+
+        df_processed, targets = self.prepare_data(df)
+
+        X_full = df_processed[feature_cols].fillna(0)
+
+        for task, y_task in targets.items():
+            print(f"\n[Tennis] Training: {task}…")
+            self._train_single_task(task, X_full, y_task, feature_cols)
+
+        print(f"\n[Complete] Training done — models: {list(self.models.keys())}")
+        print(f"[Bayesian] Bayesian trials: {len(self.hyperopt_trials)}")
 
     def save_models(self, path):
         """Save all models."""
+        all_features = []
+        for task_data in self.models.values():
+            for f in task_data.get('features', []):
+                if f not in all_features:
+                    all_features.append(f)
+
         save_data = {
             'models': self.models,
             'calibrated_models': self.calibrated_models,
             'metrics': self.metrics,
             'bayesian_priors': self.bayesian_priors,
-            'hyperopt_trials': self.hyperopt_trials
+            'hyperopt_trials': self.hyperopt_trials,
+            'feature_cols': all_features,
         }
         joblib.dump(save_data, path)
         print(f"[OK] Models saved to {path}")

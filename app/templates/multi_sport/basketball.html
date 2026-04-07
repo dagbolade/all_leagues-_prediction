@@ -107,8 +107,20 @@
                             </div>
                         </div>
 
-                        <!-- Market chips -->
-                        <div class="d-flex gap-2 flex-wrap" id="marketChips"></div>
+                        <!-- Market chips row 1 -->
+                        <div class="d-flex gap-2 flex-wrap mb-2" id="marketChips"></div>
+
+                        <!-- Over/Under lines -->
+                        <div id="ouLines" class="d-none">
+                            <div class="small text-muted mb-1 mt-2">Over / Under Lines</div>
+                            <div class="d-flex gap-2 flex-wrap" id="ouChips"></div>
+                        </div>
+
+                        <!-- Team totals -->
+                        <div id="teamTotalsDiv" class="d-none">
+                            <div class="small text-muted mb-1 mt-2">Team Totals</div>
+                            <div class="d-flex gap-2 flex-wrap" id="teamTotalChips"></div>
+                        </div>
                     </div>
                 </div>
 
@@ -220,23 +232,45 @@ function renderResult(home, away, data) {
     document.getElementById('barHomeLabel').textContent = home + ' ' + homeProb.toFixed(1) + '%';
     document.getElementById('barAwayLabel').textContent = awayProb.toFixed(1) + '% ' + away;
 
-    // Market chips
+    // Main chips: confidence + total points
     const chips = document.getElementById('marketChips');
     chips.innerHTML = '';
-
     if (data.confidence) {
-        chips.innerHTML += `<span class="market-chip-bball chip-pts">Confidence: ${data.confidence.toFixed(1)}%</span>`;
+        chips.innerHTML += `<span class="market-chip-bball chip-pts">Confidence: ${data.confidence}%</span>`;
     }
     if (data.total_points) {
-        chips.innerHTML += `<span class="market-chip-bball chip-pts">Total: ${data.total_points} pts</span>`;
+        chips.innerHTML += `<span class="market-chip-bball chip-pts">Predicted Total: ${data.total_points} pts</span>`;
     }
     if (data.total_points_range) {
         chips.innerHTML += `<span class="market-chip-bball chip-pts">Range: ${data.total_points_range}</span>`;
     }
-    if (data.over_under) {
-        const ou = data.over_under;
-        const cls = ou.prediction.startsWith('Over') ? 'chip-over' : 'chip-under';
-        chips.innerHTML += `<span class="market-chip-bball ${cls}">${ou.prediction} (${ou.over_prob}% / ${ou.under_prob}%)</span>`;
+
+    // Over/Under lines
+    const ouDiv   = document.getElementById('ouLines');
+    const ouChips = document.getElementById('ouChips');
+    ouChips.innerHTML = '';
+    if (data.over_under_markets && data.over_under_markets.length) {
+        data.over_under_markets.forEach(ou => {
+            const cls = ou.prediction.startsWith('Over') ? 'chip-over' : 'chip-under';
+            ouChips.innerHTML += `<span class="market-chip-bball ${cls}">O/U ${ou.line}: <strong>${ou.prediction}</strong> (${ou.over_prob}% / ${ou.under_prob}%)</span>`;
+        });
+        ouDiv.classList.remove('d-none');
+    } else {
+        ouDiv.classList.add('d-none');
+    }
+
+    // Team totals
+    const ttDiv   = document.getElementById('teamTotalsDiv');
+    const ttChips = document.getElementById('teamTotalChips');
+    ttChips.innerHTML = '';
+    if (data.team_totals && data.team_totals.length) {
+        data.team_totals.forEach(tt => {
+            const cls = tt.prediction.startsWith('Over') ? 'chip-over' : 'chip-under';
+            ttChips.innerHTML += `<span class="market-chip-bball ${cls}">${tt.label}: <strong>${tt.prediction}</strong> (${tt.prob}%)</span>`;
+        });
+        ttDiv.classList.remove('d-none');
+    } else {
+        ttDiv.classList.add('d-none');
     }
 }
 

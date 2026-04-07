@@ -330,15 +330,14 @@ class AdvancedBasketballPredictor:
         return stacking_model
 
     def prepare_data(self, df):
-        """Prepare training data with targets - FOCUSED to prevent overfitting."""
+        """Prepare training data with targets."""
         df = df.sort_values('Date').copy()
 
         y = {}
 
-        # Match outcome (Winner) - Most important
+        # Match outcome (Winner)
         if 'Result' in df.columns:
             y['match_outcome'] = df['Result'].map({'H': 1, 'A': 0})
-
             home_win_rate = (df['Result'] == 'H').mean()
             self.bayesian_priors['match_outcome'] = {'home_win': home_win_rate}
             print(f"[Data] Home win rate: {home_win_rate:.2%}")
@@ -349,13 +348,26 @@ class AdvancedBasketballPredictor:
             self.bayesian_priors['total_points'] = {'avg_total': df['TotalPoints'].mean()}
             print(f"[Data] Avg total points: {df['TotalPoints'].mean():.1f}")
 
-        # Only most common Over/Under (220 is typical NBA game total)
         if 'TotalPoints' in df.columns:
+            # Over/Under 220 (62% hit rate)
             y['over_220'] = (df['TotalPoints'] > 220).astype(int)
-            over_220_rate = y['over_220'].mean()
-            print(f"[Data] Over 220 rate: {over_220_rate:.2%}")
+            print(f"[Data] Over 220 rate: {y['over_220'].mean():.2%}")
 
-        print(f"[Metrics] Training {len(y)} focused tasks (reduced from 7 to prevent overfitting)")
+            # Over/Under 225 (most balanced ~52/48)
+            y['over_225'] = (df['TotalPoints'] > 225).astype(int)
+            print(f"[Data] Over 225 rate: {y['over_225'].mean():.2%}")
+
+        # Home team total over 110
+        if 'HomeScore' in df.columns:
+            y['home_over_110'] = (df['HomeScore'] >= 110).astype(int)
+            print(f"[Data] Home over 110 rate: {y['home_over_110'].mean():.2%}")
+
+        # Away team total over 108
+        if 'AwayScore' in df.columns:
+            y['away_over_108'] = (df['AwayScore'] >= 108).astype(int)
+            print(f"[Data] Away over 108 rate: {y['away_over_108'].mean():.2%}")
+
+        print(f"[Metrics] Training {len(y)} tasks")
         return df, y
 
     def train_models(self, df, feature_cols):
@@ -456,12 +468,20 @@ class AdvancedBasketballPredictor:
 
     def save_models(self, path):
         """Save all models."""
+        # Collect all unique feature cols across tasks for reference
+        all_features = []
+        for task_data in self.models.values():
+            for f in task_data.get('features', []):
+                if f not in all_features:
+                    all_features.append(f)
+
         save_data = {
             'models': self.models,
             'calibrated_models': self.calibrated_models,
             'metrics': self.metrics,
             'bayesian_priors': self.bayesian_priors,
-            'hyperopt_trials': self.hyperopt_trials
+            'hyperopt_trials': self.hyperopt_trials,
+            'feature_cols': all_features,  # union of all task features
         }
         joblib.dump(save_data, path)
         print(f"[OK] Models saved to {path}")

@@ -109,11 +109,26 @@ def football_page():
 @multi_sport.route('/sport/basketball')
 def basketball_page():
     model_loaded = _basketball_data is not None
-    # Pull NBA teams from training data if available
     teams = _get_nba_teams()
     return render_template('multi_sport/basketball.html',
                            model_loaded=model_loaded,
                            teams=teams)
+
+
+@multi_sport.route('/sport/basketball/stats', methods=['GET', 'POST'])
+def basketball_stats():
+    teams = _get_nba_teams()
+    stats = None
+    home_team = None
+    away_team = None
+    if request.method == 'POST':
+        home_team = request.form.get('homeTeam', '').strip()
+        away_team = request.form.get('awayTeam', '').strip()
+        if home_team and away_team and _basketball_hist is not None:
+            stats = _build_basketball_stats(home_team, away_team)
+    return render_template('multi_sport/basketball_stats.html',
+                           teams=teams, stats=stats,
+                           home_team=home_team, away_team=away_team)
 
 
 @multi_sport.route('/sport/tennis')
@@ -200,7 +215,8 @@ def basketball_predict():
                 feat_row['AvgTotalPoints_L5']  = _basketball_hist['TotalPoints'].iloc[-5:].mean() if 'TotalPoints' in _basketball_hist else 227
                 feat_row['AvgTotalPoints_L10'] = _basketball_hist['TotalPoints'].iloc[-10:].mean() if 'TotalPoints' in _basketball_hist else 227
 
-            # Box score rolling averages — needed because HomeREB/AwayAST etc. are top-50 features
+            # Box score rolling averages — fill both old-model names (HomeFG etc.)
+            # and new-model names (Home_FG%_L5 etc.) for compatibility
             for stat in ['FG', 'FG3', 'FT', 'REB', 'AST', 'TO']:
                 hcol = f'Home{stat}'
                 acol = f'Away{stat}'
@@ -210,6 +226,10 @@ def basketball_predict():
                 if acol in _basketball_hist.columns:
                     val = _basketball_hist[_basketball_hist['AwayTeam'] == away][acol].dropna().tail(5).mean()
                     feat_row[acol] = val if pd.notna(val) else 0.0
+
+            # Also pull H2H_AvgTotal if present in hist_features
+            if len(h2h) > 0 and 'H2H_AvgTotal' in hist_features.columns:
+                feat_row['H2H_AvgTotal'] = h2h.iloc[-1].get('H2H_AvgTotal', 0)
 
             game_features = pd.DataFrame([feat_row])
         else:
@@ -411,7 +431,133 @@ def tennis_predict():
         return jsonify({'error': str(e)}), 500
 
 
-# ─── Helper ──────────────────────────────────────────────────────────────────
+# ─── Helpers ─────────────────────────────────────────────────────────────────
+
+def _build_basketball_stats(home: str, away: str) -> dict:
+    """Build comprehensive team stats for the stats page."""
+    df = _basketball_hist.copy()
+
+    def team_games(team):
+        return df[(df['HomeTeam'] == team) | (df['AwayTeam'] == team)].sort_values('Date')
+
+    def last_n(team, n=10):
+        tg = team_games(team).tail(n)
+        results = []
+        for _, row in tg.iterrows():
+            if row['HomeTeam'] == team:
+                won = row['HomeScore'] > row['AwayScore']
+                pts_for, pts_ag = row['HomeScore'], row['AwayScore']
+            else:
+                won = row['AwayScore'] > row['HomeScore']
+                pts_for, pts_ag = row['AwayScore'], row['HomeScore']
+            results.append({'won': won, 'pts_for': pts_for, 'pts_ag': pts_ag,
+                            'date': str(row['Date'])[:10]})
+        return results
+
+    def team_summary(team, n=10):
+        results = last_n(team, n)
+        if not results:
+            return None
+        wins   = sum(1 for r in results if r['won'])
+        losses = len(results) - wins
+        ppg    = round(sum(r['pts_for'] for r in results) / len(results), 1)
+        papg   = round(sum(r['pts_ag']  for r in results) / len(results), 1)
+        form   = ['W' if r['won'] else 'L' for r in results]
+        streak = 0
+        for r in reversed(results):
+            if (r['won'] and form[-1] == 'W') or (not r['won'] and form[-1] == 'L'):
+                streak += 1
+            else:
+                break
+        streak_type = 'W' if results[-1]['won'] else 'L'
+
+        # Shooting stats — last 10 home games
+        hg = df[df['HomeTeam'] == team].tail(10)
+        ag = df[df['AwayTeam'] == team].tail(10)
+        fg_pct  = round(pd.concat([hg['HomeFG'] if 'HomeFG' in df.columns else pd.Series([]),
+                                   ag['AwayFG'] if 'AwayFG' in df.columns else pd.Series([])]).mean() * 100, 1)
+        fg3_pct = round(pd.concat([hg['HomeFG3'] if 'HomeFG3' in df.columns else pd.Series([]),
+                                   ag['AwayFG3'] if 'AwayFG3' in df.columns else pd.Series([])]).mean() * 100, 1)
+        ft_pct  = round(pd.concat([hg['HomeFT'] if 'HomeFT' in df.columns else pd.Series([]),
+                                   ag['AwayFT'] if 'AwayFT' in df.columns else pd.Series([])]).mean() * 100, 1)
+        reb     = round(pd.concat([hg['HomeREB'] if 'HomeREB' in df.columns else pd.Series([]),
+                                   ag['AwayREB'] if 'AwayREB' in df.columns else pd.Series([])]).mean(), 1)
+        ast     = round(pd.concat([hg['HomeAST'] if 'HomeAST' in df.columns else pd.Series([]),
+                                   ag['AwayAST'] if 'AwayAST' in df.columns else pd.Series([])]).mean(), 1)
+        to      = round(pd.concat([hg['HomeTO'] if 'HomeTO' in df.columns else pd.Series([]),
+                                   ag['AwayTO'] if 'AwayTO' in df.columns else pd.Series([])]).mean(), 1)
+
+        # Home record
+        hgames = df[df['HomeTeam'] == team]
+        home_w = (hgames['HomeScore'] > hgames['AwayScore']).sum()
+        home_l = len(hgames) - home_w
+
+        # Away record
+        agames = df[df['AwayTeam'] == team]
+        away_w = (agames['AwayScore'] > agames['HomeScore']).sum()
+        away_l = len(agames) - away_w
+
+        # Over/Under trends (last 10)
+        totals = [r['pts_for'] + r['pts_ag'] for r in results]
+        avg_total  = round(sum(totals) / len(totals), 1)
+        over225    = sum(1 for t in totals if t > 225)
+
+        return {
+            'wins': wins, 'losses': losses,
+            'ppg': ppg, 'papg': papg,
+            'form': form,
+            'streak': f"{streak_type}{streak}",
+            'fg_pct': fg_pct, 'fg3_pct': fg3_pct, 'ft_pct': ft_pct,
+            'reb': reb, 'ast': ast, 'to': to,
+            'ast_to': round(ast / to, 2) if to else 0,
+            'home_record': f"{home_w}-{home_l}",
+            'away_record': f"{away_w}-{away_l}",
+            'avg_total': avg_total,
+            'over225_pct': round(over225 / len(results) * 100),
+            'recent_games': results,
+        }
+
+    # H2H
+    h2h_all = df[
+        ((df['HomeTeam'] == home) & (df['AwayTeam'] == away)) |
+        ((df['HomeTeam'] == away) & (df['AwayTeam'] == home))
+    ].sort_values('Date').tail(10)
+
+    h2h_games = []
+    home_h2h_wins = 0
+    for _, row in h2h_all.iterrows():
+        if row['HomeTeam'] == home:
+            hw = row['HomeScore'] > row['AwayScore']
+            score = f"{int(row['HomeScore'])}-{int(row['AwayScore'])}"
+        else:
+            hw = row['AwayScore'] > row['HomeScore']
+            score = f"{int(row['AwayScore'])}-{int(row['HomeScore'])}"
+        if hw:
+            home_h2h_wins += 1
+        h2h_games.append({
+            'date': str(row['Date'])[:10],
+            'score': score,
+            'winner': home if hw else away,
+            'total': int(row['HomeScore'] + row['AwayScore']),
+        })
+    away_h2h_wins = len(h2h_games) - home_h2h_wins
+    h2h_avg_total = round(sum(g['total'] for g in h2h_games) / len(h2h_games), 1) if h2h_games else 0
+    h2h_over225   = sum(1 for g in h2h_games if g['total'] > 225)
+
+    return {
+        'home': team_summary(home),
+        'away': team_summary(away),
+        'h2h': {
+            'games': list(reversed(h2h_games)),
+            'home_wins': home_h2h_wins,
+            'away_wins': away_h2h_wins,
+            'total_games': len(h2h_games),
+            'avg_total': h2h_avg_total,
+            'over225_count': h2h_over225,
+        },
+        'league': 'NBA',
+    }
+
 
 def _get_nba_teams():
     """Return sorted list of NBA team names from training data."""

@@ -14,6 +14,9 @@
         </div>
         <h1 class="fw-bold text-white mb-1">NBA Game Predictions</h1>
         <p class="lead text-muted mb-3">XGBoost + LightGBM + CatBoost · 7,100+ games · Updated April 2026</p>
+        <a href="{{ url_for('multi_sport.basketball_stats') }}" class="btn btn-sm btn-outline-info rounded-pill me-2 mb-2">
+            <i class="bi bi-bar-chart-line me-1"></i> Team Statistics
+        </a>
         {% if model_loaded %}
         <span class="pill yes"><i class="bi bi-check-circle me-1"></i> Model ready</span>
         {% else %}

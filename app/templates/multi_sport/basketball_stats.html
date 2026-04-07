@@ -1,0 +1,396 @@
+{% extends "base.html" %}
+{% block title %}Basketball Statistics{% endblock %}
+
+{% block content %}
+<div class="dashboard-container">
+
+  <div class="welcome-section mb-4 text-center">
+    <h1><i class="bi bi-bar-chart-line"></i> Basketball Statistics</h1>
+    {% if stats %}
+    <p class="lead">{{ home_team }} <span class="text-muted">vs</span> {{ away_team }}</p>
+    {% else %}
+    <p class="lead">Compare teams — form, shooting, rebounding, H2H</p>
+    {% endif %}
+  </div>
+
+  <!-- Team Selection -->
+  <div class="card mb-4" style="max-width:820px;margin:0 auto;">
+    <div class="card-header"><h4><i class="bi bi-search"></i> Select Teams</h4></div>
+    <div class="card-body">
+      <form method="POST">
+        <div class="row align-items-end">
+          <div class="col-md-5 mb-3">
+            <label class="form-label">Home Team</label>
+            <select name="homeTeam" class="form-select" required>
+              <option value="">Select Home Team</option>
+              {% for t in teams %}<option value="{{ t }}" {% if t==home_team %}selected{% endif %}>{{ t }}</option>{% endfor %}
+            </select>
+          </div>
+          <div class="col-md-2 mb-3 text-center">
+            <div class="vs-badge" style="margin-top:8px;">VS</div>
+          </div>
+          <div class="col-md-5 mb-3">
+            <label class="form-label">Away Team</label>
+            <select name="awayTeam" class="form-select" required>
+              <option value="">Select Away Team</option>
+              {% for t in teams %}<option value="{{ t }}" {% if t==away_team %}selected{% endif %}>{{ t }}</option>{% endfor %}
+            </select>
+          </div>
+        </div>
+        <div class="text-center mt-2">
+          <button type="submit" class="btn-predict"><i class="bi bi-lightning-charge"></i> Generate Stats</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  {% if stats %}
+
+  <!-- ── Form & Record ─────────────────────────────────────────────── -->
+  <div class="card mb-4">
+    <div class="card-header"><h4><i class="bi bi-activity"></i> Recent Form (Last 10 Games)</h4></div>
+    <div class="card-body">
+      <div class="row">
+
+        <!-- Home -->
+        <div class="col-md-5">
+          <h5 class="text-primary mb-3">{{ home_team }}</h5>
+          {% if stats.home %}
+          <div class="p-3 rounded mb-3" style="background:var(--bg-body);">
+            <div class="d-flex justify-content-center gap-1 mb-3">
+              {% for r in stats.home.form %}
+              <span class="d-flex align-items-center justify-content-center rounded-circle fw-bold text-white"
+                style="width:32px;height:32px;font-size:.8rem;background:{{ '#10B981' if r=='W' else '#EF4444' }};">{{ r }}</span>
+              {% endfor %}
+            </div>
+            <div class="row g-2 text-center small">
+              <div class="col-4"><div class="p-2 border border-secondary rounded">
+                <div class="text-white fw-bold">{{ stats.home.wins }}W-{{ stats.home.losses }}L</div><span class="text-muted">L10 Record</span>
+              </div></div>
+              <div class="col-4"><div class="p-2 border border-secondary rounded">
+                <div class="text-white fw-bold">{{ stats.home.ppg }}</div><span class="text-muted">PPG</span>
+              </div></div>
+              <div class="col-4"><div class="p-2 border border-secondary rounded">
+                <div class="text-white fw-bold">{{ stats.home.papg }}</div><span class="text-muted">Opp PPG</span>
+              </div></div>
+              <div class="col-6"><div class="p-2 border border-secondary rounded">
+                <div class="text-white fw-bold">{{ stats.home.streak }}</div><span class="text-muted">Streak</span>
+              </div></div>
+              <div class="col-6"><div class="p-2 border border-secondary rounded">
+                <div class="text-white fw-bold">{{ stats.home.avg_total }}</div><span class="text-muted">Avg Game Total</span>
+              </div></div>
+            </div>
+          </div>
+          {% endif %}
+        </div>
+
+        <div class="col-md-2 d-flex align-items-center justify-content-center">
+          <div class="text-center">
+            <div class="badge bg-secondary p-2 fs-6 mb-2">VS</div>
+            {% if stats.home and stats.away %}
+            <div class="small text-muted">
+              {% if stats.home.ppg > stats.away.ppg %}<span class="text-success">{{ home_team }} offense edge</span>
+              {% else %}<span class="text-success">{{ away_team }} offense edge</span>{% endif %}
+            </div>
+            {% endif %}
+          </div>
+        </div>
+
+        <!-- Away -->
+        <div class="col-md-5">
+          <h5 class="text-info mb-3">{{ away_team }}</h5>
+          {% if stats.away %}
+          <div class="p-3 rounded mb-3" style="background:var(--bg-body);">
+            <div class="d-flex justify-content-center gap-1 mb-3">
+              {% for r in stats.away.form %}
+              <span class="d-flex align-items-center justify-content-center rounded-circle fw-bold text-white"
+                style="width:32px;height:32px;font-size:.8rem;background:{{ '#10B981' if r=='W' else '#EF4444' }};">{{ r }}</span>
+              {% endfor %}
+            </div>
+            <div class="row g-2 text-center small">
+              <div class="col-4"><div class="p-2 border border-secondary rounded">
+                <div class="text-white fw-bold">{{ stats.away.wins }}W-{{ stats.away.losses }}L</div><span class="text-muted">L10 Record</span>
+              </div></div>
+              <div class="col-4"><div class="p-2 border border-secondary rounded">
+                <div class="text-white fw-bold">{{ stats.away.ppg }}</div><span class="text-muted">PPG</span>
+              </div></div>
+              <div class="col-4"><div class="p-2 border border-secondary rounded">
+                <div class="text-white fw-bold">{{ stats.away.papg }}</div><span class="text-muted">Opp PPG</span>
+              </div></div>
+              <div class="col-6"><div class="p-2 border border-secondary rounded">
+                <div class="text-white fw-bold">{{ stats.away.streak }}</div><span class="text-muted">Streak</span>
+              </div></div>
+              <div class="col-6"><div class="p-2 border border-secondary rounded">
+                <div class="text-white fw-bold">{{ stats.away.avg_total }}</div><span class="text-muted">Avg Game Total</span>
+              </div></div>
+            </div>
+          </div>
+          {% endif %}
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Shooting & Advanced Stats ─────────────────────────────────── -->
+  <div class="card mb-4">
+    <div class="card-header"><h4><i class="bi bi-bullseye"></i> Shooting & Advanced Stats (Last 10 Games)</h4></div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-dark table-hover text-center mb-0">
+          <thead>
+            <tr>
+              <th class="text-start">Stat</th>
+              <th class="text-primary">{{ home_team }}</th>
+              <th class="text-info">{{ away_team }}</th>
+              <th class="text-muted">Edge</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% set hs = stats.home %}
+            {% set as_ = stats.away %}
+            {% if hs and as_ %}
+            <tr>
+              <td class="text-start">FG%</td>
+              <td class="{{ 'text-success fw-bold' if hs.fg_pct > as_.fg_pct else '' }}">{{ hs.fg_pct }}%</td>
+              <td class="{{ 'text-success fw-bold' if as_.fg_pct > hs.fg_pct else '' }}">{{ as_.fg_pct }}%</td>
+              <td class="text-muted small">{{ home_team if hs.fg_pct > as_.fg_pct else away_team }}</td>
+            </tr>
+            <tr>
+              <td class="text-start">3P%</td>
+              <td class="{{ 'text-success fw-bold' if hs.fg3_pct > as_.fg3_pct else '' }}">{{ hs.fg3_pct }}%</td>
+              <td class="{{ 'text-success fw-bold' if as_.fg3_pct > hs.fg3_pct else '' }}">{{ as_.fg3_pct }}%</td>
+              <td class="text-muted small">{{ home_team if hs.fg3_pct > as_.fg3_pct else away_team }}</td>
+            </tr>
+            <tr>
+              <td class="text-start">FT%</td>
+              <td class="{{ 'text-success fw-bold' if hs.ft_pct > as_.ft_pct else '' }}">{{ hs.ft_pct }}%</td>
+              <td class="{{ 'text-success fw-bold' if as_.ft_pct > hs.ft_pct else '' }}">{{ as_.ft_pct }}%</td>
+              <td class="text-muted small">{{ home_team if hs.ft_pct > as_.ft_pct else away_team }}</td>
+            </tr>
+            <tr>
+              <td class="text-start">Rebounds</td>
+              <td class="{{ 'text-success fw-bold' if hs.reb > as_.reb else '' }}">{{ hs.reb }}</td>
+              <td class="{{ 'text-success fw-bold' if as_.reb > hs.reb else '' }}">{{ as_.reb }}</td>
+              <td class="text-muted small">{{ home_team if hs.reb > as_.reb else away_team }}</td>
+            </tr>
+            <tr>
+              <td class="text-start">Assists</td>
+              <td class="{{ 'text-success fw-bold' if hs.ast > as_.ast else '' }}">{{ hs.ast }}</td>
+              <td class="{{ 'text-success fw-bold' if as_.ast > hs.ast else '' }}">{{ as_.ast }}</td>
+              <td class="text-muted small">{{ home_team if hs.ast > as_.ast else away_team }}</td>
+            </tr>
+            <tr>
+              <td class="text-start">Turnovers</td>
+              <td class="{{ 'text-success fw-bold' if hs.to < as_.to else '' }}">{{ hs.to }}</td>
+              <td class="{{ 'text-success fw-bold' if as_.to < hs.to else '' }}">{{ as_.to }}</td>
+              <td class="text-muted small">{{ home_team if hs.to < as_.to else away_team }} <small>(fewer)</small></td>
+            </tr>
+            <tr>
+              <td class="text-start">AST/TO Ratio</td>
+              <td class="{{ 'text-success fw-bold' if hs.ast_to > as_.ast_to else '' }}">{{ hs.ast_to }}</td>
+              <td class="{{ 'text-success fw-bold' if as_.ast_to > hs.ast_to else '' }}">{{ as_.ast_to }}</td>
+              <td class="text-muted small">{{ home_team if hs.ast_to > as_.ast_to else away_team }}</td>
+            </tr>
+            <tr class="border-top">
+              <td class="text-start">Home Record</td>
+              <td>{{ hs.home_record }}</td>
+              <td>{{ as_.home_record }}</td>
+              <td class="text-muted small">Season</td>
+            </tr>
+            <tr>
+              <td class="text-start">Away Record</td>
+              <td>{{ hs.away_record }}</td>
+              <td>{{ as_.away_record }}</td>
+              <td class="text-muted small">Season</td>
+            </tr>
+            {% endif %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── O/U Trends ─────────────────────────────────────────────────── -->
+  {% if stats.home and stats.away %}
+  <div class="card mb-4">
+    <div class="card-header"><h4><i class="bi bi-graph-up"></i> Over/Under Trends</h4></div>
+    <div class="card-body">
+      <div class="row text-center g-3">
+        <div class="col-md-3">
+          <div class="p-3 rounded border border-secondary">
+            <div class="fs-4 fw-bold text-white">{{ stats.home.avg_total }}</div>
+            <div class="text-muted small">{{ home_team }} avg game total</div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="p-3 rounded border border-secondary">
+            <div class="fs-4 fw-bold text-white">{{ stats.away.avg_total }}</div>
+            <div class="text-muted small">{{ away_team }} avg game total</div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="p-3 rounded border border-secondary">
+            <div class="fs-4 fw-bold {{ 'text-success' if stats.home.over225_pct >= 60 else 'text-danger' if stats.home.over225_pct <= 40 else 'text-warning' }}">
+              {{ stats.home.over225_pct }}%
+            </div>
+            <div class="text-muted small">{{ home_team }} games over 225</div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="p-3 rounded border border-secondary">
+            <div class="fs-4 fw-bold {{ 'text-success' if stats.away.over225_pct >= 60 else 'text-danger' if stats.away.over225_pct <= 40 else 'text-warning' }}">
+              {{ stats.away.over225_pct }}%
+            </div>
+            <div class="text-muted small">{{ away_team }} games over 225</div>
+          </div>
+        </div>
+      </div>
+      {% set proj_total = ((stats.home.ppg + stats.away.papg) / 2 + (stats.away.ppg + stats.home.papg) / 2) | round(1) %}
+      <div class="mt-3 p-3 rounded text-center" style="background:var(--bg-body);">
+        <span class="text-muted">Projected total based on recent scoring: </span>
+        <span class="fw-bold text-white fs-5">~{{ proj_total }} pts</span>
+        <span class="badge ms-2 {{ 'bg-success' if proj_total > 225 else 'bg-danger' }}">
+          {{ 'Leans Over 225' if proj_total > 225 else 'Leans Under 225' }}
+        </span>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+
+  <!-- ── Head to Head ───────────────────────────────────────────────── -->
+  <div class="card mb-4">
+    <div class="card-header"><h4><i class="bi bi-arrow-left-right"></i> Head-to-Head Record</h4></div>
+    <div class="card-body">
+      {% if stats.h2h.total_games > 0 %}
+      <div class="row text-center g-3 mb-4">
+        <div class="col-4">
+          <div class="p-3 rounded border border-secondary">
+            <div class="fs-3 fw-bold text-primary">{{ stats.h2h.home_wins }}</div>
+            <div class="text-muted small">{{ home_team }} wins</div>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="p-3 rounded border border-secondary">
+            <div class="fs-5 fw-bold text-white">{{ stats.h2h.total_games }} games</div>
+            <div class="text-muted small">Avg total: {{ stats.h2h.avg_total }}</div>
+            <div class="text-muted small">{{ stats.h2h.over225_count }}/{{ stats.h2h.total_games }} over 225</div>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="p-3 rounded border border-secondary">
+            <div class="fs-3 fw-bold text-info">{{ stats.h2h.away_wins }}</div>
+            <div class="text-muted small">{{ away_team }} wins</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- H2H win bar -->
+      <div class="mb-4">
+        {% set total = stats.h2h.total_games %}
+        {% set hw_pct = (stats.h2h.home_wins / total * 100) | round | int %}
+        {% set aw_pct = (stats.h2h.away_wins / total * 100) | round | int %}
+        <div class="d-flex justify-content-between small text-muted mb-1">
+          <span>{{ home_team }} {{ hw_pct }}%</span>
+          <span>{{ away_team }} {{ aw_pct }}%</span>
+        </div>
+        <div class="progress" style="height:12px;border-radius:6px;">
+          <div class="progress-bar bg-primary" style="width:{{ hw_pct }}%;"></div>
+          <div class="progress-bar bg-info" style="width:{{ aw_pct }}%;"></div>
+        </div>
+      </div>
+
+      <!-- H2H game log -->
+      <div class="table-responsive">
+        <table class="table table-dark table-sm text-center">
+          <thead><tr>
+            <th>Date</th><th>Score</th><th>Winner</th><th>Total</th><th>O/U 225</th>
+          </tr></thead>
+          <tbody>
+            {% for g in stats.h2h.games %}
+            <tr>
+              <td class="text-muted">{{ g.date }}</td>
+              <td class="fw-bold">{{ g.score }}</td>
+              <td class="{{ 'text-primary' if g.winner == home_team else 'text-info' }}">{{ g.winner }}</td>
+              <td>{{ g.total }}</td>
+              <td>
+                <span class="badge {{ 'bg-success' if g.total > 225 else 'bg-danger' }}">
+                  {{ 'Over' if g.total > 225 else 'Under' }}
+                </span>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      {% else %}
+      <div class="text-center text-muted py-4">
+        <i class="bi bi-info-circle fs-3"></i>
+        <p class="mt-2">No head-to-head history found for these teams.</p>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+
+  <!-- ── Recent Game Log ───────────────────────────────────────────── -->
+  <div class="row mb-4">
+    <div class="col-md-6">
+      <div class="card h-100">
+        <div class="card-header"><h5><i class="bi bi-clock-history"></i> {{ home_team }} — Last 10</h5></div>
+        <div class="card-body p-0">
+          <div class="table-responsive">
+            <table class="table table-dark table-sm text-center mb-0">
+              <thead><tr><th>Date</th><th>Score</th><th>Total</th><th>Result</th></tr></thead>
+              <tbody>
+                {% if stats.home %}
+                {% for g in stats.home.recent_games | reverse %}
+                <tr>
+                  <td class="text-muted small">{{ g.date }}</td>
+                  <td>{{ g.pts_for }}-{{ g.pts_ag }}</td>
+                  <td>{{ g.pts_for + g.pts_ag }}</td>
+                  <td><span class="badge {{ 'bg-success' if g.won else 'bg-danger' }}">{{ 'W' if g.won else 'L' }}</span></td>
+                </tr>
+                {% endfor %}
+                {% endif %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="card h-100">
+        <div class="card-header"><h5><i class="bi bi-clock-history"></i> {{ away_team }} — Last 10</h5></div>
+        <div class="card-body p-0">
+          <div class="table-responsive">
+            <table class="table table-dark table-sm text-center mb-0">
+              <thead><tr><th>Date</th><th>Score</th><th>Total</th><th>Result</th></tr></thead>
+              <tbody>
+                {% if stats.away %}
+                {% for g in stats.away.recent_games | reverse %}
+                <tr>
+                  <td class="text-muted small">{{ g.date }}</td>
+                  <td>{{ g.pts_for }}-{{ g.pts_ag }}</td>
+                  <td>{{ g.pts_for + g.pts_ag }}</td>
+                  <td><span class="badge {{ 'bg-success' if g.won else 'bg-danger' }}">{{ 'W' if g.won else 'L' }}</span></td>
+                </tr>
+                {% endfor %}
+                {% endif %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quick predict link -->
+  <div class="text-center mb-4">
+    <a href="{{ url_for('multi_sport.basketball_page') }}" class="btn-predict">
+      <i class="bi bi-lightning-charge"></i> Run Prediction for {{ home_team }} vs {{ away_team }}
+    </a>
+  </div>
+
+  {% endif %}
+</div>
+{% endblock %}

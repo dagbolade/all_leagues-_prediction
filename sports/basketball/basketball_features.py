@@ -1,289 +1,291 @@
 """
-Basketball Feature Engineering - NBA specific features
+Basketball Feature Engineering
 
-Features include:
-- Shooting efficiency (FG%, 3P%, FT%, TS%)
-- Rebounding metrics
-- Ball movement (assists, turnovers)
-- Pace and tempo
-- Home court advantage
-- ELO ratings adapted for basketball
-- Rolling form (L5, L10, L20 games)
-- Head-to-head analysis
-- Back-to-back game fatigue
-- Player impact (when available)
+Features:
+- ELO ratings (sequential, home court adjusted)
+- Rolling form: win rate, avg points, avg points allowed (L5/L10/L20)
+- Shooting efficiency: FG%, 3P%, FT% rolling averages
+- Rebounding: avg REB, rebound differential
+- Ball movement: avg AST, avg TO, AST/TO ratio
+- Pace: avg total points, home/away pace
+- Head-to-head record
+- Rest/fatigue: days rest, back-to-back
+- Situational: month, season phase
 """
 
 import pandas as pd
 import numpy as np
-from typing import Dict, Any, List, Optional
-from datetime import datetime, timedelta
+from typing import List
 
 
 class BasketballFeatureEngineer:
-    """Feature engineering for basketball predictions."""
 
     def __init__(self):
         self.feature_names = []
-        self.elo_k_factor = 20  # K-factor for ELO ratings
-        self.elo_initial = 1500  # Initial ELO rating
-        self.home_court_advantage = 100  # Points added to home team ELO
+        self.elo_k_factor   = 20
+        self.elo_initial    = 1500
+        self.home_advantage = 100   # ELO points added for home court
 
     def engineer_features(self, df: pd.DataFrame) -> pd.DataFrame:
-        """
-        Engineer all basketball features.
-
-        Args:
-            df: Raw basketball data
-
-        Returns:
-            DataFrame with engineered features
-        """
         print("[NBA] Engineering basketball features...")
-
         df = df.copy()
         df = df.sort_values('Date').reset_index(drop=True)
 
-        # Basic features
         df = self._add_basic_features(df)
-
-        # ELO ratings
         df = self._add_elo_ratings(df)
-
-        # Rolling team performance
         df = self._add_rolling_performance(df)
-
-        # Shooting efficiency features
         df = self._add_shooting_features(df)
-
-        # Rebounding features
         df = self._add_rebounding_features(df)
-
-        # Ball movement features
         df = self._add_ball_movement_features(df)
-
-        # Pace features
         df = self._add_pace_features(df)
-
-        # Head-to-head features
         df = self._add_h2h_features(df)
-
-        # Rest/fatigue features
         df = self._add_rest_features(df)
-
-        # Situational features
         df = self._add_situational_features(df)
 
-        # Exclude non-numeric and target columns + DATA LEAKAGE columns
-        exclude_cols = [
-            'Date', 'HomeTeam', 'AwayTeam', 'HomeScore', 'AwayScore', 'Result',
-            'League', 'Season', 'Week', 'Winner', 'HomeFG', 'AwayFG', 'HomeFG3',
-            'AwayFG3', 'HomeFT', 'AwayFT',  # May be float but from raw data
-            # DATA LEAKAGE - these contain the game result!
-            'PointDiff', 'TotalPoints', 'Over200', 'Over210', 'Over220', 'Over230',
-            'CloseGame', 'Blowout'
+        exclude = {
+            'Date', 'HomeTeam', 'AwayTeam', 'HomeScore', 'AwayScore',
+            'Result', 'League', 'Season', 'Week', 'Winner',
+            # raw per-game box stats — excluded to avoid data leakage
+            # (rolling averages of these ARE kept as features)
+            'HomeFG', 'AwayFG', 'HomeFG3', 'AwayFG3', 'HomeFT', 'AwayFT',
+            'HomeREB', 'AwayREB', 'HomeAST', 'AwayAST', 'HomeTO', 'AwayTO',
+            # targets
+            'PointDiff', 'TotalPoints',
+            'Over200', 'Over210', 'Over220', 'Over230',
+            'CloseGame', 'Blowout',
+        }
+
+        self.feature_names = [
+            c for c in df.columns
+            if c not in exclude and pd.api.types.is_numeric_dtype(df[c])
         ]
 
-        # Only keep numeric columns
-        self.feature_names = [col for col in df.columns
-                             if col not in exclude_cols and pd.api.types.is_numeric_dtype(df[col])]
-
         print(f"[NBA] Created {len(self.feature_names)} basketball features")
-
         return df
 
-    def _add_basic_features(self, df: pd.DataFrame) -> pd.DataFrame:
-        """Add basic calculated features."""
-        # Point differential
-        df['PointDiff'] = df['HomeScore'] - df['AwayScore']
+    # ── Basic ─────────────────────────────────────────────────────────────────
 
-        # Total points
+    def _add_basic_features(self, df):
+        df['PointDiff']   = df['HomeScore'] - df['AwayScore']
         df['TotalPoints'] = df['HomeScore'] + df['AwayScore']
-
-        # Over/under thresholds
-        for threshold in [200, 210, 220, 230]:
-            df[f'Over{threshold}'] = (df['TotalPoints'] > threshold).astype(int)
-
-        # Close game indicator (within 5 points)
+        for t in [200, 210, 220, 230]:
+            df[f'Over{t}'] = (df['TotalPoints'] > t).astype(int)
         df['CloseGame'] = (df['PointDiff'].abs() <= 5).astype(int)
-
-        # Blowout indicator (>= 20 points)
-        df['Blowout'] = (df['PointDiff'].abs() >= 20).astype(int)
-
+        df['Blowout']   = (df['PointDiff'].abs() >= 20).astype(int)
         return df
 
-    def _add_elo_ratings(self, df: pd.DataFrame) -> pd.DataFrame:
-        """Add ELO ratings for teams."""
-        elo_ratings = {}
+    # ── ELO ───────────────────────────────────────────────────────────────────
 
+    def _add_elo_ratings(self, df):
+        elo = {}
         df['HomeElo'] = 0.0
         df['AwayElo'] = 0.0
         df['EloAdvantage'] = 0.0
 
         for idx, row in df.iterrows():
-            home_team = row['HomeTeam']
-            away_team = row['AwayTeam']
+            h, a = row['HomeTeam'], row['AwayTeam']
+            elo.setdefault(h, self.elo_initial)
+            elo.setdefault(a, self.elo_initial)
 
-            # Initialize ELO if new team
-            if home_team not in elo_ratings:
-                elo_ratings[home_team] = self.elo_initial
-            if away_team not in elo_ratings:
-                elo_ratings[away_team] = self.elo_initial
+            he, ae = elo[h], elo[a]
+            df.at[idx, 'HomeElo']      = he
+            df.at[idx, 'AwayElo']      = ae
+            df.at[idx, 'EloAdvantage'] = he - ae
 
-            # Get current ELO
-            home_elo = elo_ratings[home_team]
-            away_elo = elo_ratings[away_team]
-
-            df.at[idx, 'HomeElo'] = home_elo
-            df.at[idx, 'AwayElo'] = away_elo
-            df.at[idx, 'EloAdvantage'] = home_elo - away_elo
-
-            # Calculate expected scores
-            expected_home = 1 / (1 + 10 ** ((away_elo - home_elo - self.home_court_advantage) / 400))
-            expected_away = 1 - expected_home
-
-            # Actual scores
-            actual_home = 1 if row['Result'] == 'H' else 0
-            actual_away = 1 if row['Result'] == 'A' else 0
-
-            # Update ELO
-            elo_ratings[home_team] += self.elo_k_factor * (actual_home - expected_home)
-            elo_ratings[away_team] += self.elo_k_factor * (actual_away - expected_away)
+            exp_h = 1 / (1 + 10 ** ((ae - he - self.home_advantage) / 400))
+            act_h = 1 if row['Result'] == 'H' else 0
+            elo[h] += self.elo_k_factor * (act_h - exp_h)
+            elo[a] += self.elo_k_factor * ((1 - act_h) - (1 - exp_h))
 
         return df
 
-    def _add_rolling_performance(self, df: pd.DataFrame) -> pd.DataFrame:
-        """Add rolling performance metrics."""
-        for window in [5, 10, 20]:
-            # Win rate
-            for team in df['HomeTeam'].unique():
-                team_games = df[(df['HomeTeam'] == team) | (df['AwayTeam'] == team)].copy()
+    # ── Rolling performance ───────────────────────────────────────────────────
 
-                # Calculate wins
-                team_games['Win'] = 0
-                team_games.loc[(team_games['HomeTeam'] == team) & (team_games['Result'] == 'H'), 'Win'] = 1
-                team_games.loc[(team_games['AwayTeam'] == team) & (team_games['Result'] == 'A'), 'Win'] = 1
+    def _add_rolling_performance(self, df):
+        """Win rate + avg points scored/allowed, computed per-team over all games."""
+        for team in df['HomeTeam'].unique():
+            mask = (df['HomeTeam'] == team) | (df['AwayTeam'] == team)
+            tg   = df[mask].copy()
 
-                # Rolling win rate
-                team_games[f'WinRate_L{window}'] = team_games['Win'].rolling(window, min_periods=1).mean()
+            tg['Win'] = 0
+            tg.loc[(tg['HomeTeam'] == team) & (tg['Result'] == 'H'), 'Win'] = 1
+            tg.loc[(tg['AwayTeam'] == team) & (tg['Result'] == 'A'), 'Win'] = 1
 
-                # Map back to main df
-                for idx in team_games.index:
-                    if df.at[idx, 'HomeTeam'] == team:
-                        df.at[idx, f'Home_WinRate_L{window}'] = team_games.at[idx, f'WinRate_L{window}']
-                    elif df.at[idx, 'AwayTeam'] == team:
-                        df.at[idx, f'Away_WinRate_L{window}'] = team_games.at[idx, f'WinRate_L{window}']
+            tg['PtsFor']     = np.where(tg['HomeTeam'] == team, tg['HomeScore'], tg['AwayScore'])
+            tg['PtsAgainst'] = np.where(tg['HomeTeam'] == team, tg['AwayScore'], tg['HomeScore'])
 
-        return df
+            for w in [5, 10, 20]:
+                tg[f'WR_{w}']  = tg['Win'].shift(1).rolling(w, min_periods=1).mean()
+                tg[f'PF_{w}']  = tg['PtsFor'].shift(1).rolling(w, min_periods=1).mean()
+                tg[f'PA_{w}']  = tg['PtsAgainst'].shift(1).rolling(w, min_periods=1).mean()
 
-    def _add_shooting_features(self, df: pd.DataFrame) -> pd.DataFrame:
-        """Add shooting efficiency features (requires detailed stats)."""
-        # Placeholder - would need shot data from API
-        # For now, use points scored as proxy
-
-        for window in [5, 10]:
-            df[f'Home_AvgPoints_L{window}'] = 0.0
-            df[f'Away_AvgPoints_L{window}'] = 0.0
-
-            for team in df['HomeTeam'].unique():
-                team_home = df[df['HomeTeam'] == team].copy()
-                team_away = df[df['AwayTeam'] == team].copy()
-
-                if len(team_home) > 0:
-                    team_home[f'AvgPoints_L{window}'] = team_home['HomeScore'].rolling(window, min_periods=1).mean()
-                    df.loc[df['HomeTeam'] == team, f'Home_AvgPoints_L{window}'] = team_home[f'AvgPoints_L{window}'].values
-
-                if len(team_away) > 0:
-                    team_away[f'AvgPoints_L{window}'] = team_away['AwayScore'].rolling(window, min_periods=1).mean()
-                    df.loc[df['AwayTeam'] == team, f'Away_AvgPoints_L{window}'] = team_away[f'AvgPoints_L{window}'].values
+            for idx in tg.index:
+                prefix = 'Home' if df.at[idx, 'HomeTeam'] == team else 'Away'
+                for w in [5, 10, 20]:
+                    df.at[idx, f'{prefix}_WinRate_L{w}']   = tg.at[idx, f'WR_{w}']
+                    df.at[idx, f'{prefix}_AvgPoints_L{w}'] = tg.at[idx, f'PF_{w}']
+                    df.at[idx, f'{prefix}_AvgAllowed_L{w}']= tg.at[idx, f'PA_{w}']
 
         return df
 
-    def _add_rebounding_features(self, df: pd.DataFrame) -> pd.DataFrame:
-        """Add rebounding features (requires detailed stats)."""
-        # Placeholder - would need rebounding data
+    # ── Shooting efficiency ───────────────────────────────────────────────────
+
+    def _add_shooting_features(self, df):
+        """Rolling averages of FG%, 3P%, FT% per team."""
+        if 'HomeFG' not in df.columns:
+            return df
+
+        for team in df['HomeTeam'].unique():
+            # Home games
+            hm = df[df['HomeTeam'] == team].copy()
+            if len(hm) > 0:
+                for stat, col in [('FG%', 'HomeFG'), ('FG3%', 'HomeFG3'), ('FT%', 'HomeFT')]:
+                    rolled = hm[col].shift(1).rolling(5, min_periods=1).mean()
+                    df.loc[df['HomeTeam'] == team, f'Home_{stat}_L5'] = rolled.values
+
+            # Away games
+            aw = df[df['AwayTeam'] == team].copy()
+            if len(aw) > 0:
+                for stat, col in [('FG%', 'AwayFG'), ('FG3%', 'AwayFG3'), ('FT%', 'AwayFT')]:
+                    rolled = aw[col].shift(1).rolling(5, min_periods=1).mean()
+                    df.loc[df['AwayTeam'] == team, f'Away_{stat}_L5'] = rolled.values
+
         return df
 
-    def _add_ball_movement_features(self, df: pd.DataFrame) -> pd.DataFrame:
-        """Add ball movement features (requires detailed stats)."""
-        # Placeholder - would need assist/turnover data
+    # ── Rebounding ────────────────────────────────────────────────────────────
+
+    def _add_rebounding_features(self, df):
+        """Rolling avg rebounds and rebound differential."""
+        if 'HomeREB' not in df.columns:
+            return df
+
+        for team in df['HomeTeam'].unique():
+            mask_h = df['HomeTeam'] == team
+            mask_a = df['AwayTeam'] == team
+
+            hm = df[mask_h].copy()
+            if len(hm) > 0:
+                df.loc[mask_h, 'Home_AvgREB_L5'] = (
+                    hm['HomeREB'].shift(1).rolling(5, min_periods=1).mean().values)
+                df.loc[mask_h, 'Home_RebDiff_L5'] = (
+                    (hm['HomeREB'] - hm['AwayREB']).shift(1).rolling(5, min_periods=1).mean().values)
+
+            aw = df[mask_a].copy()
+            if len(aw) > 0:
+                df.loc[mask_a, 'Away_AvgREB_L5'] = (
+                    aw['AwayREB'].shift(1).rolling(5, min_periods=1).mean().values)
+                df.loc[mask_a, 'Away_RebDiff_L5'] = (
+                    (aw['AwayREB'] - aw['HomeREB']).shift(1).rolling(5, min_periods=1).mean().values)
+
         return df
 
-    def _add_pace_features(self, df: pd.DataFrame) -> pd.DataFrame:
-        """Add pace/tempo features."""
-        # Use total points as proxy for pace
-        for window in [5, 10]:
-            df[f'AvgTotalPoints_L{window}'] = df['TotalPoints'].rolling(window, min_periods=1).mean()
+    # ── Ball movement ─────────────────────────────────────────────────────────
+
+    def _add_ball_movement_features(self, df):
+        """Rolling avg assists, turnovers, and AST/TO ratio."""
+        if 'HomeAST' not in df.columns:
+            return df
+
+        for team in df['HomeTeam'].unique():
+            mask_h = df['HomeTeam'] == team
+            mask_a = df['AwayTeam'] == team
+
+            hm = df[mask_h].copy()
+            if len(hm) > 0:
+                ast  = hm['HomeAST'].shift(1).rolling(5, min_periods=1).mean()
+                to   = hm['HomeTO'].shift(1).rolling(5, min_periods=1).mean()
+                df.loc[mask_h, 'Home_AvgAST_L5']   = ast.values
+                df.loc[mask_h, 'Home_AvgTO_L5']    = to.values
+                df.loc[mask_h, 'Home_ASTO_Ratio_L5'] = (ast / to.replace(0, np.nan)).values
+
+            aw = df[mask_a].copy()
+            if len(aw) > 0:
+                ast  = aw['AwayAST'].shift(1).rolling(5, min_periods=1).mean()
+                to   = aw['AwayTO'].shift(1).rolling(5, min_periods=1).mean()
+                df.loc[mask_a, 'Away_AvgAST_L5']   = ast.values
+                df.loc[mask_a, 'Away_AvgTO_L5']    = to.values
+                df.loc[mask_a, 'Away_ASTO_Ratio_L5'] = (ast / to.replace(0, np.nan)).values
 
         return df
 
-    def _add_h2h_features(self, df: pd.DataFrame) -> pd.DataFrame:
-        """Add head-to-head matchup features."""
-        df['H2H_HomeWins'] = 0
-        df['H2H_AwayWins'] = 0
+    # ── Pace ──────────────────────────────────────────────────────────────────
+
+    def _add_pace_features(self, df):
+        """Rolling avg total points (global pace proxy) + per-team offensive pace."""
+        for w in [5, 10]:
+            df[f'AvgTotalPoints_L{w}'] = (
+                df['TotalPoints'].shift(1).rolling(w, min_periods=1).mean())
+
+        # Per-team offensive pace (avg total in their games)
+        for team in df['HomeTeam'].unique():
+            mask = (df['HomeTeam'] == team) | (df['AwayTeam'] == team)
+            tg   = df[mask].copy()
+            pace = tg['TotalPoints'].shift(1).rolling(5, min_periods=1).mean()
+            for idx in tg.index:
+                prefix = 'Home' if df.at[idx, 'HomeTeam'] == team else 'Away'
+                df.at[idx, f'{prefix}_PaceL5'] = pace.at[idx]
+
+        return df
+
+    # ── H2H ───────────────────────────────────────────────────────────────────
+
+    def _add_h2h_features(self, df):
+        df['H2H_HomeWins']   = 0
+        df['H2H_AwayWins']   = 0
         df['H2H_TotalGames'] = 0
+        df['H2H_AvgTotal']   = 0.0
 
         for idx, row in df.iterrows():
-            home = row['HomeTeam']
-            away = row['AwayTeam']
-
-            # Get all previous meetings
-            h2h = df[(((df['HomeTeam'] == home) & (df['AwayTeam'] == away)) |
-                      ((df['HomeTeam'] == away) & (df['AwayTeam'] == home))) &
-                     (df.index < idx)]
-
-            if len(h2h) > 0:
-                home_wins = len(h2h[((h2h['HomeTeam'] == home) & (h2h['Result'] == 'H')) |
-                                    ((h2h['AwayTeam'] == home) & (h2h['Result'] == 'A'))])
-                away_wins = len(h2h) - home_wins
-
-                df.at[idx, 'H2H_HomeWins'] = home_wins
-                df.at[idx, 'H2H_AwayWins'] = away_wins
-                df.at[idx, 'H2H_TotalGames'] = len(h2h)
+            h, a = row['HomeTeam'], row['AwayTeam']
+            prev = df[
+                (((df['HomeTeam'] == h) & (df['AwayTeam'] == a)) |
+                 ((df['HomeTeam'] == a) & (df['AwayTeam'] == h))) &
+                (df.index < idx)
+            ]
+            if len(prev) > 0:
+                hw = len(prev[
+                    ((prev['HomeTeam'] == h) & (prev['Result'] == 'H')) |
+                    ((prev['AwayTeam'] == h) & (prev['Result'] == 'A'))
+                ])
+                df.at[idx, 'H2H_HomeWins']   = hw
+                df.at[idx, 'H2H_AwayWins']   = len(prev) - hw
+                df.at[idx, 'H2H_TotalGames'] = len(prev)
+                df.at[idx, 'H2H_AvgTotal']   = prev['TotalPoints'].mean()
 
         return df
 
-    def _add_rest_features(self, df: pd.DataFrame) -> pd.DataFrame:
-        """Add rest/fatigue features."""
-        df['Home_DaysRest'] = 0
-        df['Away_DaysRest'] = 0
+    # ── Rest ──────────────────────────────────────────────────────────────────
+
+    def _add_rest_features(self, df):
+        df['Home_DaysRest']   = 2
+        df['Away_DaysRest']   = 2
         df['Home_BackToBack'] = 0
         df['Away_BackToBack'] = 0
 
         for team in df['HomeTeam'].unique():
-            team_games = df[(df['HomeTeam'] == team) | (df['AwayTeam'] == team)].sort_values('Date')
-
+            tg        = df[(df['HomeTeam'] == team) | (df['AwayTeam'] == team)].sort_values('Date')
             prev_date = None
-            for idx in team_games.index:
-                current_date = df.at[idx, 'Date']
-
-                if prev_date is not None and pd.notna(current_date) and pd.notna(prev_date):
-                    days_rest = (current_date - prev_date).days
-
-                    if df.at[idx, 'HomeTeam'] == team:
-                        df.at[idx, 'Home_DaysRest'] = days_rest
-                        df.at[idx, 'Home_BackToBack'] = 1 if days_rest == 1 else 0
-                    else:
-                        df.at[idx, 'Away_DaysRest'] = days_rest
-                        df.at[idx, 'Away_BackToBack'] = 1 if days_rest == 1 else 0
-
-                prev_date = current_date
+            for idx in tg.index:
+                cur = df.at[idx, 'Date']
+                if prev_date is not None and pd.notna(cur) and pd.notna(prev_date):
+                    rest = (cur - prev_date).days
+                    col  = 'Home' if df.at[idx, 'HomeTeam'] == team else 'Away'
+                    df.at[idx, f'{col}_DaysRest']   = rest
+                    df.at[idx, f'{col}_BackToBack'] = 1 if rest == 1 else 0
+                prev_date = cur
 
         return df
 
-    def _add_situational_features(self, df: pd.DataFrame) -> pd.DataFrame:
-        """Add situational features."""
-        # Month (NBA season dynamics change throughout year)
+    # ── Situational ───────────────────────────────────────────────────────────
+
+    def _add_situational_features(self, df):
         if 'Date' in df.columns:
-            df['Month'] = pd.to_datetime(df['Date']).dt.month
-
-            # Season phases
-            df['EarlySeason'] = (df['Month'].isin([10, 11])).astype(int)
-            df['MidSeason'] = (df['Month'].isin([12, 1, 2])).astype(int)
-            df['LateSeason'] = (df['Month'].isin([3, 4])).astype(int)
-
+            m = pd.to_datetime(df['Date']).dt.month
+            df['Month']       = m
+            df['EarlySeason'] = m.isin([10, 11]).astype(int)
+            df['MidSeason']   = m.isin([12, 1, 2]).astype(int)
+            df['LateSeason']  = m.isin([3, 4, 5]).astype(int)
         return df
 
     def get_feature_names(self) -> List[str]:
-        """Get list of all engineered feature names."""
         return self.feature_names

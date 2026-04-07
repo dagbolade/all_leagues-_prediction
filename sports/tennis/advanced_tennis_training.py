@@ -223,26 +223,33 @@ class AdvancedTennisPredictor:
 
     @staticmethod
     def _parse_score(score_str):
-        """Parse tennis score string into structured info.
-
-        Returns dict with: num_sets, first_set_winner (1=P1, 0=P2, None=unknown)
-        """
+        """Parse tennis score string. Returns num_sets, first_set_p1, total_games."""
         if pd.isna(score_str):
-            return {'num_sets': None, 'first_set_p1': None}
+            return {'num_sets': None, 'first_set_p1': None, 'total_games': None}
         parts = str(score_str).split()
-        # Keep only parts that look like set scores (start with digit)
         sets = [p for p in parts if p and p[0].isdigit()]
         if not sets:
-            return {'num_sets': None, 'first_set_p1': None}
+            return {'num_sets': None, 'first_set_p1': None, 'total_games': None}
+
         num_sets = len(sets)
-        # Parse first set: "6-4" or "7-6(3)"
+
+        # First set winner
         try:
-            first = sets[0].split('(')[0]  # strip tiebreak e.g. "7-6(3)" -> "7-6"
-            a, b = first.split('-')
+            a, b = sets[0].split('(')[0].split('-')
             first_set_p1 = 1 if int(a) > int(b) else 0
         except Exception:
             first_set_p1 = None
-        return {'num_sets': num_sets, 'first_set_p1': first_set_p1}
+
+        # Total games across all sets
+        total_games = 0
+        try:
+            for s in sets:
+                a, b = s.split('(')[0].split('-')
+                total_games += int(a) + int(b)
+        except Exception:
+            total_games = None
+
+        return {'num_sets': num_sets, 'first_set_p1': first_set_p1, 'total_games': total_games}
 
     def prepare_data(self, df):
         """Prepare training data with multiple targets."""
@@ -259,11 +266,11 @@ class AdvancedTennisPredictor:
         }
         print(f"[Metrics] Player1 win rate: {player1_win_rate:.2%}")
 
-        # Parse score for additional targets
         if 'Score' in df.columns:
             parsed = df['Score'].apply(self._parse_score)
-            df['_num_sets']    = parsed.apply(lambda x: x['num_sets'])
+            df['_num_sets']     = parsed.apply(lambda x: x['num_sets'])
             df['_first_set_p1'] = parsed.apply(lambda x: x['first_set_p1'])
+            df['_total_games']  = parsed.apply(lambda x: x['total_games'])
 
             # Target 2: First set winner (Player1 wins first set = 1)
             mask_fs = df['_first_set_p1'].notna()
@@ -271,12 +278,22 @@ class AdvancedTennisPredictor:
                 targets['first_set'] = df.loc[mask_fs, '_first_set_p1'].astype(int)
                 print(f"[Metrics] First set P1 rate: {targets['first_set'].mean():.2%} ({mask_fs.sum()} matches)")
 
-            # Target 3: Goes to distance (3+ sets for BO3, i.e. not straight sets)
             mask_sets = df['_num_sets'].notna()
+
+            # Target 3: Goes to deciding set (2-1, 3-1, 3-2 = 1 | 2-0, 3-0 = 0)
+            # Also used as: set handicap (winner covers -1.5 = wins in straight sets = 0)
+            # Also used as: correct score (2-0 vs 2-1 for BO3)
             if mask_sets.sum() > 1000:
-                goes_3 = (df.loc[mask_sets, '_num_sets'] >= 3).astype(int)
-                targets['goes_distance'] = goes_3
-                print(f"[Metrics] Goes distance (3+ sets) rate: {goes_3.mean():.2%} ({mask_sets.sum()} matches)")
+                goes_dist = (df.loc[mask_sets, '_num_sets'] >= 3).astype(int)
+                targets['goes_distance'] = goes_dist
+                print(f"[Metrics] Goes distance (3+ sets) rate: {goes_dist.mean():.2%} ({mask_sets.sum()} matches)")
+
+            # Target 4: Total games over 21.5 (50/50 split — best balanced line)
+            mask_tg = df['_total_games'].notna() & (df['_num_sets'].isin([2, 3]))  # BO3 only
+            if mask_tg.sum() > 1000:
+                over_21 = (df.loc[mask_tg, '_total_games'] > 21.5).astype(int)
+                targets['total_games_over_21'] = over_21
+                print(f"[Metrics] Total games over 21.5 rate: {over_21.mean():.2%} ({mask_tg.sum()} BO3 matches)")
 
         print(f"[Metrics] Training {len(targets)} tasks: {list(targets.keys())}")
         return df, targets

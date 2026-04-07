@@ -45,7 +45,7 @@ class AdvancedBasketballPredictor:
     def get_bayesian_search_space(self, task: str) -> Dict:
         """Define Bayesian optimization search spaces with STRONG regularization."""
 
-        if task == 'match_outcome':  # Winner prediction
+        if task == 'match_outcome':  # Classification tasks use shared space
             return {
                 'xgb': {
                     'n_estimators': hp.choice('n_estimators', [200, 300, 400]),
@@ -103,8 +103,9 @@ class AdvancedBasketballPredictor:
                            model_type: str, task: str) -> Dict:
         """Objective function for Bayesian optimization."""
         try:
+            is_regression = task in ['total_points', 'point_diff']
             if model_type == 'xgb':
-                if task == 'total_points':
+                if is_regression:
                     model = XGBRegressor(random_state=42, **params)
                 else:
                     model = XGBClassifier(
@@ -114,12 +115,12 @@ class AdvancedBasketballPredictor:
                         **params
                     )
             elif model_type == 'lgbm':
-                if task == 'total_points':
+                if is_regression:
                     model = LGBMRegressor(random_state=42, verbose=-1, **params)
                 else:
                     model = LGBMClassifier(random_state=42, verbose=-1, **params)
             elif model_type == 'catboost':
-                if task == 'total_points':
+                if is_regression:
                     model = CatBoostRegressor(
                         random_state=42,
                         silent=True,
@@ -137,7 +138,7 @@ class AdvancedBasketballPredictor:
 
             model.fit(X_train, y_train)
 
-            if task == 'total_points':
+            if is_regression:
                 y_pred = model.predict(X_val)
                 loss = mean_squared_error(y_val, y_pred)
             else:
@@ -227,7 +228,7 @@ class AdvancedBasketballPredictor:
 
     def create_default_models(self, task: str):
         """Fallback models with STRONG regularization to prevent overfitting."""
-        if task == 'total_points':
+        if task in ['total_points', 'point_diff']:
             return [
                 ('xgb', XGBRegressor(
                     n_estimators=300,
@@ -309,7 +310,7 @@ class AdvancedBasketballPredictor:
 
         base_models = self.create_bayesian_optimized_models(task, X_train, y_train, X_val, y_val)
 
-        if task == 'total_points':
+        if task in ['total_points', 'point_diff']:
             meta_learner = XGBRegressor(n_estimators=200, learning_rate=0.08, max_depth=4, random_state=42)
             stacking_model = StackingRegressor(
                 estimators=base_models,
@@ -367,7 +368,13 @@ class AdvancedBasketballPredictor:
             y['away_over_108'] = (df['AwayScore'] >= 108).astype(int)
             print(f"[Data] Away over 108 rate: {y['away_over_108'].mean():.2%}")
 
-        print(f"[Metrics] Training {len(y)} tasks")
+        # Point differential (regression) — used for spread handicap analysis
+        if 'HomeScore' in df.columns and 'AwayScore' in df.columns:
+            df['PointDiff'] = df['HomeScore'] - df['AwayScore']
+            y['point_diff'] = df['PointDiff']
+            print(f"[Data] Avg point diff (home): {df['PointDiff'].mean():.1f}  std: {df['PointDiff'].std():.1f}")
+
+        print(f"[Metrics] Training {len(y)} tasks: {list(y.keys())}")
         return df, y
 
     def train_models(self, df, feature_cols):

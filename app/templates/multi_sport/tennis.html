@@ -134,9 +134,15 @@
                             <div class="d-flex gap-2 flex-wrap" id="firstSetChips"></div>
                         </div>
 
-                        <!-- Goes to distance -->
+                        <!-- Total games O/U -->
+                        <div id="totalGamesDiv" class="d-none">
+                            <div class="small text-muted mb-1 mt-2">Total Games O/U 21.5</div>
+                            <div class="d-flex gap-2 flex-wrap" id="totalGamesChips"></div>
+                        </div>
+
+                        <!-- Correct score / Set handicap / Match length -->
                         <div id="distanceDiv" class="d-none">
-                            <div class="small text-muted mb-1 mt-2">Match Length</div>
+                            <div class="small text-muted mb-1 mt-2">Correct Score &amp; Set Handicap</div>
                             <div class="d-flex gap-2 flex-wrap" id="distanceChips"></div>
                         </div>
 
@@ -291,16 +297,32 @@ function renderResult(p1, p2, surface, data) {
         fsDiv.classList.add('d-none');
     }
 
-    // Goes to distance
+    // Total games O/U 21.5
+    const tgDiv   = document.getElementById('totalGamesDiv');
+    const tgChips = document.getElementById('totalGamesChips');
+    tgChips.innerHTML = '';
+    if (data.total_games) {
+        const tg  = data.total_games;
+        const cls = tg.prediction.startsWith('Over') ? 'chip-conf' : '';
+        const gs  = tg.prediction.startsWith('Over') ? '' : 'background:rgba(16,185,129,0.15);color:#34d399;border:1px solid rgba(16,185,129,0.3);';
+        tgChips.innerHTML += `<span class="market-chip-tennis ${cls}" style="${gs}">O/U 21.5: <strong>${tg.prediction}</strong></span>`;
+        tgChips.innerHTML += `<span class="market-chip-tennis" style="background:rgba(255,255,255,0.04);color:#9ca3af;border:1px solid rgba(255,255,255,0.1);">Over: ${tg.over_prob}% · Under: ${tg.under_prob}%</span>`;
+        tgDiv.classList.remove('d-none');
+    } else {
+        tgDiv.classList.add('d-none');
+    }
+
+    // Correct score / Set handicap
     const distDiv   = document.getElementById('distanceDiv');
     const distChips = document.getElementById('distanceChips');
     distChips.innerHTML = '';
-    if (data.goes_distance) {
-        const gd = data.goes_distance;
-        const goes = gd.prediction === 'Goes to 3 sets';
-        const cls  = goes ? 'chip-conf' : '';
-        distChips.innerHTML += `<span class="market-chip-tennis ${cls}" style="${!goes ? 'background:rgba(16,185,129,0.15);color:#34d399;border:1px solid rgba(16,185,129,0.3);' : ''}">${gd.prediction}</span>`;
-        distChips.innerHTML += `<span class="market-chip-tennis" style="background:rgba(255,255,255,0.04);color:#9ca3af;border:1px solid rgba(255,255,255,0.1);">3 sets: ${gd.prob_3sets}% · Straight: ${gd.prob_straight}%</span>`;
+    if (data.match_length) {
+        const ml     = data.match_length;
+        const coversLine = ml.set_handicap.startsWith('Covers');
+        const coverCls   = coversLine ? 'background:rgba(16,185,129,0.15);color:#34d399;border:1px solid rgba(16,185,129,0.3);' : 'background:rgba(239,68,68,0.12);color:#f87171;border:1px solid rgba(239,68,68,0.3);';
+        distChips.innerHTML += `<span class="market-chip-tennis chip-conf">Score: <strong>${ml.correct_score}</strong></span>`;
+        distChips.innerHTML += `<span class="market-chip-tennis" style="${coverCls}">${ml.set_handicap}</span>`;
+        distChips.innerHTML += `<span class="market-chip-tennis" style="background:rgba(255,255,255,0.04);color:#9ca3af;border:1px solid rgba(255,255,255,0.1);">Straight: ${ml.prob_straight}% · 3 sets: ${ml.prob_distance}%</span>`;
         distDiv.classList.remove('d-none');
     } else {
         distDiv.classList.add('d-none');

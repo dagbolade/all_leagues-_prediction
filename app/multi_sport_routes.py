@@ -154,6 +154,16 @@ def basketball_predict():
             result['total_points']       = round(total, 1)
             result['total_points_range'] = f"{round(total - 10, 1)}–{round(total + 10, 1)}"
 
+        # Point spread / handicap — predicted margin
+        if 'point_diff' in models:
+            X    = get_X('point_diff')
+            diff = float(models['point_diff']['model'].predict(X)[0])
+            result['point_diff'] = round(diff, 1)
+            if diff > 0:
+                result['spread_summary'] = f"{home} favoured by {abs(round(diff, 1))} pts"
+            else:
+                result['spread_summary'] = f"{away} favoured by {abs(round(diff, 1))} pts"
+
         # Over/Under lines — return both if available
         ou_markets = []
         for key, line in [('over_220', 220), ('over_225', 225)]:
@@ -266,15 +276,33 @@ def tennis_predict():
                 'confidence': round(max(p1_prob, p2_prob) * 100, 1),
             }
 
-        # Goes to distance (3+ sets)
+        # Goes to distance / set handicap / correct score (same model, different framings)
         if 'goes_distance' in models:
             X       = get_X('goes_distance')
             prob    = models['goes_distance']['model'].predict_proba(X)[0]
+            p_dist  = round(float(prob[1]) * 100, 1)   # prob of 3 sets
+            p_str   = round(float(prob[0]) * 100, 1)   # prob of straight sets
             goes    = float(prob[1]) > float(prob[0])
-            result['goes_distance'] = {
-                'prediction': 'Goes to 3 sets' if goes else 'Straight sets',
-                'prob_3sets': round(float(prob[1]) * 100, 1),
-                'prob_straight': round(float(prob[0]) * 100, 1),
+            result['match_length'] = {
+                # Correct score framing
+                'correct_score': '2-1' if goes else '2-0',
+                # Set handicap: winner covers -1.5 = straight sets win
+                'set_handicap': 'Does NOT cover -1.5' if goes else 'Covers -1.5 (straight sets)',
+                'prob_distance': p_dist,
+                'prob_straight': p_str,
+            }
+
+        # Total games over/under 21.5
+        if 'total_games_over_21' in models:
+            X      = get_X('total_games_over_21')
+            prob   = models['total_games_over_21']['model'].predict_proba(X)[0]
+            over_p = round(float(prob[1]) * 100, 1)
+            under_p = round(float(prob[0]) * 100, 1)
+            result['total_games'] = {
+                'line': 21.5,
+                'prediction': 'Over 21.5' if prob[1] > prob[0] else 'Under 21.5',
+                'over_prob':  over_p,
+                'under_prob': under_p,
             }
 
         return jsonify(result)

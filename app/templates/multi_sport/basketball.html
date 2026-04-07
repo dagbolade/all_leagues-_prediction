@@ -49,6 +49,13 @@
                         {% endfor %}
                     </datalist>
 
+                    <div class="mb-4">
+                        <label class="form-label text-muted small fw-semibold">SPREAD LINE <span class="text-muted fw-normal">(optional — e.g. -5.5 = home favoured)</span></label>
+                        <input type="number" id="spreadLine" step="0.5"
+                               class="form-control bg-dark text-white border-secondary"
+                               placeholder="e.g. -5.5 (negative = home favourite)">
+                    </div>
+
                     <button id="predictBtn" onclick="predictGame()"
                             class="btn w-100 rounded-pill fw-semibold"
                             style="background:linear-gradient(135deg,rgba(251,146,60,0.8),rgba(234,88,12,0.8)); color:#fff; border:none;">
@@ -109,6 +116,12 @@
 
                         <!-- Market chips row 1 -->
                         <div class="d-flex gap-2 flex-wrap mb-2" id="marketChips"></div>
+
+                        <!-- Spread / Handicap -->
+                        <div id="spreadDiv" class="d-none">
+                            <div class="small text-muted mb-1 mt-2">Point Spread</div>
+                            <div class="d-flex gap-2 flex-wrap" id="spreadChips"></div>
+                        </div>
 
                         <!-- Over/Under lines -->
                         <div id="ouLines" class="d-none">
@@ -188,8 +201,9 @@
 
 <script>
 async function predictGame() {
-    const home = document.getElementById('homeTeam').value.trim();
-    const away = document.getElementById('awayTeam').value.trim();
+    const home   = document.getElementById('homeTeam').value.trim();
+    const away   = document.getElementById('awayTeam').value.trim();
+    const spread = document.getElementById('spreadLine').value.trim();
     if (!home || !away) {
         showError('Please enter both home and away teams.');
         return;
@@ -208,7 +222,7 @@ async function predictGame() {
         setLoading(false);
 
         if (data.error) { showError(data.error); return; }
-        renderResult(home, away, data);
+        renderResult(home, away, data, spread ? parseFloat(spread) : null);
 
     } catch (e) {
         setLoading(false);
@@ -216,7 +230,7 @@ async function predictGame() {
     }
 }
 
-function renderResult(home, away, data) {
+function renderResult(home, away, data, userSpread) {
     document.getElementById('emptyPanel').classList.add('d-none');
     document.getElementById('resultPanel').classList.remove('d-none');
 
@@ -257,6 +271,30 @@ function renderResult(home, away, data) {
         ouDiv.classList.remove('d-none');
     } else {
         ouDiv.classList.add('d-none');
+    }
+
+    // Spread / Handicap
+    const spreadDiv   = document.getElementById('spreadDiv');
+    const spreadChips = document.getElementById('spreadChips');
+    spreadChips.innerHTML = '';
+    if (data.point_diff !== undefined) {
+        const diff = data.point_diff;
+        spreadChips.innerHTML += `<span class="market-chip-bball chip-pts">${data.spread_summary}</span>`;
+
+        if (userSpread !== null) {
+            // userSpread: negative = home favourite (e.g. -5.5 means home must win by 6+)
+            // diff = HomeScore - AwayScore from model
+            const coversHome = diff > Math.abs(userSpread);
+            const directionOk = (userSpread < 0 && diff > 0) || (userSpread > 0 && diff < 0);
+            const coverLabel = (userSpread < 0)
+                ? (coversHome ? `✓ Home covers ${userSpread} (predicted margin: +${diff})` : `✗ Home does NOT cover ${userSpread} (predicted margin: +${diff})`)
+                : ((-diff) > Math.abs(userSpread) ? `✓ Away covers +${userSpread} (predicted margin: ${diff})` : `✗ Away does NOT cover +${userSpread} (predicted margin: ${diff})`);
+            const cls = coverLabel.startsWith('✓') ? 'chip-over' : 'chip-under';
+            spreadChips.innerHTML += `<span class="market-chip-bball ${cls}">${coverLabel}</span>`;
+        }
+        spreadDiv.classList.remove('d-none');
+    } else {
+        spreadDiv.classList.add('d-none');
     }
 
     // Team totals

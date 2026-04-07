@@ -18,15 +18,17 @@ logger = logging.getLogger(__name__)
 
 multi_sport = Blueprint('multi_sport', __name__)
 
-# ─── Model registry ──────────────────────────────────────────────────────────
+# ─── Model + historical data registry ───────────────────────────────────────
 _basketball_data = None
 _tennis_data     = None
+_basketball_hist = None   # pre-loaded historical NBA data
+_tennis_hist     = None   # pre-loaded historical tennis data
 
 
 def _load_models():
-    global _basketball_data, _tennis_data
+    global _basketball_data, _tennis_data, _basketball_hist, _tennis_hist
 
-    # Basketball – prefer advanced, fall back to backtested then basic
+    # Basketball models
     for path in [
         "models/basketball/basketball_advanced_models.joblib",
         "models/basketball/basketball_backtested_models.joblib",
@@ -41,7 +43,24 @@ def _load_models():
             except Exception as e:
                 logger.error(f"[Basketball] Failed to load {p.name}: {e}")
 
-    # Tennis – prefer advanced, fall back to backtested then basic
+    # Basketball historical data — loaded once, used for feature engineering context
+    try:
+        bball_csv = project_root / "data/basketball/raw/nba_real_data.csv"
+        if bball_csv.exists():
+            _basketball_hist = pd.read_csv(bball_csv)
+            _basketball_hist['Date'] = pd.to_datetime(_basketball_hist['Date'])
+            if 'TotalPoints' not in _basketball_hist.columns:
+                _basketball_hist['TotalPoints'] = _basketball_hist['HomeScore'] + _basketball_hist['AwayScore']
+            if 'PointDiff' not in _basketball_hist.columns:
+                _basketball_hist['PointDiff'] = _basketball_hist['HomeScore'] - _basketball_hist['AwayScore']
+            if 'Result' not in _basketball_hist.columns:
+                _basketball_hist['Result'] = 'H'
+                _basketball_hist.loc[_basketball_hist['AwayScore'] > _basketball_hist['HomeScore'], 'Result'] = 'A'
+            logger.info(f"[Basketball] Historical data loaded: {len(_basketball_hist)} games")
+    except Exception as e:
+        logger.error(f"[Basketball] Failed to load historical data: {e}")
+
+    # Tennis models
     for path in [
         "models/tennis/tennis_advanced_models.joblib",
         "models/tennis/tennis_backtested_models.joblib",
@@ -55,6 +74,16 @@ def _load_models():
                 break
             except Exception as e:
                 logger.error(f"[Tennis] Failed to load {p.name}: {e}")
+
+    # Tennis historical data
+    try:
+        tennis_csv = project_root / "data/tennis/raw/tennis_real_data.csv"
+        if tennis_csv.exists():
+            _tennis_hist = pd.read_csv(tennis_csv)
+            _tennis_hist['Date'] = pd.to_datetime(_tennis_hist['Date'])
+            logger.info(f"[Tennis] Historical data loaded: {len(_tennis_hist)} matches")
+    except Exception as e:
+        logger.error(f"[Tennis] Failed to load historical data: {e}")
 
 
 _load_models()
@@ -114,24 +143,84 @@ def basketball_predict():
 
         models = _basketball_data.get('models', {})
 
-        game_df = pd.DataFrame([{
-            'Date':      pd.Timestamp.now(),
-            'HomeTeam':  home,
-            'AwayTeam':  away,
-            'HomeScore': 0,
-            'AwayScore': 0,
-            'Result':    'H',
-        }])
+        # Run feature engineering on historical data ONLY — no prediction row.
+        # Then extract each team's most recent computed stats.
+        # This avoids contaminating rolling averages with placeholder zeros.
+        if _basketball_hist is not None:
+            fe = BasketballFeatureEngineer()
+            hist_features = fe.engineer_features(_basketball_hist.copy())
 
-        fe = BasketballFeatureEngineer()
-        game_features = fe.engineer_features(game_df)
+            # Most recent home game for home team → Home_* features + ELO
+            home_rows = hist_features[hist_features['HomeTeam'] == home]
+            # Most recent away game for away team → Away_* features
+            away_rows = hist_features[hist_features['AwayTeam'] == away]
+            # Most recent game involving either team for ELO
+            any_home = hist_features[(hist_features['HomeTeam'] == home) | (hist_features['AwayTeam'] == home)]
+            any_away = hist_features[(hist_features['HomeTeam'] == away) | (hist_features['AwayTeam'] == away)]
+
+            # Build combined feature row
+            feat_row = {}
+            if len(home_rows) > 0:
+                for col in hist_features.columns:
+                    if col.startswith('Home_'):
+                        feat_row[col] = home_rows.iloc[-1].get(col, 0)
+            if len(away_rows) > 0:
+                for col in hist_features.columns:
+                    if col.startswith('Away_'):
+                        feat_row[col] = away_rows.iloc[-1].get(col, 0)
+            # ELO from most recent game for each team
+            if len(any_home) > 0:
+                last = any_home.iloc[-1]
+                feat_row['HomeElo'] = last['HomeElo'] if last['HomeTeam'] == home else last['AwayElo']
+            if len(any_away) > 0:
+                last = any_away.iloc[-1]
+                feat_row['AwayElo'] = last['AwayElo'] if last['AwayTeam'] == away else last['HomeElo']
+            feat_row['EloAdvantage'] = feat_row.get('HomeElo', 1500) - feat_row.get('AwayElo', 1500)
+            # H2H from last game between these two teams
+            h2h = hist_features[
+                ((hist_features['HomeTeam'] == home) & (hist_features['AwayTeam'] == away)) |
+                ((hist_features['HomeTeam'] == away) & (hist_features['AwayTeam'] == home))
+            ]
+            if len(h2h) > 0:
+                for col in ['H2H_HomeWins', 'H2H_AwayWins', 'H2H_TotalGames']:
+                    feat_row[col] = h2h.iloc[-1].get(col, 0)
+            # Season timing
+            now = pd.Timestamp.now()
+            feat_row['Month'] = now.month
+            feat_row['EarlySeason'] = 1 if now.month in [10, 11] else 0
+            feat_row['MidSeason']   = 1 if now.month in [12, 1, 2] else 0
+            feat_row['LateSeason']  = 1 if now.month in [3, 4, 5] else 0
+            # Rest days default
+            feat_row.setdefault('Home_DaysRest', 2)
+            feat_row.setdefault('Away_DaysRest', 2)
+            feat_row.setdefault('Home_BackToBack', 0)
+            feat_row.setdefault('Away_BackToBack', 0)
+            # AvgTotalPoints from recent games globally
+            if len(hist_features) >= 5:
+                feat_row['AvgTotalPoints_L5']  = _basketball_hist['TotalPoints'].iloc[-5:].mean() if 'TotalPoints' in _basketball_hist else 227
+                feat_row['AvgTotalPoints_L10'] = _basketball_hist['TotalPoints'].iloc[-10:].mean() if 'TotalPoints' in _basketball_hist else 227
+
+            # Box score rolling averages — needed because HomeREB/AwayAST etc. are top-50 features
+            for stat in ['FG', 'FG3', 'FT', 'REB', 'AST', 'TO']:
+                hcol = f'Home{stat}'
+                acol = f'Away{stat}'
+                if hcol in _basketball_hist.columns:
+                    val = _basketball_hist[_basketball_hist['HomeTeam'] == home][hcol].dropna().tail(5).mean()
+                    feat_row[hcol] = val if pd.notna(val) else 0.0
+                if acol in _basketball_hist.columns:
+                    val = _basketball_hist[_basketball_hist['AwayTeam'] == away][acol].dropna().tail(5).mean()
+                    feat_row[acol] = val if pd.notna(val) else 0.0
+
+            game_features = pd.DataFrame([feat_row])
+        else:
+            game_features = pd.DataFrame([{}])
 
         def get_X(task):
-            """Return feature matrix aligned to the task's selected features."""
             cols = models[task].get('features', [])
-            row = {}
-            for c in cols:
-                row[c] = float(game_features[c].iloc[0]) if c in game_features.columns else 0.0
+            row = {c: float(game_features[c].iloc[0])
+                   if c in game_features.columns and pd.notna(game_features[c].iloc[0])
+                   else 0.0
+                   for c in cols}
             return pd.DataFrame([row])[cols]
 
         result = {}
@@ -226,8 +315,9 @@ def tennis_predict():
 
         models = _tennis_data.get('models', {})
 
+        future_date = pd.Timestamp.now() + pd.Timedelta(days=1)
         match_df = pd.DataFrame([{
-            'Date':       pd.Timestamp.now(),
+            'Date':       future_date,
             'Player1':    player1,
             'Player2':    player2,
             'Winner':     'Player1',
@@ -237,14 +327,21 @@ def tennis_predict():
             'Score':      '0-0',
         }])
 
+        # Append to historical data for proper feature context
+        if _tennis_hist is not None:
+            full_df = pd.concat([_tennis_hist, match_df], ignore_index=True)
+        else:
+            full_df = match_df
+
         fe             = TennisFeatureEngineer()
-        match_features = fe.engineer_features(match_df)
+        match_features = fe.engineer_features(full_df).iloc[[-1]]
 
         def get_X(task):
             cols = models[task].get('features', [])
-            row  = {}
-            for c in cols:
-                row[c] = float(match_features[c].iloc[0]) if c in match_features.columns else 0.0
+            row  = {c: float(match_features[c].iloc[0])
+                    if c in match_features.columns and pd.notna(match_features[c].iloc[0])
+                    else 0.0
+                    for c in cols}
             return pd.DataFrame([row])[cols]
 
         result = {

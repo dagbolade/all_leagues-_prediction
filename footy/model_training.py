@@ -8,6 +8,7 @@ from sklearn.metrics import accuracy_score, roc_auc_score, f1_score, precision_s
     brier_score_loss, mean_squared_error, mean_absolute_error
 from sklearn.calibration import CalibratedClassifierCV
 from sklearn.feature_selection import SelectKBest, f_classif, f_regression
+from sklearn.utils.class_weight import compute_sample_weight
 from xgboost import XGBClassifier, XGBRegressor
 from catboost import CatBoostClassifier, CatBoostRegressor
 from lightgbm import LGBMClassifier, LGBMRegressor
@@ -845,7 +846,8 @@ class BayesianFootballPredictor:
                     bagging_fraction=0.8,
                     objective='multiclass',
                     metric='multi_logloss',
-                    num_class=3,  # ✨ FIX: Explicitly set num_class for multi-class
+                    num_class=3,
+                    class_weight='balanced',  # balance H/D/A during training
                     verbose=-1,
                     **common_params
                 )),
@@ -1100,7 +1102,14 @@ class BayesianFootballPredictor:
 
                 # Create Bayesian-optimized stacking model
                 model = self.create_bayesian_stacking_model(task, X_train_res, y_train_res, X_val, y_val)
-                model.fit(X_train_res, y_train_res)
+
+                # For match_outcome / ht_result, pass balanced sample weights so
+                # the Draw class (26% of data) gets equal treatment to Home Win (43%)
+                if task in ['match_outcome', 'ht_result']:
+                    sw = compute_sample_weight('balanced', y_train_res)
+                    model.fit(X_train_res, y_train_res, sample_weight=sw)
+                else:
+                    model.fit(X_train_res, y_train_res)
 
                 # Evaluate
                 fold_metrics = self.evaluate_model(model, X_val, y_val, task)

@@ -447,16 +447,29 @@ class BayesianMatchPredictor:
 
                             if task == 'match_outcome':
                                 outcomes = ['Home Win', 'Draw', 'Away Win']
-                                predictions[display_name] = outcomes[pred_class]
+                                # Draw threshold: if the model isn't predicting Draw but
+                                # draw prob is significant and close to the top pick,
+                                # switch to Draw rather than blindly taking the argmax.
+                                # H->0, D->1, A->2  (confirmed from training encoding)
+                                DRAW_MIN_PROB = 0.27   # draw must be at least this likely
+                                DRAW_MARGIN   = 0.22   # gap between top pick and draw
+                                draw_prob = float(proba[1])
+                                top_prob  = float(proba[pred_class])
+                                if (pred_class != 1
+                                        and draw_prob >= DRAW_MIN_PROB
+                                        and (top_prob - draw_prob) <= DRAW_MARGIN):
+                                    final_outcome = 'Draw'
+                                else:
+                                    final_outcome = outcomes[pred_class]
+                                predictions[display_name] = final_outcome
                                 probabilities[display_name] = {
-                                    outcomes[i]: proba[i] for i in range(len(outcomes))
+                                    outcomes[i]: float(proba[i]) for i in range(len(outcomes))
                                 }
                             elif task == 'ht_result':
-                                # ✨ NEW: Half-time result (same as match_outcome)
                                 outcomes = ['Home Win', 'Draw', 'Away Win']
                                 predictions[display_name] = outcomes[pred_class]
                                 probabilities[display_name] = {
-                                    outcomes[i]: proba[i] for i in range(len(outcomes))
+                                    outcomes[i]: float(proba[i]) for i in range(len(outcomes))
                                 }
                             else:
                                 # Binary classification
@@ -589,6 +602,11 @@ class BayesianMatchPredictor:
         # Get Poisson insights
         poisson_insights = self.get_poisson_insights(home_team, away_team)
 
+        # Derive draw risk flag from match outcome probabilities
+        outcome_probs = probabilities.get('Match Outcome', {})
+        draw_prob = float(outcome_probs.get('Draw', 0))
+        draw_risk = draw_prob >= 0.23  # warn even when threshold didn't flip the prediction
+
         # Format enhanced output
         bayesian_output = {
             'predictions': predictions,
@@ -596,6 +614,8 @@ class BayesianMatchPredictor:
             'confidence_intervals': confidence_intervals,
             'poisson_analysis': poisson_insights,
             'bayesian_priors': self.bayesian_priors,
+            'draw_risk': draw_risk,
+            'draw_probability': draw_prob,
             'model_info': {
                 'models_used': list(self.models.keys()),
                 'calibrated_models': list(self.calibrated_models.keys()),

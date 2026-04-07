@@ -355,6 +355,21 @@
     }
 }
 
+/* Draw risk */
+.draw-risk-card {
+    border-left: 4px solid #ffc107 !important;
+}
+
+.draw-risk-banner {
+    background: rgba(255, 193, 7, 0.15);
+    border: 1px solid rgba(255, 193, 7, 0.5);
+    border-radius: 8px;
+    padding: 0.5rem 0.8rem;
+    font-size: 0.85rem;
+    color: #ffc107;
+    margin-bottom: 1rem;
+}
+
 /* Filter transitions */
 .prediction-hidden {
     display: none !important;
@@ -455,9 +470,11 @@ document.addEventListener('DOMContentLoaded', function() {
         const hasInsights = pred.match_insights && pred.match_insights.key_insights;
         const kickOff = pred.kick_off ? `<span class="badge bg-secondary ms-2">${pred.kick_off} UTC</span>` : '';
         const competition = pred.competition ? `<div style="font-size:0.8rem;color:#aaa;margin-bottom:0.5rem;">${pred.competition}</div>` : '';
+        const drawRisk = pred.draw_risk;
+        const drawPct = pred.draw_probability ? Math.round(pred.draw_probability * 100) : null;
 
         return `
-            <div class="live-prediction-card ${logicalValid ? 'logical-valid' : ''} ${highConfidence ? 'high-confidence' : ''}"
+            <div class="live-prediction-card ${logicalValid ? 'logical-valid' : ''} ${highConfidence ? 'high-confidence' : ''} ${drawRisk ? 'draw-risk-card' : ''}"
                  data-confidence="${pred.confidence_level || 'MEDIUM'}"
                  data-logical="${logicalValid}">
 
@@ -465,6 +482,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 <div class="match-title">
                     ${pred.home_team} vs ${pred.away_team} ${kickOff}
                 </div>
+                ${drawRisk ? `<div class="draw-risk-banner">⚖️ Draw Risk — ${drawPct}% draw probability. Consider skipping or using a double chance.</div>` : ''}
 
                 <!-- Goal Markets -->
                 <div class="goal-markets">

@@ -84,6 +84,12 @@
                         </div>
 
                         {% if fix.prediction %}
+                        <!-- Draw risk warning -->
+                        {% if fix.prediction.draw_risk %}
+                        <div class="draw-risk-banner mt-2">
+                            ⚖️ Draw Risk — {{ (fix.prediction.draw_probability * 100) | int }}% draw probability
+                        </div>
+                        {% endif %}
                         <!-- Prediction row -->
                         <div class="prediction-row mt-2">
                             <!-- Outcome -->
@@ -177,6 +183,14 @@
 .weekend-card-predicted { border: 1px solid rgba(99,102,241,0.35) !important; background: rgba(99,102,241,0.05); }
 .weekend-card-warn      { border: 1px solid rgba(245,158,11,0.3) !important; background: rgba(245,158,11,0.04); }
 .weekend-card-unknown   { border: 1px solid rgba(107,114,128,0.25) !important; }
+.draw-risk-banner {
+    background: rgba(255,193,7,0.12);
+    border: 1px solid rgba(255,193,7,0.4);
+    border-radius: 6px;
+    padding: 0.4rem 0.7rem;
+    font-size: 0.8rem;
+    color: #ffc107;
+}
 .vs-badge {
     width: 32px; height: 32px;
     border-radius: 50%;

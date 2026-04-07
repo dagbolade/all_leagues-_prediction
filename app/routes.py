@@ -833,6 +833,8 @@ def weekend_predictions():
                         'outcome_probs': outcome_probs,
                         'over25': preds.get('Over 2.5 Goals', 'Unknown'),
                         'btts': preds.get('Both Teams to Score', 'Unknown'),
+                        'draw_risk': result.get('draw_risk', False),
+                        'draw_probability': result.get('draw_probability', 0),
                     }
                     total_predicted += 1
                 except Exception as e:
@@ -960,6 +962,8 @@ def live_predictions():
                     'match_insights': match_insights,
                     'confidence_level': confidence_level,
                     'logical_valid': True,
+                    'draw_risk': result.get('draw_risk', False),
+                    'draw_probability': result.get('draw_probability', 0),
                 })
             except Exception as e:
                 print(f"[Live Predictions] Prediction failed for {home_local} vs {away_local}: {e}")

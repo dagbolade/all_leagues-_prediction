@@ -374,12 +374,14 @@ def tennis_predict():
             }
 
         # Goes to distance / set handicap / correct score (same model, different framings)
+        # NOTE: model trained on BO3+BO5 mixed data — retrain pending with BO3-only fix.
+        # Current model inverts (39.7% acc), so swap prob[0]/prob[1] until retrained.
         if 'goes_distance' in models:
             X       = get_X('goes_distance')
             prob    = models['goes_distance']['model'].predict_proba(X)[0]
-            p_dist  = round(float(prob[1]) * 100, 1)   # prob of 3 sets
-            p_str   = round(float(prob[0]) * 100, 1)   # prob of straight sets
-            goes    = float(prob[1]) > float(prob[0])
+            p_dist  = round(float(prob[0]) * 100, 1)   # swapped until retrained
+            p_str   = round(float(prob[1]) * 100, 1)   # swapped until retrained
+            goes    = float(prob[0]) > float(prob[1])  # swapped until retrained
             result['match_length'] = {
                 # Correct score framing
                 'correct_score': '2-1' if goes else '2-0',

@@ -278,15 +278,15 @@ class AdvancedTennisPredictor:
                 targets['first_set'] = df.loc[mask_fs, '_first_set_p1'].astype(int)
                 print(f"[Metrics] First set P1 rate: {targets['first_set'].mean():.2%} ({mask_fs.sum()} matches)")
 
-            mask_sets = df['_num_sets'].notna()
-
-            # Target 3: Goes to deciding set (2-1, 3-1, 3-2 = 1 | 2-0, 3-0 = 0)
+            # Target 3: Goes to deciding set — BO3 ONLY (2 or 3 sets)
+            # Exclude BO5 matches (4-5 sets): a 3-0 Grand Slam win ≠ a 2-0 BO3 win
             # Also used as: set handicap (winner covers -1.5 = wins in straight sets = 0)
             # Also used as: correct score (2-0 vs 2-1 for BO3)
-            if mask_sets.sum() > 1000:
-                goes_dist = (df.loc[mask_sets, '_num_sets'] >= 3).astype(int)
+            mask_bo3 = df['_num_sets'].isin([2, 3])
+            if mask_bo3.sum() > 1000:
+                goes_dist = (df.loc[mask_bo3, '_num_sets'] == 3).astype(int)
                 targets['goes_distance'] = goes_dist
-                print(f"[Metrics] Goes distance (3+ sets) rate: {goes_dist.mean():.2%} ({mask_sets.sum()} matches)")
+                print(f"[Metrics] Goes distance BO3 rate: {goes_dist.mean():.2%} ({mask_bo3.sum()} BO3 matches)")
 
             # Target 4: Total games over 21.5 (50/50 split — best balanced line)
             mask_tg = df['_total_games'].notna() & (df['_num_sets'].isin([2, 3]))  # BO3 only

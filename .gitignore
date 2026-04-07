@@ -30,7 +30,7 @@ venv/
 # Specific large files (tracked via LFS in .gitattributes)
 
 data/processed/*.pkl
-# Note: .joblib files now tracked as regular git files (no longer LFS)
+# Model files tracked via Git LFS (see .gitattributes)
 
 # Debug and test files
 debug_*.py

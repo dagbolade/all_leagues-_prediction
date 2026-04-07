@@ -56,17 +56,17 @@
                         <a class="nav-link {% if request.path.startswith('/statistics') %}active{% endif %}"
                             href="/statistics"><i class="bi bi-graph-up"></i> Statistics</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.path.startswith('/multi') %}active{% endif %}" href="/multi">
+                            <i class="bi bi-controller me-1"></i> All Sports
+                        </a>
+                    </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="advancedDropdown" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="bi bi-grid-3x3-gap"></i> Advanced
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="advancedDropdown">
-                            <li><a class="dropdown-item" href="/multi"><i class="bi bi-controller"></i> Multi-Sport
-                                    Platform</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
                             <li><a class="dropdown-item" href="/accuracy"><i
                                         class="bi bi-patch-check-fill text-success"></i> Accuracy Tracker</a></li>
                             <li><a class="dropdown-item" href="/advanced/accumulator"><i class="bi bi-layers-fill"></i>
@@ -165,17 +165,17 @@
             <i class="bi bi-lightning-charge-fill"></i>
             <span>Predict</span>
         </a>
-        <a href="/weekend-predictions" class="mobile-nav-item {% if request.path.startswith('/weekend-predictions') %}active{% endif %}">
+        <a href="/weekend" class="mobile-nav-item {% if request.path.startswith('/weekend') %}active{% endif %}">
             <i class="bi bi-calendar-week-fill"></i>
             <span>Weekend</span>
+        </a>
+        <a href="/multi" class="mobile-nav-item {% if request.path.startswith('/multi') %}active{% endif %}">
+            <i class="bi bi-controller"></i>
+            <span>All Sports</span>
         </a>
         <a href="/my-predictions" class="mobile-nav-item {% if request.path.startswith('/my-predictions') %}active{% endif %}">
             <i class="bi bi-list-check"></i>
             <span>Picks</span>
-        </a>
-        <a href="/statistics" class="mobile-nav-item {% if request.path.startswith('/statistics') %}active{% endif %}">
-            <i class="bi bi-graph-up"></i>
-            <span>Stats</span>
         </a>
     </nav>
     <!-- Global Toast Notifications Container -->

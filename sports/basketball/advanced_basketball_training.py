@@ -186,8 +186,9 @@ class AdvancedBasketballPredictor:
                 print(f"   [OK] {model_type} best loss: {min(trials.losses()):.4f}")
 
                 # Create final model
+                is_reg = task in ['total_points', 'point_diff']
                 if model_type == 'xgb':
-                    if task == 'total_points':
+                    if is_reg:
                         final_model = XGBRegressor(random_state=42, **best_params)
                     else:
                         final_model = XGBClassifier(
@@ -197,12 +198,12 @@ class AdvancedBasketballPredictor:
                             **best_params
                         )
                 elif model_type == 'lgbm':
-                    if task == 'total_points':
+                    if is_reg:
                         final_model = LGBMRegressor(random_state=42, verbose=-1, **best_params)
                     else:
                         final_model = LGBMClassifier(random_state=42, verbose=-1, **best_params)
                 elif model_type == 'catboost':
-                    if task == 'total_points':
+                    if is_reg:
                         final_model = CatBoostRegressor(
                             random_state=42,
                             silent=True,

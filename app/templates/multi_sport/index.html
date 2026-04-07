@@ -1,102 +1,148 @@
-<!-- Multi-Sport Platform Home -->
 {% extends "base.html" %}
-
-{% block title %}Multi-Sport Prediction Platform{% endblock %}
+{% block title %}Multi-Sport Platform{% endblock %}
 
 {% block content %}
-<style>
-    .sport-card {
-        transition: transform 0.3s;
-        cursor: pointer;
-        border: none;
-        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    }
-    .sport-card:hover {
-        transform: translateY(-10px);
-        box-shadow: 0 8px 12px rgba(0,0,0,0.2);
-    }
-    .sport-icon {
-        font-size: 4rem;
-        margin-bottom: 1rem;
-    }
-    .football { background: linear-gradient(135deg, #28a745 0%, #20c997 100%); }
-    .basketball { background: linear-gradient(135deg, #fd7e14 0%, #ff922b 100%); }
-    .nfl { background: linear-gradient(135deg, #0d6efd 0%, #0096c7 100%); }
-    .tennis { background: linear-gradient(135deg, #ffc107 0%, #ffb703 100%); }
-</style>
+<div class="dashboard-container">
 
-<div class="welcome-section text-center py-5">
-    <h1 class="display-3 text-white mb-3">Multi-Sport Prediction Platform</h1>
-    <p class="lead text-light mb-4">AI-powered predictions for Football, Basketball, and Tennis</p>
-    <p class="text-light"><strong>BACKTESTED & VALIDATED</strong> - No Data Leakage</p>
-</div>
-
-<div class="container my-5">
-    <div class="row g-4 justify-content-center">
-        <!-- Football Card -->
-        <div class="col-md-6 col-lg-4">
-            <div class="card sport-card football text-white" onclick="window.location='/multi/sport/football'">
-                <div class="card-body text-center py-5">
-                    <div class="sport-icon">⚽</div>
-                    <h3 class="card-title">Football</h3>
-                    <p class="card-text">22 European Leagues</p>
-                    <p class="small">273+ Bayesian Features</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Basketball Card -->
-        <div class="col-md-6 col-lg-4">
-            <div class="card sport-card basketball text-white" onclick="window.location='/multi/sport/basketball'">
-                <div class="card-body text-center py-5">
-                    <div class="sport-icon">🏀</div>
-                    <h3 class="card-title">Basketball</h3>
-                    <p class="card-text">NBA Predictions</p>
-                    <p class="small">87.89% Accuracy</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Tennis Card -->
-        <div class="col-md-6 col-lg-4">
-            <div class="card sport-card tennis text-white" onclick="window.location='/multi/sport/tennis'">
-                <div class="card-body text-center py-5">
-                    <div class="sport-icon">🎾</div>
-                    <h3 class="card-title">Tennis</h3>
-                    <p class="card-text">ATP & WTA</p>
-                    <p class="small">95.57% Accuracy</p>
-                </div>
-            </div>
+    <!-- Header -->
+    <div class="welcome-section mb-5 text-center">
+        <h1 class="display-5 fw-bold text-white mb-2">
+            <i class="bi bi-controller me-2"></i>Multi-Sport Prediction Platform
+        </h1>
+        <p class="lead text-muted">AI-powered predictions for Football, Basketball &amp; Tennis</p>
+        <div class="d-flex gap-2 justify-content-center flex-wrap mt-3">
+            <span class="pill yes"><i class="bi bi-cpu me-1"></i> XGBoost + LightGBM + CatBoost</span>
+            <span class="pill yes"><i class="bi bi-shield-check me-1"></i> Backtested — No Data Leakage</span>
         </div>
     </div>
 
-    <!-- Stats Section -->
-    <div class="row mt-5">
-        <div class="col-12">
-            <div class="card bg-dark text-white">
-                <div class="card-body">
-                    <h4 class="text-center mb-4">Platform Stats</h4>
-                    <div class="row text-center">
-                        <div class="col-md-3">
-                            <h2 class="text-success">3</h2>
-                            <p>Sports Covered</p>
-                        </div>
-                        <div class="col-md-3">
-                            <h2 class="text-info">17K+</h2>
-                            <p>Matches Analyzed</p>
-                        </div>
-                        <div class="col-md-3">
-                            <h2 class="text-warning">400+</h2>
-                            <p>Features Engineered</p>
-                        </div>
-                        <div class="col-md-3">
-                            <h2 class="text-danger">10+</h2>
-                            <p>ML Models</p>
+    <!-- Sport Cards -->
+    <div class="row g-4 justify-content-center mb-5">
+
+        <!-- Football -->
+        <div class="col-12 col-md-6 col-lg-4">
+            <a href="/multi/sport/football" class="text-decoration-none">
+                <div class="card h-100 sport-hub-card sport-football text-white">
+                    <div class="card-body text-center py-5">
+                        <div class="sport-icon mb-3">⚽</div>
+                        <h3 class="fw-bold mb-1">Football</h3>
+                        <p class="text-white-50 mb-3">38 Leagues · 58k+ Matches</p>
+                        <div class="d-flex gap-2 justify-content-center flex-wrap">
+                            <span class="sport-chip">Weekend Predictions</span>
+                            <span class="sport-chip">Live Fixtures</span>
+                            <span class="sport-chip">Full Analysis</span>
                         </div>
                     </div>
+                    <div class="card-footer text-center py-2" style="background:rgba(0,0,0,0.2); border-top:1px solid rgba(255,255,255,0.1);">
+                        <small class="text-white-50"><i class="bi bi-arrow-right-circle me-1"></i> Explore Football</small>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <!-- Basketball -->
+        <div class="col-12 col-md-6 col-lg-4">
+            <a href="/multi/sport/basketball" class="text-decoration-none">
+                <div class="card h-100 sport-hub-card sport-basketball text-white {% if not stats.basketball_loaded %}sport-card-offline{% endif %}">
+                    <div class="card-body text-center py-5">
+                        <div class="sport-icon mb-3">🏀</div>
+                        <h3 class="fw-bold mb-1">Basketball</h3>
+                        <p class="text-white-50 mb-3">NBA · 7,100+ Games</p>
+                        <div class="d-flex gap-2 justify-content-center flex-wrap">
+                            <span class="sport-chip">Game Winner</span>
+                            <span class="sport-chip">Over/Under</span>
+                            <span class="sport-chip">Total Points</span>
+                        </div>
+                    </div>
+                    <div class="card-footer text-center py-2" style="background:rgba(0,0,0,0.2); border-top:1px solid rgba(255,255,255,0.1);">
+                        {% if stats.basketball_loaded %}
+                        <small class="text-white-50"><i class="bi bi-arrow-right-circle me-1"></i> Explore Basketball</small>
+                        {% else %}
+                        <small style="color:rgba(255,200,100,0.7);"><i class="bi bi-exclamation-triangle me-1"></i> Model loading…</small>
+                        {% endif %}
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <!-- Tennis -->
+        <div class="col-12 col-md-6 col-lg-4">
+            <a href="/multi/sport/tennis" class="text-decoration-none">
+                <div class="card h-100 sport-hub-card sport-tennis text-white {% if not stats.tennis_loaded %}sport-card-offline{% endif %}">
+                    <div class="card-body text-center py-5">
+                        <div class="sport-icon mb-3">🎾</div>
+                        <h3 class="fw-bold mb-1">Tennis</h3>
+                        <p class="text-white-50 mb-3">ATP &amp; WTA · 28k+ Matches</p>
+                        <div class="d-flex gap-2 justify-content-center flex-wrap">
+                            <span class="sport-chip">Match Winner</span>
+                            <span class="sport-chip">Surface Form</span>
+                            <span class="sport-chip">Confidence</span>
+                        </div>
+                    </div>
+                    <div class="card-footer text-center py-2" style="background:rgba(0,0,0,0.2); border-top:1px solid rgba(255,255,255,0.1);">
+                        {% if stats.tennis_loaded %}
+                        <small class="text-white-50"><i class="bi bi-arrow-right-circle me-1"></i> Explore Tennis</small>
+                        {% else %}
+                        <small style="color:rgba(255,200,100,0.7);"><i class="bi bi-exclamation-triangle me-1"></i> Model loading…</small>
+                        {% endif %}
+                    </div>
+                </div>
+            </a>
+        </div>
+
+    </div>
+
+    <!-- Platform Stats -->
+    <div class="card mb-4" style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08);">
+        <div class="card-body py-4">
+            <h5 class="text-center text-muted mb-4">Platform Stats</h5>
+            <div class="row text-center g-3">
+                <div class="col-6 col-md-3">
+                    <div class="fw-bold fs-3 text-success">3</div>
+                    <div class="small text-muted">Sports Covered</div>
+                </div>
+                <div class="col-6 col-md-3">
+                    <div class="fw-bold fs-3 text-info">93k+</div>
+                    <div class="small text-muted">Matches in Training Data</div>
+                </div>
+                <div class="col-6 col-md-3">
+                    <div class="fw-bold fs-3 text-warning">400+</div>
+                    <div class="small text-muted">Features Engineered</div>
+                </div>
+                <div class="col-6 col-md-3">
+                    <div class="fw-bold fs-3" style="color:#a78bfa;">9</div>
+                    <div class="small text-muted">Ensemble Models</div>
                 </div>
             </div>
         </div>
     </div>
+
 </div>
+
+<style>
+.sport-hub-card {
+    border-radius: 18px;
+    border: 1px solid rgba(255,255,255,0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+    cursor: pointer;
+}
+.sport-hub-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 16px 40px rgba(0,0,0,0.4);
+}
+.sport-football  { background: linear-gradient(135deg, rgba(16,185,129,0.35), rgba(5,150,105,0.2)); }
+.sport-basketball{ background: linear-gradient(135deg, rgba(251,146,60,0.35), rgba(234,88,12,0.2)); }
+.sport-tennis    { background: linear-gradient(135deg, rgba(250,204,21,0.35), rgba(234,179,8,0.2)); }
+.sport-card-offline { opacity: 0.75; }
+.sport-icon { font-size: 3.5rem; }
+.sport-chip {
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    background: rgba(255,255,255,0.12);
+    color: rgba(255,255,255,0.85);
+    border: 1px solid rgba(255,255,255,0.15);
+}
+</style>
 {% endblock %}

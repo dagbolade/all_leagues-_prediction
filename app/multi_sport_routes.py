@@ -1,183 +1,264 @@
 """
-Multi-Sport Routes - Extended from existing football routes
-
-Supports: Football, Basketball, Tennis
-Uses Advanced Models: XGBoost + CatBoost + LightGBM with Bayesian Optimization
+Multi-Sport Routes — Football, Basketball, Tennis
+Each sport has its own prediction page integrated into the main platform.
 """
 
-# Fix for pkg_resources in Python 3.12+ (required for model deserialization)
 import sys
-try:
-    import pkg_resources
-except ImportError:
-    # Python 3.12+ workaround: use importlib.metadata as pkg_resources replacement
-    try:
-        from importlib import metadata as importlib_metadata
-        sys.modules['pkg_resources'] = type(sys)('pkg_resources')
-        sys.modules['pkg_resources'].get_distribution = lambda name: type('obj', (object,), {'version': importlib_metadata.version(name)})()
-    except Exception:
-        # Fallback: create minimal mock
-        sys.modules['pkg_resources'] = type(sys)('pkg_resources')
-
-from flask import Blueprint, render_template, request, jsonify
-from pathlib import Path
-import joblib
 import logging
+from pathlib import Path
+from flask import Blueprint, render_template, request, jsonify
 
-# Add project root to path
 project_root = Path(__file__).parent.parent
 sys.path.insert(0, str(project_root))
 
-# Configure logging
-logging.basicConfig(level=logging.INFO)
+import joblib
+import pandas as pd
+
 logger = logging.getLogger(__name__)
 
 multi_sport = Blueprint('multi_sport', __name__)
 
-# Global predictors
-predictors = {
-    'football': None,
-    'basketball': None,
-    'tennis': None
-}
+# ─── Model registry ──────────────────────────────────────────────────────────
+_basketball_data = None
+_tennis_data     = None
 
 
-def load_all_predictors():
-    """Load all sport predictors with advanced trained models."""
-    global predictors
+def _load_models():
+    global _basketball_data, _tennis_data
 
-    # Load Football (your existing advanced system)
-    try:
-        football_models_path = Path("models/enhanced_processed_data.pkl")
-        if football_models_path.exists():
-            predictors['football'] = joblib.load(football_models_path)
-            logger.info("[Football] Advanced model loaded")
-        else:
-            logger.warning("[Football] Models not found")
-    except Exception as e:
-        logger.error(f"[Football] Error: {e}")
+    # Basketball – prefer advanced, fall back to backtested then basic
+    for path in [
+        "models/basketball/basketball_advanced_models.joblib",
+        "models/basketball/basketball_backtested_models.joblib",
+        "models/basketball/basketball_models.joblib",
+    ]:
+        p = project_root / path
+        if p.exists() and p.stat().st_size > 1024:
+            try:
+                _basketball_data = joblib.load(p)
+                logger.info(f"[Basketball] Loaded {p.name}")
+                break
+            except Exception as e:
+                logger.error(f"[Basketball] Failed to load {p.name}: {e}")
 
-    # Load Basketball Advanced Models (XGBoost + CatBoost + LightGBM)
-    try:
-        basketball_advanced_path = Path("models/basketball/basketball_advanced_models.joblib")
-        if basketball_advanced_path.exists():
-            file_size = basketball_advanced_path.stat().st_size
-            logger.info(f"[Basketball] Found model file, size: {file_size / 1024 / 1024:.2f} MB")
+    # Tennis – prefer advanced, fall back to backtested then basic
+    for path in [
+        "models/tennis/tennis_advanced_models.joblib",
+        "models/tennis/tennis_backtested_models.joblib",
+        "models/tennis/tennis_models.joblib",
+    ]:
+        p = project_root / path
+        if p.exists() and p.stat().st_size > 1024:
+            try:
+                _tennis_data = joblib.load(p)
+                logger.info(f"[Tennis] Loaded {p.name}")
+                break
+            except Exception as e:
+                logger.error(f"[Tennis] Failed to load {p.name}: {e}")
 
-            # Check if file is LFS pointer (small file)
-            if file_size < 1024:  # Less than 1KB = likely LFS pointer
-                logger.error(f"[Basketball] Model file appears to be LFS pointer, not actual file!")
-                with open(basketball_advanced_path, 'r') as f:
-                    logger.error(f"[Basketball] File content: {f.read()[:200]}")
-            else:
-                predictors['basketball'] = joblib.load(basketball_advanced_path)
-                logger.info("[Basketball] Advanced models loaded (XGBoost + CatBoost + LightGBM)")
-        else:
-            # Fallback to basic model
-            basketball_basic_path = Path("models/basketball/basketball_models.joblib")
-            if basketball_basic_path.exists():
-                predictors['basketball'] = joblib.load(basketball_basic_path)
-                logger.info("[Basketball] Basic model loaded")
-            else:
-                logger.warning("[Basketball] No models found")
-    except Exception as e:
-        import traceback
-        logger.error(f"[Basketball] Error loading model: {type(e).__name__}: {str(e)}")
-        logger.error(f"[Basketball] Traceback: {traceback.format_exc()}")
 
-    # Load Tennis Advanced Models (XGBoost + CatBoost + LightGBM)
-    try:
-        tennis_advanced_path = Path("models/tennis/tennis_advanced_models.joblib")
-        if tennis_advanced_path.exists():
-            file_size = tennis_advanced_path.stat().st_size
-            logger.info(f"[Tennis] Found model file, size: {file_size / 1024 / 1024:.2f} MB")
+_load_models()
 
-            # Check if file is LFS pointer (small file)
-            if file_size < 1024:  # Less than 1KB = likely LFS pointer
-                logger.error(f"[Tennis] Model file appears to be LFS pointer, not actual file!")
-                with open(tennis_advanced_path, 'r') as f:
-                    logger.error(f"[Tennis] File content: {f.read()[:200]}")
-            else:
-                predictors['tennis'] = joblib.load(tennis_advanced_path)
-                logger.info("[Tennis] Advanced models loaded (XGBoost + CatBoost + LightGBM)")
-                # Log metrics
-                if 'metrics' in predictors['tennis']:
-                    metrics = predictors['tennis']['metrics']
-                    logger.info(f"[Tennis] Accuracy: {metrics.get('winner', {}).get('accuracy', 0):.2%}")
-        else:
-            # Fallback to basic model
-            tennis_basic_path = Path("models/tennis/tennis_models.joblib")
-            if tennis_basic_path.exists():
-                predictors['tennis'] = joblib.load(tennis_basic_path)
-                logger.info("[Tennis] Basic model loaded")
-            else:
-                logger.warning("[Tennis] No models found")
-    except Exception as e:
-        import traceback
-        logger.error(f"[Tennis] Error loading model: {type(e).__name__}: {str(e)}")
-        logger.error(f"[Tennis] Traceback: {traceback.format_exc()}")
 
+# ─── Routes ──────────────────────────────────────────────────────────────────
 
 @multi_sport.route('/')
 def home():
-    """Multi-sport home page."""
-    return render_template('multi_sport/index.html')
+    stats = {
+        'basketball_loaded': _basketball_data is not None,
+        'tennis_loaded':     _tennis_data is not None,
+    }
+    return render_template('multi_sport/index.html', stats=stats)
 
 
-@multi_sport.route('/sport/<sport_name>')
-def sport_page(sport_name):
-    """Sport-specific prediction page."""
-    if sport_name not in ['football', 'basketball', 'tennis']:
-        return "Sport not found", 404
-
-    return render_template(f'multi_sport/{sport_name}.html', sport=sport_name)
+@multi_sport.route('/sport/football')
+def football_page():
+    """Football hub — links into the main football features."""
+    return render_template('multi_sport/football.html')
 
 
-@multi_sport.route('/api/<sport>/predict', methods=['POST'])
-def predict(sport):
-    """Make prediction for any sport."""
+@multi_sport.route('/sport/basketball')
+def basketball_page():
+    model_loaded = _basketball_data is not None
+    # Pull NBA teams from training data if available
+    teams = _get_nba_teams()
+    return render_template('multi_sport/basketball.html',
+                           model_loaded=model_loaded,
+                           teams=teams)
+
+
+@multi_sport.route('/sport/tennis')
+def tennis_page():
+    model_loaded = _tennis_data is not None
+    surfaces = ['Hard', 'Clay', 'Grass', 'Carpet']
+    return render_template('multi_sport/tennis.html',
+                           model_loaded=model_loaded,
+                           surfaces=surfaces)
+
+
+# ─── Prediction APIs ─────────────────────────────────────────────────────────
+
+@multi_sport.route('/api/basketball/predict', methods=['POST'])
+def basketball_predict():
+    if _basketball_data is None:
+        return jsonify({'error': 'Basketball model not loaded'}), 503
+
+    data = request.json or {}
+    home = data.get('home', '').strip()
+    away = data.get('away', '').strip()
+    if not home or not away:
+        return jsonify({'error': 'home and away team names required'}), 400
+
     try:
-        data = request.json
+        from sports.basketball.basketball_features import BasketballFeatureEngineer
 
-        if sport not in predictors or predictors[sport] is None:
-            return jsonify({'error': f'{sport} predictor not loaded'}), 500
+        models      = _basketball_data.get('models', {})
+        feature_cols = _basketball_data.get('feature_cols', [])
 
-        predictor = predictors[sport]
+        game_df = pd.DataFrame([{
+            'Date':      pd.Timestamp.now(),
+            'HomeTeam':  home,
+            'AwayTeam':  away,
+            'HomeScore': 0,
+            'AwayScore': 0,
+            'Result':    'H',
+        }])
 
-        # Make prediction
-        if sport == 'tennis':
-            match_info = {
-                'player1': data.get('player1'),
-                'player2': data.get('player2'),
-                'surface': data.get('surface', 'Hard')
-            }
-        else:
-            match_info = {
-                'home': data.get('home'),
-                'away': data.get('away')
-            }
+        fe = BasketballFeatureEngineer()
+        game_features = fe.engineer_features(game_df)
 
-        result = predictor.predict(match_info)
+        # Keep only columns the model was trained on
+        available = [c for c in feature_cols if c in game_features.columns]
+        X = game_features[available].fillna(0)
+        if len(available) < len(feature_cols):
+            # Pad missing columns with zeros
+            for col in feature_cols:
+                if col not in X.columns:
+                    X[col] = 0
+            X = X[feature_cols]
+
+        result = {}
+
+        # Winner
+        if 'match_outcome' in models:
+            model = models['match_outcome']['model']
+            prob  = model.predict_proba(X)[0]
+            # prob[0]=Away wins, prob[1]=Home wins
+            home_prob = float(prob[1])
+            away_prob = float(prob[0])
+            result['winner']        = home if home_prob > away_prob else away
+            result['home_win_prob'] = round(home_prob * 100, 1)
+            result['away_win_prob'] = round(away_prob * 100, 1)
+            result['confidence']    = round(max(home_prob, away_prob) * 100, 1)
+
+        # Total Points prediction
+        if 'total_points' in models:
+            tp_model = models['total_points']['model']
+            total    = float(tp_model.predict(X)[0])
+            result['total_points']       = round(total, 1)
+            result['total_points_range'] = f"{round(total - 10, 1)}–{round(total + 10, 1)}"
+
+        # Over/Under (various thresholds)
+        for key in ['over_220', 'over_215', 'over_225']:
+            if key in models:
+                ou_model  = models[key]['model']
+                ou_prob   = ou_model.predict_proba(X)[0]
+                threshold = key.split('_')[1]
+                result['over_under'] = {
+                    'line':       int(threshold),
+                    'prediction': f"Over {threshold}" if ou_prob[1] > ou_prob[0] else f"Under {threshold}",
+                    'over_prob':  round(float(ou_prob[1]) * 100, 1),
+                    'under_prob': round(float(ou_prob[0]) * 100, 1),
+                }
+                break  # only need one
 
         return jsonify(result)
 
     except Exception as e:
+        logger.exception("[Basketball] Prediction error")
         return jsonify({'error': str(e)}), 500
 
 
-@multi_sport.route('/api/<sport>/teams')
-def get_teams(sport):
-    """Get available teams/players for a sport."""
-    try:
-        if sport not in predictors or predictors[sport] is None:
-            return jsonify({'teams': []}), 200
+@multi_sport.route('/api/tennis/predict', methods=['POST'])
+def tennis_predict():
+    if _tennis_data is None:
+        return jsonify({'error': 'Tennis model not loaded'}), 503
 
-        teams = predictors[sport].get_available_teams()
-        return jsonify({'teams': teams})
+    data    = request.json or {}
+    player1 = data.get('player1', '').strip()
+    player2 = data.get('player2', '').strip()
+    surface = data.get('surface', 'Hard')
+    if not player1 or not player2:
+        return jsonify({'error': 'player1 and player2 names required'}), 400
+
+    try:
+        from sports.tennis.tennis_features import TennisFeatureEngineer
+
+        models       = _tennis_data.get('models', {})
+        feature_cols = _tennis_data.get('feature_cols', [])
+
+        match_df = pd.DataFrame([{
+            'Date':       pd.Timestamp.now(),
+            'Player1':    player1,
+            'Player2':    player2,
+            'Winner':     'Player1',
+            'Surface':    surface,
+            'Tournament': 'Unknown',
+            'Round':      'Final',
+            'Score':      '0-0',
+        }])
+
+        fe             = TennisFeatureEngineer()
+        match_features = fe.engineer_features(match_df)
+
+        available = [c for c in feature_cols if c in match_features.columns]
+        X = match_features[available].fillna(0)
+        for col in feature_cols:
+            if col not in X.columns:
+                X[col] = 0
+        X = X[feature_cols]
+
+        result = {}
+
+        if 'winner' in models:
+            model = models['winner']['model']
+            prob  = model.predict_proba(X)[0]
+            # prob[0]=Player2 wins, prob[1]=Player1 wins
+            p1_prob = float(prob[1])
+            p2_prob = float(prob[0])
+            result['winner']       = player1 if p1_prob > p2_prob else player2
+            result['p1_win_prob']  = round(p1_prob * 100, 1)
+            result['p2_win_prob']  = round(p2_prob * 100, 1)
+            result['confidence']   = round(max(p1_prob, p2_prob) * 100, 1)
+            result['player1']      = player1
+            result['player2']      = player2
+
+        return jsonify(result)
 
     except Exception as e:
+        logger.exception("[Tennis] Prediction error")
         return jsonify({'error': str(e)}), 500
 
 
-# Initialize predictors when module loads
-load_all_predictors()
+# ─── Helper ──────────────────────────────────────────────────────────────────
+
+def _get_nba_teams():
+    """Return sorted list of NBA team names from training data."""
+    try:
+        csv = project_root / "data/basketball/raw/nba_real_data.csv"
+        if csv.exists():
+            df    = pd.read_csv(csv, usecols=['HomeTeam'])
+            teams = sorted(df['HomeTeam'].dropna().unique().tolist())
+            return teams
+    except Exception:
+        pass
+    return [
+        "Atlanta Hawks", "Boston Celtics", "Brooklyn Nets", "Charlotte Hornets",
+        "Chicago Bulls", "Cleveland Cavaliers", "Dallas Mavericks", "Denver Nuggets",
+        "Detroit Pistons", "Golden State Warriors", "Houston Rockets", "Indiana Pacers",
+        "Los Angeles Clippers", "Los Angeles Lakers", "Memphis Grizzlies", "Miami Heat",
+        "Milwaukee Bucks", "Minnesota Timberwolves", "New Orleans Pelicans", "New York Knicks",
+        "Oklahoma City Thunder", "Orlando Magic", "Philadelphia 76ers", "Phoenix Suns",
+        "Portland Trail Blazers", "Sacramento Kings", "San Antonio Spurs", "Toronto Raptors",
+        "Utah Jazz", "Washington Wizards",
+    ]

@@ -1,83 +1,145 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Football Predictions</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
-            min-height: 100vh;
-            padding: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .container {
-            max-width: 600px;
-            text-align: center;
-        }
-        .card {
-            background: white;
-            padding: 50px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-        }
-        h1 {
-            color: #059669;
-            margin-bottom: 20px;
-            font-size: 36px;
-        }
-        p {
-            color: #666;
-            margin-bottom: 30px;
-            font-size: 18px;
-        }
-        .btn {
-            display: inline-block;
-            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
-            color: white;
-            padding: 15px 40px;
-            text-decoration: none;
-            border-radius: 8px;
-            font-size: 18px;
-            font-weight: 600;
-            transition: transform 0.2s;
-            margin: 10px;
-        }
-        .btn:hover {
-            transform: translateY(-2px);
-        }
-        .back-link {
-            display: inline-block;
-            color: #059669;
-            text-decoration: none;
-            margin-top: 20px;
-            font-weight: 600;
-        }
-        .back-link:hover {
-            text-decoration: underline;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <div class="card">
-            <h1>⚽ Football Predictions</h1>
-            <p>Your advanced football prediction system with 273+ Bayesian features</p>
-            <p style="font-size: 16px; color: #059669; margin-bottom: 20px;">
-                22 Leagues • 3,769 Matches • Advanced Models
-            </p>
-            <a href="/" class="btn">Go to Football App</a>
-            <br>
-            <a href="/multi" class="back-link">← Back to Sports</a>
+{% extends "base.html" %}
+{% block title %}Football Predictions{% endblock %}
+
+{% block content %}
+<div class="dashboard-container">
+
+    <!-- Header -->
+    <div class="welcome-section mb-4">
+        <div class="d-flex align-items-center gap-3 mb-2">
+            <a href="/multi" class="btn btn-sm btn-outline-secondary rounded-pill">
+                <i class="bi bi-chevron-left me-1"></i> All Sports
+            </a>
+            <span class="sport-label-football">⚽ Football</span>
+        </div>
+        <h1 class="fw-bold text-white mb-1">Football Predictions</h1>
+        <p class="lead text-muted mb-3">38 Leagues · 58,000+ Matches · 273 Bayesian Features</p>
+        <div class="d-flex gap-2 flex-wrap">
+            <span class="pill yes"><i class="bi bi-check-circle me-1"></i> Models Loaded</span>
+            <span class="pill yes"><i class="bi bi-calendar-check me-1"></i> Data through March 2026</span>
         </div>
     </div>
-</body>
-</html>
+
+    <!-- Feature Grid -->
+    <div class="row g-4 mb-4">
+
+        <div class="col-12 col-md-6">
+            <a href="/predict" class="text-decoration-none">
+                <div class="card football-feature-card h-100">
+                    <div class="card-body d-flex align-items-start gap-3 p-4">
+                        <div class="feature-icon-box" style="background:rgba(99,102,241,0.2);">
+                            <i class="bi bi-search fs-4 text-indigo"></i>
+                        </div>
+                        <div>
+                            <h5 class="fw-bold text-white mb-1">Full Analysis</h5>
+                            <p class="text-muted small mb-0">Enter any two teams for a deep-dive prediction — outcome probabilities, BTTS, Over 2.5, draw risk, and more.</p>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-12 col-md-6">
+            <a href="/weekend" class="text-decoration-none">
+                <div class="card football-feature-card h-100">
+                    <div class="card-body d-flex align-items-start gap-3 p-4">
+                        <div class="feature-icon-box" style="background:rgba(16,185,129,0.2);">
+                            <i class="bi bi-calendar-week fs-4" style="color:#34d399;"></i>
+                        </div>
+                        <div>
+                            <h5 class="fw-bold text-white mb-1">Weekend Predictions</h5>
+                            <p class="text-muted small mb-0">Auto-generated predictions for every fixture this Fri–Sun, pulled live from the football API.</p>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-12 col-md-6">
+            <a href="/live-predictions" class="text-decoration-none">
+                <div class="card football-feature-card h-100">
+                    <div class="card-body d-flex align-items-start gap-3 p-4">
+                        <div class="feature-icon-box" style="background:rgba(239,68,68,0.2);">
+                            <i class="bi bi-broadcast fs-4" style="color:#f87171;"></i>
+                        </div>
+                        <div>
+                            <h5 class="fw-bold text-white mb-1">Today's Live Predictions</h5>
+                            <p class="text-muted small mb-0">All of today's matches predicted in one view with live kick-off times.</p>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-12 col-md-6">
+            <a href="/statistics" class="text-decoration-none">
+                <div class="card football-feature-card h-100">
+                    <div class="card-body d-flex align-items-start gap-3 p-4">
+                        <div class="feature-icon-box" style="background:rgba(245,158,11,0.2);">
+                            <i class="bi bi-graph-up fs-4" style="color:#fbbf24;"></i>
+                        </div>
+                        <div>
+                            <h5 class="fw-bold text-white mb-1">Statistics &amp; Insights</h5>
+                            <p class="text-muted small mb-0">League tables, team form, and historical match insights across all competitions.</p>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+    </div>
+
+    <!-- Quick info strip -->
+    <div class="card p-3" style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.07);">
+        <div class="row text-center g-2">
+            <div class="col-6 col-md-3">
+                <div class="fw-bold text-white">38</div>
+                <div class="small text-muted">Leagues</div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="fw-bold text-white">867</div>
+                <div class="small text-muted">Teams</div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="fw-bold text-white">58k+</div>
+                <div class="small text-muted">Matches</div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="fw-bold text-white">273</div>
+                <div class="small text-muted">Features</div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<style>
+.sport-label-football {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #34d399;
+    background: rgba(16,185,129,0.12);
+    border: 1px solid rgba(16,185,129,0.3);
+    border-radius: 20px;
+    padding: 3px 12px;
+}
+.football-feature-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 14px;
+    transition: transform 0.15s, border-color 0.15s;
+    cursor: pointer;
+}
+.football-feature-card:hover {
+    transform: translateY(-3px);
+    border-color: rgba(99,102,241,0.4);
+}
+.feature-icon-box {
+    width: 48px; height: 48px;
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+}
+.text-indigo { color: #818cf8; }
+</style>
+{% endblock %}

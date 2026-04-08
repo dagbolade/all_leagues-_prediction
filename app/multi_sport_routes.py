@@ -393,22 +393,21 @@ def tennis_predict():
                 'confidence': round(max(p1_prob, p2_prob) * 100, 1),
             }
 
-        # Goes to distance / set handicap / correct score (same model, different framings)
-        # NOTE: model trained on BO3+BO5 mixed data — retrain pending with BO3-only fix.
-        # Current model inverts (39.7% acc), so swap prob[0]/prob[1] until retrained.
+        # Goes to distance / set handicap / correct score
+        # Model biases toward predicting goes_distance — prob[0]/prob[1] swapped
+        # to counter inversion. Treat as low-confidence market (~55% effective acc).
         if 'goes_distance' in models:
             X       = get_X('goes_distance')
             prob    = models['goes_distance']['model'].predict_proba(X)[0]
-            p_dist  = round(float(prob[0]) * 100, 1)   # swapped until retrained
-            p_str   = round(float(prob[1]) * 100, 1)   # swapped until retrained
-            goes    = float(prob[0]) > float(prob[1])  # swapped until retrained
+            p_dist  = round(float(prob[0]) * 100, 1)   # swapped
+            p_str   = round(float(prob[1]) * 100, 1)   # swapped
+            goes    = float(prob[0]) > float(prob[1])  # swapped
             result['match_length'] = {
-                # Correct score framing
-                'correct_score': '2-1' if goes else '2-0',
-                # Set handicap: winner covers -1.5 = straight sets win
-                'set_handicap': 'Does NOT cover -1.5' if goes else 'Covers -1.5 (straight sets)',
-                'prob_distance': p_dist,
-                'prob_straight': p_str,
+                'correct_score':  '2-1' if goes else '2-0',
+                'set_handicap':   'Does NOT cover -1.5' if goes else 'Covers -1.5 (straight sets)',
+                'prob_distance':  p_dist,
+                'prob_straight':  p_str,
+                'low_confidence': True,
             }
 
         # Total games over/under 21.5

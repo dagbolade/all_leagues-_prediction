@@ -323,6 +323,9 @@ function renderResult(p1, p2, surface, data) {
         distChips.innerHTML += `<span class="market-chip-tennis chip-conf">Score: <strong>${ml.correct_score}</strong></span>`;
         distChips.innerHTML += `<span class="market-chip-tennis" style="${coverCls}">${ml.set_handicap}</span>`;
         distChips.innerHTML += `<span class="market-chip-tennis" style="background:rgba(255,255,255,0.04);color:#9ca3af;border:1px solid rgba(255,255,255,0.1);">Straight: ${ml.prob_straight}% · 3 sets: ${ml.prob_distance}%</span>`;
+        if (ml.low_confidence) {
+            distChips.innerHTML += `<div class="mt-1 small" style="color:#f59e0b;"><i class="bi bi-exclamation-triangle me-1"></i>Low confidence market — use winner &amp; first set predictions instead</div>`;
+        }
         distDiv.classList.remove('d-none');
     } else {
         distDiv.classList.add('d-none');

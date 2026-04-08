@@ -42,6 +42,10 @@ class BasketballFeatureEngineer:
         df = self._add_rest_features(df)
         df = self._add_situational_features(df)
 
+        # IsEuroLeague is a pass-through feature — add if present
+        if 'IsEuroLeague' not in df.columns:
+            df['IsEuroLeague'] = 0
+
         exclude = {
             'Date', 'HomeTeam', 'AwayTeam', 'HomeScore', 'AwayScore',
             'Result', 'League', 'Season', 'Week', 'Winner',

@@ -43,9 +43,11 @@ def _load_models():
             except Exception as e:
                 logger.error(f"[Basketball] Failed to load {p.name}: {e}")
 
-    # Basketball historical data — loaded once, used for feature engineering context
+    # Basketball historical data — prefer combined NBA+EuroLeague file
     try:
-        bball_csv = project_root / "data/basketball/raw/nba_real_data.csv"
+        combined_csv = project_root / "data/basketball/raw/basketball_all_data.csv"
+        nba_csv      = project_root / "data/basketball/raw/nba_real_data.csv"
+        bball_csv    = combined_csv if combined_csv.exists() else nba_csv
         if bball_csv.exists():
             _basketball_hist = pd.read_csv(bball_csv)
             _basketball_hist['Date'] = pd.to_datetime(_basketball_hist['Date'])
@@ -56,7 +58,11 @@ def _load_models():
             if 'Result' not in _basketball_hist.columns:
                 _basketball_hist['Result'] = 'H'
                 _basketball_hist.loc[_basketball_hist['AwayScore'] > _basketball_hist['HomeScore'], 'Result'] = 'A'
-            logger.info(f"[Basketball] Historical data loaded: {len(_basketball_hist)} games")
+            if 'IsEuroLeague' not in _basketball_hist.columns:
+                _basketball_hist['IsEuroLeague'] = (_basketball_hist.get('League', 'NBA') == 'EuroLeague').astype(int)
+            nba_n = (_basketball_hist.get('League', pd.Series(['NBA']*len(_basketball_hist))) == 'NBA').sum()
+            eur_n = (_basketball_hist.get('League', pd.Series(['NBA']*len(_basketball_hist))) == 'EuroLeague').sum()
+            logger.info(f"[Basketball] Loaded {len(_basketball_hist)} games (NBA:{nba_n} EuroLeague:{eur_n})")
     except Exception as e:
         logger.error(f"[Basketball] Failed to load historical data: {e}")
 
@@ -109,15 +115,15 @@ def football_page():
 @multi_sport.route('/sport/basketball')
 def basketball_page():
     model_loaded = _basketball_data is not None
-    teams = _get_nba_teams()
+    teams_dict = _get_nba_teams()
     return render_template('multi_sport/basketball.html',
                            model_loaded=model_loaded,
-                           teams=teams)
+                           teams=teams_dict)
 
 
 @multi_sport.route('/sport/basketball/stats', methods=['GET', 'POST'])
 def basketball_stats():
-    teams = _get_nba_teams()
+    teams_dict = _get_nba_teams()
     stats = None
     home_team = None
     away_team = None
@@ -127,7 +133,7 @@ def basketball_stats():
         if home_team and away_team and _basketball_hist is not None:
             stats = _build_basketball_stats(home_team, away_team)
     return render_template('multi_sport/basketball_stats.html',
-                           teams=teams, stats=stats,
+                           teams=teams_dict, stats=stats,
                            home_team=home_team, away_team=away_team)
 
 
@@ -199,6 +205,10 @@ def basketball_predict():
             if len(h2h) > 0:
                 for col in ['H2H_HomeWins', 'H2H_AwayWins', 'H2H_TotalGames']:
                     feat_row[col] = h2h.iloc[-1].get(col, 0)
+            # League indicator
+            eur_teams = set(_basketball_hist[_basketball_hist.get('League', pd.Series()) == 'EuroLeague']['HomeTeam'].unique()) if 'League' in _basketball_hist.columns else set()
+            feat_row['IsEuroLeague'] = 1 if (home in eur_teams or away in eur_teams) else 0
+
             # Season timing
             now = pd.Timestamp.now()
             feat_row['Month'] = now.month
@@ -559,13 +569,18 @@ def _build_basketball_stats(home: str, away: str) -> dict:
 
 
 def _get_nba_teams():
-    """Return sorted list of NBA team names from training data."""
+    """Return dict with 'NBA' and 'EuroLeague' team lists."""
     try:
-        csv = project_root / "data/basketball/raw/nba_real_data.csv"
-        if csv.exists():
-            df    = pd.read_csv(csv, usecols=['HomeTeam'])
-            teams = sorted(df['HomeTeam'].dropna().unique().tolist())
-            return teams
+        combined = project_root / "data/basketball/raw/basketball_all_data.csv"
+        nba_csv  = project_root / "data/basketball/raw/nba_real_data.csv"
+        if combined.exists():
+            df = pd.read_csv(combined, usecols=['HomeTeam', 'League'])
+            nba_teams = sorted(df[df['League']=='NBA']['HomeTeam'].dropna().unique().tolist())
+            eur_teams = sorted(df[df['League']=='EuroLeague']['HomeTeam'].dropna().unique().tolist())
+            return {'NBA': nba_teams, 'EuroLeague': eur_teams}
+        elif nba_csv.exists():
+            df = pd.read_csv(nba_csv, usecols=['HomeTeam'])
+            return {'NBA': sorted(df['HomeTeam'].dropna().unique().tolist()), 'EuroLeague': []}
     except Exception:
         pass
     return [

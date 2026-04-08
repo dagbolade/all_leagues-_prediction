@@ -23,7 +23,8 @@
             <label class="form-label">Home Team</label>
             <select name="homeTeam" class="form-select" required>
               <option value="">Select Home Team</option>
-              {% for t in teams %}<option value="{{ t }}" {% if t==home_team %}selected{% endif %}>{{ t }}</option>{% endfor %}
+              <optgroup label="NBA">{% for t in teams.NBA %}<option value="{{ t }}" {% if t==home_team %}selected{% endif %}>{{ t }}</option>{% endfor %}</optgroup>
+              <optgroup label="EuroLeague">{% for t in teams.EuroLeague %}<option value="{{ t }}" {% if t==home_team %}selected{% endif %}>{{ t }}</option>{% endfor %}</optgroup>
             </select>
           </div>
           <div class="col-md-2 mb-3 text-center">
@@ -33,7 +34,8 @@
             <label class="form-label">Away Team</label>
             <select name="awayTeam" class="form-select" required>
               <option value="">Select Away Team</option>
-              {% for t in teams %}<option value="{{ t }}" {% if t==away_team %}selected{% endif %}>{{ t }}</option>{% endfor %}
+              <optgroup label="NBA">{% for t in teams.NBA %}<option value="{{ t }}" {% if t==away_team %}selected{% endif %}>{{ t }}</option>{% endfor %}</optgroup>
+              <optgroup label="EuroLeague">{% for t in teams.EuroLeague %}<option value="{{ t }}" {% if t==away_team %}selected{% endif %}>{{ t }}</option>{% endfor %}</optgroup>
             </select>
           </div>
         </div>

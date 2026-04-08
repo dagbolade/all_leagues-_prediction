@@ -16,11 +16,21 @@ def main():
     print("ADVANCED BASKETBALL MODEL TRAINING - MATCHING FOOTBALL SOPHISTICATION")
     print("=" * 80)
 
-    # Load data
-    print("\n1. Loading REAL NBA data (6,000+ games)...")
-    data_path = Path("data/basketball/raw/nba_real_data.csv")
+    # Load data — combined NBA + EuroLeague
+    combined_path = Path("data/basketball/raw/basketball_all_data.csv")
+    nba_path      = Path("data/basketball/raw/nba_real_data.csv")
+    data_path     = combined_path if combined_path.exists() else nba_path
+
+    league_label = "NBA + EuroLeague" if combined_path.exists() else "NBA"
+    print(f"\n1. Loading {league_label} data...")
     df = pd.read_csv(data_path)
     df['Date'] = pd.to_datetime(df['Date'])
+
+    # League indicator feature (1 = EuroLeague, 0 = NBA)
+    if 'League' in df.columns:
+        df['IsEuroLeague'] = (df['League'] == 'EuroLeague').astype(int)
+    else:
+        df['IsEuroLeague'] = 0
 
     # Standardize columns
     if 'Result' not in df.columns:
@@ -33,7 +43,9 @@ def main():
     if 'PointDiff' not in df.columns:
         df['PointDiff'] = df['HomeScore'] - df['AwayScore']
 
-    print(f"   Loaded {len(df)} games")
+    nba_games = (df['League'] == 'NBA').sum() if 'League' in df.columns else len(df)
+    eur_games = (df['League'] == 'EuroLeague').sum() if 'League' in df.columns else 0
+    print(f"   Loaded {len(df)} games (NBA: {nba_games} | EuroLeague: {eur_games})")
 
     # Engineer features
     print("\n2. Engineering basketball features...")

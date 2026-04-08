@@ -1,0 +1,1973 @@
+Date,HomeTeam,AwayTeam,HomeScore,AwayScore,Season,HomeFG,AwayFG,HomeFG3,AwayFG3,HomeFT,AwayFT,HomeREB,AwayREB,HomeAST,AwayAST,HomeTO,AwayTO,Winner
+2020-10-01,Zenit,Efes,73.0,69.0,2020-21,,,,,,,,,,,,,Home
+2020-10-01,CSKA Moscow,Barcelona,66.0,76.0,2020-21,,,,,,,,,,,,,Away
+2020-10-01,ALBA Berlin,Maccabi Tel Aviv,73.0,80.0,2020-21,,,,,,,,,,,,,Away
+2020-10-01,Zalgiris,Olympiacos,68.0,67.0,2020-21,,,,,,,,,,,,,Home
+2020-10-01,ASVEL,Valencia,63.0,65.0,2020-21,,,,,,,,,,,,,Away
+2020-10-02,Olimpia Milano,Bayern Munich,81.0,79.0,2020-21,,,,,,,,,,,,,Home
+2020-10-02,Panathinaikos,Khimki,78.0,76.0,2020-21,,,,,,,,,,,,,Home
+2020-10-02,Red Star Belgrade,Fenerbahce,63.0,77.0,2020-21,,,,,,,,,,,,,Away
+2020-10-02,Real Madrid,Baskonia,63.0,76.0,2020-21,,,,,,,,,,,,,Away
+2020-10-08,Fenerbahce,Efes,80.0,71.0,2020-21,,,,,,,,,,,,,Home
+2020-10-08,Maccabi Tel Aviv,CSKA Moscow,72.0,76.0,2020-21,,,,,,,,,,,,,Away
+2020-10-08,Valencia,Real Madrid,93.0,77.0,2020-21,,,,,,,,,,,,,Home
+2020-10-09,Barcelona,Zenit,70.0,74.0,2020-21,,,,,,,,,,,,,Away
+2020-10-09,Baskonia,Red Star Belgrade,73.0,90.0,2020-21,,,,,,,,,,,,,Away
+2020-10-09,Olympiacos,Panathinaikos,78.0,71.0,2020-21,,,,,,,,,,,,,Home
+2020-10-09,ASVEL,Olimpia Milano,73.0,87.0,2020-21,,,,,,,,,,,,,Away
+2020-10-09,Bayern Munich,ALBA Berlin,90.0,72.0,2020-21,,,,,,,,,,,,,Home
+2020-10-10,Zalgiris,Khimki,84.0,70.0,2020-21,,,,,,,,,,,,,Home
+2020-10-13,Efes,ALBA Berlin,93.0,72.0,2020-21,,,,,,,,,,,,,Home
+2020-10-13,Zalgiris,Red Star Belgrade,75.0,69.0,2020-21,,,,,,,,,,,,,Home
+2020-10-13,Barcelona,Valencia,71.0,66.0,2020-21,,,,,,,,,,,,,Home
+2020-10-14,Bayern Munich,Maccabi Tel Aviv,85.0,82.0,2020-21,,,,,,,,,,,,,Home
+2020-10-14,Olimpia Milano,Olympiacos,75.0,86.0,2020-21,,,,,,,,,,,,,Away
+2020-10-14,Khimki,Real Madrid,85.0,94.0,2020-21,,,,,,,,,,,,,Away
+2020-10-14,CSKA Moscow,Fenerbahce,78.0,77.0,2020-21,,,,,,,,,,,,,Home
+2020-10-15,Panathinaikos,Barcelona,89.0,97.0,2020-21,,,,,,,,,,,,,Away
+2020-10-15,Efes,Zalgiris,73.0,89.0,2020-21,,,,,,,,,,,,,Away
+2020-10-16,Khimki,Baskonia,60.0,77.0,2020-21,,,,,,,,,,,,,Away
+2020-10-16,Maccabi Tel Aviv,Olympiacos,82.0,85.0,2020-21,,,,,,,,,,,,,Away
+2020-10-16,Bayern Munich,Fenerbahce,75.0,71.0,2020-21,,,,,,,,,,,,,Home
+2020-10-16,ALBA Berlin,CSKA Moscow,93.0,88.0,2020-21,,,,,,,,,,,,,Home
+2020-10-16,Real Madrid,Olimpia Milano,70.0,78.0,2020-21,,,,,,,,,,,,,Away
+2020-10-22,Fenerbahce,Panathinaikos,68.0,82.0,2020-21,,,,,,,,,,,,,Away
+2020-10-22,CSKA Moscow,Red Star Belgrade,84.0,86.0,2020-21,,,,,,,,,,,,,Away
+2020-10-22,Valencia,Zalgiris,94.0,82.0,2020-21,,,,,,,,,,,,,Home
+2020-10-23,Real Madrid,Barcelona,72.0,79.0,2020-21,,,,,,,,,,,,,Away
+2020-10-23,Olympiacos,Bayern Munich,68.0,74.0,2020-21,,,,,,,,,,,,,Away
+2020-10-23,Maccabi Tel Aviv,Khimki,89.0,87.0,2020-21,,,,,,,,,,,,,Home
+2020-10-29,Valencia,CSKA Moscow,75.0,84.0,2020-21,,,,,,,,,,,,,Away
+2020-10-29,Fenerbahce,Maccabi Tel Aviv,75.0,65.0,2020-21,,,,,,,,,,,,,Home
+2020-10-29,Bayern Munich,Real Madrid,82.0,100.0,2020-21,,,,,,,,,,,,,Away
+2020-10-29,Zalgiris,ASVEL,83.0,74.0,2020-21,,,,,,,,,,,,,Home
+2020-10-30,Efes,Olympiacos,84.0,79.0,2020-21,,,,,,,,,,,,,Home
+2020-10-30,Barcelona,Baskonia,72.0,71.0,2020-21,,,,,,,,,,,,,Home
+2020-10-30,Red Star Belgrade,Khimki,77.0,83.0,2020-21,,,,,,,,,,,,,Away
+2020-11-05,ASVEL,Baskonia,88.0,86.0,2020-21,,,,,,,,,,,,,Home
+2020-11-05,Olympiacos,Zenit,75.0,66.0,2020-21,,,,,,,,,,,,,Home
+2020-11-05,Barcelona,ALBA Berlin,103.0,67.0,2020-21,,,,,,,,,,,,,Home
+2020-11-05,Maccabi Tel Aviv,Efes,89.0,91.0,2020-21,,,,,,,,,,,,,Away
+2020-11-06,Red Star Belgrade,Bayern Munich,59.0,74.0,2020-21,,,,,,,,,,,,,Away
+2020-11-06,CSKA Moscow,Panathinaikos,89.0,83.0,2020-21,,,,,,,,,,,,,Home
+2020-11-06,Khimki,Fenerbahce,71.0,83.0,2020-21,,,,,,,,,,,,,Away
+2020-11-06,Olimpia Milano,Valencia,81.0,86.0,2020-21,,,,,,,,,,,,,Away
+2020-11-06,Real Madrid,Zalgiris,93.0,90.0,2020-21,,,,,,,,,,,,,Home
+2020-11-11,Red Star Belgrade,ASVEL,89.0,68.0,2020-21,,,,,,,,,,,,,Home
+2020-11-12,Zalgiris,Maccabi Tel Aviv,57.0,85.0,2020-21,,,,,,,,,,,,,Away
+2020-11-12,Fenerbahce,Barcelona,55.0,97.0,2020-21,,,,,,,,,,,,,Away
+2020-11-12,Baskonia,CSKA Moscow,86.0,89.0,2020-21,,,,,,,,,,,,,Away
+2020-11-12,ALBA Berlin,Olympiacos,71.0,75.0,2020-21,,,,,,,,,,,,,Away
+2020-11-13,Zenit,ASVEL,66.0,53.0,2020-21,,,,,,,,,,,,,Home
+2020-11-13,Real Madrid,Red Star Belgrade,73.0,67.0,2020-21,,,,,,,,,,,,,Home
+2020-11-13,Valencia,Bayern Munich,79.0,90.0,2020-21,,,,,,,,,,,,,Away
+2020-11-13,Efes,Panathinaikos,80.0,77.0,2020-21,,,,,,,,,,,,,Home
+2020-11-17,Bayern Munich,Efes,74.0,71.0,2020-21,,,,,,,,,,,,,Home
+2020-11-17,Khimki,Zenit,88.0,83.0,2020-21,,,,,,,,,,,,,Home
+2020-11-17,Panathinaikos,Valencia,83.0,95.0,2020-21,,,,,,,,,,,,,Away
+2020-11-17,Fenerbahce,Baskonia,68.0,86.0,2020-21,,,,,,,,,,,,,Away
+2020-11-17,CSKA Moscow,Zalgiris,87.0,78.0,2020-21,,,,,,,,,,,,,Home
+2020-11-18,ASVEL,ALBA Berlin,75.0,76.0,2020-21,,,,,,,,,,,,,Away
+2020-11-18,Red Star Belgrade,Olimpia Milano,87.0,79.0,2020-21,,,,,,,,,,,,,Home
+2020-11-18,Maccabi Tel Aviv,Real Madrid,63.0,79.0,2020-21,,,,,,,,,,,,,Away
+2020-11-19,CSKA Moscow,Bayern Munich,89.0,81.0,2020-21,,,,,,,,,,,,,Home
+2020-11-19,Efes,Khimki,105.0,77.0,2020-21,,,,,,,,,,,,,Home
+2020-11-19,Panathinaikos,Baskonia,72.0,93.0,2020-21,,,,,,,,,,,,,Away
+2020-11-20,Maccabi Tel Aviv,Valencia,80.0,82.0,2020-21,,,,,,,,,,,,,Away
+2020-11-20,Fenerbahce,Real Madrid,74.0,94.0,2020-21,,,,,,,,,,,,,Away
+2020-11-20,Red Star Belgrade,Barcelona,65.0,76.0,2020-21,,,,,,,,,,,,,Away
+2020-11-20,Zenit,ALBA Berlin,73.0,66.0,2020-21,,,,,,,,,,,,,Home
+2020-11-20,Zalgiris,Olimpia Milano,92.0,98.0,2020-21,,,,,,,,,,,,,Away
+2020-11-23,Zenit,Baskonia,77.0,70.0,2020-21,,,,,,,,,,,,,Home
+2020-11-26,Khimki,ALBA Berlin,80.0,100.0,2020-21,,,,,,,,,,,,,Away
+2020-11-26,Real Madrid,CSKA Moscow,73.0,74.0,2020-21,,,,,,,,,,,,,Away
+2020-11-26,Olimpia Milano,Maccabi Tel Aviv,86.0,85.0,2020-21,,,,,,,,,,,,,Home
+2020-11-26,Baskonia,Olympiacos,90.0,76.0,2020-21,,,,,,,,,,,,,Home
+2020-11-26,Efes,Red Star Belgrade,75.0,64.0,2020-21,,,,,,,,,,,,,Home
+2020-11-26,Zenit,Zalgiris,83.0,75.0,2020-21,,,,,,,,,,,,,Home
+2020-11-27,Valencia,Fenerbahce,90.0,86.0,2020-21,,,,,,,,,,,,,Home
+2020-11-27,Bayern Munich,Panathinaikos,76.0,83.0,2020-21,,,,,,,,,,,,,Away
+2020-11-27,Barcelona,ASVEL,68.0,80.0,2020-21,,,,,,,,,,,,,Away
+2020-12-01,Panathinaikos,ASVEL,73.0,97.0,2020-21,,,,,,,,,,,,,Away
+2020-12-01,ALBA Berlin,Olimpia Milano,55.0,75.0,2020-21,,,,,,,,,,,,,Away
+2020-12-03,Olympiacos,CSKA Moscow,61.0,80.0,2020-21,,,,,,,,,,,,,Away
+2020-12-03,Red Star Belgrade,Maccabi Tel Aviv,76.0,81.0,2020-21,,,,,,,,,,,,,Away
+2020-12-03,Panathinaikos,Olimpia Milano,80.0,77.0,2020-21,,,,,,,,,,,,,Home
+2020-12-03,Fenerbahce,Zenit,73.0,65.0,2020-21,,,,,,,,,,,,,Home
+2020-12-03,ALBA Berlin,Valencia,100.0,92.0,2020-21,,,,,,,,,,,,,Home
+2020-12-04,Baskonia,Efes,77.0,59.0,2020-21,,,,,,,,,,,,,Home
+2020-12-04,Khimki,Bayern Munich,77.0,80.0,2020-21,,,,,,,,,,,,,Away
+2020-12-04,ASVEL,Real Madrid,84.0,91.0,2020-21,,,,,,,,,,,,,Away
+2020-12-04,Barcelona,Zalgiris,73.0,62.0,2020-21,,,,,,,,,,,,,Home
+2020-12-08,Olimpia Milano,Khimki,102.0,93.0,2020-21,,,,,,,,,,,,,Home
+2020-12-08,Zenit,Valencia,85.0,72.0,2020-21,,,,,,,,,,,,,Home
+2020-12-08,Olympiacos,Barcelona,96.0,88.0,2020-21,,,,,,,,,,,,,Home
+2020-12-08,ASVEL,Efes,68.0,72.0,2020-21,,,,,,,,,,,,,Away
+2020-12-10,Fenerbahce,ALBA Berlin,63.0,89.0,2020-21,,,,,,,,,,,,,Away
+2020-12-10,Zenit,Real Madrid,72.0,79.0,2020-21,,,,,,,,,,,,,Away
+2020-12-10,Olympiacos,Red Star Belgrade,81.0,79.0,2020-21,,,,,,,,,,,,,Home
+2020-12-10,Efes,Valencia,74.0,76.0,2020-21,,,,,,,,,,,,,Away
+2020-12-10,Maccabi Tel Aviv,Baskonia,67.0,63.0,2020-21,,,,,,,,,,,,,Home
+2020-12-11,Olimpia Milano,Barcelona,71.0,87.0,2020-21,,,,,,,,,,,,,Away
+2020-12-11,ASVEL,Bayern Munich,62.0,76.0,2020-21,,,,,,,,,,,,,Away
+2020-12-11,CSKA Moscow,Khimki,96.0,87.0,2020-21,,,,,,,,,,,,,Home
+2020-12-11,Zalgiris,Panathinaikos,81.0,69.0,2020-21,,,,,,,,,,,,,Home
+2020-12-15,Olimpia Milano,Fenerbahce,79.0,71.0,2020-21,,,,,,,,,,,,,Home
+2020-12-15,ALBA Berlin,Red Star Belgrade,90.0,84.0,2020-21,,,,,,,,,,,,,Home
+2020-12-15,Baskonia,Zalgiris,73.0,92.0,2020-21,,,,,,,,,,,,,Away
+2020-12-15,Efes,CSKA Moscow,65.0,100.0,2020-21,,,,,,,,,,,,,Away
+2020-12-15,Real Madrid,Panathinaikos,97.0,93.0,2020-21,,,,,,,,,,,,,Home
+2020-12-16,Bayern Munich,Zenit,75.0,79.0,2020-21,,,,,,,,,,,,,Away
+2020-12-16,Maccabi Tel Aviv,ASVEL,81.0,84.0,2020-21,,,,,,,,,,,,,Away
+2020-12-16,Khimki,Barcelona,74.0,87.0,2020-21,,,,,,,,,,,,,Away
+2020-12-16,Valencia,Olympiacos,96.0,85.0,2020-21,,,,,,,,,,,,,Home
+2020-12-17,Olimpia Milano,Efes,72.0,69.0,2020-21,,,,,,,,,,,,,Home
+2020-12-17,ALBA Berlin,Panathinaikos,69.0,92.0,2020-21,,,,,,,,,,,,,Away
+2020-12-17,Fenerbahce,Zalgiris,62.0,99.0,2020-21,,,,,,,,,,,,,Away
+2020-12-18,Maccabi Tel Aviv,Barcelona,68.0,67.0,2020-21,,,,,,,,,,,,,Home
+2020-12-18,Baskonia,Bayern Munich,66.0,77.0,2020-21,,,,,,,,,,,,,Away
+2020-12-18,Zenit,CSKA Moscow,65.0,83.0,2020-21,,,,,,,,,,,,,Away
+2020-12-18,Real Madrid,Olympiacos,86.0,82.0,2020-21,,,,,,,,,,,,,Home
+2020-12-18,Valencia,Red Star Belgrade,73.0,76.0,2020-21,,,,,,,,,,,,,Away
+2020-12-18,Khimki,ASVEL,84.0,90.0,2020-21,,,,,,,,,,,,,Away
+2020-12-22,CSKA Moscow,ASVEL,87.0,78.0,2020-21,,,,,,,,,,,,,Home
+2020-12-22,ALBA Berlin,Real Madrid,62.0,91.0,2020-21,,,,,,,,,,,,,Away
+2020-12-22,Red Star Belgrade,Zenit,69.0,98.0,2020-21,,,,,,,,,,,,,Away
+2020-12-22,Barcelona,Efes,79.0,86.0,2020-21,,,,,,,,,,,,,Away
+2020-12-22,Panathinaikos,Maccabi Tel Aviv,81.0,89.0,2020-21,,,,,,,,,,,,,Away
+2020-12-23,Baskonia,Olimpia Milano,84.0,79.0,2020-21,,,,,,,,,,,,,Home
+2020-12-23,Olympiacos,Fenerbahce,77.0,84.0,2020-21,,,,,,,,,,,,,Away
+2020-12-23,Khimki,Valencia,82.0,88.0,2020-21,,,,,,,,,,,,,Away
+2020-12-23,Bayern Munich,Zalgiris,73.0,74.0,2020-21,,,,,,,,,,,,,Away
+2020-12-29,Zalgiris,ALBA Berlin,74.0,71.0,2020-21,,,,,,,,,,,,,Home
+2020-12-29,Real Madrid,Efes,73.0,65.0,2020-21,,,,,,,,,,,,,Home
+2020-12-29,Olympiacos,Khimki,105.0,88.0,2020-21,,,,,,,,,,,,,Home
+2020-12-29,Zenit,Maccabi Tel Aviv,78.0,72.0,2020-21,,,,,,,,,,,,,Home
+2020-12-29,Valencia,Baskonia,70.0,71.0,2020-21,,,,,,,,,,,,,Away
+2020-12-30,Panathinaikos,Red Star Belgrade,71.0,74.0,2020-21,,,,,,,,,,,,,Away
+2020-12-30,Barcelona,Bayern Munich,77.0,90.0,2020-21,,,,,,,,,,,,,Away
+2020-12-30,CSKA Moscow,Olimpia Milano,91.0,87.0,2020-21,,,,,,,,,,,,,Home
+2020-12-30,ASVEL,Fenerbahce,59.0,81.0,2020-21,,,,,,,,,,,,,Away
+2021-01-05,Baskonia,ALBA Berlin,91.0,95.0,2020-21,,,,,,,,,,,,,Away
+2021-01-07,Maccabi Tel Aviv,ALBA Berlin,85.0,73.0,2020-21,,,,,,,,,,,,,Home
+2021-01-07,Valencia,Barcelona,72.0,89.0,2020-21,,,,,,,,,,,,,Away
+2021-01-07,Zenit,Panathinaikos,89.0,77.0,2020-21,,,,,,,,,,,,,Home
+2021-01-07,Fenerbahce,Red Star Belgrade,73.0,71.0,2020-21,,,,,,,,,,,,,Home
+2021-01-07,CSKA Moscow,Baskonia,93.0,95.0,2020-21,,,,,,,,,,,,,Away
+2021-01-08,Bayern Munich,Olympiacos,82.0,84.0,2020-21,,,,,,,,,,,,,Away
+2021-01-08,Olimpia Milano,Real Madrid,80.0,76.0,2020-21,,,,,,,,,,,,,Home
+2021-01-08,Efes,ASVEL,102.0,80.0,2020-21,,,,,,,,,,,,,Home
+2021-01-08,Khimki,Zalgiris,75.0,102.0,2020-21,,,,,,,,,,,,,Away
+2021-01-12,ALBA Berlin,Efes,76.0,84.0,2020-21,,,,,,,,,,,,,Away
+2021-01-12,Barcelona,Khimki,87.0,75.0,2020-21,,,,,,,,,,,,,Home
+2021-01-12,Olympiacos,Maccabi Tel Aviv,89.0,87.0,2020-21,,,,,,,,,,,,,Home
+2021-01-12,Valencia,Olimpia Milano,80.0,95.0,2020-21,,,,,,,,,,,,,Away
+2021-01-12,Baskonia,Fenerbahce,76.0,96.0,2020-21,,,,,,,,,,,,,Away
+2021-01-13,ASVEL,Panathinaikos,71.0,88.0,2020-21,,,,,,,,,,,,,Away
+2021-01-13,Zenit,Bayern Munich,80.0,82.0,2020-21,,,,,,,,,,,,,Away
+2021-01-13,Zalgiris,CSKA Moscow,73.0,83.0,2020-21,,,,,,,,,,,,,Away
+2021-01-14,Olimpia Milano,ALBA Berlin,84.0,70.0,2020-21,,,,,,,,,,,,,Home
+2021-01-14,Khimki,Efes,60.0,99.0,2020-21,,,,,,,,,,,,,Away
+2021-01-14,Baskonia,Maccabi Tel Aviv,82.0,91.0,2020-21,,,,,,,,,,,,,Away
+2021-01-15,Real Madrid,Bayern Munich,81.0,76.0,2020-21,,,,,,,,,,,,,Home
+2021-01-15,Barcelona,CSKA Moscow,88.0,75.0,2020-21,,,,,,,,,,,,,Home
+2021-01-15,ASVEL,Olympiacos,69.0,63.0,2020-21,,,,,,,,,,,,,Home
+2021-01-15,Zalgiris,Zenit,65.0,77.0,2020-21,,,,,,,,,,,,,Away
+2021-01-15,Panathinaikos,Fenerbahce,74.0,100.0,2020-21,,,,,,,,,,,,,Away
+2021-01-15,Red Star Belgrade,Valencia,71.0,91.0,2020-21,,,,,,,,,,,,,Away
+2021-01-18,Red Star Belgrade,Real Madrid,79.0,77.0,2020-21,,,,,,,,,,,,,Home
+2021-01-19,Olympiacos,ASVEL,101.0,93.0,2020-21,,,,,,,,,,,,,Home
+2021-01-21,Valencia,ASVEL,77.0,90.0,2020-21,,,,,,,,,,,,,Away
+2021-01-21,Khimki,Panathinaikos,78.0,94.0,2020-21,,,,,,,,,,,,,Away
+2021-01-21,Efes,Zenit,78.0,85.0,2020-21,,,,,,,,,,,,,Away
+2021-01-21,Real Madrid,Maccabi Tel Aviv,84.0,86.0,2020-21,,,,,,,,,,,,,Away
+2021-01-21,Bayern Munich,Olimpia Milano,51.0,75.0,2020-21,,,,,,,,,,,,,Away
+2021-01-22,Fenerbahce,CSKA Moscow,89.0,83.0,2020-21,,,,,,,,,,,,,Home
+2021-01-22,Barcelona,Red Star Belgrade,72.0,60.0,2020-21,,,,,,,,,,,,,Home
+2021-01-22,ALBA Berlin,Baskonia,84.0,77.0,2020-21,,,,,,,,,,,,,Home
+2021-01-22,Olympiacos,Zalgiris,79.0,81.0,2020-21,,,,,,,,,,,,,Away
+2021-01-26,Red Star Belgrade,Efes,72.0,86.0,2020-21,,,,,,,,,,,,,Away
+2021-01-26,Zenit,Barcelona,81.0,85.0,2020-21,,,,,,,,,,,,,Away
+2021-01-26,Bayern Munich,Khimki,95.0,93.0,2020-21,,,,,,,,,,,,,Home
+2021-01-26,Olympiacos,Olimpia Milano,79.0,90.0,2020-21,,,,,,,,,,,,,Away
+2021-01-26,Maccabi Tel Aviv,Fenerbahce,75.0,82.0,2020-21,,,,,,,,,,,,,Away
+2021-01-27,Zalgiris,Valencia,79.0,78.0,2020-21,,,,,,,,,,,,,Home
+2021-01-27,Baskonia,ASVEL,77.0,83.0,2020-21,,,,,,,,,,,,,Away
+2021-01-27,CSKA Moscow,ALBA Berlin,71.0,68.0,2020-21,,,,,,,,,,,,,Home
+2021-01-27,Panathinaikos,Real Madrid,66.0,76.0,2020-21,,,,,,,,,,,,,Away
+2021-01-28,Barcelona,Olympiacos,76.0,74.0,2020-21,,,,,,,,,,,,,Home
+2021-01-28,Fenerbahce,Khimki,107.0,76.0,2020-21,,,,,,,,,,,,,Home
+2021-01-28,Zenit,Olimpia Milano,76.0,82.0,2020-21,,,,,,,,,,,,,Away
+2021-01-29,Real Madrid,ALBA Berlin,72.0,63.0,2020-21,,,,,,,,,,,,,Home
+2021-01-29,Bayern Munich,CSKA Moscow,69.0,66.0,2020-21,,,,,,,,,,,,,Home
+2021-01-29,Valencia,Panathinaikos,72.0,91.0,2020-21,,,,,,,,,,,,,Away
+2021-01-29,Zalgiris,Baskonia,68.0,81.0,2020-21,,,,,,,,,,,,,Away
+2021-01-29,ASVEL,Red Star Belgrade,81.0,78.0,2020-21,,,,,,,,,,,,,Home
+2021-02-04,Efes,Barcelona,88.0,86.0,2020-21,,,,,,,,,,,,,Home
+2021-02-04,CSKA Moscow,Valencia,103.0,105.0,2020-21,,,,,,,,,,,,,Away
+2021-02-05,Olimpia Milano,ASVEL,69.0,78.0,2020-21,,,,,,,,,,,,,Away
+2021-02-05,ALBA Berlin,Bayern Munich,95.0,101.0,2020-21,,,,,,,,,,,,,Away
+2021-02-05,Panathinaikos,Olympiacos,88.0,77.0,2020-21,,,,,,,,,,,,,Home
+2021-02-05,Zenit,Fenerbahce,84.0,92.0,2020-21,,,,,,,,,,,,,Away
+2021-02-18,Maccabi Tel Aviv,Olimpia Milano,68.0,87.0,2020-21,,,,,,,,,,,,,Away
+2021-02-18,Baskonia,Khimki,89.0,67.0,2020-21,,,,,,,,,,,,,Home
+2021-02-18,Olympiacos,Efes,53.0,76.0,2020-21,,,,,,,,,,,,,Away
+2021-02-18,Zalgiris,Barcelona,62.0,86.0,2020-21,,,,,,,,,,,,,Away
+2021-02-19,Zenit,Red Star Belgrade,76.0,75.0,2020-21,,,,,,,,,,,,,Home
+2021-02-19,ALBA Berlin,Fenerbahce,84.0,89.0,2020-21,,,,,,,,,,,,,Away
+2021-02-19,Real Madrid,Valencia,78.0,89.0,2020-21,,,,,,,,,,,,,Away
+2021-02-19,Bayern Munich,ASVEL,79.0,87.0,2020-21,,,,,,,,,,,,,Away
+2021-02-22,Olimpia Milano,Zenit,70.0,79.0,2020-21,,,,,,,,,,,,,Away
+2021-02-23,Red Star Belgrade,Zalgiris,62.0,75.0,2020-21,,,,,,,,,,,,,Away
+2021-02-25,Maccabi Tel Aviv,Bayern Munich,70.0,72.0,2020-21,,,,,,,,,,,,,Away
+2021-02-25,Khimki,Olimpia Milano,74.0,84.0,2020-21,,,,,,,,,,,,,Away
+2021-02-25,CSKA Moscow,Olympiacos,75.0,74.0,2020-21,,,,,,,,,,,,,Home
+2021-02-25,Zalgiris,Real Madrid,58.0,70.0,2020-21,,,,,,,,,,,,,Away
+2021-02-25,Valencia,Zenit,91.0,62.0,2020-21,,,,,,,,,,,,,Home
+2021-02-26,Red Star Belgrade,Baskonia,67.0,87.0,2020-21,,,,,,,,,,,,,Away
+2021-02-26,Efes,Fenerbahce,106.0,74.0,2020-21,,,,,,,,,,,,,Home
+2021-02-26,Panathinaikos,ALBA Berlin,65.0,74.0,2020-21,,,,,,,,,,,,,Away
+2021-02-26,ASVEL,Barcelona,76.0,69.0,2020-21,,,,,,,,,,,,,Home
+2021-03-02,ALBA Berlin,Zenit,71.0,87.0,2020-21,,,,,,,,,,,,,Away
+2021-03-02,Bayern Munich,Red Star Belgrade,78.0,76.0,2020-21,,,,,,,,,,,,,Home
+2021-03-02,Barcelona,Panathinaikos,85.0,77.0,2020-21,,,,,,,,,,,,,Home
+2021-03-02,ASVEL,Zalgiris,75.0,85.0,2020-21,,,,,,,,,,,,,Away
+2021-03-02,Real Madrid,Khimki,77.0,78.0,2020-21,,,,,,,,,,,,,Away
+2021-03-02,Valencia,Efes,83.0,99.0,2020-21,,,,,,,,,,,,,Away
+2021-03-02,CSKA Moscow,Maccabi Tel Aviv,84.0,80.0,2020-21,,,,,,,,,,,,,Home
+2021-03-03,Fenerbahce,Olimpia Milano,100.0,92.0,2020-21,,,,,,,,,,,,,Home
+2021-03-03,Olympiacos,Baskonia,66.0,91.0,2020-21,,,,,,,,,,,,,Away
+2021-03-04,CSKA Moscow,Efes,70.0,100.0,2020-21,,,,,,,,,,,,,Away
+2021-03-04,Panathinaikos,Bayern Munich,71.0,76.0,2020-21,,,,,,,,,,,,,Away
+2021-03-04,Valencia,Maccabi Tel Aviv,72.0,84.0,2020-21,,,,,,,,,,,,,Away
+2021-03-04,Real Madrid,Zenit,75.0,71.0,2020-21,,,,,,,,,,,,,Home
+2021-03-05,Olimpia Milano,Zalgiris,69.0,64.0,2020-21,,,,,,,,,,,,,Home
+2021-03-05,Red Star Belgrade,Olympiacos,79.0,94.0,2020-21,,,,,,,,,,,,,Away
+2021-03-05,Fenerbahce,ASVEL,90.0,86.0,2020-21,,,,,,,,,,,,,Home
+2021-03-05,ALBA Berlin,Khimki,100.0,81.0,2020-21,,,,,,,,,,,,,Home
+2021-03-05,Baskonia,Barcelona,57.0,71.0,2020-21,,,,,,,,,,,,,Away
+2021-03-11,Olimpia Milano,CSKA Moscow,84.0,76.0,2020-21,,,,,,,,,,,,,Home
+2021-03-11,Maccabi Tel Aviv,Panathinaikos,63.0,81.0,2020-21,,,,,,,,,,,,,Away
+2021-03-11,Barcelona,Real Madrid,81.0,76.0,2020-21,,,,,,,,,,,,,Home
+2021-03-11,Khimki,Red Star Belgrade,81.0,92.0,2020-21,,,,,,,,,,,,,Away
+2021-03-11,ALBA Berlin,ASVEL,95.0,89.0,2020-21,,,,,,,,,,,,,Home
+2021-03-12,Zalgiris,Efes,62.0,89.0,2020-21,,,,,,,,,,,,,Away
+2021-03-12,Zenit,Olympiacos,61.0,75.0,2020-21,,,,,,,,,,,,,Away
+2021-03-12,Fenerbahce,Valencia,52.0,66.0,2020-21,,,,,,,,,,,,,Away
+2021-03-12,Bayern Munich,Baskonia,71.0,78.0,2020-21,,,,,,,,,,,,,Away
+2021-03-16,Efes,Maccabi Tel Aviv,90.0,66.0,2020-21,,,,,,,,,,,,,Home
+2021-03-18,Baskonia,Zenit,79.0,75.0,2020-21,,,,,,,,,,,,,Home
+2021-03-18,Zalgiris,Fenerbahce,61.0,84.0,2020-21,,,,,,,,,,,,,Away
+2021-03-18,Olympiacos,ALBA Berlin,84.0,80.0,2020-21,,,,,,,,,,,,,Home
+2021-03-18,CSKA Moscow,Real Madrid,96.0,89.0,2020-21,,,,,,,,,,,,,Home
+2021-03-19,Efes,Bayern Munich,79.0,80.0,2020-21,,,,,,,,,,,,,Away
+2021-03-19,Valencia,Khimki,77.0,68.0,2020-21,,,,,,,,,,,,,Home
+2021-03-19,Barcelona,Olimpia Milano,72.0,56.0,2020-21,,,,,,,,,,,,,Home
+2021-03-19,Red Star Belgrade,Panathinaikos,86.0,82.0,2020-21,,,,,,,,,,,,,Home
+2021-03-25,Maccabi Tel Aviv,Zalgiris,88.0,81.0,2020-21,,,,,,,,,,,,,Home
+2021-03-25,Real Madrid,ASVEL,74.0,71.0,2020-21,,,,,,,,,,,,,Home
+2021-03-25,Bayern Munich,Valencia,76.0,83.0,2020-21,,,,,,,,,,,,,Away
+2021-03-25,Panathinaikos,Efes,65.0,85.0,2020-21,,,,,,,,,,,,,Away
+2021-03-25,Red Star Belgrade,CSKA Moscow,72.0,87.0,2020-21,,,,,,,,,,,,,Away
+2021-03-26,ALBA Berlin,Barcelona,67.0,80.0,2020-21,,,,,,,,,,,,,Away
+2021-03-26,Zenit,Khimki,91.0,70.0,2020-21,,,,,,,,,,,,,Home
+2021-03-26,Fenerbahce,Olympiacos,76.0,71.0,2020-21,,,,,,,,,,,,,Home
+2021-03-26,Olimpia Milano,Baskonia,69.0,86.0,2020-21,,,,,,,,,,,,,Away
+2021-03-30,CSKA Moscow,Zenit,86.0,74.0,2020-21,,,,,,,,,,,,,Home
+2021-03-30,ALBA Berlin,Zalgiris,86.0,96.0,2020-21,,,,,,,,,,,,,Away
+2021-03-30,Olimpia Milano,Red Star Belgrade,93.0,72.0,2020-21,,,,,,,,,,,,,Home
+2021-03-30,Fenerbahce,Bayern Munich,77.0,68.0,2020-21,,,,,,,,,,,,,Home
+2021-03-30,Baskonia,Panathinaikos,97.0,82.0,2020-21,,,,,,,,,,,,,Home
+2021-03-30,Barcelona,Maccabi Tel Aviv,94.0,99.0,2020-21,,,,,,,,,,,,,Away
+2021-03-30,Efes,Real Madrid,108.0,83.0,2020-21,,,,,,,,,,,,,Home
+2021-03-31,ASVEL,Khimki,85.0,87.0,2020-21,,,,,,,,,,,,,Away
+2021-03-31,Olympiacos,Valencia,88.0,79.0,2020-21,,,,,,,,,,,,,Home
+2021-04-01,Zalgiris,Bayern Munich,70.0,71.0,2020-21,,,,,,,,,,,,,Away
+2021-04-01,Olimpia Milano,Panathinaikos,83.0,86.0,2020-21,,,,,,,,,,,,,Away
+2021-04-01,Maccabi Tel Aviv,Red Star Belgrade,64.0,76.0,2020-21,,,,,,,,,,,,,Away
+2021-04-01,Efes,Baskonia,111.0,101.0,2020-21,,,,,,,,,,,,,Home
+2021-04-02,Barcelona,Fenerbahce,82.0,73.0,2020-21,,,,,,,,,,,,,Home
+2021-04-02,Olympiacos,Real Madrid,63.0,72.0,2020-21,,,,,,,,,,,,,Away
+2021-04-02,ASVEL,Zenit,53.0,87.0,2020-21,,,,,,,,,,,,,Away
+2021-04-02,Valencia,ALBA Berlin,90.0,86.0,2020-21,,,,,,,,,,,,,Home
+2021-04-02,Khimki,CSKA Moscow,72.0,97.0,2020-21,,,,,,,,,,,,,Away
+2021-04-04,ASVEL,Maccabi Tel Aviv,74.0,67.0,2020-21,,,,,,,,,,,,,Home
+2021-04-06,Khimki,Maccabi Tel Aviv,62.0,92.0,2020-21,,,,,,,,,,,,,Away
+2021-04-08,Red Star Belgrade,ALBA Berlin,58.0,81.0,2020-21,,,,,,,,,,,,,Away
+2021-04-08,ASVEL,CSKA Moscow,70.0,88.0,2020-21,,,,,,,,,,,,,Away
+2021-04-08,Real Madrid,Fenerbahce,93.0,67.0,2020-21,,,,,,,,,,,,,Home
+2021-04-08,Baskonia,Valencia,81.0,86.0,2020-21,,,,,,,,,,,,,Away
+2021-04-08,Panathinaikos,Zalgiris,78.0,93.0,2020-21,,,,,,,,,,,,,Away
+2021-04-09,Maccabi Tel Aviv,Zenit,69.0,86.0,2020-21,,,,,,,,,,,,,Away
+2021-04-09,Bayern Munich,Barcelona,82.0,72.0,2020-21,,,,,,,,,,,,,Home
+2021-04-09,Efes,Olimpia Milano,75.0,98.0,2020-21,,,,,,,,,,,,,Away
+2021-04-09,Khimki,Olympiacos,75.0,82.0,2020-21,,,,,,,,,,,,,Away
+2021-04-12,Panathinaikos,Zenit,83.0,112.0,2020-21,,,,,,,,,,,,,Away
+2021-04-14,Panathinaikos,CSKA Moscow,86.0,93.0,2020-21,,,,,,,,,,,,,Away
+2021-04-20,Real Madrid,Efes,63.0,90.0,2020-21,,,,,,,,,,,,,Away
+2021-04-20,Bayern Munich,Olimpia Milano,78.0,79.0,2020-21,,,,,,,,,,,,,Away
+2021-04-21,Zenit,Barcelona,76.0,74.0,2020-21,,,,,,,,,,,,,Home
+2021-04-21,Fenerbahce,CSKA Moscow,76.0,92.0,2020-21,,,,,,,,,,,,,Away
+2021-04-22,Real Madrid,Efes,68.0,91.0,2020-21,,,,,,,,,,,,,Away
+2021-04-22,Bayern Munich,Olimpia Milano,69.0,80.0,2020-21,,,,,,,,,,,,,Away
+2021-04-23,Zenit,Barcelona,78.0,81.0,2020-21,,,,,,,,,,,,,Away
+2021-04-23,Fenerbahce,CSKA Moscow,67.0,78.0,2020-21,,,,,,,,,,,,,Away
+2021-04-27,Efes,Real Madrid,76.0,80.0,2020-21,,,,,,,,,,,,,Away
+2021-04-28,Olimpia Milano,Bayern Munich,79.0,85.0,2020-21,,,,,,,,,,,,,Away
+2021-04-28,Barcelona,Zenit,78.0,70.0,2020-21,,,,,,,,,,,,,Home
+2021-04-28,CSKA Moscow,Fenerbahce,85.0,68.0,2020-21,,,,,,,,,,,,,Home
+2021-04-29,Efes,Real Madrid,76.0,82.0,2020-21,,,,,,,,,,,,,Away
+2021-04-30,Barcelona,Zenit,61.0,74.0,2020-21,,,,,,,,,,,,,Away
+2021-04-30,Olimpia Milano,Bayern Munich,82.0,85.0,2020-21,,,,,,,,,,,,,Away
+2021-05-04,Real Madrid,Efes,83.0,88.0,2020-21,,,,,,,,,,,,,Away
+2021-05-04,Zenit,Barcelona,53.0,79.0,2020-21,,,,,,,,,,,,,Away
+2021-05-04,Bayern Munich,Olimpia Milano,89.0,92.0,2020-21,,,,,,,,,,,,,Away
+2021-05-28,Olimpia Milano,Barcelona,82.0,84.0,2020-21,,,,,,,,,,,,,Away
+2021-05-28,Efes,CSKA Moscow,89.0,86.0,2020-21,,,,,,,,,,,,,Home
+2021-05-30,Efes,Barcelona,86.0,81.0,2020-21,,,,,,,,,,,,,Home
+2021-05-30,CSKA Moscow,Olimpia Milano,73.0,83.0,2020-21,,,,,,,,,,,,,Away
+2021-09-30,Bayern Munich,Maccabi Tel Aviv,68.0,69.0,2021-22,,,,,,,,,,,,,Away
+2021-09-30,CSKA Moscow,Olimpia Milano,74.0,84.0,2021-22,,,,,,,,,,,,,Away
+2021-09-30,Panathinaikos,Monaco,63.0,75.0,2021-22,,,,,,,,,,,,,Away
+2021-09-30,Efes,Real Madrid,69.0,82.0,2021-22,,,,,,,,,,,,,Away
+2021-10-01,Zalgiris,ASVEL,76.0,88.0,2021-22,,,,,,,,,,,,,Away
+2021-10-01,Zenit,UNICS Kazan,70.0,69.0,2021-22,,,,,,,,,,,,,Home
+2021-10-01,Red Star Belgrade,Fenerbahce,57.0,61.0,2021-22,,,,,,,,,,,,,Away
+2021-10-01,Baskonia,Olympiacos,50.0,75.0,2021-22,,,,,,,,,,,,,Away
+2021-10-01,ALBA Berlin,Barcelona,64.0,96.0,2021-22,,,,,,,,,,,,,Away
+2021-10-07,Barcelona,Bayern Munich,80.0,72.0,2021-22,,,,,,,,,,,,,Home
+2021-10-07,Red Star Belgrade,Maccabi Tel Aviv,75.0,63.0,2021-22,,,,,,,,,,,,,Home
+2021-10-07,Fenerbahce,Panathinaikos,87.0,91.0,2021-22,,,,,,,,,,,,,Away
+2021-10-07,Zenit,Zalgiris,70.0,64.0,2021-22,,,,,,,,,,,,,Home
+2021-10-08,ASVEL,ALBA Berlin,71.0,67.0,2021-22,,,,,,,,,,,,,Home
+2021-10-08,CSKA Moscow,Efes,100.0,96.0,2021-22,,,,,,,,,,,,,Home
+2021-10-08,Real Madrid,Olympiacos,68.0,74.0,2021-22,,,,,,,,,,,,,Away
+2021-10-08,Monaco,UNICS Kazan,88.0,80.0,2021-22,,,,,,,,,,,,,Home
+2021-10-08,Olimpia Milano,Baskonia,78.0,64.0,2021-22,,,,,,,,,,,,,Home
+2021-10-12,Panathinaikos,Baskonia,79.0,81.0,2021-22,,,,,,,,,,,,,Away
+2021-10-12,Efes,ASVEL,73.0,75.0,2021-22,,,,,,,,,,,,,Away
+2021-10-12,Bayern Munich,UNICS Kazan,70.0,73.0,2021-22,,,,,,,,,,,,,Away
+2021-10-12,Zenit,CSKA Moscow,67.0,77.0,2021-22,,,,,,,,,,,,,Away
+2021-10-12,Fenerbahce,ALBA Berlin,70.0,84.0,2021-22,,,,,,,,,,,,,Away
+2021-10-12,Maccabi Tel Aviv,Olimpia Milano,72.0,83.0,2021-22,,,,,,,,,,,,,Away
+2021-10-13,Olympiacos,Barcelona,78.0,79.0,2021-22,,,,,,,,,,,,,Away
+2021-10-13,Monaco,Real Madrid,86.0,94.0,2021-22,,,,,,,,,,,,,Away
+2021-10-13,Zalgiris,Red Star Belgrade,61.0,73.0,2021-22,,,,,,,,,,,,,Away
+2021-10-14,Baskonia,ALBA Berlin,80.0,76.0,2021-22,,,,,,,,,,,,,Home
+2021-10-14,Bayern Munich,Zenit,71.0,79.0,2021-22,,,,,,,,,,,,,Away
+2021-10-14,UNICS Kazan,Fenerbahce,41.0,80.0,2021-22,,,,,,,,,,,,,Away
+2021-10-14,Maccabi Tel Aviv,ASVEL,93.0,85.0,2021-22,,,,,,,,,,,,,Home
+2021-10-15,Zalgiris,Olympiacos,68.0,83.0,2021-22,,,,,,,,,,,,,Away
+2021-10-15,Red Star Belgrade,CSKA Moscow,76.0,78.0,2021-22,,,,,,,,,,,,,Away
+2021-10-15,Efes,Olimpia Milano,71.0,75.0,2021-22,,,,,,,,,,,,,Away
+2021-10-15,Barcelona,Monaco,85.0,81.0,2021-22,,,,,,,,,,,,,Home
+2021-10-15,Panathinaikos,Real Madrid,65.0,88.0,2021-22,,,,,,,,,,,,,Away
+2021-10-21,Bayern Munich,Zalgiris,75.0,73.0,2021-22,,,,,,,,,,,,,Home
+2021-10-21,ASVEL,Olimpia Milano,72.0,73.0,2021-22,,,,,,,,,,,,,Away
+2021-10-21,Fenerbahce,Real Madrid,69.0,70.0,2021-22,,,,,,,,,,,,,Away
+2021-10-21,Panathinaikos,Maccabi Tel Aviv,73.0,77.0,2021-22,,,,,,,,,,,,,Away
+2021-10-21,UNICS Kazan,Efes,68.0,71.0,2021-22,,,,,,,,,,,,,Away
+2021-10-22,Zenit,Barcelona,58.0,84.0,2021-22,,,,,,,,,,,,,Away
+2021-10-22,Olympiacos,CSKA Moscow,82.0,88.0,2021-22,,,,,,,,,,,,,Away
+2021-10-22,ALBA Berlin,Red Star Belgrade,78.0,63.0,2021-22,,,,,,,,,,,,,Home
+2021-10-22,Monaco,Baskonia,66.0,78.0,2021-22,,,,,,,,,,,,,Away
+2021-10-26,Olimpia Milano,Bayern Munich,77.0,83.0,2021-22,,,,,,,,,,,,,Away
+2021-10-26,Zalgiris,Maccabi Tel Aviv,62.0,76.0,2021-22,,,,,,,,,,,,,Away
+2021-10-26,Red Star Belgrade,Monaco,62.0,70.0,2021-22,,,,,,,,,,,,,Away
+2021-10-26,ALBA Berlin,Olympiacos,83.0,87.0,2021-22,,,,,,,,,,,,,Away
+2021-10-26,Barcelona,Fenerbahce,76.0,74.0,2021-22,,,,,,,,,,,,,Home
+2021-10-27,Baskonia,UNICS Kazan,69.0,83.0,2021-22,,,,,,,,,,,,,Away
+2021-10-27,CSKA Moscow,ASVEL,68.0,70.0,2021-22,,,,,,,,,,,,,Away
+2021-10-27,Efes,Panathinaikos,69.0,95.0,2021-22,,,,,,,,,,,,,Away
+2021-10-27,Real Madrid,Zenit,75.0,68.0,2021-22,,,,,,,,,,,,,Home
+2021-10-28,Bayern Munich,ALBA Berlin,82.0,69.0,2021-22,,,,,,,,,,,,,Home
+2021-10-28,Barcelona,Maccabi Tel Aviv,68.0,85.0,2021-22,,,,,,,,,,,,,Away
+2021-10-28,Red Star Belgrade,Olimpia Milano,62.0,79.0,2021-22,,,,,,,,,,,,,Away
+2021-10-28,Fenerbahce,Olympiacos,65.0,67.0,2021-22,,,,,,,,,,,,,Away
+2021-10-29,Real Madrid,UNICS Kazan,58.0,65.0,2021-22,,,,,,,,,,,,,Away
+2021-10-29,Baskonia,Zenit,54.0,83.0,2021-22,,,,,,,,,,,,,Away
+2021-10-29,ASVEL,Panathinaikos,84.0,70.0,2021-22,,,,,,,,,,,,,Home
+2021-10-29,Zalgiris,Efes,60.0,94.0,2021-22,,,,,,,,,,,,,Away
+2021-10-29,CSKA Moscow,Monaco,80.0,97.0,2021-22,,,,,,,,,,,,,Away
+2021-11-04,Fenerbahce,CSKA Moscow,91.0,82.0,2021-22,,,,,,,,,,,,,Home
+2021-11-04,Barcelona,Olimpia Milano,70.0,75.0,2021-22,,,,,,,,,,,,,Away
+2021-11-04,Panathinaikos,Red Star Belgrade,48.0,81.0,2021-22,,,,,,,,,,,,,Away
+2021-11-04,UNICS Kazan,ASVEL,82.0,85.0,2021-22,,,,,,,,,,,,,Away
+2021-11-05,ALBA Berlin,Zalgiris,79.0,71.0,2021-22,,,,,,,,,,,,,Home
+2021-11-05,Maccabi Tel Aviv,Baskonia,87.0,69.0,2021-22,,,,,,,,,,,,,Home
+2021-11-05,Real Madrid,Bayern Munich,80.0,76.0,2021-22,,,,,,,,,,,,,Home
+2021-11-05,Zenit,Efes,90.0,79.0,2021-22,,,,,,,,,,,,,Home
+2021-11-05,Monaco,Olympiacos,65.0,86.0,2021-22,,,,,,,,,,,,,Away
+2021-11-11,Efes,ALBA Berlin,90.0,63.0,2021-22,,,,,,,,,,,,,Home
+2021-11-11,Baskonia,Barcelona,67.0,93.0,2021-22,,,,,,,,,,,,,Away
+2021-11-11,Maccabi Tel Aviv,CSKA Moscow,73.0,74.0,2021-22,,,,,,,,,,,,,Away
+2021-11-11,UNICS Kazan,Panathinaikos,74.0,72.0,2021-22,,,,,,,,,,,,,Home
+2021-11-11,ASVEL,Red Star Belgrade,67.0,73.0,2021-22,,,,,,,,,,,,,Away
+2021-11-12,Bayern Munich,Monaco,71.0,94.0,2021-22,,,,,,,,,,,,,Away
+2021-11-12,Zalgiris,Real Madrid,82.0,95.0,2021-22,,,,,,,,,,,,,Away
+2021-11-12,Olympiacos,Zenit,78.0,84.0,2021-22,,,,,,,,,,,,,Away
+2021-11-12,Olimpia Milano,Fenerbahce,68.0,43.0,2021-22,,,,,,,,,,,,,Home
+2021-11-16,Panathinaikos,Zalgiris,69.0,76.0,2021-22,,,,,,,,,,,,,Away
+2021-11-16,Red Star Belgrade,Baskonia,74.0,93.0,2021-22,,,,,,,,,,,,,Away
+2021-11-16,Fenerbahce,Bayern Munich,63.0,71.0,2021-22,,,,,,,,,,,,,Away
+2021-11-16,Real Madrid,ASVEL,87.0,74.0,2021-22,,,,,,,,,,,,,Home
+2021-11-17,Olympiacos,Efes,69.0,88.0,2021-22,,,,,,,,,,,,,Away
+2021-11-17,CSKA Moscow,Barcelona,73.0,81.0,2021-22,,,,,,,,,,,,,Away
+2021-11-17,Monaco,Maccabi Tel Aviv,84.0,95.0,2021-22,,,,,,,,,,,,,Away
+2021-11-17,ALBA Berlin,Zenit,66.0,75.0,2021-22,,,,,,,,,,,,,Away
+2021-11-17,Olimpia Milano,UNICS Kazan,71.0,97.0,2021-22,,,,,,,,,,,,,Away
+2021-11-18,Panathinaikos,Bayern Munich,78.0,81.0,2021-22,,,,,,,,,,,,,Away
+2021-11-18,Red Star Belgrade,Real Madrid,67.0,79.0,2021-22,,,,,,,,,,,,,Away
+2021-11-19,Barcelona,ASVEL,80.0,60.0,2021-22,,,,,,,,,,,,,Home
+2021-11-19,ALBA Berlin,UNICS Kazan,71.0,85.0,2021-22,,,,,,,,,,,,,Away
+2021-11-19,CSKA Moscow,Baskonia,80.0,74.0,2021-22,,,,,,,,,,,,,Home
+2021-11-19,Maccabi Tel Aviv,Olympiacos,73.0,90.0,2021-22,,,,,,,,,,,,,Away
+2021-11-19,Monaco,Efes,77.0,98.0,2021-22,,,,,,,,,,,,,Away
+2021-11-19,Olimpia Milano,Zenit,70.0,74.0,2021-22,,,,,,,,,,,,,Away
+2021-11-19,Fenerbahce,Zalgiris,75.0,86.0,2021-22,,,,,,,,,,,,,Away
+2021-11-25,Bayern Munich,CSKA Moscow,74.0,77.0,2021-22,,,,,,,,,,,,,Away
+2021-11-25,Real Madrid,Baskonia,88.0,60.0,2021-22,,,,,,,,,,,,,Home
+2021-11-25,Efes,Fenerbahce,89.0,84.0,2021-22,,,,,,,,,,,,,Home
+2021-11-25,Maccabi Tel Aviv,ALBA Berlin,86.0,91.0,2021-22,,,,,,,,,,,,,Away
+2021-11-25,Zenit,Panathinaikos,64.0,70.0,2021-22,,,,,,,,,,,,,Away
+2021-11-26,Zalgiris,Barcelona,73.0,96.0,2021-22,,,,,,,,,,,,,Away
+2021-11-26,Olympiacos,Olimpia Milano,93.0,72.0,2021-22,,,,,,,,,,,,,Home
+2021-11-26,ASVEL,Monaco,85.0,84.0,2021-22,,,,,,,,,,,,,Home
+2021-11-26,UNICS Kazan,Red Star Belgrade,98.0,78.0,2021-22,,,,,,,,,,,,,Home
+2021-12-02,ASVEL,Bayern Munich,65.0,73.0,2021-22,,,,,,,,,,,,,Away
+2021-12-02,Panathinaikos,CSKA Moscow,77.0,97.0,2021-22,,,,,,,,,,,,,Away
+2021-12-02,Maccabi Tel Aviv,Real Madrid,70.0,72.0,2021-22,,,,,,,,,,,,,Away
+2021-12-02,Monaco,Fenerbahce,86.0,96.0,2021-22,,,,,,,,,,,,,Away
+2021-12-02,Baskonia,Zalgiris,68.0,72.0,2021-22,,,,,,,,,,,,,Away
+2021-12-03,Red Star Belgrade,Zenit,69.0,58.0,2021-22,,,,,,,,,,,,,Home
+2021-12-03,Olimpia Milano,ALBA Berlin,76.0,81.0,2021-22,,,,,,,,,,,,,Away
+2021-12-03,Barcelona,Efes,95.0,93.0,2021-22,,,,,,,,,,,,,Home
+2021-12-03,Olympiacos,UNICS Kazan,87.0,84.0,2021-22,,,,,,,,,,,,,Home
+2021-12-09,ASVEL,Baskonia,66.0,91.0,2021-22,,,,,,,,,,,,,Away
+2021-12-09,Fenerbahce,Zenit,86.0,80.0,2021-22,,,,,,,,,,,,,Home
+2021-12-09,Efes,Bayern Munich,71.0,83.0,2021-22,,,,,,,,,,,,,Away
+2021-12-09,UNICS Kazan,Maccabi Tel Aviv,85.0,74.0,2021-22,,,,,,,,,,,,,Home
+2021-12-09,Olympiacos,Red Star Belgrade,76.0,81.0,2021-22,,,,,,,,,,,,,Away
+2021-12-10,Real Madrid,Barcelona,80.0,93.0,2021-22,,,,,,,,,,,,,Away
+2021-12-10,Olimpia Milano,Monaco,71.0,65.0,2021-22,,,,,,,,,,,,,Home
+2021-12-10,ALBA Berlin,Panathinaikos,67.0,82.0,2021-22,,,,,,,,,,,,,Away
+2021-12-10,CSKA Moscow,Zalgiris,73.0,51.0,2021-22,,,,,,,,,,,,,Home
+2021-12-14,Maccabi Tel Aviv,Fenerbahce,79.0,90.0,2021-22,,,,,,,,,,,,,Away
+2021-12-14,ALBA Berlin,Real Madrid,64.0,87.0,2021-22,,,,,,,,,,,,,Away
+2021-12-14,Barcelona,Red Star Belgrade,76.0,69.0,2021-22,,,,,,,,,,,,,Home
+2021-12-14,Baskonia,Efes,72.0,87.0,2021-22,,,,,,,,,,,,,Away
+2021-12-14,Panathinaikos,Olimpia Milano,54.0,75.0,2021-22,,,,,,,,,,,,,Away
+2021-12-15,Monaco,Zalgiris,107.0,98.0,2021-22,,,,,,,,,,,,,Home
+2021-12-15,Zenit,ASVEL,71.0,61.0,2021-22,,,,,,,,,,,,,Home
+2021-12-15,UNICS Kazan,CSKA Moscow,88.0,67.0,2021-22,,,,,,,,,,,,,Home
+2021-12-15,Bayern Munich,Olympiacos,60.0,83.0,2021-22,,,,,,,,,,,,,Away
+2021-12-16,Efes,Maccabi Tel Aviv,92.0,78.0,2021-22,,,,,,,,,,,,,Home
+2021-12-16,Real Madrid,Olimpia Milano,75.0,73.0,2021-22,,,,,,,,,,,,,Home
+2021-12-16,Barcelona,Panathinaikos,85.0,82.0,2021-22,,,,,,,,,,,,,Home
+2021-12-16,Baskonia,Fenerbahce,53.0,75.0,2021-22,,,,,,,,,,,,,Away
+2021-12-17,Zalgiris,UNICS Kazan,53.0,66.0,2021-22,,,,,,,,,,,,,Away
+2021-12-17,CSKA Moscow,ALBA Berlin,93.0,90.0,2021-22,,,,,,,,,,,,,Home
+2021-12-17,Zenit,Monaco,85.0,74.0,2021-22,,,,,,,,,,,,,Home
+2021-12-17,ASVEL,Olympiacos,54.0,89.0,2021-22,,,,,,,,,,,,,Away
+2021-12-17,Bayern Munich,Red Star Belgrade,78.0,81.0,2021-22,,,,,,,,,,,,,Away
+2021-12-22,UNICS Kazan,Barcelona,109.0,111.0,2021-22,,,,,,,,,,,,,Away
+2021-12-22,Red Star Belgrade,Efes,83.0,84.0,2021-22,,,,,,,,,,,,,Away
+2021-12-22,Monaco,ALBA Berlin,84.0,92.0,2021-22,,,,,,,,,,,,,Away
+2021-12-23,Baskonia,Bayern Munich,81.0,76.0,2021-22,,,,,,,,,,,,,Home
+2021-12-23,Olympiacos,Panathinaikos,84.0,65.0,2021-22,,,,,,,,,,,,,Home
+2021-12-23,CSKA Moscow,Real Madrid,65.0,71.0,2021-22,,,,,,,,,,,,,Away
+2021-12-23,Maccabi Tel Aviv,Zenit,71.0,73.0,2021-22,,,,,,,,,,,,,Away
+2021-12-23,Fenerbahce,ASVEL,82.0,84.0,2021-22,,,,,,,,,,,,,Away
+2021-12-29,Maccabi Tel Aviv,Monaco,76.0,82.0,2021-22,,,,,,,,,,,,,Away
+2021-12-30,Efes,UNICS Kazan,67.0,75.0,2021-22,,,,,,,,,,,,,Away
+2021-12-30,Barcelona,Baskonia,75.0,94.0,2021-22,,,,,,,,,,,,,Away
+2021-12-30,Zenit,Red Star Belgrade,80.0,76.0,2021-22,,,,,,,,,,,,,Home
+2022-01-11,Zalgiris,Bayern Munich,65.0,74.0,2021-22,,,,,,,,,,,,,Away
+2022-01-11,Olympiacos,Fenerbahce,80.0,94.0,2021-22,,,,,,,,,,,,,Away
+2022-01-11,Olimpia Milano,Barcelona,75.0,73.0,2021-22,,,,,,,,,,,,,Home
+2022-01-12,CSKA Moscow,Panathinaikos,98.0,74.0,2021-22,,,,,,,,,,,,,Home
+2022-01-13,Efes,Barcelona,77.0,82.0,2021-22,,,,,,,,,,,,,Away
+2022-01-13,Monaco,Bayern Munich,83.0,78.0,2021-22,,,,,,,,,,,,,Home
+2022-01-14,ASVEL,CSKA Moscow,83.0,90.0,2021-22,,,,,,,,,,,,,Away
+2022-01-14,Baskonia,Real Madrid,74.0,89.0,2021-22,,,,,,,,,,,,,Away
+2022-01-18,Monaco,ASVEL,100.0,75.0,2021-22,,,,,,,,,,,,,Home
+2022-01-18,ALBA Berlin,Olimpia Milano,76.0,84.0,2021-22,,,,,,,,,,,,,Away
+2022-01-20,Real Madrid,ALBA Berlin,89.0,74.0,2021-22,,,,,,,,,,,,,Home
+2022-01-20,Olympiacos,Maccabi Tel Aviv,69.0,84.0,2021-22,,,,,,,,,,,,,Away
+2022-01-20,Monaco,Zenit,86.0,77.0,2021-22,,,,,,,,,,,,,Home
+2022-01-20,Zalgiris,Fenerbahce,67.0,73.0,2021-22,,,,,,,,,,,,,Away
+2022-01-20,Barcelona,UNICS Kazan,64.0,70.0,2021-22,,,,,,,,,,,,,Away
+2022-01-21,Panathinaikos,Efes,81.0,82.0,2021-22,,,,,,,,,,,,,Away
+2022-01-21,Olimpia Milano,CSKA Moscow,67.0,57.0,2021-22,,,,,,,,,,,,,Home
+2022-01-21,Red Star Belgrade,ASVEL,67.0,69.0,2021-22,,,,,,,,,,,,,Away
+2022-01-21,Bayern Munich,Baskonia,84.0,77.0,2021-22,,,,,,,,,,,,,Home
+2022-01-25,ALBA Berlin,Maccabi Tel Aviv,78.0,87.0,2021-22,,,,,,,,,,,,,Away
+2022-01-25,UNICS Kazan,Real Madrid,68.0,85.0,2021-22,,,,,,,,,,,,,Away
+2022-01-25,Bayern Munich,ASVEL,77.0,68.0,2021-22,,,,,,,,,,,,,Home
+2022-01-27,Red Star Belgrade,Olympiacos,76.0,72.0,2021-22,,,,,,,,,,,,,Home
+2022-01-27,Efes,Zenit,67.0,76.0,2021-22,,,,,,,,,,,,,Away
+2022-01-27,ASVEL,Barcelona,71.0,84.0,2021-22,,,,,,,,,,,,,Away
+2022-01-28,ALBA Berlin,Bayern Munich,56.0,62.0,2021-22,,,,,,,,,,,,,Away
+2022-01-28,Zalgiris,Olimpia Milano,58.0,65.0,2021-22,,,,,,,,,,,,,Away
+2022-01-28,Real Madrid,Monaco,90.0,84.0,2021-22,,,,,,,,,,,,,Home
+2022-01-28,Baskonia,Panathinaikos,63.0,75.0,2021-22,,,,,,,,,,,,,Away
+2022-01-28,CSKA Moscow,UNICS Kazan,86.0,75.0,2021-22,,,,,,,,,,,,,Home
+2022-02-01,Olimpia Milano,Red Star Belgrade,63.0,57.0,2021-22,,,,,,,,,,,,,Home
+2022-02-01,Bayern Munich,Barcelona,66.0,71.0,2021-22,,,,,,,,,,,,,Away
+2022-02-01,Monaco,Panathinaikos,91.0,83.0,2021-22,,,,,,,,,,,,,Home
+2022-02-01,ASVEL,Fenerbahce,76.0,85.0,2021-22,,,,,,,,,,,,,Away
+2022-02-01,Zenit,Baskonia,90.0,82.0,2021-22,,,,,,,,,,,,,Home
+2022-02-01,Maccabi Tel Aviv,Zalgiris,94.0,78.0,2021-22,,,,,,,,,,,,,Home
+2022-02-02,UNICS Kazan,ALBA Berlin,53.0,81.0,2021-22,,,,,,,,,,,,,Away
+2022-02-02,Efes,CSKA Moscow,99.0,97.0,2021-22,,,,,,,,,,,,,Home
+2022-02-02,Olympiacos,Real Madrid,67.0,75.0,2021-22,,,,,,,,,,,,,Away
+2022-02-03,Monaco,Red Star Belgrade,91.0,80.0,2021-22,,,,,,,,,,,,,Home
+2022-02-03,Fenerbahce,Olimpia Milano,71.0,60.0,2021-22,,,,,,,,,,,,,Home
+2022-02-03,Panathinaikos,Barcelona,60.0,86.0,2021-22,,,,,,,,,,,,,Away
+2022-02-03,Maccabi Tel Aviv,Bayern Munich,52.0,70.0,2021-22,,,,,,,,,,,,,Away
+2022-02-04,ASVEL,Efes,72.0,78.0,2021-22,,,,,,,,,,,,,Away
+2022-02-04,ALBA Berlin,CSKA Moscow,72.0,91.0,2021-22,,,,,,,,,,,,,Away
+2022-02-04,Zenit,Real Madrid,64.0,85.0,2021-22,,,,,,,,,,,,,Away
+2022-02-04,Olympiacos,Baskonia,72.0,62.0,2021-22,,,,,,,,,,,,,Home
+2022-02-04,UNICS Kazan,Zalgiris,76.0,67.0,2021-22,,,,,,,,,,,,,Home
+2022-02-08,Real Madrid,Fenerbahce,51.0,66.0,2021-22,,,,,,,,,,,,,Away
+2022-02-08,Olimpia Milano,Zalgiris,74.0,70.0,2021-22,,,,,,,,,,,,,Home
+2022-02-10,Efes,Olympiacos,85.0,87.0,2021-22,,,,,,,,,,,,,Away
+2022-02-10,Zenit,ALBA Berlin,67.0,76.0,2021-22,,,,,,,,,,,,,Away
+2022-02-10,CSKA Moscow,Maccabi Tel Aviv,75.0,84.0,2021-22,,,,,,,,,,,,,Away
+2022-02-10,Baskonia,Olimpia Milano,78.0,89.0,2021-22,,,,,,,,,,,,,Away
+2022-02-10,Zalgiris,Monaco,83.0,82.0,2021-22,,,,,,,,,,,,,Home
+2022-02-11,Panathinaikos,ASVEL,76.0,63.0,2021-22,,,,,,,,,,,,,Home
+2022-02-11,Barcelona,Real Madrid,86.0,68.0,2021-22,,,,,,,,,,,,,Home
+2022-02-11,Red Star Belgrade,UNICS Kazan,84.0,77.0,2021-22,,,,,,,,,,,,,Home
+2022-02-22,UNICS Kazan,Monaco,76.0,79.0,2021-22,,,,,,,,,,,,,Away
+2022-02-24,Maccabi Tel Aviv,Efes,77.0,109.0,2021-22,,,,,,,,,,,,,Away
+2022-02-24,Olimpia Milano,Olympiacos,58.0,67.0,2021-22,,,,,,,,,,,,,Away
+2022-02-24,ALBA Berlin,ASVEL,82.0,80.0,2021-22,,,,,,,,,,,,,Home
+2022-02-24,Real Madrid,Zalgiris,47.0,68.0,2021-22,,,,,,,,,,,,,Away
+2022-02-25,Fenerbahce,Monaco,78.0,92.0,2021-22,,,,,,,,,,,,,Away
+2022-02-25,Red Star Belgrade,Panathinaikos,73.0,79.0,2021-22,,,,,,,,,,,,,Away
+2022-02-27,Fenerbahce,Red Star Belgrade,69.0,74.0,2021-22,,,,,,,,,,,,,Away
+2022-03-01,Baskonia,Maccabi Tel Aviv,93.0,94.0,2021-22,,,,,,,,,,,,,Away
+2022-03-01,Zalgiris,Panathinaikos,96.0,83.0,2021-22,,,,,,,,,,,,,Home
+2022-03-03,Baskonia,Red Star Belgrade,83.0,86.0,2021-22,,,,,,,,,,,,,Away
+2022-03-03,Monaco,Barcelona,83.0,88.0,2021-22,,,,,,,,,,,,,Away
+2022-03-03,Fenerbahce,Efes,79.0,84.0,2021-22,,,,,,,,,,,,,Away
+2022-03-03,Zalgiris,ALBA Berlin,74.0,82.0,2021-22,,,,,,,,,,,,,Away
+2022-03-04,Olympiacos,Bayern Munich,98.0,88.0,2021-22,,,,,,,,,,,,,Home
+2022-03-04,Olimpia Milano,Panathinaikos,76.0,75.0,2021-22,,,,,,,,,,,,,Home
+2022-03-08,Real Madrid,Red Star Belgrade,62.0,65.0,2021-22,,,,,,,,,,,,,Away
+2022-03-08,Efes,Baskonia,74.0,87.0,2021-22,,,,,,,,,,,,,Away
+2022-03-10,Olympiacos,ALBA Berlin,75.0,90.0,2021-22,,,,,,,,,,,,,Away
+2022-03-10,Olimpia Milano,Real Madrid,88.0,92.0,2021-22,,,,,,,,,,,,,Away
+2022-03-10,Maccabi Tel Aviv,Red Star Belgrade,77.0,84.0,2021-22,,,,,,,,,,,,,Away
+2022-03-10,Baskonia,ASVEL,72.0,69.0,2021-22,,,,,,,,,,,,,Home
+2022-03-11,Efes,Monaco,80.0,102.0,2021-22,,,,,,,,,,,,,Away
+2022-03-11,Barcelona,Zalgiris,84.0,91.0,2021-22,,,,,,,,,,,,,Away
+2022-03-15,Olympiacos,Zalgiris,84.0,73.0,2021-22,,,,,,,,,,,,,Home
+2022-03-17,Efes,Zalgiris,85.0,71.0,2021-22,,,,,,,,,,,,,Home
+2022-03-17,ASVEL,Real Madrid,58.0,70.0,2021-22,,,,,,,,,,,,,Away
+2022-03-17,Panathinaikos,Olympiacos,73.0,101.0,2021-22,,,,,,,,,,,,,Away
+2022-03-18,Red Star Belgrade,Barcelona,70.0,82.0,2021-22,,,,,,,,,,,,,Away
+2022-03-18,ALBA Berlin,Baskonia,68.0,85.0,2021-22,,,,,,,,,,,,,Away
+2022-03-22,Barcelona,ALBA Berlin,95.0,79.0,2021-22,,,,,,,,,,,,,Home
+2022-03-22,Real Madrid,Efes,90.0,93.0,2021-22,,,,,,,,,,,,,Away
+2022-03-22,Olimpia Milano,Maccabi Tel Aviv,58.0,75.0,2021-22,,,,,,,,,,,,,Away
+2022-03-22,Bayern Munich,Panathinaikos,67.0,80.0,2021-22,,,,,,,,,,,,,Away
+2022-03-23,Olympiacos,Monaco,72.0,92.0,2021-22,,,,,,,,,,,,,Away
+2022-03-23,Fenerbahce,Baskonia,62.0,77.0,2021-22,,,,,,,,,,,,,Away
+2022-03-23,ASVEL,Zalgiris,72.0,68.0,2021-22,,,,,,,,,,,,,Home
+2022-03-24,Olimpia Milano,Efes,83.0,77.0,2021-22,,,,,,,,,,,,,Home
+2022-03-24,Real Madrid,Maccabi Tel Aviv,74.0,75.0,2021-22,,,,,,,,,,,,,Away
+2022-03-25,Baskonia,Monaco,68.0,78.0,2021-22,,,,,,,,,,,,,Away
+2022-03-25,Olympiacos,ASVEL,94.0,80.0,2021-22,,,,,,,,,,,,,Home
+2022-03-25,Red Star Belgrade,ALBA Berlin,70.0,74.0,2021-22,,,,,,,,,,,,,Away
+2022-03-25,Fenerbahce,Barcelona,67.0,88.0,2021-22,,,,,,,,,,,,,Away
+2022-03-29,Bayern Munich,Olimpia Milano,77.0,84.0,2021-22,,,,,,,,,,,,,Away
+2022-03-29,Maccabi Tel Aviv,Panathinaikos,95.0,83.0,2021-22,,,,,,,,,,,,,Home
+2022-03-29,ALBA Berlin,Fenerbahce,66.0,57.0,2021-22,,,,,,,,,,,,,Home
+2022-03-31,ASVEL,Maccabi Tel Aviv,73.0,94.0,2021-22,,,,,,,,,,,,,Away
+2022-03-31,Monaco,Olimpia Milano,72.0,63.0,2021-22,,,,,,,,,,,,,Home
+2022-03-31,Real Madrid,Panathinaikos,86.0,87.0,2021-22,,,,,,,,,,,,,Away
+2022-04-01,ALBA Berlin,Efes,77.0,87.0,2021-22,,,,,,,,,,,,,Away
+2022-04-01,Red Star Belgrade,Bayern Munich,57.0,82.0,2021-22,,,,,,,,,,,,,Away
+2022-04-01,Barcelona,Olympiacos,66.0,73.0,2021-22,,,,,,,,,,,,,Away
+2022-04-01,Zalgiris,Baskonia,79.0,96.0,2021-22,,,,,,,,,,,,,Away
+2022-04-03,Red Star Belgrade,Zalgiris,98.0,103.0,2021-22,,,,,,,,,,,,,Away
+2022-04-04,Bayern Munich,Fenerbahce,76.0,81.0,2021-22,,,,,,,,,,,,,Away
+2022-04-06,Bayern Munich,Efes,76.0,81.0,2021-22,,,,,,,,,,,,,Away
+2022-04-06,Panathinaikos,ALBA Berlin,78.0,87.0,2021-22,,,,,,,,,,,,,Away
+2022-04-07,Maccabi Tel Aviv,Barcelona,104.0,80.0,2021-22,,,,,,,,,,,,,Home
+2022-04-07,Olimpia Milano,ASVEL,81.0,80.0,2021-22,,,,,,,,,,,,,Home
+2022-04-08,ALBA Berlin,Monaco,74.0,91.0,2021-22,,,,,,,,,,,,,Away
+2022-04-08,Bayern Munich,Real Madrid,97.0,88.0,2021-22,,,,,,,,,,,,,Home
+2022-04-08,Efes,Red Star Belgrade,85.0,93.0,2021-22,,,,,,,,,,,,,Away
+2022-04-08,Panathinaikos,Fenerbahce,62.0,59.0,2021-22,,,,,,,,,,,,,Home
+2022-04-13,Fenerbahce,Maccabi Tel Aviv,76.0,85.0,2021-22,,,,,,,,,,,,,Away
+2022-04-19,Bayern Munich,Barcelona,67.0,77.0,2021-22,,,,,,,,,,,,,Away
+2022-04-19,Efes,Olimpia Milano,64.0,48.0,2021-22,,,,,,,,,,,,,Home
+2022-04-20,Monaco,Olympiacos,54.0,71.0,2021-22,,,,,,,,,,,,,Away
+2022-04-20,Maccabi Tel Aviv,Real Madrid,74.0,84.0,2021-22,,,,,,,,,,,,,Away
+2022-04-21,Bayern Munich,Barcelona,90.0,75.0,2021-22,,,,,,,,,,,,,Home
+2022-04-21,Efes,Olimpia Milano,66.0,73.0,2021-22,,,,,,,,,,,,,Away
+2022-04-22,Maccabi Tel Aviv,Real Madrid,66.0,95.0,2021-22,,,,,,,,,,,,,Away
+2022-04-22,Monaco,Olympiacos,96.0,72.0,2021-22,,,,,,,,,,,,,Home
+2022-04-26,Real Madrid,Maccabi Tel Aviv,87.0,76.0,2021-22,,,,,,,,,,,,,Home
+2022-04-26,Olimpia Milano,Efes,65.0,77.0,2021-22,,,,,,,,,,,,,Away
+2022-04-27,Barcelona,Bayern Munich,75.0,66.0,2021-22,,,,,,,,,,,,,Home
+2022-04-27,Olympiacos,Monaco,87.0,83.0,2021-22,,,,,,,,,,,,,Home
+2022-04-28,Olimpia Milano,Efes,70.0,75.0,2021-22,,,,,,,,,,,,,Away
+2022-04-29,Barcelona,Bayern Munich,52.0,59.0,2021-22,,,,,,,,,,,,,Away
+2022-04-29,Olympiacos,Monaco,77.0,78.0,2021-22,,,,,,,,,,,,,Away
+2022-05-03,Bayern Munich,Barcelona,72.0,81.0,2021-22,,,,,,,,,,,,,Away
+2022-05-04,Monaco,Olympiacos,88.0,94.0,2021-22,,,,,,,,,,,,,Away
+2022-05-19,Real Madrid,Barcelona,86.0,83.0,2021-22,,,,,,,,,,,,,Home
+2022-05-19,Efes,Olympiacos,77.0,74.0,2021-22,,,,,,,,,,,,,Home
+2022-05-21,Olympiacos,Barcelona,74.0,84.0,2021-22,,,,,,,,,,,,,Away
+2022-05-21,Efes,Real Madrid,58.0,57.0,2021-22,,,,,,,,,,,,,Home
+2022-10-06,Baskonia,Valencia,81.0,71.0,2022-23,,,,,,,,,,,,,Home
+2022-10-06,Real Madrid,Panathinaikos,71.0,68.0,2022-23,,,,,,,,,,,,,Home
+2022-10-06,Olimpia Milano,ASVEL,69.0,62.0,2022-23,,,,,,,,,,,,,Home
+2022-10-06,Fenerbahce,Bayern Munich,74.0,62.0,2022-23,,,,,,,,,,,,,Home
+2022-10-06,Zalgiris,Maccabi Tel Aviv,83.0,84.0,2022-23,,,,,,,,,,,,,Away
+2022-10-07,Partizan,ALBA Berlin,84.0,100.0,2022-23,,,,,,,,,,,,,Away
+2022-10-07,Red Star Belgrade,Efes,59.0,72.0,2022-23,,,,,,,,,,,,,Away
+2022-10-07,Olympiacos,Barcelona,80.0,70.0,2022-23,,,,,,,,,,,,,Home
+2022-10-07,Monaco,Virtus Bologna,83.0,66.0,2022-23,,,,,,,,,,,,,Home
+2022-10-13,Bayern Munich,Virtus Bologna,63.0,66.0,2022-23,,,,,,,,,,,,,Away
+2022-10-13,Panathinaikos,Red Star Belgrade,77.0,75.0,2022-23,,,,,,,,,,,,,Home
+2022-10-13,Real Madrid,Barcelona,73.0,75.0,2022-23,,,,,,,,,,,,,Away
+2022-10-13,Efes,Monaco,92.0,95.0,2022-23,,,,,,,,,,,,,Away
+2022-10-14,ALBA Berlin,Olimpia Milano,80.0,74.0,2022-23,,,,,,,,,,,,,Home
+2022-10-14,Zalgiris,Olympiacos,80.0,90.0,2022-23,,,,,,,,,,,,,Away
+2022-10-14,Maccabi Tel Aviv,Fenerbahce,71.0,86.0,2022-23,,,,,,,,,,,,,Away
+2022-10-14,ASVEL,Valencia,77.0,76.0,2022-23,,,,,,,,,,,,,Home
+2022-10-14,Partizan,Baskonia,96.0,103.0,2022-23,,,,,,,,,,,,,Away
+2022-10-18,ASVEL,Fenerbahce,63.0,84.0,2022-23,,,,,,,,,,,,,Away
+2022-10-18,Virtus Bologna,Zalgiris,65.0,68.0,2022-23,,,,,,,,,,,,,Away
+2022-10-18,Olimpia Milano,Partizan,80.0,75.0,2022-23,,,,,,,,,,,,,Home
+2022-10-18,Barcelona,Bayern Munich,84.0,73.0,2022-23,,,,,,,,,,,,,Home
+2022-10-18,Valencia,Efes,92.0,91.0,2022-23,,,,,,,,,,,,,Home
+2022-10-18,Monaco,Maccabi Tel Aviv,70.0,78.0,2022-23,,,,,,,,,,,,,Away
+2022-10-19,Panathinaikos,ALBA Berlin,65.0,94.0,2022-23,,,,,,,,,,,,,Away
+2022-10-19,Olympiacos,Real Madrid,89.0,87.0,2022-23,,,,,,,,,,,,,Home
+2022-10-19,Red Star Belgrade,Baskonia,75.0,92.0,2022-23,,,,,,,,,,,,,Away
+2022-10-20,Olimpia Milano,Bayern Munich,83.0,81.0,2022-23,,,,,,,,,,,,,Home
+2022-10-20,ASVEL,Maccabi Tel Aviv,69.0,88.0,2022-23,,,,,,,,,,,,,Away
+2022-10-20,Virtus Bologna,Partizan,62.0,90.0,2022-23,,,,,,,,,,,,,Away
+2022-10-20,Valencia,Fenerbahce,77.0,79.0,2022-23,,,,,,,,,,,,,Away
+2022-10-20,Barcelona,Zalgiris,72.0,73.0,2022-23,,,,,,,,,,,,,Away
+2022-10-21,Olympiacos,Baskonia,97.0,92.0,2022-23,,,,,,,,,,,,,Home
+2022-10-21,ALBA Berlin,Efes,74.0,78.0,2022-23,,,,,,,,,,,,,Away
+2022-10-21,Monaco,Panathinaikos,83.0,80.0,2022-23,,,,,,,,,,,,,Home
+2022-10-21,Red Star Belgrade,Real Madrid,56.0,72.0,2022-23,,,,,,,,,,,,,Away
+2022-10-27,ALBA Berlin,Valencia,73.0,87.0,2022-23,,,,,,,,,,,,,Away
+2022-10-27,Virtus Bologna,Real Madrid,95.0,91.0,2022-23,,,,,,,,,,,,,Home
+2022-10-27,Panathinaikos,Maccabi Tel Aviv,74.0,85.0,2022-23,,,,,,,,,,,,,Away
+2022-10-27,Monaco,Olympiacos,81.0,76.0,2022-23,,,,,,,,,,,,,Home
+2022-10-27,Zalgiris,Partizan,76.0,87.0,2022-23,,,,,,,,,,,,,Away
+2022-10-28,Fenerbahce,Efes,88.0,79.0,2022-23,,,,,,,,,,,,,Home
+2022-10-28,Olimpia Milano,Barcelona,56.0,74.0,2022-23,,,,,,,,,,,,,Away
+2022-10-28,Bayern Munich,Red Star Belgrade,72.0,78.0,2022-23,,,,,,,,,,,,,Away
+2022-10-28,Baskonia,ASVEL,61.0,87.0,2022-23,,,,,,,,,,,,,Away
+2022-11-03,Partizan,Panathinaikos,91.0,89.0,2022-23,,,,,,,,,,,,,Home
+2022-11-03,Efes,Bayern Munich,78.0,81.0,2022-23,,,,,,,,,,,,,Away
+2022-11-03,Real Madrid,Olimpia Milano,83.0,77.0,2022-23,,,,,,,,,,,,,Home
+2022-11-03,Maccabi Tel Aviv,Baskonia,87.0,116.0,2022-23,,,,,,,,,,,,,Away
+2022-11-04,ALBA Berlin,Zalgiris,81.0,88.0,2022-23,,,,,,,,,,,,,Away
+2022-11-04,ASVEL,Virtus Bologna,84.0,79.0,2022-23,,,,,,,,,,,,,Home
+2022-11-04,Fenerbahce,Barcelona,80.0,81.0,2022-23,,,,,,,,,,,,,Away
+2022-11-04,Red Star Belgrade,Monaco,77.0,85.0,2022-23,,,,,,,,,,,,,Away
+2022-11-04,Valencia,Olympiacos,83.0,82.0,2022-23,,,,,,,,,,,,,Home
+2022-11-09,Virtus Bologna,Olimpia Milano,64.0,59.0,2022-23,,,,,,,,,,,,,Home
+2022-11-10,Bayern Munich,ALBA Berlin,79.0,77.0,2022-23,,,,,,,,,,,,,Home
+2022-11-10,Barcelona,Maccabi Tel Aviv,86.0,79.0,2022-23,,,,,,,,,,,,,Home
+2022-11-10,Partizan,Olympiacos,58.0,87.0,2022-23,,,,,,,,,,,,,Away
+2022-11-10,Efes,Real Madrid,85.0,94.0,2022-23,,,,,,,,,,,,,Away
+2022-11-10,Red Star Belgrade,Fenerbahce,79.0,93.0,2022-23,,,,,,,,,,,,,Away
+2022-11-10,Zalgiris,ASVEL,93.0,76.0,2022-23,,,,,,,,,,,,,Home
+2022-11-11,Baskonia,Panathinaikos,83.0,98.0,2022-23,,,,,,,,,,,,,Away
+2022-11-11,Monaco,Valencia,84.0,89.0,2022-23,,,,,,,,,,,,,Away
+2022-11-17,Valencia,Virtus Bologna,59.0,89.0,2022-23,,,,,,,,,,,,,Away
+2022-11-17,ASVEL,Red Star Belgrade,67.0,71.0,2022-23,,,,,,,,,,,,,Away
+2022-11-17,ALBA Berlin,Real Madrid,72.0,90.0,2022-23,,,,,,,,,,,,,Away
+2022-11-17,Olympiacos,Bayern Munich,82.0,71.0,2022-23,,,,,,,,,,,,,Home
+2022-11-17,Barcelona,Efes,86.0,96.0,2022-23,,,,,,,,,,,,,Away
+2022-11-18,Baskonia,Monaco,74.0,79.0,2022-23,,,,,,,,,,,,,Away
+2022-11-18,Maccabi Tel Aviv,Partizan,88.0,96.0,2022-23,,,,,,,,,,,,,Away
+2022-11-18,Panathinaikos,Fenerbahce,77.0,107.0,2022-23,,,,,,,,,,,,,Away
+2022-11-18,Olimpia Milano,Zalgiris,62.0,71.0,2022-23,,,,,,,,,,,,,Away
+2022-11-22,Red Star Belgrade,ALBA Berlin,88.0,84.0,2022-23,,,,,,,,,,,,,Home
+2022-11-22,Partizan,Barcelona,68.0,79.0,2022-23,,,,,,,,,,,,,Away
+2022-11-22,Olympiacos,Maccabi Tel Aviv,84.0,90.0,2022-23,,,,,,,,,,,,,Away
+2022-11-22,Efes,Olimpia Milano,80.0,51.0,2022-23,,,,,,,,,,,,,Home
+2022-11-22,Fenerbahce,Monaco,96.0,93.0,2022-23,,,,,,,,,,,,,Home
+2022-11-22,Real Madrid,Valencia,80.0,73.0,2022-23,,,,,,,,,,,,,Home
+2022-11-23,Bayern Munich,ASVEL,75.0,74.0,2022-23,,,,,,,,,,,,,Home
+2022-11-23,Zalgiris,Baskonia,73.0,93.0,2022-23,,,,,,,,,,,,,Away
+2022-11-23,Virtus Bologna,Panathinaikos,85.0,88.0,2022-23,,,,,,,,,,,,,Away
+2022-11-24,Fenerbahce,Olimpia Milano,82.0,72.0,2022-23,,,,,,,,,,,,,Home
+2022-11-24,ALBA Berlin,Olympiacos,76.0,86.0,2022-23,,,,,,,,,,,,,Away
+2022-11-24,Partizan,Real Madrid,97.0,105.0,2022-23,,,,,,,,,,,,,Away
+2022-11-24,Maccabi Tel Aviv,Red Star Belgrade,68.0,69.0,2022-23,,,,,,,,,,,,,Away
+2022-11-25,Baskonia,Barcelona,84.0,96.0,2022-23,,,,,,,,,,,,,Away
+2022-11-25,Bayern Munich,Monaco,79.0,80.0,2022-23,,,,,,,,,,,,,Away
+2022-11-25,ASVEL,Panathinaikos,58.0,77.0,2022-23,,,,,,,,,,,,,Away
+2022-11-25,Zalgiris,Valencia,80.0,76.0,2022-23,,,,,,,,,,,,,Home
+2022-11-25,Efes,Virtus Bologna,85.0,80.0,2022-23,,,,,,,,,,,,,Home
+2022-12-01,Olimpia Milano,Baskonia,62.0,78.0,2022-23,,,,,,,,,,,,,Away
+2022-12-01,Valencia,Partizan,100.0,96.0,2022-23,,,,,,,,,,,,,Home
+2022-12-01,Monaco,ASVEL,84.0,75.0,2022-23,,,,,,,,,,,,,Home
+2022-12-01,Barcelona,ALBA Berlin,88.0,86.0,2022-23,,,,,,,,,,,,,Home
+2022-12-01,Olympiacos,Efes,71.0,82.0,2022-23,,,,,,,,,,,,,Away
+2022-12-02,Maccabi Tel Aviv,Bayern Munich,89.0,98.0,2022-23,,,,,,,,,,,,,Away
+2022-12-02,Virtus Bologna,Red Star Belgrade,74.0,83.0,2022-23,,,,,,,,,,,,,Away
+2022-12-02,Real Madrid,Fenerbahce,85.0,71.0,2022-23,,,,,,,,,,,,,Home
+2022-12-02,Panathinaikos,Zalgiris,81.0,67.0,2022-23,,,,,,,,,,,,,Home
+2022-12-08,Fenerbahce,ALBA Berlin,104.0,75.0,2022-23,,,,,,,,,,,,,Home
+2022-12-08,Valencia,Maccabi Tel Aviv,68.0,84.0,2022-23,,,,,,,,,,,,,Away
+2022-12-08,Olimpia Milano,Panathinaikos,77.0,90.0,2022-23,,,,,,,,,,,,,Away
+2022-12-08,Red Star Belgrade,Partizan,76.0,73.0,2022-23,,,,,,,,,,,,,Home
+2022-12-08,Monaco,Real Madrid,95.0,94.0,2022-23,,,,,,,,,,,,,Home
+2022-12-09,Bayern Munich,Baskonia,53.0,78.0,2022-23,,,,,,,,,,,,,Away
+2022-12-09,ASVEL,Barcelona,75.0,74.0,2022-23,,,,,,,,,,,,,Home
+2022-12-09,Virtus Bologna,Olympiacos,71.0,117.0,2022-23,,,,,,,,,,,,,Away
+2022-12-09,Efes,Zalgiris,86.0,60.0,2022-23,,,,,,,,,,,,,Home
+2022-12-13,Partizan,ASVEL,87.0,91.0,2022-23,,,,,,,,,,,,,Away
+2022-12-13,Panathinaikos,Valencia,91.0,94.0,2022-23,,,,,,,,,,,,,Away
+2022-12-13,Zalgiris,Red Star Belgrade,73.0,77.0,2022-23,,,,,,,,,,,,,Away
+2022-12-13,Fenerbahce,Olympiacos,67.0,94.0,2022-23,,,,,,,,,,,,,Away
+2022-12-13,Maccabi Tel Aviv,Olimpia Milano,77.0,71.0,2022-23,,,,,,,,,,,,,Home
+2022-12-13,Real Madrid,Bayern Munich,68.0,64.0,2022-23,,,,,,,,,,,,,Home
+2022-12-14,Baskonia,Efes,83.0,78.0,2022-23,,,,,,,,,,,,,Home
+2022-12-14,Barcelona,Monaco,69.0,63.0,2022-23,,,,,,,,,,,,,Home
+2022-12-14,ALBA Berlin,Virtus Bologna,76.0,85.0,2022-23,,,,,,,,,,,,,Away
+2022-12-15,Real Madrid,Zalgiris,72.0,81.0,2022-23,,,,,,,,,,,,,Away
+2022-12-15,Olympiacos,ASVEL,75.0,77.0,2022-23,,,,,,,,,,,,,Away
+2022-12-15,Valencia,Bayern Munich,92.0,97.0,2022-23,,,,,,,,,,,,,Away
+2022-12-15,Olimpia Milano,Red Star Belgrade,71.0,67.0,2022-23,,,,,,,,,,,,,Home
+2022-12-16,Panathinaikos,Barcelona,68.0,74.0,2022-23,,,,,,,,,,,,,Away
+2022-12-16,ALBA Berlin,Monaco,89.0,92.0,2022-23,,,,,,,,,,,,,Away
+2022-12-16,Efes,Partizan,79.0,82.0,2022-23,,,,,,,,,,,,,Away
+2022-12-16,Baskonia,Fenerbahce,76.0,70.0,2022-23,,,,,,,,,,,,,Home
+2022-12-16,Maccabi Tel Aviv,Virtus Bologna,73.0,78.0,2022-23,,,,,,,,,,,,,Away
+2022-12-22,Virtus Bologna,Baskonia,79.0,90.0,2022-23,,,,,,,,,,,,,Away
+2022-12-22,Partizan,Fenerbahce,73.0,72.0,2022-23,,,,,,,,,,,,,Home
+2022-12-22,Maccabi Tel Aviv,ALBA Berlin,83.0,70.0,2022-23,,,,,,,,,,,,,Home
+2022-12-22,Red Star Belgrade,Olympiacos,90.0,86.0,2022-23,,,,,,,,,,,,,Home
+2022-12-22,ASVEL,Real Madrid,73.0,92.0,2022-23,,,,,,,,,,,,,Away
+2022-12-23,Panathinaikos,Efes,69.0,88.0,2022-23,,,,,,,,,,,,,Away
+2022-12-23,Monaco,Olimpia Milano,71.0,79.0,2022-23,,,,,,,,,,,,,Away
+2022-12-23,Barcelona,Valencia,83.0,84.0,2022-23,,,,,,,,,,,,,Away
+2022-12-23,Bayern Munich,Zalgiris,67.0,75.0,2022-23,,,,,,,,,,,,,Away
+2022-12-29,Efes,Maccabi Tel Aviv,72.0,80.0,2022-23,,,,,,,,,,,,,Away
+2022-12-29,Valencia,Olimpia Milano,79.0,90.0,2022-23,,,,,,,,,,,,,Away
+2022-12-29,Zalgiris,Monaco,82.0,84.0,2022-23,,,,,,,,,,,,,Away
+2022-12-29,Bayern Munich,Partizan,77.0,83.0,2022-23,,,,,,,,,,,,,Away
+2022-12-29,Real Madrid,Baskonia,86.0,92.0,2022-23,,,,,,,,,,,,,Away
+2022-12-30,Fenerbahce,Virtus Bologna,88.0,92.0,2022-23,,,,,,,,,,,,,Away
+2022-12-30,ALBA Berlin,ASVEL,91.0,79.0,2022-23,,,,,,,,,,,,,Home
+2022-12-30,Barcelona,Red Star Belgrade,99.0,94.0,2022-23,,,,,,,,,,,,,Home
+2022-12-30,Olympiacos,Panathinaikos,95.0,71.0,2022-23,,,,,,,,,,,,,Home
+2023-01-05,Baskonia,ALBA Berlin,84.0,85.0,2022-23,,,,,,,,,,,,,Away
+2023-01-05,Virtus Bologna,Barcelona,83.0,75.0,2022-23,,,,,,,,,,,,,Home
+2023-01-05,Panathinaikos,Bayern Munich,68.0,84.0,2022-23,,,,,,,,,,,,,Away
+2023-01-05,Monaco,Partizan,80.0,100.0,2022-23,,,,,,,,,,,,,Away
+2023-01-05,Fenerbahce,Zalgiris,66.0,86.0,2022-23,,,,,,,,,,,,,Away
+2023-01-06,ASVEL,Efes,72.0,78.0,2022-23,,,,,,,,,,,,,Away
+2023-01-06,Olimpia Milano,Olympiacos,66.0,82.0,2022-23,,,,,,,,,,,,,Away
+2023-01-06,Maccabi Tel Aviv,Real Madrid,65.0,98.0,2022-23,,,,,,,,,,,,,Away
+2023-01-06,Red Star Belgrade,Valencia,77.0,75.0,2022-23,,,,,,,,,,,,,Home
+2023-01-10,Zalgiris,Virtus Bologna,87.0,77.0,2022-23,,,,,,,,,,,,,Home
+2023-01-10,Fenerbahce,Panathinaikos,94.0,88.0,2022-23,,,,,,,,,,,,,Home
+2023-01-10,Real Madrid,Red Star Belgrade,79.0,59.0,2022-23,,,,,,,,,,,,,Home
+2023-01-10,Baskonia,Bayern Munich,79.0,92.0,2022-23,,,,,,,,,,,,,Away
+2023-01-10,Olimpia Milano,ALBA Berlin,63.0,83.0,2022-23,,,,,,,,,,,,,Away
+2023-01-10,Olympiacos,Monaco,60.0,64.0,2022-23,,,,,,,,,,,,,Away
+2023-01-11,Partizan,Maccabi Tel Aviv,81.0,90.0,2022-23,,,,,,,,,,,,,Away
+2023-01-11,Efes,Valencia,71.0,81.0,2022-23,,,,,,,,,,,,,Away
+2023-01-11,Barcelona,ASVEL,82.0,75.0,2022-23,,,,,,,,,,,,,Home
+2023-01-12,Olympiacos,Virtus Bologna,85.0,83.0,2022-23,,,,,,,,,,,,,Home
+2023-01-12,Bayern Munich,Fenerbahce,71.0,79.0,2022-23,,,,,,,,,,,,,Away
+2023-01-12,Real Madrid,ALBA Berlin,84.0,77.0,2022-23,,,,,,,,,,,,,Home
+2023-01-12,Monaco,Red Star Belgrade,68.0,92.0,2022-23,,,,,,,,,,,,,Away
+2023-01-13,Efes,Barcelona,80.0,75.0,2022-23,,,,,,,,,,,,,Home
+2023-01-13,Zalgiris,Olimpia Milano,66.0,61.0,2022-23,,,,,,,,,,,,,Home
+2023-01-13,Maccabi Tel Aviv,Panathinaikos,86.0,88.0,2022-23,,,,,,,,,,,,,Away
+2023-01-13,Baskonia,Partizan,65.0,83.0,2022-23,,,,,,,,,,,,,Away
+2023-01-13,Valencia,ASVEL,83.0,79.0,2022-23,,,,,,,,,,,,,Home
+2023-01-19,Barcelona,Baskonia,85.0,78.0,2022-23,,,,,,,,,,,,,Home
+2023-01-19,Panathinaikos,Virtus Bologna,64.0,74.0,2022-23,,,,,,,,,,,,,Away
+2023-01-19,Monaco,Fenerbahce,94.0,98.0,2022-23,,,,,,,,,,,,,Away
+2023-01-19,Partizan,Valencia,81.0,89.0,2022-23,,,,,,,,,,,,,Away
+2023-01-19,ALBA Berlin,Maccabi Tel Aviv,74.0,87.0,2022-23,,,,,,,,,,,,,Away
+2023-01-20,Bayern Munich,Efes,89.0,81.0,2022-23,,,,,,,,,,,,,Home
+2023-01-20,ASVEL,Olimpia Milano,79.0,73.0,2022-23,,,,,,,,,,,,,Home
+2023-01-20,Real Madrid,Olympiacos,60.0,73.0,2022-23,,,,,,,,,,,,,Away
+2023-01-20,Red Star Belgrade,Zalgiris,66.0,71.0,2022-23,,,,,,,,,,,,,Away
+2023-01-26,Valencia,ALBA Berlin,94.0,88.0,2022-23,,,,,,,,,,,,,Home
+2023-01-26,Olimpia Milano,Monaco,88.0,101.0,2022-23,,,,,,,,,,,,,Away
+2023-01-26,Zalgiris,Panathinaikos,65.0,89.0,2022-23,,,,,,,,,,,,,Away
+2023-01-26,Barcelona,Real Madrid,86.0,91.0,2022-23,,,,,,,,,,,,,Away
+2023-01-26,Fenerbahce,ASVEL,77.0,91.0,2022-23,,,,,,,,,,,,,Away
+2023-01-27,Partizan,Red Star Belgrade,79.0,78.0,2022-23,,,,,,,,,,,,,Home
+2023-01-27,Efes,Baskonia,111.0,114.0,2022-23,,,,,,,,,,,,,Away
+2023-01-27,Virtus Bologna,Bayern Munich,84.0,91.0,2022-23,,,,,,,,,,,,,Away
+2023-01-27,Maccabi Tel Aviv,Olympiacos,89.0,95.0,2022-23,,,,,,,,,,,,,Away
+2023-01-31,Maccabi Tel Aviv,Barcelona,78.0,83.0,2022-23,,,,,,,,,,,,,Away
+2023-01-31,Baskonia,Olimpia Milano,83.0,89.0,2022-23,,,,,,,,,,,,,Away
+2023-01-31,ASVEL,Partizan,71.0,92.0,2022-23,,,,,,,,,,,,,Away
+2023-01-31,Olympiacos,Fenerbahce,93.0,73.0,2022-23,,,,,,,,,,,,,Home
+2023-01-31,Bayern Munich,Valencia,73.0,82.0,2022-23,,,,,,,,,,,,,Away
+2023-01-31,Red Star Belgrade,Virtus Bologna,72.0,84.0,2022-23,,,,,,,,,,,,,Away
+2023-02-01,Panathinaikos,Real Madrid,68.0,83.0,2022-23,,,,,,,,,,,,,Away
+2023-02-01,Monaco,ALBA Berlin,102.0,84.0,2022-23,,,,,,,,,,,,,Home
+2023-02-01,Zalgiris,Efes,70.0,80.0,2022-23,,,,,,,,,,,,,Away
+2023-02-02,Bayern Munich,Barcelona,70.0,72.0,2022-23,,,,,,,,,,,,,Away
+2023-02-02,Red Star Belgrade,Olimpia Milano,68.0,74.0,2022-23,,,,,,,,,,,,,Away
+2023-02-02,Maccabi Tel Aviv,Valencia,94.0,93.0,2022-23,,,,,,,,,,,,,Home
+2023-02-03,Panathinaikos,Baskonia,90.0,95.0,2022-23,,,,,,,,,,,,,Away
+2023-02-03,Partizan,Zalgiris,88.0,74.0,2022-23,,,,,,,,,,,,,Home
+2023-02-03,Virtus Bologna,ASVEL,77.0,64.0,2022-23,,,,,,,,,,,,,Home
+2023-02-03,Efes,Olympiacos,70.0,76.0,2022-23,,,,,,,,,,,,,Away
+2023-02-03,Real Madrid,Monaco,95.0,91.0,2022-23,,,,,,,,,,,,,Home
+2023-02-03,ALBA Berlin,Fenerbahce,86.0,101.0,2022-23,,,,,,,,,,,,,Away
+2023-02-08,Olympiacos,ALBA Berlin,93.0,60.0,2022-23,,,,,,,,,,,,,Home
+2023-02-09,Partizan,Bayern Munich,82.0,71.0,2022-23,,,,,,,,,,,,,Home
+2023-02-09,Red Star Belgrade,Maccabi Tel Aviv,89.0,86.0,2022-23,,,,,,,,,,,,,Home
+2023-02-09,Barcelona,Virtus Bologna,92.0,75.0,2022-23,,,,,,,,,,,,,Home
+2023-02-10,ASVEL,Monaco,75.0,87.0,2022-23,,,,,,,,,,,,,Away
+2023-02-10,Valencia,Panathinaikos,92.0,91.0,2022-23,,,,,,,,,,,,,Home
+2023-02-10,Baskonia,Zalgiris,75.0,79.0,2022-23,,,,,,,,,,,,,Away
+2023-02-23,Fenerbahce,Partizan,97.0,94.0,2022-23,,,,,,,,,,,,,Home
+2023-02-23,Bayern Munich,Maccabi Tel Aviv,82.0,90.0,2022-23,,,,,,,,,,,,,Away
+2023-02-23,Panathinaikos,Olimpia Milano,76.0,78.0,2022-23,,,,,,,,,,,,,Away
+2023-02-23,Zalgiris,Real Madrid,69.0,96.0,2022-23,,,,,,,,,,,,,Away
+2023-02-24,Baskonia,Virtus Bologna,83.0,88.0,2022-23,,,,,,,,,,,,,Away
+2023-02-24,Efes,ASVEL,90.0,89.0,2022-23,,,,,,,,,,,,,Home
+2023-02-24,Monaco,Barcelona,70.0,80.0,2022-23,,,,,,,,,,,,,Away
+2023-02-24,ALBA Berlin,Red Star Belgrade,87.0,72.0,2022-23,,,,,,,,,,,,,Home
+2023-02-24,Olympiacos,Valencia,92.0,85.0,2022-23,,,,,,,,,,,,,Home
+2023-03-02,ALBA Berlin,Partizan,74.0,88.0,2022-23,,,,,,,,,,,,,Away
+2023-03-02,Zalgiris,Barcelona,74.0,93.0,2022-23,,,,,,,,,,,,,Away
+2023-03-02,Red Star Belgrade,Bayern Munich,80.0,87.0,2022-23,,,,,,,,,,,,,Away
+2023-03-02,Maccabi Tel Aviv,Monaco,67.0,86.0,2022-23,,,,,,,,,,,,,Away
+2023-03-02,Efes,Panathinaikos,87.0,82.0,2022-23,,,,,,,,,,,,,Home
+2023-03-03,Virtus Bologna,Fenerbahce,72.0,104.0,2022-23,,,,,,,,,,,,,Away
+2023-03-03,Real Madrid,ASVEL,75.0,71.0,2022-23,,,,,,,,,,,,,Home
+2023-03-03,Olympiacos,Olimpia Milano,62.0,83.0,2022-23,,,,,,,,,,,,,Away
+2023-03-03,Valencia,Baskonia,75.0,114.0,2022-23,,,,,,,,,,,,,Away
+2023-03-07,Olimpia Milano,Valencia,88.0,84.0,2022-23,,,,,,,,,,,,,Home
+2023-03-07,Partizan,Virtus Bologna,88.0,79.0,2022-23,,,,,,,,,,,,,Home
+2023-03-07,Barcelona,Olympiacos,70.0,77.0,2022-23,,,,,,,,,,,,,Away
+2023-03-07,Zalgiris,ALBA Berlin,66.0,63.0,2022-23,,,,,,,,,,,,,Home
+2023-03-07,ASVEL,Bayern Munich,72.0,76.0,2022-23,,,,,,,,,,,,,Away
+2023-03-07,Baskonia,Real Madrid,85.0,81.0,2022-23,,,,,,,,,,,,,Home
+2023-03-08,Fenerbahce,Maccabi Tel Aviv,74.0,78.0,2022-23,,,,,,,,,,,,,Away
+2023-03-08,Panathinaikos,Monaco,70.0,84.0,2022-23,,,,,,,,,,,,,Away
+2023-03-08,Efes,Red Star Belgrade,75.0,94.0,2022-23,,,,,,,,,,,,,Away
+2023-03-09,Partizan,Olimpia Milano,62.0,76.0,2022-23,,,,,,,,,,,,,Away
+2023-03-09,Bayern Munich,Olympiacos,74.0,102.0,2022-23,,,,,,,,,,,,,Away
+2023-03-09,Valencia,Real Madrid,91.0,95.0,2022-23,,,,,,,,,,,,,Away
+2023-03-09,ASVEL,Zalgiris,67.0,85.0,2022-23,,,,,,,,,,,,,Away
+2023-03-09,Virtus Bologna,ALBA Berlin,96.0,74.0,2022-23,,,,,,,,,,,,,Home
+2023-03-10,Maccabi Tel Aviv,Efes,86.0,64.0,2022-23,,,,,,,,,,,,,Home
+2023-03-10,Red Star Belgrade,Panathinaikos,66.0,75.0,2022-23,,,,,,,,,,,,,Away
+2023-03-10,Barcelona,Fenerbahce,73.0,81.0,2022-23,,,,,,,,,,,,,Away
+2023-03-10,Monaco,Baskonia,102.0,93.0,2022-23,,,,,,,,,,,,,Home
+2023-03-14,Real Madrid,Efes,89.0,90.0,2022-23,,,,,,,,,,,,,Away
+2023-03-16,Panathinaikos,ASVEL,86.0,82.0,2022-23,,,,,,,,,,,,,Home
+2023-03-16,Fenerbahce,Valencia,80.0,82.0,2022-23,,,,,,,,,,,,,Away
+2023-03-16,Olympiacos,Zalgiris,74.0,72.0,2022-23,,,,,,,,,,,,,Home
+2023-03-16,Baskonia,Maccabi Tel Aviv,79.0,93.0,2022-23,,,,,,,,,,,,,Away
+2023-03-16,Virtus Bologna,Monaco,68.0,81.0,2022-23,,,,,,,,,,,,,Away
+2023-03-16,Partizan,Efes,97.0,84.0,2022-23,,,,,,,,,,,,,Home
+2023-03-16,Olimpia Milano,Real Madrid,87.0,91.0,2022-23,,,,,,,,,,,,,Away
+2023-03-17,Red Star Belgrade,Barcelona,79.0,85.0,2022-23,,,,,,,,,,,,,Away
+2023-03-17,ALBA Berlin,Bayern Munich,76.0,75.0,2022-23,,,,,,,,,,,,,Home
+2023-03-21,Olimpia Milano,Fenerbahce,82.0,75.0,2022-23,,,,,,,,,,,,,Home
+2023-03-23,Efes,ALBA Berlin,93.0,95.0,2022-23,,,,,,,,,,,,,Away
+2023-03-23,Barcelona,Panathinaikos,88.0,74.0,2022-23,,,,,,,,,,,,,Home
+2023-03-23,Baskonia,Red Star Belgrade,63.0,74.0,2022-23,,,,,,,,,,,,,Away
+2023-03-23,Maccabi Tel Aviv,ASVEL,85.0,67.0,2022-23,,,,,,,,,,,,,Home
+2023-03-24,Real Madrid,Virtus Bologna,96.0,79.0,2022-23,,,,,,,,,,,,,Home
+2023-03-24,Zalgiris,Fenerbahce,79.0,87.0,2022-23,,,,,,,,,,,,,Away
+2023-03-24,Valencia,Monaco,79.0,90.0,2022-23,,,,,,,,,,,,,Away
+2023-03-24,Bayern Munich,Olimpia Milano,74.0,99.0,2022-23,,,,,,,,,,,,,Away
+2023-03-24,Olympiacos,Partizan,75.0,90.0,2022-23,,,,,,,,,,,,,Away
+2023-03-28,Olimpia Milano,Efes,69.0,89.0,2022-23,,,,,,,,,,,,,Away
+2023-03-28,Virtus Bologna,Maccabi Tel Aviv,80.0,111.0,2022-23,,,,,,,,,,,,,Away
+2023-03-28,Bayern Munich,Panathinaikos,76.0,86.0,2022-23,,,,,,,,,,,,,Away
+2023-03-28,Barcelona,Partizan,89.0,80.0,2022-23,,,,,,,,,,,,,Home
+2023-03-28,ALBA Berlin,Baskonia,87.0,93.0,2022-23,,,,,,,,,,,,,Away
+2023-03-29,ASVEL,Olympiacos,55.0,81.0,2022-23,,,,,,,,,,,,,Away
+2023-03-29,Fenerbahce,Real Madrid,75.0,90.0,2022-23,,,,,,,,,,,,,Away
+2023-03-29,Valencia,Red Star Belgrade,73.0,92.0,2022-23,,,,,,,,,,,,,Away
+2023-03-29,Monaco,Zalgiris,70.0,79.0,2022-23,,,,,,,,,,,,,Away
+2023-03-30,ALBA Berlin,Barcelona,56.0,72.0,2022-23,,,,,,,,,,,,,Away
+2023-03-30,Olimpia Milano,Maccabi Tel Aviv,66.0,85.0,2022-23,,,,,,,,,,,,,Away
+2023-03-30,Virtus Bologna,Efes,67.0,86.0,2022-23,,,,,,,,,,,,,Away
+2023-03-31,Monaco,Bayern Munich,84.0,81.0,2022-23,,,,,,,,,,,,,Home
+2023-03-31,Panathinaikos,Olympiacos,73.0,81.0,2022-23,,,,,,,,,,,,,Away
+2023-03-31,Real Madrid,Partizan,90.0,104.0,2022-23,,,,,,,,,,,,,Away
+2023-03-31,Red Star Belgrade,ASVEL,76.0,60.0,2022-23,,,,,,,,,,,,,Home
+2023-03-31,Fenerbahce,Baskonia,69.0,92.0,2022-23,,,,,,,,,,,,,Away
+2023-03-31,Valencia,Zalgiris,74.0,95.0,2022-23,,,,,,,,,,,,,Away
+2023-04-06,Maccabi Tel Aviv,Zalgiris,67.0,68.0,2022-23,,,,,,,,,,,,,Away
+2023-04-06,Bayern Munich,Real Madrid,67.0,79.0,2022-23,,,,,,,,,,,,,Away
+2023-04-06,Olympiacos,Red Star Belgrade,79.0,87.0,2022-23,,,,,,,,,,,,,Away
+2023-04-06,Efes,Fenerbahce,86.0,103.0,2022-23,,,,,,,,,,,,,Away
+2023-04-06,Virtus Bologna,Valencia,68.0,79.0,2022-23,,,,,,,,,,,,,Away
+2023-04-06,ASVEL,Baskonia,100.0,120.0,2022-23,,,,,,,,,,,,,Away
+2023-04-07,ALBA Berlin,Panathinaikos,88.0,84.0,2022-23,,,,,,,,,,,,,Home
+2023-04-07,Partizan,Monaco,88.0,84.0,2022-23,,,,,,,,,,,,,Home
+2023-04-07,Barcelona,Olimpia Milano,76.0,84.0,2022-23,,,,,,,,,,,,,Away
+2023-04-13,ASVEL,ALBA Berlin,71.0,88.0,2022-23,,,,,,,,,,,,,Away
+2023-04-13,Real Madrid,Maccabi Tel Aviv,96.0,100.0,2022-23,,,,,,,,,,,,,Away
+2023-04-13,Baskonia,Olympiacos,78.0,86.0,2022-23,,,,,,,,,,,,,Away
+2023-04-13,Fenerbahce,Red Star Belgrade,89.0,91.0,2022-23,,,,,,,,,,,,,Away
+2023-04-13,Olimpia Milano,Virtus Bologna,84.0,89.0,2022-23,,,,,,,,,,,,,Away
+2023-04-14,Monaco,Efes,72.0,87.0,2022-23,,,,,,,,,,,,,Away
+2023-04-14,Valencia,Barcelona,71.0,85.0,2022-23,,,,,,,,,,,,,Away
+2023-04-14,Zalgiris,Bayern Munich,83.0,80.0,2022-23,,,,,,,,,,,,,Home
+2023-04-14,Panathinaikos,Partizan,81.0,83.0,2022-23,,,,,,,,,,,,,Away
+2023-04-25,Maccabi Tel Aviv,Monaco,79.0,67.0,2022-23,,,,,,,,,,,,,Home
+2023-04-25,Partizan,Real Madrid,89.0,87.0,2022-23,,,,,,,,,,,,,Home
+2023-04-26,Fenerbahce,Olympiacos,68.0,79.0,2022-23,,,,,,,,,,,,,Away
+2023-04-26,Zalgiris,Barcelona,69.0,91.0,2022-23,,,,,,,,,,,,,Away
+2023-04-27,Maccabi Tel Aviv,Monaco,74.0,86.0,2022-23,,,,,,,,,,,,,Away
+2023-04-27,Partizan,Real Madrid,95.0,80.0,2022-23,,,,,,,,,,,,,Home
+2023-04-28,Zalgiris,Barcelona,81.0,89.0,2022-23,,,,,,,,,,,,,Away
+2023-04-28,Fenerbahce,Olympiacos,82.0,78.0,2022-23,,,,,,,,,,,,,Home
+2023-05-02,Monaco,Maccabi Tel Aviv,83.0,78.0,2022-23,,,,,,,,,,,,,Home
+2023-05-02,Real Madrid,Partizan,82.0,80.0,2022-23,,,,,,,,,,,,,Home
+2023-05-03,Olympiacos,Fenerbahce,72.0,71.0,2022-23,,,,,,,,,,,,,Home
+2023-05-03,Barcelona,Zalgiris,77.0,66.0,2022-23,,,,,,,,,,,,,Home
+2023-05-04,Monaco,Maccabi Tel Aviv,69.0,104.0,2022-23,,,,,,,,,,,,,Away
+2023-05-04,Real Madrid,Partizan,85.0,78.0,2022-23,,,,,,,,,,,,,Home
+2023-05-05,Olympiacos,Fenerbahce,69.0,73.0,2022-23,,,,,,,,,,,,,Away
+2023-05-09,Fenerbahce,Olympiacos,72.0,84.0,2022-23,,,,,,,,,,,,,Away
+2023-05-10,Maccabi Tel Aviv,Monaco,86.0,97.0,2022-23,,,,,,,,,,,,,Away
+2023-05-10,Partizan,Real Madrid,94.0,98.0,2022-23,,,,,,,,,,,,,Away
+2023-05-19,Monaco,Olympiacos,62.0,76.0,2022-23,,,,,,,,,,,,,Away
+2023-05-19,Real Madrid,Barcelona,78.0,66.0,2022-23,,,,,,,,,,,,,Home
+2023-05-21,Barcelona,Monaco,66.0,78.0,2022-23,,,,,,,,,,,,,Away
+2023-05-21,Real Madrid,Olympiacos,79.0,78.0,2022-23,,,,,,,,,,,,,Home
+2023-10-05,Efes,Barcelona,74.0,91.0,2023-24,,,,,,,,,,,,,Away
+2023-10-05,ALBA Berlin,Bayern Munich,68.0,80.0,2023-24,,,,,,,,,,,,,Away
+2023-10-05,Partizan,Maccabi Tel Aviv,81.0,96.0,2023-24,,,,,,,,,,,,,Away
+2023-10-05,ASVEL,Red Star Belgrade,73.0,94.0,2023-24,,,,,,,,,,,,,Away
+2023-10-05,Zalgiris,Virtus Bologna,82.0,79.0,2023-24,,,,,,,,,,,,,Home
+2023-10-06,Monaco,Valencia,65.0,70.0,2023-24,,,,,,,,,,,,,Away
+2023-10-06,Olympiacos,Panathinaikos,88.0,78.0,2023-24,,,,,,,,,,,,,Home
+2023-10-06,Olimpia Milano,Fenerbahce,82.0,85.0,2023-24,,,,,,,,,,,,,Away
+2023-10-06,Real Madrid,Baskonia,79.0,77.0,2023-24,,,,,,,,,,,,,Home
+2023-10-12,Partizan,ASVEL,88.0,62.0,2023-24,,,,,,,,,,,,,Home
+2023-10-12,Bayern Munich,Panathinaikos,71.0,78.0,2023-24,,,,,,,,,,,,,Away
+2023-10-12,Real Madrid,Efes,103.0,80.0,2023-24,,,,,,,,,,,,,Home
+2023-10-12,Baskonia,ALBA Berlin,91.0,86.0,2023-24,,,,,,,,,,,,,Home
+2023-10-13,Virtus Bologna,Monaco,83.0,59.0,2023-24,,,,,,,,,,,,,Home
+2023-10-13,Barcelona,Olympiacos,77.0,68.0,2023-24,,,,,,,,,,,,,Home
+2023-10-13,Fenerbahce,Valencia,74.0,77.0,2023-24,,,,,,,,,,,,,Away
+2023-10-13,Red Star Belgrade,Zalgiris,74.0,79.0,2023-24,,,,,,,,,,,,,Away
+2023-10-17,Panathinaikos,Fenerbahce,69.0,83.0,2023-24,,,,,,,,,,,,,Away
+2023-10-17,Zalgiris,Real Madrid,79.0,93.0,2023-24,,,,,,,,,,,,,Away
+2023-10-17,Bayern Munich,Baskonia,76.0,68.0,2023-24,,,,,,,,,,,,,Home
+2023-10-17,Olympiacos,Olimpia Milano,53.0,65.0,2023-24,,,,,,,,,,,,,Away
+2023-10-17,ASVEL,Efes,84.0,89.0,2023-24,,,,,,,,,,,,,Away
+2023-10-17,Barcelona,Partizan,92.0,83.0,2023-24,,,,,,,,,,,,,Home
+2023-10-18,ALBA Berlin,Virtus Bologna,76.0,87.0,2023-24,,,,,,,,,,,,,Away
+2023-10-18,Maccabi Tel Aviv,Valencia,66.0,75.0,2023-24,,,,,,,,,,,,,Away
+2023-10-18,Monaco,Red Star Belgrade,82.0,76.0,2023-24,,,,,,,,,,,,,Home
+2023-10-19,Olimpia Milano,Real Madrid,71.0,88.0,2023-24,,,,,,,,,,,,,Away
+2023-10-19,ASVEL,Fenerbahce,86.0,101.0,2023-24,,,,,,,,,,,,,Away
+2023-10-19,Partizan,Olympiacos,94.0,98.0,2023-24,,,,,,,,,,,,,Away
+2023-10-19,Zalgiris,Baskonia,99.0,82.0,2023-24,,,,,,,,,,,,,Home
+2023-10-20,Red Star Belgrade,Virtus Bologna,79.0,85.0,2023-24,,,,,,,,,,,,,Away
+2023-10-20,Maccabi Tel Aviv,Panathinaikos,86.0,81.0,2023-24,,,,,,,,,,,,,Home
+2023-10-20,Bayern Munich,Barcelona,59.0,98.0,2023-24,,,,,,,,,,,,,Away
+2023-10-20,ALBA Berlin,Monaco,75.0,86.0,2023-24,,,,,,,,,,,,,Away
+2023-10-20,Valencia,Efes,73.0,77.0,2023-24,,,,,,,,,,,,,Away
+2023-10-26,Olimpia Milano,ALBA Berlin,82.0,85.0,2023-24,,,,,,,,,,,,,Away
+2023-10-26,Maccabi Tel Aviv,Monaco,79.0,107.0,2023-24,,,,,,,,,,,,,Away
+2023-10-26,Efes,Olympiacos,57.0,75.0,2023-24,,,,,,,,,,,,,Away
+2023-10-26,Red Star Belgrade,Partizan,86.0,88.0,2023-24,,,,,,,,,,,,,Away
+2023-10-26,Barcelona,Real Madrid,64.0,65.0,2023-24,,,,,,,,,,,,,Away
+2023-10-27,Fenerbahce,Bayern Munich,76.0,67.0,2023-24,,,,,,,,,,,,,Home
+2023-10-27,Baskonia,Panathinaikos,81.0,95.0,2023-24,,,,,,,,,,,,,Away
+2023-10-27,Virtus Bologna,ASVEL,87.0,84.0,2023-24,,,,,,,,,,,,,Home
+2023-10-27,Valencia,Zalgiris,87.0,72.0,2023-24,,,,,,,,,,,,,Home
+2023-10-31,Maccabi Tel Aviv,Olimpia Milano,98.0,90.0,2023-24,,,,,,,,,,,,,Home
+2023-11-02,ALBA Berlin,Valencia,71.0,79.0,2023-24,,,,,,,,,,,,,Away
+2023-11-02,Olympiacos,Fenerbahce,77.0,79.0,2023-24,,,,,,,,,,,,,Away
+2023-11-02,ASVEL,Zalgiris,91.0,88.0,2023-24,,,,,,,,,,,,,Home
+2023-11-02,Monaco,Olimpia Milano,72.0,66.0,2023-24,,,,,,,,,,,,,Home
+2023-11-02,Bayern Munich,Red Star Belgrade,68.0,74.0,2023-24,,,,,,,,,,,,,Away
+2023-11-03,Panathinaikos,Barcelona,72.0,80.0,2023-24,,,,,,,,,,,,,Away
+2023-11-03,Efes,Virtus Bologna,81.0,93.0,2023-24,,,,,,,,,,,,,Away
+2023-11-03,Partizan,Baskonia,83.0,84.0,2023-24,,,,,,,,,,,,,Away
+2023-11-09,Zalgiris,Efes,82.0,86.0,2023-24,,,,,,,,,,,,,Away
+2023-11-09,Bayern Munich,Maccabi Tel Aviv,90.0,93.0,2023-24,,,,,,,,,,,,,Away
+2023-11-09,Valencia,Olimpia Milano,52.0,83.0,2023-24,,,,,,,,,,,,,Away
+2023-11-09,Baskonia,Olympiacos,75.0,74.0,2023-24,,,,,,,,,,,,,Home
+2023-11-09,Fenerbahce,Partizan,84.0,85.0,2023-24,,,,,,,,,,,,,Away
+2023-11-09,Virtus Bologna,Real Madrid,74.0,100.0,2023-24,,,,,,,,,,,,,Away
+2023-11-10,Panathinaikos,ALBA Berlin,99.0,85.0,2023-24,,,,,,,,,,,,,Home
+2023-11-10,Red Star Belgrade,Barcelona,81.0,86.0,2023-24,,,,,,,,,,,,,Away
+2023-11-10,ASVEL,Monaco,70.0,80.0,2023-24,,,,,,,,,,,,,Away
+2023-11-14,Olimpia Milano,Virtus Bologna,79.0,86.0,2023-24,,,,,,,,,,,,,Away
+2023-11-14,Real Madrid,Valencia,76.0,73.0,2023-24,,,,,,,,,,,,,Home
+2023-11-14,Olympiacos,Maccabi Tel Aviv,79.0,74.0,2023-24,,,,,,,,,,,,,Home
+2023-11-14,Efes,Monaco,89.0,82.0,2023-24,,,,,,,,,,,,,Home
+2023-11-14,Fenerbahce,Red Star Belgrade,56.0,87.0,2023-24,,,,,,,,,,,,,Away
+2023-11-15,ASVEL,ALBA Berlin,73.0,68.0,2023-24,,,,,,,,,,,,,Home
+2023-11-15,Partizan,Bayern Munich,85.0,94.0,2023-24,,,,,,,,,,,,,Away
+2023-11-15,Zalgiris,Panathinaikos,71.0,73.0,2023-24,,,,,,,,,,,,,Away
+2023-11-15,Barcelona,Baskonia,71.0,94.0,2023-24,,,,,,,,,,,,,Away
+2023-11-16,Efes,Olimpia Milano,76.0,92.0,2023-24,,,,,,,,,,,,,Away
+2023-11-16,Red Star Belgrade,Olympiacos,83.0,88.0,2023-24,,,,,,,,,,,,,Away
+2023-11-16,Monaco,Real Madrid,73.0,91.0,2023-24,,,,,,,,,,,,,Away
+2023-11-16,Fenerbahce,Maccabi Tel Aviv,73.0,78.0,2023-24,,,,,,,,,,,,,Away
+2023-11-17,Bayern Munich,Zalgiris,73.0,74.0,2023-24,,,,,,,,,,,,,Away
+2023-11-17,ALBA Berlin,Partizan,74.0,89.0,2023-24,,,,,,,,,,,,,Away
+2023-11-17,Baskonia,ASVEL,88.0,81.0,2023-24,,,,,,,,,,,,,Home
+2023-11-17,Valencia,Barcelona,70.0,74.0,2023-24,,,,,,,,,,,,,Away
+2023-11-17,Virtus Bologna,Panathinaikos,76.0,90.0,2023-24,,,,,,,,,,,,,Away
+2023-11-23,Barcelona,Maccabi Tel Aviv,92.0,90.0,2023-24,,,,,,,,,,,,,Home
+2023-11-23,Valencia,Panathinaikos,73.0,90.0,2023-24,,,,,,,,,,,,,Away
+2023-11-23,ALBA Berlin,Real Madrid,75.0,99.0,2023-24,,,,,,,,,,,,,Away
+2023-11-23,Bayern Munich,ASVEL,101.0,100.0,2023-24,,,,,,,,,,,,,Home
+2023-11-23,Fenerbahce,Virtus Bologna,79.0,87.0,2023-24,,,,,,,,,,,,,Away
+2023-11-24,Partizan,Efes,94.0,100.0,2023-24,,,,,,,,,,,,,Away
+2023-11-24,Zalgiris,Olympiacos,72.0,89.0,2023-24,,,,,,,,,,,,,Away
+2023-11-24,Olimpia Milano,Red Star Belgrade,93.0,71.0,2023-24,,,,,,,,,,,,,Home
+2023-11-24,Monaco,Baskonia,77.0,75.0,2023-24,,,,,,,,,,,,,Home
+2023-11-28,Real Madrid,Maccabi Tel Aviv,99.0,70.0,2023-24,,,,,,,,,,,,,Home
+2023-11-30,Zalgiris,Olimpia Milano,83.0,70.0,2023-24,,,,,,,,,,,,,Home
+2023-11-30,Real Madrid,Fenerbahce,99.0,100.0,2023-24,,,,,,,,,,,,,Away
+2023-11-30,Panathinaikos,Partizan,87.0,92.0,2023-24,,,,,,,,,,,,,Away
+2023-11-30,Olympiacos,Monaco,77.0,85.0,2023-24,,,,,,,,,,,,,Away
+2023-11-30,ALBA Berlin,Maccabi Tel Aviv,81.0,102.0,2023-24,,,,,,,,,,,,,Away
+2023-11-30,Virtus Bologna,Bayern Munich,76.0,90.0,2023-24,,,,,,,,,,,,,Away
+2023-12-01,ASVEL,Barcelona,92.0,101.0,2023-24,,,,,,,,,,,,,Away
+2023-12-01,Efes,Red Star Belgrade,83.0,97.0,2023-24,,,,,,,,,,,,,Away
+2023-12-01,Baskonia,Valencia,98.0,84.0,2023-24,,,,,,,,,,,,,Home
+2023-12-05,Zalgiris,ALBA Berlin,62.0,64.0,2023-24,,,,,,,,,,,,,Away
+2023-12-05,Panathinaikos,Efes,68.0,71.0,2023-24,,,,,,,,,,,,,Away
+2023-12-05,Olimpia Milano,Bayern Munich,84.0,91.0,2023-24,,,,,,,,,,,,,Away
+2023-12-05,Real Madrid,Olympiacos,77.0,71.0,2023-24,,,,,,,,,,,,,Home
+2023-12-05,Monaco,Partizan,85.0,89.0,2023-24,,,,,,,,,,,,,Away
+2023-12-06,Red Star Belgrade,Valencia,81.0,85.0,2023-24,,,,,,,,,,,,,Away
+2023-12-06,Maccabi Tel Aviv,ASVEL,94.0,91.0,2023-24,,,,,,,,,,,,,Home
+2023-12-06,Barcelona,Virtus Bologna,75.0,80.0,2023-24,,,,,,,,,,,,,Away
+2023-12-06,Fenerbahce,Baskonia,79.0,80.0,2023-24,,,,,,,,,,,,,Away
+2023-12-07,Olimpia Milano,Partizan,69.0,82.0,2023-24,,,,,,,,,,,,,Away
+2023-12-07,Efes,ALBA Berlin,97.0,89.0,2023-24,,,,,,,,,,,,,Home
+2023-12-07,Real Madrid,Panathinaikos,90.0,78.0,2023-24,,,,,,,,,,,,,Home
+2023-12-08,Fenerbahce,Barcelona,81.0,89.0,2023-24,,,,,,,,,,,,,Away
+2023-12-08,Bayern Munich,Olympiacos,69.0,77.0,2023-24,,,,,,,,,,,,,Away
+2023-12-08,Valencia,ASVEL,78.0,55.0,2023-24,,,,,,,,,,,,,Home
+2023-12-08,Maccabi Tel Aviv,Virtus Bologna,90.0,100.0,2023-24,,,,,,,,,,,,,Away
+2023-12-08,Red Star Belgrade,Baskonia,85.0,87.0,2023-24,,,,,,,,,,,,,Away
+2023-12-08,Monaco,Zalgiris,83.0,79.0,2023-24,,,,,,,,,,,,,Home
+2023-12-14,Bayern Munich,Real Madrid,73.0,88.0,2023-24,,,,,,,,,,,,,Away
+2023-12-14,Panathinaikos,ASVEL,89.0,81.0,2023-24,,,,,,,,,,,,,Home
+2023-12-14,Virtus Bologna,Baskonia,91.0,81.0,2023-24,,,,,,,,,,,,,Home
+2023-12-14,Partizan,Zalgiris,93.0,85.0,2023-24,,,,,,,,,,,,,Home
+2023-12-14,ALBA Berlin,Red Star Belgrade,71.0,85.0,2023-24,,,,,,,,,,,,,Away
+2023-12-14,Efes,Maccabi Tel Aviv,86.0,95.0,2023-24,,,,,,,,,,,,,Away
+2023-12-15,Monaco,Fenerbahce,74.0,86.0,2023-24,,,,,,,,,,,,,Away
+2023-12-15,Olimpia Milano,Barcelona,90.0,86.0,2023-24,,,,,,,,,,,,,Home
+2023-12-15,Valencia,Olympiacos,63.0,56.0,2023-24,,,,,,,,,,,,,Home
+2023-12-19,Barcelona,ALBA Berlin,70.0,74.0,2023-24,,,,,,,,,,,,,Away
+2023-12-19,Baskonia,Maccabi Tel Aviv,81.0,89.0,2023-24,,,,,,,,,,,,,Away
+2023-12-19,Real Madrid,Red Star Belgrade,72.0,58.0,2023-24,,,,,,,,,,,,,Home
+2023-12-19,Partizan,Valencia,72.0,67.0,2023-24,,,,,,,,,,,,,Home
+2023-12-19,Olympiacos,Virtus Bologna,67.0,69.0,2023-24,,,,,,,,,,,,,Away
+2023-12-20,Efes,Bayern Munich,71.0,86.0,2023-24,,,,,,,,,,,,,Away
+2023-12-20,ASVEL,Olimpia Milano,61.0,84.0,2023-24,,,,,,,,,,,,,Away
+2023-12-20,Panathinaikos,Monaco,91.0,90.0,2023-24,,,,,,,,,,,,,Home
+2023-12-20,Zalgiris,Fenerbahce,78.0,80.0,2023-24,,,,,,,,,,,,,Away
+2023-12-21,Virtus Bologna,Valencia,71.0,79.0,2023-24,,,,,,,,,,,,,Away
+2023-12-21,Red Star Belgrade,Maccabi Tel Aviv,98.0,92.0,2023-24,,,,,,,,,,,,,Home
+2023-12-21,Partizan,Real Madrid,75.0,91.0,2023-24,,,,,,,,,,,,,Away
+2023-12-22,Barcelona,Zalgiris,85.0,80.0,2023-24,,,,,,,,,,,,,Home
+2023-12-22,Olympiacos,ASVEL,85.0,73.0,2023-24,,,,,,,,,,,,,Home
+2023-12-22,Panathinaikos,Olimpia Milano,76.0,68.0,2023-24,,,,,,,,,,,,,Home
+2023-12-22,Fenerbahce,ALBA Berlin,91.0,82.0,2023-24,,,,,,,,,,,,,Home
+2023-12-22,Baskonia,Efes,87.0,80.0,2023-24,,,,,,,,,,,,,Home
+2023-12-22,Monaco,Bayern Munich,91.0,80.0,2023-24,,,,,,,,,,,,,Home
+2023-12-28,Maccabi Tel Aviv,Zalgiris,78.0,70.0,2023-24,,,,,,,,,,,,,Home
+2023-12-28,Fenerbahce,Efes,89.0,84.0,2023-24,,,,,,,,,,,,,Home
+2023-12-28,Valencia,Bayern Munich,84.0,85.0,2023-24,,,,,,,,,,,,,Away
+2023-12-28,Baskonia,Olimpia Milano,67.0,76.0,2023-24,,,,,,,,,,,,,Away
+2023-12-28,Red Star Belgrade,Panathinaikos,65.0,82.0,2023-24,,,,,,,,,,,,,Away
+2023-12-28,Real Madrid,ASVEL,77.0,76.0,2023-24,,,,,,,,,,,,,Home
+2023-12-28,Virtus Bologna,Partizan,77.0,75.0,2023-24,,,,,,,,,,,,,Home
+2023-12-29,Olympiacos,ALBA Berlin,94.0,67.0,2023-24,,,,,,,,,,,,,Home
+2023-12-29,Barcelona,Monaco,71.0,91.0,2023-24,,,,,,,,,,,,,Away
+2024-01-02,ALBA Berlin,Zalgiris,71.0,77.0,2023-24,,,,,,,,,,,,,Away
+2024-01-02,Red Star Belgrade,Fenerbahce,85.0,76.0,2023-24,,,,,,,,,,,,,Home
+2024-01-02,Olimpia Milano,Olympiacos,74.0,79.0,2023-24,,,,,,,,,,,,,Away
+2024-01-02,ASVEL,Partizan,77.0,90.0,2023-24,,,,,,,,,,,,,Away
+2024-01-02,Monaco,Maccabi Tel Aviv,83.0,93.0,2023-24,,,,,,,,,,,,,Away
+2024-01-03,Real Madrid,Barcelona,78.0,83.0,2023-24,,,,,,,,,,,,,Away
+2024-01-03,Efes,Valencia,88.0,93.0,2023-24,,,,,,,,,,,,,Away
+2024-01-03,Bayern Munich,Virtus Bologna,83.0,85.0,2023-24,,,,,,,,,,,,,Away
+2024-01-03,Panathinaikos,Baskonia,73.0,75.0,2023-24,,,,,,,,,,,,,Away
+2024-01-04,Monaco,Olympiacos,73.0,75.0,2023-24,,,,,,,,,,,,,Away
+2024-01-04,Partizan,Red Star Belgrade,72.0,88.0,2023-24,,,,,,,,,,,,,Away
+2024-01-04,Maccabi Tel Aviv,Fenerbahce,74.0,109.0,2023-24,,,,,,,,,,,,,Away
+2024-01-04,Zalgiris,ASVEL,79.0,93.0,2023-24,,,,,,,,,,,,,Away
+2024-01-05,Efes,Real Madrid,126.0,130.0,2023-24,,,,,,,,,,,,,Away
+2024-01-05,Bayern Munich,Olimpia Milano,62.0,76.0,2023-24,,,,,,,,,,,,,Away
+2024-01-05,Panathinaikos,Valencia,82.0,81.0,2023-24,,,,,,,,,,,,,Home
+2024-01-05,Virtus Bologna,ALBA Berlin,83.0,68.0,2023-24,,,,,,,,,,,,,Home
+2024-01-05,Baskonia,Barcelona,85.0,89.0,2023-24,,,,,,,,,,,,,Away
+2024-01-09,Zalgiris,Valencia,84.0,79.0,2023-24,,,,,,,,,,,,,Home
+2024-01-09,Partizan,Fenerbahce,76.0,91.0,2023-24,,,,,,,,,,,,,Away
+2024-01-09,Efes,Panathinaikos,76.0,83.0,2023-24,,,,,,,,,,,,,Away
+2024-01-09,Red Star Belgrade,ASVEL,91.0,100.0,2023-24,,,,,,,,,,,,,Away
+2024-01-09,ALBA Berlin,Olimpia Milano,76.0,82.0,2023-24,,,,,,,,,,,,,Away
+2024-01-09,Real Madrid,Bayern Munich,92.0,71.0,2023-24,,,,,,,,,,,,,Home
+2024-01-09,Baskonia,Monaco,83.0,93.0,2023-24,,,,,,,,,,,,,Away
+2024-01-10,Olympiacos,Barcelona,78.0,86.0,2023-24,,,,,,,,,,,,,Away
+2024-01-10,Virtus Bologna,Maccabi Tel Aviv,78.0,95.0,2023-24,,,,,,,,,,,,,Away
+2024-01-11,Red Star Belgrade,Olimpia Milano,76.0,62.0,2023-24,,,,,,,,,,,,,Home
+2024-01-11,Monaco,Panathinaikos,63.0,88.0,2023-24,,,,,,,,,,,,,Away
+2024-01-11,Valencia,Real Madrid,86.0,96.0,2023-24,,,,,,,,,,,,,Away
+2024-01-11,Bayern Munich,Fenerbahce,91.0,98.0,2023-24,,,,,,,,,,,,,Away
+2024-01-12,Olympiacos,Baskonia,69.0,80.0,2023-24,,,,,,,,,,,,,Away
+2024-01-12,ALBA Berlin,ASVEL,88.0,63.0,2023-24,,,,,,,,,,,,,Home
+2024-01-12,Virtus Bologna,Efes,75.0,99.0,2023-24,,,,,,,,,,,,,Away
+2024-01-12,Zalgiris,Barcelona,73.0,91.0,2023-24,,,,,,,,,,,,,Away
+2024-01-12,Maccabi Tel Aviv,Partizan,79.0,88.0,2023-24,,,,,,,,,,,,,Away
+2024-01-18,Bayern Munich,ALBA Berlin,82.0,65.0,2023-24,,,,,,,,,,,,,Home
+2024-01-18,Barcelona,Efes,74.0,98.0,2023-24,,,,,,,,,,,,,Away
+2024-01-18,Maccabi Tel Aviv,Olympiacos,72.0,89.0,2023-24,,,,,,,,,,,,,Away
+2024-01-18,Baskonia,Red Star Belgrade,91.0,90.0,2023-24,,,,,,,,,,,,,Home
+2024-01-18,ASVEL,Virtus Bologna,63.0,73.0,2023-24,,,,,,,,,,,,,Away
+2024-01-19,Real Madrid,Monaco,74.0,98.0,2023-24,,,,,,,,,,,,,Away
+2024-01-19,Partizan,Panathinaikos,71.0,84.0,2023-24,,,,,,,,,,,,,Away
+2024-01-19,Olimpia Milano,Valencia,72.0,84.0,2023-24,,,,,,,,,,,,,Away
+2024-01-19,Fenerbahce,Zalgiris,75.0,98.0,2023-24,,,,,,,,,,,,,Away
+2024-01-25,Virtus Bologna,Fenerbahce,75.0,88.0,2023-24,,,,,,,,,,,,,Away
+2024-01-25,Olympiacos,Real Madrid,85.0,90.0,2023-24,,,,,,,,,,,,,Away
+2024-01-25,ASVEL,Bayern Munich,76.0,64.0,2023-24,,,,,,,,,,,,,Home
+2024-01-25,Red Star Belgrade,ALBA Berlin,80.0,89.0,2023-24,,,,,,,,,,,,,Away
+2024-01-25,Panathinaikos,Maccabi Tel Aviv,75.0,90.0,2023-24,,,,,,,,,,,,,Away
+2024-01-26,Monaco,Efes,80.0,78.0,2023-24,,,,,,,,,,,,,Home
+2024-01-26,Barcelona,Olimpia Milano,70.0,74.0,2023-24,,,,,,,,,,,,,Away
+2024-01-26,Zalgiris,Partizan,72.0,81.0,2023-24,,,,,,,,,,,,,Away
+2024-01-26,Valencia,Baskonia,77.0,62.0,2023-24,,,,,,,,,,,,,Home
+2024-01-30,Fenerbahce,ASVEL,83.0,73.0,2023-24,,,,,,,,,,,,,Home
+2024-01-30,Baskonia,Bayern Munich,109.0,112.0,2023-24,,,,,,,,,,,,,Away
+2024-01-30,ALBA Berlin,Olympiacos,87.0,101.0,2023-24,,,,,,,,,,,,,Away
+2024-01-30,Maccabi Tel Aviv,Real Madrid,101.0,106.0,2023-24,,,,,,,,,,,,,Away
+2024-01-30,Valencia,Red Star Belgrade,64.0,82.0,2023-24,,,,,,,,,,,,,Away
+2024-01-31,Efes,Zalgiris,70.0,96.0,2023-24,,,,,,,,,,,,,Away
+2024-01-31,Olimpia Milano,Panathinaikos,62.0,79.0,2023-24,,,,,,,,,,,,,Away
+2024-01-31,Virtus Bologna,Barcelona,57.0,84.0,2023-24,,,,,,,,,,,,,Away
+2024-01-31,Partizan,Monaco,70.0,85.0,2023-24,,,,,,,,,,,,,Away
+2024-02-01,Valencia,ALBA Berlin,81.0,66.0,2023-24,,,,,,,,,,,,,Home
+2024-02-01,Olympiacos,Bayern Munich,76.0,72.0,2023-24,,,,,,,,,,,,,Home
+2024-02-01,ASVEL,Real Madrid,79.0,86.0,2023-24,,,,,,,,,,,,,Away
+2024-02-01,Maccabi Tel Aviv,Baskonia,82.0,92.0,2023-24,,,,,,,,,,,,,Away
+2024-02-02,Olimpia Milano,Efes,73.0,79.0,2023-24,,,,,,,,,,,,,Away
+2024-02-02,Fenerbahce,Monaco,69.0,76.0,2023-24,,,,,,,,,,,,,Away
+2024-02-02,Barcelona,Red Star Belgrade,85.0,76.0,2023-24,,,,,,,,,,,,,Home
+2024-02-02,Partizan,Virtus Bologna,84.0,88.0,2023-24,,,,,,,,,,,,,Away
+2024-02-02,Panathinaikos,Zalgiris,68.0,80.0,2023-24,,,,,,,,,,,,,Away
+2024-02-08,ASVEL,Baskonia,80.0,94.0,2023-24,,,,,,,,,,,,,Away
+2024-02-08,Olympiacos,Valencia,78.0,65.0,2023-24,,,,,,,,,,,,,Home
+2024-02-08,Real Madrid,Olimpia Milano,76.0,81.0,2023-24,,,,,,,,,,,,,Away
+2024-02-08,Maccabi Tel Aviv,Efes,91.0,105.0,2023-24,,,,,,,,,,,,,Away
+2024-02-08,Bayern Munich,Partizan,79.0,78.0,2023-24,,,,,,,,,,,,,Home
+2024-02-09,ALBA Berlin,Barcelona,77.0,93.0,2023-24,,,,,,,,,,,,,Away
+2024-02-09,Fenerbahce,Panathinaikos,63.0,74.0,2023-24,,,,,,,,,,,,,Away
+2024-02-09,Zalgiris,Red Star Belgrade,93.0,91.0,2023-24,,,,,,,,,,,,,Home
+2024-02-09,Monaco,Virtus Bologna,81.0,78.0,2023-24,,,,,,,,,,,,,Home
+2024-02-29,Maccabi Tel Aviv,ALBA Berlin,106.0,71.0,2023-24,,,,,,,,,,,,,Home
+2024-02-29,Efes,Partizan,90.0,100.0,2023-24,,,,,,,,,,,,,Away
+2024-02-29,Panathinaikos,Real Madrid,97.0,86.0,2023-24,,,,,,,,,,,,,Home
+2024-02-29,Valencia,Virtus Bologna,74.0,87.0,2023-24,,,,,,,,,,,,,Away
+2024-03-01,Olimpia Milano,ASVEL,77.0,81.0,2023-24,,,,,,,,,,,,,Away
+2024-03-01,Baskonia,Fenerbahce,96.0,111.0,2023-24,,,,,,,,,,,,,Away
+2024-03-01,Olympiacos,Zalgiris,95.0,76.0,2023-24,,,,,,,,,,,,,Home
+2024-03-01,Monaco,Barcelona,77.0,67.0,2023-24,,,,,,,,,,,,,Home
+2024-03-01,Red Star Belgrade,Bayern Munich,66.0,74.0,2023-24,,,,,,,,,,,,,Away
+2024-03-07,Barcelona,Valencia,88.0,78.0,2023-24,,,,,,,,,,,,,Home
+2024-03-07,Fenerbahce,Real Madrid,89.0,79.0,2023-24,,,,,,,,,,,,,Home
+2024-03-07,Virtus Bologna,Olympiacos,69.0,74.0,2023-24,,,,,,,,,,,,,Away
+2024-03-07,Bayern Munich,Efes,86.0,109.0,2023-24,,,,,,,,,,,,,Away
+2024-03-07,Zalgiris,Maccabi Tel Aviv,76.0,83.0,2023-24,,,,,,,,,,,,,Away
+2024-03-07,Red Star Belgrade,Monaco,80.0,98.0,2023-24,,,,,,,,,,,,,Away
+2024-03-08,Partizan,Olimpia Milano,83.0,85.0,2023-24,,,,,,,,,,,,,Away
+2024-03-08,ASVEL,Panathinaikos,67.0,85.0,2023-24,,,,,,,,,,,,,Away
+2024-03-08,ALBA Berlin,Baskonia,71.0,88.0,2023-24,,,,,,,,,,,,,Away
+2024-03-14,Monaco,ALBA Berlin,90.0,82.0,2023-24,,,,,,,,,,,,,Home
+2024-03-14,Partizan,Barcelona,76.0,94.0,2023-24,,,,,,,,,,,,,Away
+2024-03-14,Panathinaikos,Olympiacos,65.0,71.0,2023-24,,,,,,,,,,,,,Away
+2024-03-14,Maccabi Tel Aviv,Red Star Belgrade,84.0,80.0,2023-24,,,,,,,,,,,,,Home
+2024-03-14,Valencia,Fenerbahce,88.0,118.0,2023-24,,,,,,,,,,,,,Away
+2024-03-14,Olimpia Milano,Baskonia,73.0,88.0,2023-24,,,,,,,,,,,,,Away
+2024-03-15,Real Madrid,Virtus Bologna,89.0,74.0,2023-24,,,,,,,,,,,,,Home
+2024-03-15,Zalgiris,Bayern Munich,58.0,64.0,2023-24,,,,,,,,,,,,,Away
+2024-03-15,Efes,ASVEL,80.0,84.0,2023-24,,,,,,,,,,,,,Away
+2024-03-19,Real Madrid,ALBA Berlin,86.0,79.0,2023-24,,,,,,,,,,,,,Home
+2024-03-19,Olympiacos,Efes,72.0,85.0,2023-24,,,,,,,,,,,,,Away
+2024-03-19,ASVEL,Maccabi Tel Aviv,90.0,98.0,2023-24,,,,,,,,,,,,,Away
+2024-03-19,Baskonia,Partizan,83.0,87.0,2023-24,,,,,,,,,,,,,Away
+2024-03-19,Virtus Bologna,Zalgiris,81.0,96.0,2023-24,,,,,,,,,,,,,Away
+2024-03-20,Bayern Munich,Valencia,68.0,70.0,2023-24,,,,,,,,,,,,,Away
+2024-03-20,Olimpia Milano,Monaco,98.0,80.0,2023-24,,,,,,,,,,,,,Home
+2024-03-20,Panathinaikos,Red Star Belgrade,89.0,76.0,2023-24,,,,,,,,,,,,,Home
+2024-03-20,Barcelona,Fenerbahce,74.0,88.0,2023-24,,,,,,,,,,,,,Away
+2024-03-21,ASVEL,Olympiacos,64.0,80.0,2023-24,,,,,,,,,,,,,Away
+2024-03-21,Real Madrid,Partizan,88.0,76.0,2023-24,,,,,,,,,,,,,Home
+2024-03-21,ALBA Berlin,Efes,84.0,85.0,2023-24,,,,,,,,,,,,,Away
+2024-03-21,Baskonia,Zalgiris,76.0,94.0,2023-24,,,,,,,,,,,,,Away
+2024-03-22,Barcelona,Panathinaikos,81.0,89.0,2023-24,,,,,,,,,,,,,Away
+2024-03-22,Valencia,Monaco,78.0,79.0,2023-24,,,,,,,,,,,,,Away
+2024-03-22,Virtus Bologna,Red Star Belgrade,79.0,94.0,2023-24,,,,,,,,,,,,,Away
+2024-03-22,Maccabi Tel Aviv,Bayern Munich,89.0,74.0,2023-24,,,,,,,,,,,,,Home
+2024-03-22,Fenerbahce,Olimpia Milano,76.0,77.0,2023-24,,,,,,,,,,,,,Away
+2024-03-27,Valencia,Maccabi Tel Aviv,80.0,95.0,2023-24,,,,,,,,,,,,,Away
+2024-03-28,Barcelona,Bayern Munich,87.0,79.0,2023-24,,,,,,,,,,,,,Home
+2024-03-28,Olympiacos,Partizan,74.0,69.0,2023-24,,,,,,,,,,,,,Home
+2024-03-28,Monaco,ASVEL,87.0,77.0,2023-24,,,,,,,,,,,,,Home
+2024-03-28,Efes,Baskonia,97.0,76.0,2023-24,,,,,,,,,,,,,Home
+2024-03-28,Olimpia Milano,Zalgiris,73.0,87.0,2023-24,,,,,,,,,,,,,Away
+2024-03-29,Red Star Belgrade,Real Madrid,94.0,101.0,2023-24,,,,,,,,,,,,,Away
+2024-03-29,ALBA Berlin,Fenerbahce,68.0,103.0,2023-24,,,,,,,,,,,,,Away
+2024-03-29,Panathinaikos,Virtus Bologna,81.0,79.0,2023-24,,,,,,,,,,,,,Home
+2024-04-04,Olympiacos,Red Star Belgrade,89.0,86.0,2023-24,,,,,,,,,,,,,Home
+2024-04-04,Zalgiris,Monaco,66.0,69.0,2023-24,,,,,,,,,,,,,Away
+2024-04-04,ASVEL,Valencia,98.0,69.0,2023-24,,,,,,,,,,,,,Home
+2024-04-04,Partizan,ALBA Berlin,94.0,83.0,2023-24,,,,,,,,,,,,,Home
+2024-04-04,Maccabi Tel Aviv,Barcelona,89.0,92.0,2023-24,,,,,,,,,,,,,Away
+2024-04-05,Panathinaikos,Bayern Munich,82.0,75.0,2023-24,,,,,,,,,,,,,Home
+2024-04-05,Virtus Bologna,Olimpia Milano,75.0,90.0,2023-24,,,,,,,,,,,,,Away
+2024-04-05,Baskonia,Real Madrid,95.0,91.0,2023-24,,,,,,,,,,,,,Home
+2024-04-05,Efes,Fenerbahce,82.0,80.0,2023-24,,,,,,,,,,,,,Home
+2024-04-11,Red Star Belgrade,Efes,55.0,100.0,2023-24,,,,,,,,,,,,,Away
+2024-04-11,Olimpia Milano,Maccabi Tel Aviv,86.0,92.0,2023-24,,,,,,,,,,,,,Away
+2024-04-11,Bayern Munich,Monaco,85.0,89.0,2023-24,,,,,,,,,,,,,Away
+2024-04-11,ALBA Berlin,Panathinaikos,75.0,84.0,2023-24,,,,,,,,,,,,,Away
+2024-04-11,Real Madrid,Zalgiris,64.0,62.0,2023-24,,,,,,,,,,,,,Home
+2024-04-12,Barcelona,ASVEL,72.0,76.0,2023-24,,,,,,,,,,,,,Away
+2024-04-12,Fenerbahce,Olympiacos,81.0,84.0,2023-24,,,,,,,,,,,,,Away
+2024-04-12,Valencia,Partizan,66.0,79.0,2023-24,,,,,,,,,,,,,Away
+2024-04-12,Baskonia,Virtus Bologna,95.0,91.0,2023-24,,,,,,,,,,,,,Home
+2024-04-16,Baskonia,Maccabi Tel Aviv,85.0,113.0,2023-24,,,,,,,,,,,,,Away
+2024-04-16,Virtus Bologna,Efes,67.0,64.0,2023-24,,,,,,,,,,,,,Home
+2024-04-19,Virtus Bologna,Baskonia,77.0,89.0,2023-24,,,,,,,,,,,,,Away
+2024-04-23,Maccabi Tel Aviv,Panathinaikos,91.0,87.0,2023-24,,,,,,,,,,,,,Home
+2024-04-23,Baskonia,Real Madrid,74.0,90.0,2023-24,,,,,,,,,,,,,Away
+2024-04-24,Olympiacos,Barcelona,77.0,75.0,2023-24,,,,,,,,,,,,,Home
+2024-04-24,Fenerbahce,Monaco,95.0,91.0,2023-24,,,,,,,,,,,,,Home
+2024-04-25,Maccabi Tel Aviv,Panathinaikos,79.0,95.0,2023-24,,,,,,,,,,,,,Away
+2024-04-25,Baskonia,Real Madrid,90.0,101.0,2023-24,,,,,,,,,,,,,Away
+2024-04-26,Olympiacos,Barcelona,69.0,77.0,2023-24,,,,,,,,,,,,,Away
+2024-04-26,Fenerbahce,Monaco,88.0,93.0,2023-24,,,,,,,,,,,,,Away
+2024-04-30,Panathinaikos,Maccabi Tel Aviv,83.0,85.0,2023-24,,,,,,,,,,,,,Away
+2024-04-30,Barcelona,Olympiacos,82.0,80.0,2023-24,,,,,,,,,,,,,Home
+2024-05-01,Monaco,Fenerbahce,78.0,89.0,2023-24,,,,,,,,,,,,,Away
+2024-05-01,Real Madrid,Baskonia,102.0,98.0,2023-24,,,,,,,,,,,,,Home
+2024-05-02,Barcelona,Olympiacos,58.0,92.0,2023-24,,,,,,,,,,,,,Away
+2024-05-02,Panathinaikos,Maccabi Tel Aviv,95.0,88.0,2023-24,,,,,,,,,,,,,Home
+2024-05-03,Monaco,Fenerbahce,65.0,62.0,2023-24,,,,,,,,,,,,,Home
+2024-05-07,Maccabi Tel Aviv,Panathinaikos,72.0,81.0,2023-24,,,,,,,,,,,,,Away
+2024-05-08,Olympiacos,Barcelona,63.0,59.0,2023-24,,,,,,,,,,,,,Home
+2024-05-08,Fenerbahce,Monaco,80.0,79.0,2023-24,,,,,,,,,,,,,Home
+2024-05-24,Fenerbahce,Panathinaikos,57.0,73.0,2023-24,,,,,,,,,,,,,Away
+2024-05-24,Olympiacos,Real Madrid,76.0,87.0,2023-24,,,,,,,,,,,,,Away
+2024-05-26,Fenerbahce,Olympiacos,84.0,87.0,2023-24,,,,,,,,,,,,,Away
+2024-05-26,Panathinaikos,Real Madrid,95.0,80.0,2023-24,,,,,,,,,,,,,Home
+2024-10-03,Olimpia Milano,Monaco,80.0,93.0,2024-25,,,,,,,,,,,,,Away
+2024-10-03,ASVEL,Maccabi Tel Aviv,82.0,89.0,2024-25,,,,,,,,,,,,,Away
+2024-10-03,Partizan,Baskonia,82.0,88.0,2024-25,,,,,,,,,,,,,Away
+2024-10-03,Panathinaikos,ALBA Berlin,87.0,77.0,2024-25,,,,,,,,,,,,,Home
+2024-10-03,Real Madrid,Bayern Munich,89.0,97.0,2024-25,,,,,,,,,,,,,Away
+2024-10-03,Barcelona,Zalgiris,67.0,74.0,2024-25,,,,,,,,,,,,,Away
+2024-10-04,Efes,Virtus Bologna,76.0,67.0,2024-25,,,,,,,,,,,,,Home
+2024-10-04,Olympiacos,Fenerbahce,71.0,82.0,2024-25,,,,,,,,,,,,,Away
+2024-10-04,Red Star Belgrade,Paris Basketball,80.0,77.0,2024-25,,,,,,,,,,,,,Home
+2024-10-09,Maccabi Tel Aviv,Monaco,79.0,85.0,2024-25,,,,,,,,,,,,,Away
+2024-10-09,Baskonia,Red Star Belgrade,71.0,78.0,2024-25,,,,,,,,,,,,,Away
+2024-10-10,Fenerbahce,Efes,83.0,78.0,2024-25,,,,,,,,,,,,,Home
+2024-10-10,Bayern Munich,Panathinaikos,79.0,94.0,2024-25,,,,,,,,,,,,,Away
+2024-10-10,Partizan,Real Madrid,86.0,93.0,2024-25,,,,,,,,,,,,,Away
+2024-10-10,Virtus Bologna,ASVEL,85.0,87.0,2024-25,,,,,,,,,,,,,Away
+2024-10-11,ALBA Berlin,Barcelona,73.0,88.0,2024-25,,,,,,,,,,,,,Away
+2024-10-11,Paris Basketball,Olimpia Milano,74.0,79.0,2024-25,,,,,,,,,,,,,Away
+2024-10-11,Zalgiris,Olympiacos,68.0,74.0,2024-25,,,,,,,,,,,,,Away
+2024-10-15,Real Madrid,Baskonia,72.0,76.0,2024-25,,,,,,,,,,,,,Away
+2024-10-15,Zalgiris,Virtus Bologna,71.0,68.0,2024-25,,,,,,,,,,,,,Home
+2024-10-15,Red Star Belgrade,Fenerbahce,76.0,57.0,2024-25,,,,,,,,,,,,,Home
+2024-10-15,Bayern Munich,Partizan,78.0,86.0,2024-25,,,,,,,,,,,,,Away
+2024-10-15,Olimpia Milano,Olympiacos,68.0,89.0,2024-25,,,,,,,,,,,,,Away
+2024-10-15,Efes,Maccabi Tel Aviv,91.0,93.0,2024-25,,,,,,,,,,,,,Away
+2024-10-15,ASVEL,ALBA Berlin,79.0,84.0,2024-25,,,,,,,,,,,,,Away
+2024-10-15,Panathinaikos,Paris Basketball,80.0,84.0,2024-25,,,,,,,,,,,,,Away
+2024-10-16,Monaco,Barcelona,71.0,86.0,2024-25,,,,,,,,,,,,,Away
+2024-10-17,Panathinaikos,Real Madrid,86.0,90.0,2024-25,,,,,,,,,,,,,Away
+2024-10-17,Partizan,Maccabi Tel Aviv,91.0,79.0,2024-25,,,,,,,,,,,,,Home
+2024-10-17,Zalgiris,Olimpia Milano,85.0,82.0,2024-25,,,,,,,,,,,,,Home
+2024-10-17,Fenerbahce,ALBA Berlin,78.0,71.0,2024-25,,,,,,,,,,,,,Home
+2024-10-17,Paris Basketball,Bayern Munich,107.0,109.0,2024-25,,,,,,,,,,,,,Away
+2024-10-18,Olympiacos,Efes,89.0,91.0,2024-25,,,,,,,,,,,,,Away
+2024-10-18,Virtus Bologna,Monaco,85.0,101.0,2024-25,,,,,,,,,,,,,Away
+2024-10-18,Barcelona,Red Star Belgrade,98.0,94.0,2024-25,,,,,,,,,,,,,Home
+2024-10-18,Baskonia,ASVEL,69.0,76.0,2024-25,,,,,,,,,,,,,Away
+2024-10-23,Virtus Bologna,Partizan,70.0,69.0,2024-25,,,,,,,,,,,,,Home
+2024-10-24,Maccabi Tel Aviv,Zalgiris,63.0,78.0,2024-25,,,,,,,,,,,,,Away
+2024-10-24,ALBA Berlin,Baskonia,57.0,80.0,2024-25,,,,,,,,,,,,,Away
+2024-10-24,Efes,Olimpia Milano,96.0,84.0,2024-25,,,,,,,,,,,,,Home
+2024-10-24,Paris Basketball,Monaco,87.0,80.0,2024-25,,,,,,,,,,,,,Home
+2024-10-24,Red Star Belgrade,Real Madrid,72.0,95.0,2024-25,,,,,,,,,,,,,Away
+2024-10-25,ASVEL,Barcelona,83.0,90.0,2024-25,,,,,,,,,,,,,Away
+2024-10-25,Olympiacos,Bayern Munich,80.0,84.0,2024-25,,,,,,,,,,,,,Away
+2024-10-25,Panathinaikos,Fenerbahce,81.0,76.0,2024-25,,,,,,,,,,,,,Home
+2024-10-29,Paris Basketball,ALBA Berlin,92.0,83.0,2024-25,,,,,,,,,,,,,Home
+2024-10-29,Barcelona,Efes,97.0,88.0,2024-25,,,,,,,,,,,,,Home
+2024-10-29,Real Madrid,Olympiacos,69.0,79.0,2024-25,,,,,,,,,,,,,Away
+2024-10-29,Maccabi Tel Aviv,Fenerbahce,82.0,84.0,2024-25,,,,,,,,,,,,,Away
+2024-10-29,Bayern Munich,Virtus Bologna,87.0,84.0,2024-25,,,,,,,,,,,,,Home
+2024-10-29,Olimpia Milano,Baskonia,83.0,88.0,2024-25,,,,,,,,,,,,,Away
+2024-10-30,ASVEL,Panathinaikos,68.0,92.0,2024-25,,,,,,,,,,,,,Away
+2024-10-30,Monaco,Partizan,79.0,74.0,2024-25,,,,,,,,,,,,,Home
+2024-10-30,Red Star Belgrade,Zalgiris,84.0,86.0,2024-25,,,,,,,,,,,,,Away
+2024-10-31,Barcelona,Olympiacos,74.0,95.0,2024-25,,,,,,,,,,,,,Away
+2024-10-31,Virtus Bologna,Olimpia Milano,90.0,99.0,2024-25,,,,,,,,,,,,,Away
+2024-10-31,Efes,ALBA Berlin,86.0,70.0,2024-25,,,,,,,,,,,,,Home
+2024-10-31,Real Madrid,Maccabi Tel Aviv,78.0,79.0,2024-25,,,,,,,,,,,,,Away
+2024-11-01,Baskonia,Paris Basketball,65.0,67.0,2024-25,,,,,,,,,,,,,Away
+2024-11-01,Panathinaikos,Red Star Belgrade,81.0,77.0,2024-25,,,,,,,,,,,,,Home
+2024-11-01,Partizan,Fenerbahce,72.0,89.0,2024-25,,,,,,,,,,,,,Away
+2024-11-01,Bayern Munich,ASVEL,84.0,71.0,2024-25,,,,,,,,,,,,,Home
+2024-11-01,Monaco,Zalgiris,62.0,63.0,2024-25,,,,,,,,,,,,,Away
+2024-11-07,Zalgiris,Bayern Munich,74.0,77.0,2024-25,,,,,,,,,,,,,Away
+2024-11-07,Real Madrid,Olimpia Milano,76.0,85.0,2024-25,,,,,,,,,,,,,Away
+2024-11-07,Partizan,Paris Basketball,71.0,74.0,2024-25,,,,,,,,,,,,,Away
+2024-11-07,ALBA Berlin,Red Star Belgrade,71.0,92.0,2024-25,,,,,,,,,,,,,Away
+2024-11-08,Maccabi Tel Aviv,Virtus Bologna,77.0,84.0,2024-25,,,,,,,,,,,,,Away
+2024-11-08,Fenerbahce,ASVEL,77.0,73.0,2024-25,,,,,,,,,,,,,Home
+2024-11-08,Olympiacos,Panathinaikos,94.0,89.0,2024-25,,,,,,,,,,,,,Home
+2024-11-08,Monaco,Efes,81.0,69.0,2024-25,,,,,,,,,,,,,Home
+2024-11-08,Baskonia,Barcelona,68.0,91.0,2024-25,,,,,,,,,,,,,Away
+2024-11-12,Olimpia Milano,ALBA Berlin,101.0,105.0,2024-25,,,,,,,,,,,,,Away
+2024-11-12,Red Star Belgrade,Monaco,98.0,90.0,2024-25,,,,,,,,,,,,,Home
+2024-11-12,ASVEL,Olympiacos,92.0,94.0,2024-25,,,,,,,,,,,,,Away
+2024-11-12,Maccabi Tel Aviv,Panathinaikos,87.0,93.0,2024-25,,,,,,,,,,,,,Away
+2024-11-12,Virtus Bologna,Real Madrid,86.0,98.0,2024-25,,,,,,,,,,,,,Away
+2024-11-12,Bayern Munich,Fenerbahce,76.0,87.0,2024-25,,,,,,,,,,,,,Away
+2024-11-12,Efes,Baskonia,89.0,84.0,2024-25,,,,,,,,,,,,,Home
+2024-11-13,Zalgiris,Paris Basketball,77.0,83.0,2024-25,,,,,,,,,,,,,Away
+2024-11-13,Barcelona,Partizan,87.0,79.0,2024-25,,,,,,,,,,,,,Home
+2024-11-14,Red Star Belgrade,ASVEL,74.0,77.0,2024-25,,,,,,,,,,,,,Away
+2024-11-14,Efes,Real Madrid,74.0,64.0,2024-25,,,,,,,,,,,,,Home
+2024-11-14,Monaco,Baskonia,87.0,75.0,2024-25,,,,,,,,,,,,,Home
+2024-11-14,ALBA Berlin,Bayern Munich,88.0,115.0,2024-25,,,,,,,,,,,,,Away
+2024-11-14,Olympiacos,Maccabi Tel Aviv,94.0,91.0,2024-25,,,,,,,,,,,,,Home
+2024-11-15,Fenerbahce,Zalgiris,72.0,65.0,2024-25,,,,,,,,,,,,,Home
+2024-11-15,Panathinaikos,Virtus Bologna,82.0,77.0,2024-25,,,,,,,,,,,,,Home
+2024-11-15,Paris Basketball,Barcelona,103.0,87.0,2024-25,,,,,,,,,,,,,Home
+2024-11-15,Olimpia Milano,Partizan,88.0,81.0,2024-25,,,,,,,,,,,,,Home
+2024-11-20,Fenerbahce,Virtus Bologna,86.0,82.0,2024-25,,,,,,,,,,,,,Home
+2024-11-21,Maccabi Tel Aviv,Olimpia Milano,86.0,98.0,2024-25,,,,,,,,,,,,,Away
+2024-11-21,Baskonia,Olympiacos,69.0,92.0,2024-25,,,,,,,,,,,,,Away
+2024-11-21,ALBA Berlin,Real Madrid,84.0,98.0,2024-25,,,,,,,,,,,,,Away
+2024-11-21,Partizan,Red Star Belgrade,89.0,77.0,2024-25,,,,,,,,,,,,,Home
+2024-11-21,Paris Basketball,Efes,93.0,84.0,2024-25,,,,,,,,,,,,,Home
+2024-11-21,ASVEL,Monaco,92.0,103.0,2024-25,,,,,,,,,,,,,Away
+2024-11-22,Barcelona,Bayern Munich,78.0,100.0,2024-25,,,,,,,,,,,,,Away
+2024-11-22,Panathinaikos,Zalgiris,77.0,84.0,2024-25,,,,,,,,,,,,,Away
+2024-11-28,Baskonia,Zalgiris,83.0,70.0,2024-25,,,,,,,,,,,,,Home
+2024-11-28,Olympiacos,Partizan,70.0,78.0,2024-25,,,,,,,,,,,,,Away
+2024-11-28,Virtus Bologna,Paris Basketball,78.0,81.0,2024-25,,,,,,,,,,,,,Away
+2024-11-28,Maccabi Tel Aviv,ALBA Berlin,103.0,85.0,2024-25,,,,,,,,,,,,,Home
+2024-11-28,Real Madrid,Barcelona,97.0,90.0,2024-25,,,,,,,,,,,,,Home
+2024-11-29,Monaco,Panathinaikos,91.0,88.0,2024-25,,,,,,,,,,,,,Home
+2024-11-29,Bayern Munich,Red Star Belgrade,77.0,101.0,2024-25,,,,,,,,,,,,,Away
+2024-11-29,Olimpia Milano,Fenerbahce,91.0,85.0,2024-25,,,,,,,,,,,,,Home
+2024-11-29,Efes,ASVEL,82.0,97.0,2024-25,,,,,,,,,,,,,Away
+2024-12-03,Fenerbahce,Baskonia,76.0,88.0,2024-25,,,,,,,,,,,,,Away
+2024-12-03,Real Madrid,ASVEL,78.0,80.0,2024-25,,,,,,,,,,,,,Away
+2024-12-03,Zalgiris,Partizan,78.0,84.0,2024-25,,,,,,,,,,,,,Away
+2024-12-03,Barcelona,Panathinaikos,89.0,90.0,2024-25,,,,,,,,,,,,,Away
+2024-12-03,Bayern Munich,Efes,90.0,101.0,2024-25,,,,,,,,,,,,,Away
+2024-12-03,Paris Basketball,Maccabi Tel Aviv,93.0,81.0,2024-25,,,,,,,,,,,,,Home
+2024-12-04,Red Star Belgrade,Olimpia Milano,86.0,101.0,2024-25,,,,,,,,,,,,,Away
+2024-12-04,Olympiacos,Monaco,89.0,80.0,2024-25,,,,,,,,,,,,,Home
+2024-12-04,ALBA Berlin,Virtus Bologna,90.0,88.0,2024-25,,,,,,,,,,,,,Home
+2024-12-05,Efes,Zalgiris,72.0,85.0,2024-25,,,,,,,,,,,,,Away
+2024-12-05,Fenerbahce,Real Madrid,82.0,70.0,2024-25,,,,,,,,,,,,,Home
+2024-12-05,Baskonia,Bayern Munich,80.0,94.0,2024-25,,,,,,,,,,,,,Away
+2024-12-05,Barcelona,Maccabi Tel Aviv,88.0,86.0,2024-25,,,,,,,,,,,,,Home
+2024-12-05,Panathinaikos,Partizan,73.0,91.0,2024-25,,,,,,,,,,,,,Away
+2024-12-06,ASVEL,Olimpia Milano,84.0,92.0,2024-25,,,,,,,,,,,,,Away
+2024-12-06,ALBA Berlin,Monaco,80.0,100.0,2024-25,,,,,,,,,,,,,Away
+2024-12-06,Paris Basketball,Olympiacos,96.0,90.0,2024-25,,,,,,,,,,,,,Home
+2024-12-06,Red Star Belgrade,Virtus Bologna,94.0,87.0,2024-25,,,,,,,,,,,,,Home
+2024-12-12,Partizan,ALBA Berlin,91.0,90.0,2024-25,,,,,,,,,,,,,Home
+2024-12-12,Maccabi Tel Aviv,Bayern Munich,93.0,98.0,2024-25,,,,,,,,,,,,,Away
+2024-12-12,Zalgiris,Real Madrid,92.0,83.0,2024-25,,,,,,,,,,,,,Home
+2024-12-12,Monaco,Fenerbahce,99.0,69.0,2024-25,,,,,,,,,,,,,Home
+2024-12-12,Virtus Bologna,Baskonia,82.0,81.0,2024-25,,,,,,,,,,,,,Home
+2024-12-13,Paris Basketball,ASVEL,93.0,98.0,2024-25,,,,,,,,,,,,,Away
+2024-12-13,Olympiacos,Red Star Belgrade,73.0,87.0,2024-25,,,,,,,,,,,,,Away
+2024-12-13,Panathinaikos,Efes,67.0,93.0,2024-25,,,,,,,,,,,,,Away
+2024-12-13,Olimpia Milano,Barcelona,94.0,81.0,2024-25,,,,,,,,,,,,,Home
+2024-12-17,Zalgiris,ALBA Berlin,86.0,66.0,2024-25,,,,,,,,,,,,,Home
+2024-12-17,Fenerbahce,Barcelona,63.0,90.0,2024-25,,,,,,,,,,,,,Away
+2024-12-17,Baskonia,Maccabi Tel Aviv,95.0,85.0,2024-25,,,,,,,,,,,,,Home
+2024-12-17,Bayern Munich,Monaco,74.0,93.0,2024-25,,,,,,,,,,,,,Away
+2024-12-17,Olimpia Milano,Panathinaikos,74.0,103.0,2024-25,,,,,,,,,,,,,Away
+2024-12-17,Real Madrid,Paris Basketball,96.0,85.0,2024-25,,,,,,,,,,,,,Home
+2024-12-17,ASVEL,Partizan,82.0,79.0,2024-25,,,,,,,,,,,,,Home
+2024-12-18,Red Star Belgrade,Efes,67.0,89.0,2024-25,,,,,,,,,,,,,Away
+2024-12-18,Virtus Bologna,Olympiacos,77.0,87.0,2024-25,,,,,,,,,,,,,Away
+2024-12-19,Baskonia,Panathinaikos,69.0,104.0,2024-25,,,,,,,,,,,,,Away
+2024-12-19,Monaco,Real Madrid,72.0,94.0,2024-25,,,,,,,,,,,,,Away
+2024-12-20,ASVEL,Zalgiris,78.0,72.0,2024-25,,,,,,,,,,,,,Home
+2024-12-20,Barcelona,Virtus Bologna,81.0,86.0,2024-25,,,,,,,,,,,,,Away
+2024-12-20,Maccabi Tel Aviv,Red Star Belgrade,73.0,81.0,2024-25,,,,,,,,,,,,,Away
+2024-12-20,ALBA Berlin,Olympiacos,85.0,90.0,2024-25,,,,,,,,,,,,,Away
+2024-12-20,Bayern Munich,Olimpia Milano,79.0,78.0,2024-25,,,,,,,,,,,,,Home
+2024-12-20,Partizan,Efes,77.0,86.0,2024-25,,,,,,,,,,,,,Away
+2024-12-26,Real Madrid,ALBA Berlin,80.0,69.0,2024-25,,,,,,,,,,,,,Home
+2024-12-26,Zalgiris,Maccabi Tel Aviv,78.0,95.0,2024-25,,,,,,,,,,,,,Away
+2024-12-26,Olympiacos,Olimpia Milano,84.0,83.0,2024-25,,,,,,,,,,,,,Home
+2024-12-26,Efes,Monaco,75.0,94.0,2024-25,,,,,,,,,,,,,Away
+2024-12-27,Red Star Belgrade,Barcelona,78.0,74.0,2024-25,,,,,,,,,,,,,Home
+2024-12-27,Panathinaikos,Bayern Munich,80.0,69.0,2024-25,,,,,,,,,,,,,Home
+2024-12-27,Fenerbahce,Partizan,81.0,90.0,2024-25,,,,,,,,,,,,,Away
+2024-12-27,ASVEL,Virtus Bologna,69.0,83.0,2024-25,,,,,,,,,,,,,Away
+2024-12-27,Paris Basketball,Baskonia,81.0,94.0,2024-25,,,,,,,,,,,,,Away
+2025-01-02,Olympiacos,Zalgiris,92.0,85.0,2024-25,,,,,,,,,,,,,Home
+2025-01-02,Red Star Belgrade,Baskonia,75.0,73.0,2024-25,,,,,,,,,,,,,Home
+2025-01-02,Monaco,ALBA Berlin,105.0,90.0,2024-25,,,,,,,,,,,,,Home
+2025-01-02,Olimpia Milano,ASVEL,75.0,66.0,2024-25,,,,,,,,,,,,,Home
+2025-01-03,Virtus Bologna,Panathinaikos,90.0,111.0,2024-25,,,,,,,,,,,,,Away
+2025-01-03,Barcelona,Paris Basketball,90.0,79.0,2024-25,,,,,,,,,,,,,Home
+2025-01-03,Maccabi Tel Aviv,Partizan,75.0,98.0,2024-25,,,,,,,,,,,,,Away
+2025-01-03,Bayern Munich,Real Madrid,76.0,88.0,2024-25,,,,,,,,,,,,,Away
+2025-01-03,Efes,Fenerbahce,76.0,84.0,2024-25,,,,,,,,,,,,,Away
+2025-01-09,Olimpia Milano,Maccabi Tel Aviv,107.0,74.0,2024-25,,,,,,,,,,,,,Home
+2025-01-09,Barcelona,Monaco,98.0,84.0,2024-25,,,,,,,,,,,,,Home
+2025-01-09,Partizan,Panathinaikos,84.0,96.0,2024-25,,,,,,,,,,,,,Away
+2025-01-09,ALBA Berlin,Fenerbahce,73.0,90.0,2024-25,,,,,,,,,,,,,Away
+2025-01-10,Paris Basketball,Red Star Belgrade,69.0,85.0,2024-25,,,,,,,,,,,,,Away
+2025-01-10,Real Madrid,Zalgiris,83.0,64.0,2024-25,,,,,,,,,,,,,Home
+2025-01-10,Baskonia,Virtus Bologna,74.0,76.0,2024-25,,,,,,,,,,,,,Away
+2025-01-10,ASVEL,Efes,82.0,76.0,2024-25,,,,,,,,,,,,,Home
+2025-01-10,Bayern Munich,Olympiacos,69.0,112.0,2024-25,,,,,,,,,,,,,Away
+2025-01-14,Olympiacos,Baskonia,102.0,101.0,2024-25,,,,,,,,,,,,,Home
+2025-01-14,ALBA Berlin,Olimpia Milano,68.0,100.0,2024-25,,,,,,,,,,,,,Away
+2025-01-14,Efes,Paris Basketball,84.0,88.0,2024-25,,,,,,,,,,,,,Away
+2025-01-14,Maccabi Tel Aviv,Real Madrid,113.0,116.0,2024-25,,,,,,,,,,,,,Away
+2025-01-14,Partizan,ASVEL,93.0,62.0,2024-25,,,,,,,,,,,,,Home
+2025-01-15,Fenerbahce,Red Star Belgrade,96.0,91.0,2024-25,,,,,,,,,,,,,Home
+2025-01-15,Virtus Bologna,Zalgiris,68.0,77.0,2024-25,,,,,,,,,,,,,Away
+2025-01-15,Panathinaikos,Barcelona,73.0,82.0,2024-25,,,,,,,,,,,,,Away
+2025-01-15,Monaco,Bayern Munich,94.0,95.0,2024-25,,,,,,,,,,,,,Away
+2025-01-16,Olympiacos,Real Madrid,96.0,86.0,2024-25,,,,,,,,,,,,,Home
+2025-01-16,ALBA Berlin,ASVEL,89.0,96.0,2024-25,,,,,,,,,,,,,Away
+2025-01-16,Partizan,Olimpia Milano,90.0,70.0,2024-25,,,,,,,,,,,,,Home
+2025-01-16,Maccabi Tel Aviv,Paris Basketball,83.0,96.0,2024-25,,,,,,,,,,,,,Away
+2025-01-17,Panathinaikos,Baskonia,77.0,91.0,2024-25,,,,,,,,,,,,,Away
+2025-01-17,Zalgiris,Fenerbahce,86.0,98.0,2024-25,,,,,,,,,,,,,Away
+2025-01-17,Monaco,Red Star Belgrade,82.0,88.0,2024-25,,,,,,,,,,,,,Away
+2025-01-17,Efes,Barcelona,80.0,90.0,2024-25,,,,,,,,,,,,,Away
+2025-01-17,Virtus Bologna,Bayern Munich,82.0,72.0,2024-25,,,,,,,,,,,,,Home
+2025-01-22,Paris Basketball,Partizan,86.0,92.0,2024-25,,,,,,,,,,,,,Away
+2025-01-23,Olimpia Milano,Efes,66.0,110.0,2024-25,,,,,,,,,,,,,Away
+2025-01-23,Red Star Belgrade,Maccabi Tel Aviv,73.0,85.0,2024-25,,,,,,,,,,,,,Away
+2025-01-23,Zalgiris,Panathinaikos,76.0,89.0,2024-25,,,,,,,,,,,,,Away
+2025-01-23,Baskonia,Real Madrid,89.0,90.0,2024-25,,,,,,,,,,,,,Away
+2025-01-23,Monaco,Virtus Bologna,86.0,80.0,2024-25,,,,,,,,,,,,,Home
+2025-01-24,Bayern Munich,ALBA Berlin,99.0,84.0,2024-25,,,,,,,,,,,,,Home
+2025-01-24,Fenerbahce,Olympiacos,87.0,77.0,2024-25,,,,,,,,,,,,,Home
+2025-01-24,Barcelona,ASVEL,94.0,100.0,2024-25,,,,,,,,,,,,,Away
+2025-01-30,ALBA Berlin,Maccabi Tel Aviv,93.0,87.0,2024-25,,,,,,,,,,,,,Home
+2025-01-30,Panathinaikos,Olimpia Milano,75.0,87.0,2024-25,,,,,,,,,,,,,Away
+2025-01-30,ASVEL,Paris Basketball,82.0,91.0,2024-25,,,,,,,,,,,,,Away
+2025-01-30,Barcelona,Baskonia,86.0,88.0,2024-25,,,,,,,,,,,,,Away
+2025-01-30,Bayern Munich,Zalgiris,97.0,82.0,2024-25,,,,,,,,,,,,,Home
+2025-01-31,Virtus Bologna,Fenerbahce,81.0,95.0,2024-25,,,,,,,,,,,,,Away
+2025-01-31,Red Star Belgrade,Partizan,73.0,71.0,2024-25,,,,,,,,,,,,,Home
+2025-01-31,Real Madrid,Monaco,73.0,77.0,2024-25,,,,,,,,,,,,,Away
+2025-01-31,Efes,Olympiacos,89.0,92.0,2024-25,,,,,,,,,,,,,Away
+2025-02-04,Real Madrid,Efes,73.0,79.0,2024-25,,,,,,,,,,,,,Away
+2025-02-04,Olimpia Milano,Bayern Munich,70.0,87.0,2024-25,,,,,,,,,,,,,Away
+2025-02-04,Fenerbahce,Panathinaikos,90.0,91.0,2024-25,,,,,,,,,,,,,Away
+2025-02-04,ASVEL,Red Star Belgrade,66.0,73.0,2024-25,,,,,,,,,,,,,Away
+2025-02-04,ALBA Berlin,Zalgiris,53.0,73.0,2024-25,,,,,,,,,,,,,Away
+2025-02-05,Maccabi Tel Aviv,Barcelona,71.0,100.0,2024-25,,,,,,,,,,,,,Away
+2025-02-05,Baskonia,Monaco,85.0,92.0,2024-25,,,,,,,,,,,,,Away
+2025-02-05,Olympiacos,Paris Basketball,90.0,73.0,2024-25,,,,,,,,,,,,,Home
+2025-02-05,Partizan,Virtus Bologna,81.0,71.0,2024-25,,,,,,,,,,,,,Home
+2025-02-06,Olimpia Milano,Zalgiris,89.0,87.0,2024-25,,,,,,,,,,,,,Home
+2025-02-06,Real Madrid,Fenerbahce,67.0,78.0,2024-25,,,,,,,,,,,,,Away
+2025-02-06,ASVEL,Bayern Munich,67.0,76.0,2024-25,,,,,,,,,,,,,Away
+2025-02-06,Red Star Belgrade,ALBA Berlin,77.0,71.0,2024-25,,,,,,,,,,,,,Home
+2025-02-06,Efes,Panathinaikos,89.0,104.0,2024-25,,,,,,,,,,,,,Away
+2025-02-07,Olympiacos,Barcelona,90.0,88.0,2024-25,,,,,,,,,,,,,Home
+2025-02-07,Partizan,Monaco,86.0,69.0,2024-25,,,,,,,,,,,,,Home
+2025-02-07,Paris Basketball,Virtus Bologna,83.0,77.0,2024-25,,,,,,,,,,,,,Home
+2025-02-07,Maccabi Tel Aviv,Baskonia,82.0,89.0,2024-25,,,,,,,,,,,,,Away
+2025-02-27,Fenerbahce,Maccabi Tel Aviv,76.0,94.0,2024-25,,,,,,,,,,,,,Away
+2025-02-27,Monaco,Olimpia Milano,80.0,86.0,2024-25,,,,,,,,,,,,,Away
+2025-02-27,Bayern Munich,Paris Basketball,88.0,93.0,2024-25,,,,,,,,,,,,,Away
+2025-02-27,Barcelona,Real Madrid,91.0,96.0,2024-25,,,,,,,,,,,,,Away
+2025-02-27,Zalgiris,Red Star Belgrade,86.0,80.0,2024-25,,,,,,,,,,,,,Home
+2025-02-28,Panathinaikos,ASVEL,96.0,93.0,2024-25,,,,,,,,,,,,,Home
+2025-02-28,Olympiacos,Virtus Bologna,92.0,70.0,2024-25,,,,,,,,,,,,,Home
+2025-02-28,Baskonia,Partizan,73.0,86.0,2024-25,,,,,,,,,,,,,Away
+2025-02-28,ALBA Berlin,Efes,73.0,98.0,2024-25,,,,,,,,,,,,,Away
+2025-03-03,Fenerbahce,Paris Basketball,87.0,83.0,2024-25,,,,,,,,,,,,,Home
+2025-03-05,Monaco,Paris Basketball,91.0,79.0,2024-25,,,,,,,,,,,,,Home
+2025-03-06,Red Star Belgrade,Bayern Munich,82.0,100.0,2024-25,,,,,,,,,,,,,Away
+2025-03-06,Fenerbahce,Olimpia Milano,100.0,76.0,2024-25,,,,,,,,,,,,,Home
+2025-03-06,Real Madrid,Panathinaikos,70.0,85.0,2024-25,,,,,,,,,,,,,Away
+2025-03-06,Zalgiris,Baskonia,65.0,66.0,2024-25,,,,,,,,,,,,,Away
+2025-03-07,Barcelona,ALBA Berlin,99.0,85.0,2024-25,,,,,,,,,,,,,Home
+2025-03-07,Virtus Bologna,Efes,68.0,89.0,2024-25,,,,,,,,,,,,,Away
+2025-03-07,Partizan,Olympiacos,70.0,82.0,2024-25,,,,,,,,,,,,,Away
+2025-03-07,Maccabi Tel Aviv,ASVEL,102.0,95.0,2024-25,,,,,,,,,,,,,Home
+2025-03-13,Olimpia Milano,Red Star Belgrade,82.0,80.0,2024-25,,,,,,,,,,,,,Home
+2025-03-13,ASVEL,Fenerbahce,82.0,92.0,2024-25,,,,,,,,,,,,,Away
+2025-03-13,Paris Basketball,Zalgiris,81.0,83.0,2024-25,,,,,,,,,,,,,Away
+2025-03-13,Real Madrid,Virtus Bologna,80.0,67.0,2024-25,,,,,,,,,,,,,Home
+2025-03-13,Baskonia,ALBA Berlin,90.0,97.0,2024-25,,,,,,,,,,,,,Away
+2025-03-13,Monaco,Maccabi Tel Aviv,88.0,91.0,2024-25,,,,,,,,,,,,,Away
+2025-03-14,Partizan,Barcelona,80.0,87.0,2024-25,,,,,,,,,,,,,Away
+2025-03-14,Efes,Bayern Munich,97.0,92.0,2024-25,,,,,,,,,,,,,Home
+2025-03-14,Panathinaikos,Olympiacos,74.0,76.0,2024-25,,,,,,,,,,,,,Away
+2025-03-18,Olimpia Milano,Paris Basketball,79.0,92.0,2024-25,,,,,,,,,,,,,Away
+2025-03-20,Virtus Bologna,Maccabi Tel Aviv,67.0,77.0,2024-25,,,,,,,,,,,,,Away
+2025-03-20,Fenerbahce,Monaco,82.0,91.0,2024-25,,,,,,,,,,,,,Away
+2025-03-20,Red Star Belgrade,Olympiacos,81.0,73.0,2024-25,,,,,,,,,,,,,Home
+2025-03-20,ASVEL,Real Madrid,70.0,81.0,2024-25,,,,,,,,,,,,,Away
+2025-03-20,Bayern Munich,Baskonia,89.0,112.0,2024-25,,,,,,,,,,,,,Away
+2025-03-21,ALBA Berlin,Panathinaikos,81.0,91.0,2024-25,,,,,,,,,,,,,Away
+2025-03-21,Efes,Partizan,97.0,65.0,2024-25,,,,,,,,,,,,,Home
+2025-03-21,Zalgiris,Barcelona,70.0,82.0,2024-25,,,,,,,,,,,,,Away
+2025-03-25,Bayern Munich,Barcelona,102.0,101.0,2024-25,,,,,,,,,,,,,Home
+2025-03-25,ALBA Berlin,Partizan,71.0,85.0,2024-25,,,,,,,,,,,,,Away
+2025-03-25,Olimpia Milano,Real Madrid,89.0,96.0,2024-25,,,,,,,,,,,,,Away
+2025-03-25,Paris Basketball,Fenerbahce,100.0,101.0,2024-25,,,,,,,,,,,,,Away
+2025-03-25,Olympiacos,ASVEL,70.0,81.0,2024-25,,,,,,,,,,,,,Away
+2025-03-25,Zalgiris,Monaco,86.0,96.0,2024-25,,,,,,,,,,,,,Away
+2025-03-26,Baskonia,Efes,76.0,92.0,2024-25,,,,,,,,,,,,,Away
+2025-03-26,Panathinaikos,Maccabi Tel Aviv,99.0,92.0,2024-25,,,,,,,,,,,,,Home
+2025-03-26,Virtus Bologna,Red Star Belgrade,52.0,88.0,2024-25,,,,,,,,,,,,,Away
+2025-03-27,Partizan,Bayern Munich,74.0,89.0,2024-25,,,,,,,,,,,,,Away
+2025-03-27,Barcelona,Olimpia Milano,98.0,88.0,2024-25,,,,,,,,,,,,,Home
+2025-03-27,Monaco,Olympiacos,80.0,77.0,2024-25,,,,,,,,,,,,,Home
+2025-03-27,Zalgiris,ASVEL,79.0,88.0,2024-25,,,,,,,,,,,,,Away
+2025-03-28,Real Madrid,Red Star Belgrade,78.0,72.0,2024-25,,,,,,,,,,,,,Home
+2025-03-28,Baskonia,Fenerbahce,77.0,82.0,2024-25,,,,,,,,,,,,,Away
+2025-03-28,Paris Basketball,Panathinaikos,101.0,98.0,2024-25,,,,,,,,,,,,,Home
+2025-03-28,Virtus Bologna,ALBA Berlin,108.0,64.0,2024-25,,,,,,,,,,,,,Home
+2025-03-28,Maccabi Tel Aviv,Efes,88.0,90.0,2024-25,,,,,,,,,,,,,Away
+2025-04-02,Barcelona,Fenerbahce,83.0,75.0,2024-25,,,,,,,,,,,,,Home
+2025-04-03,Bayern Munich,Maccabi Tel Aviv,90.0,93.0,2024-25,,,,,,,,,,,,,Away
+2025-04-03,Panathinaikos,Monaco,88.0,76.0,2024-25,,,,,,,,,,,,,Home
+2025-04-03,Paris Basketball,Real Madrid,104.0,105.0,2024-25,,,,,,,,,,,,,Away
+2025-04-03,Partizan,Zalgiris,66.0,70.0,2024-25,,,,,,,,,,,,,Away
+2025-04-04,Olympiacos,ALBA Berlin,100.0,92.0,2024-25,,,,,,,,,,,,,Home
+2025-04-04,Efes,Red Star Belgrade,97.0,96.0,2024-25,,,,,,,,,,,,,Home
+2025-04-04,Olimpia Milano,Virtus Bologna,70.0,90.0,2024-25,,,,,,,,,,,,,Away
+2025-04-04,ASVEL,Baskonia,75.0,111.0,2024-25,,,,,,,,,,,,,Away
+2025-04-10,Monaco,ASVEL,83.0,78.0,2024-25,,,,,,,,,,,,,Home
+2025-04-10,Real Madrid,Partizan,91.0,89.0,2024-25,,,,,,,,,,,,,Home
+2025-04-10,ALBA Berlin,Paris Basketball,63.0,72.0,2024-25,,,,,,,,,,,,,Away
+2025-04-10,Baskonia,Olimpia Milano,89.0,111.0,2024-25,,,,,,,,,,,,,Away
+2025-04-10,Fenerbahce,Bayern Munich,89.0,77.0,2024-25,,,,,,,,,,,,,Home
+2025-04-10,Maccabi Tel Aviv,Olympiacos,93.0,99.0,2024-25,,,,,,,,,,,,,Away
+2025-04-11,Zalgiris,Efes,77.0,87.0,2024-25,,,,,,,,,,,,,Away
+2025-04-11,Virtus Bologna,Barcelona,87.0,91.0,2024-25,,,,,,,,,,,,,Away
+2025-04-11,Red Star Belgrade,Panathinaikos,104.0,111.0,2024-25,,,,,,,,,,,,,Away
+2025-04-15,Red Star Belgrade,Bayern Munich,93.0,97.0,2024-25,,,,,,,,,,,,,Away
+2025-04-15,Paris Basketball,Real Madrid,81.0,73.0,2024-25,,,,,,,,,,,,,Home
+2025-04-18,Bayern Munich,Real Madrid,71.0,93.0,2024-25,,,,,,,,,,,,,Away
+2025-04-22,Efes,Panathinaikos,83.0,87.0,2024-25,,,,,,,,,,,,,Away
+2025-04-22,Paris Basketball,Fenerbahce,78.0,83.0,2024-25,,,,,,,,,,,,,Away
+2025-04-23,Barcelona,Monaco,80.0,97.0,2024-25,,,,,,,,,,,,,Away
+2025-04-23,Real Madrid,Olympiacos,72.0,84.0,2024-25,,,,,,,,,,,,,Away
+2025-04-24,Efes,Panathinaikos,79.0,76.0,2024-25,,,,,,,,,,,,,Home
+2025-04-24,Paris Basketball,Fenerbahce,72.0,89.0,2024-25,,,,,,,,,,,,,Away
+2025-04-25,Real Madrid,Olympiacos,71.0,77.0,2024-25,,,,,,,,,,,,,Away
+2025-04-25,Barcelona,Monaco,79.0,92.0,2024-25,,,,,,,,,,,,,Away
+2025-04-29,Fenerbahce,Paris Basketball,98.0,88.0,2024-25,,,,,,,,,,,,,Home
+2025-04-29,Olympiacos,Real Madrid,72.0,80.0,2024-25,,,,,,,,,,,,,Away
+2025-04-30,Panathinaikos,Efes,81.0,77.0,2024-25,,,,,,,,,,,,,Home
+2025-04-30,Monaco,Barcelona,89.0,100.0,2024-25,,,,,,,,,,,,,Away
+2025-05-01,Olympiacos,Real Madrid,86.0,84.0,2024-25,,,,,,,,,,,,,Home
+2025-05-02,Panathinaikos,Efes,82.0,85.0,2024-25,,,,,,,,,,,,,Away
+2025-05-02,Monaco,Barcelona,72.0,79.0,2024-25,,,,,,,,,,,,,Away
+2025-05-06,Barcelona,Monaco,84.0,85.0,2024-25,,,,,,,,,,,,,Away
+2025-05-06,Efes,Panathinaikos,67.0,75.0,2024-25,,,,,,,,,,,,,Away
+2025-05-23,Monaco,Olympiacos,78.0,68.0,2024-25,,,,,,,,,,,,,Home
+2025-05-23,Panathinaikos,Fenerbahce,76.0,82.0,2024-25,,,,,,,,,,,,,Away
+2025-05-25,Fenerbahce,Monaco,81.0,70.0,2024-25,,,,,,,,,,,,,Home
+2025-05-25,Panathinaikos,Olympiacos,93.0,97.0,2024-25,,,,,,,,,,,,,Away
+2025-09-30,Olympiacos,Baskonia,102.0,96.0,2025-26,,,,,,,,,,,,,Home
+2025-09-30,Real Madrid,Virtus Bologna,68.0,74.0,2025-26,,,,,,,,,,,,,Away
+2025-09-30,Olimpia Milano,Red Star Belgrade,92.0,82.0,2025-26,,,,,,,,,,,,,Home
+2025-09-30,Partizan,Dubai Basketball,76.0,89.0,2025-26,,,,,,,,,,,,,Away
+2025-09-30,Barcelona,Hapoel Jerusalem,87.0,103.0,2025-26,,,,,,,,,,,,,Away
+2025-09-30,Maccabi Tel Aviv,Efes,78.0,85.0,2025-26,,,,,,,,,,,,,Away
+2025-09-30,Bayern Munich,Panathinaikos,79.0,87.0,2025-26,,,,,,,,,,,,,Away
+2025-10-01,Zalgiris,Monaco,89.0,84.0,2025-26,,,,,,,,,,,,,Home
+2025-10-01,Paris Basketball,Fenerbahce,77.0,96.0,2025-26,,,,,,,,,,,,,Away
+2025-10-01,Valencia,ASVEL,80.0,77.0,2025-26,,,,,,,,,,,,,Home
+2025-10-02,Red Star Belgrade,Bayern Munich,88.0,97.0,2025-26,,,,,,,,,,,,,Away
+2025-10-02,Olimpia Milano,Partizan,78.0,80.0,2025-26,,,,,,,,,,,,,Away
+2025-10-02,Olympiacos,Real Madrid,77.0,89.0,2025-26,,,,,,,,,,,,,Away
+2025-10-03,Baskonia,ASVEL,95.0,102.0,2025-26,,,,,,,,,,,,,Away
+2025-10-03,Fenerbahce,Zalgiris,81.0,84.0,2025-26,,,,,,,,,,,,,Away
+2025-10-03,Virtus Bologna,Valencia,94.0,103.0,2025-26,,,,,,,,,,,,,Away
+2025-10-03,Barcelona,Panathinaikos,103.0,96.0,2025-26,,,,,,,,,,,,,Home
+2025-10-03,Dubai Basketball,Monaco,81.0,103.0,2025-26,,,,,,,,,,,,,Away
+2025-10-03,Paris Basketball,Maccabi Tel Aviv,101.0,94.0,2025-26,,,,,,,,,,,,,Home
+2025-10-03,Hapoel Jerusalem,Efes,87.0,81.0,2025-26,,,,,,,,,,,,,Home
+2025-10-08,Maccabi Tel Aviv,Hapoel Jerusalem,103.0,90.0,2025-26,,,,,,,,,,,,,Home
+2025-10-09,Monaco,Olimpia Milano,82.0,79.0,2025-26,,,,,,,,,,,,,Home
+2025-10-09,Virtus Bologna,Paris Basketball,79.0,90.0,2025-26,,,,,,,,,,,,,Away
+2025-10-09,Efes,Partizan,87.0,93.0,2025-26,,,,,,,,,,,,,Away
+2025-10-09,ASVEL,Real Madrid,72.0,85.0,2025-26,,,,,,,,,,,,,Away
+2025-10-09,Panathinaikos,Baskonia,86.0,84.0,2025-26,,,,,,,,,,,,,Home
+2025-10-10,Valencia,Barcelona,102.0,108.0,2025-26,,,,,,,,,,,,,Away
+2025-10-10,Zalgiris,Bayern Munich,98.0,70.0,2025-26,,,,,,,,,,,,,Home
+2025-10-10,Dubai Basketball,Olympiacos,67.0,86.0,2025-26,,,,,,,,,,,,,Away
+2025-10-10,Red Star Belgrade,Fenerbahce,86.0,81.0,2025-26,,,,,,,,,,,,,Home
+2025-10-14,Dubai Basketball,Fenerbahce,93.0,69.0,2025-26,,,,,,,,,,,,,Home
+2025-10-14,Zalgiris,Red Star Belgrade,79.0,88.0,2025-26,,,,,,,,,,,,,Away
+2025-10-14,Barcelona,Maccabi Tel Aviv,92.0,71.0,2025-26,,,,,,,,,,,,,Home
+2025-10-14,Olimpia Milano,Bayern Munich,53.0,64.0,2025-26,,,,,,,,,,,,,Away
+2025-10-14,Efes,Olympiacos,82.0,78.0,2025-26,,,,,,,,,,,,,Home
+2025-10-15,ASVEL,Panathinaikos,85.0,91.0,2025-26,,,,,,,,,,,,,Away
+2025-10-15,Baskonia,Paris Basketball,87.0,105.0,2025-26,,,,,,,,,,,,,Away
+2025-10-15,Partizan,Real Madrid,86.0,93.0,2025-26,,,,,,,,,,,,,Away
+2025-10-15,Hapoel Jerusalem,Valencia,100.0,93.0,2025-26,,,,,,,,,,,,,Home
+2025-10-15,Monaco,Virtus Bologna,73.0,77.0,2025-26,,,,,,,,,,,,,Away
+2025-10-16,Barcelona,Dubai Basketball,78.0,83.0,2025-26,,,,,,,,,,,,,Away
+2025-10-16,Olympiacos,Maccabi Tel Aviv,95.0,94.0,2025-26,,,,,,,,,,,,,Home
+2025-10-16,Bayern Munich,Fenerbahce,73.0,88.0,2025-26,,,,,,,,,,,,,Away
+2025-10-16,Olimpia Milano,Zalgiris,89.0,78.0,2025-26,,,,,,,,,,,,,Home
+2025-10-17,Virtus Bologna,ASVEL,90.0,83.0,2025-26,,,,,,,,,,,,,Home
+2025-10-17,Partizan,Baskonia,91.0,79.0,2025-26,,,,,,,,,,,,,Home
+2025-10-17,Real Madrid,Red Star Belgrade,75.0,90.0,2025-26,,,,,,,,,,,,,Away
+2025-10-17,Hapoel Jerusalem,Paris Basketball,89.0,88.0,2025-26,,,,,,,,,,,,,Home
+2025-10-17,Valencia,Monaco,84.0,90.0,2025-26,,,,,,,,,,,,,Away
+2025-10-17,Panathinaikos,Efes,95.0,81.0,2025-26,,,,,,,,,,,,,Home
+2025-10-22,Real Madrid,Maccabi Tel Aviv,91.0,92.0,2025-26,,,,,,,,,,,,,Away
+2025-10-23,Zalgiris,Barcelona,88.0,73.0,2025-26,,,,,,,,,,,,,Home
+2025-10-23,Monaco,Hapoel Jerusalem,77.0,85.0,2025-26,,,,,,,,,,,,,Away
+2025-10-23,Valencia,Olimpia Milano,103.0,100.0,2025-26,,,,,,,,,,,,,Home
+2025-10-23,Baskonia,Red Star Belgrade,72.0,90.0,2025-26,,,,,,,,,,,,,Away
+2025-10-23,Dubai Basketball,ASVEL,79.0,85.0,2025-26,,,,,,,,,,,,,Away
+2025-10-24,Fenerbahce,Efes,79.0,69.0,2025-26,,,,,,,,,,,,,Home
+2025-10-24,Olympiacos,Bayern Munich,96.0,71.0,2025-26,,,,,,,,,,,,,Home
+2025-10-24,Paris Basketball,Partizan,101.0,83.0,2025-26,,,,,,,,,,,,,Home
+2025-10-24,Panathinaikos,Virtus Bologna,75.0,92.0,2025-26,,,,,,,,,,,,,Away
+2025-10-28,Virtus Bologna,Zalgiris,65.0,86.0,2025-26,,,,,,,,,,,,,Away
+2025-10-28,Dubai Basketball,Baskonia,85.0,92.0,2025-26,,,,,,,,,,,,,Away
+2025-10-28,Fenerbahce,Valencia,79.0,94.0,2025-26,,,,,,,,,,,,,Away
+2025-10-28,ASVEL,Red Star Belgrade,65.0,79.0,2025-26,,,,,,,,,,,,,Away
+2025-10-28,Maccabi Tel Aviv,Panathinaikos,85.0,99.0,2025-26,,,,,,,,,,,,,Away
+2025-10-28,Real Madrid,Bayern Munich,84.0,90.0,2025-26,,,,,,,,,,,,,Away
+2025-10-28,Olimpia Milano,Barcelona,72.0,74.0,2025-26,,,,,,,,,,,,,Away
+2025-10-28,Efes,Paris Basketball,90.0,80.0,2025-26,,,,,,,,,,,,,Home
+2025-10-29,Partizan,Hapoel Jerusalem,84.0,97.0,2025-26,,,,,,,,,,,,,Away
+2025-10-29,Monaco,Olympiacos,92.0,87.0,2025-26,,,,,,,,,,,,,Home
+2025-10-30,Virtus Bologna,Bayern Munich,70.0,86.0,2025-26,,,,,,,,,,,,,Away
+2025-10-30,Red Star Belgrade,Maccabi Tel Aviv,99.0,92.0,2025-26,,,,,,,,,,,,,Home
+2025-10-30,Paris Basketball,Olimpia Milano,77.0,86.0,2025-26,,,,,,,,,,,,,Away
+2025-10-30,Fenerbahce,Real Madrid,58.0,84.0,2025-26,,,,,,,,,,,,,Away
+2025-10-30,Dubai Basketball,Valencia,78.0,80.0,2025-26,,,,,,,,,,,,,Away
+2025-10-30,ASVEL,Zalgiris,59.0,96.0,2025-26,,,,,,,,,,,,,Away
+2025-10-31,Efes,Baskonia,75.0,86.0,2025-26,,,,,,,,,,,,,Away
+2025-10-31,Barcelona,Partizan,78.0,76.0,2025-26,,,,,,,,,,,,,Home
+2025-10-31,Hapoel Jerusalem,Olympiacos,58.0,62.0,2025-26,,,,,,,,,,,,,Away
+2025-10-31,Panathinaikos,Monaco,84.0,92.0,2025-26,,,,,,,,,,,,,Away
+2025-11-05,Panathinaikos,Red Star Belgrade,68.0,86.0,2025-26,,,,,,,,,,,,,Away
+2025-11-06,Hapoel Jerusalem,Dubai Basketball,109.0,97.0,2025-26,,,,,,,,,,,,,Home
+2025-11-06,Monaco,Maccabi Tel Aviv,112.0,107.0,2025-26,,,,,,,,,,,,,Home
+2025-11-06,Bayern Munich,Paris Basketball,86.0,82.0,2025-26,,,,,,,,,,,,,Home
+2025-11-06,ASVEL,Fenerbahce,67.0,81.0,2025-26,,,,,,,,,,,,,Away
+2025-11-06,Virtus Bologna,Baskonia,76.0,87.0,2025-26,,,,,,,,,,,,,Away
+2025-11-07,Olimpia Milano,Efes,97.0,93.0,2025-26,,,,,,,,,,,,,Home
+2025-11-07,Real Madrid,Barcelona,101.0,92.0,2025-26,,,,,,,,,,,,,Home
+2025-11-07,Partizan,Olympiacos,71.0,80.0,2025-26,,,,,,,,,,,,,Away
+2025-11-07,Valencia,Zalgiris,77.0,86.0,2025-26,,,,,,,,,,,,,Away
+2025-11-11,Efes,Virtus Bologna,89.0,99.0,2025-26,,,,,,,,,,,,,Away
+2025-11-11,Real Madrid,Valencia,76.0,89.0,2025-26,,,,,,,,,,,,,Away
+2025-11-11,Maccabi Tel Aviv,Fenerbahce,75.0,84.0,2025-26,,,,,,,,,,,,,Away
+2025-11-11,Panathinaikos,Paris Basketball,101.0,95.0,2025-26,,,,,,,,,,,,,Home
+2025-11-11,Baskonia,Hapoel Jerusalem,89.0,114.0,2025-26,,,,,,,,,,,,,Away
+2025-11-11,Red Star Belgrade,Dubai Basketball,86.0,102.0,2025-26,,,,,,,,,,,,,Away
+2025-11-11,Monaco,Partizan,76.0,78.0,2025-26,,,,,,,,,,,,,Away
+2025-11-12,Barcelona,Bayern Munich,75.0,74.0,2025-26,,,,,,,,,,,,,Home
+2025-11-12,ASVEL,Olimpia Milano,72.0,80.0,2025-26,,,,,,,,,,,,,Away
+2025-11-12,Zalgiris,Olympiacos,78.0,95.0,2025-26,,,,,,,,,,,,,Away
+2025-11-13,Baskonia,Maccabi Tel Aviv,83.0,89.0,2025-26,,,,,,,,,,,,,Away
+2025-11-13,Valencia,Paris Basketball,86.0,90.0,2025-26,,,,,,,,,,,,,Away
+2025-11-13,Panathinaikos,Real Madrid,87.0,77.0,2025-26,,,,,,,,,,,,,Home
+2025-11-13,Monaco,Red Star Belgrade,79.0,91.0,2025-26,,,,,,,,,,,,,Away
+2025-11-13,Hapoel Jerusalem,Fenerbahce,68.0,74.0,2025-26,,,,,,,,,,,,,Away
+2025-11-14,Partizan,ASVEL,87.0,88.0,2025-26,,,,,,,,,,,,,Away
+2025-11-14,Zalgiris,Dubai Basketball,89.0,95.0,2025-26,,,,,,,,,,,,,Away
+2025-11-14,Olympiacos,Olimpia Milano,87.0,88.0,2025-26,,,,,,,,,,,,,Away
+2025-11-14,Bayern Munich,Efes,72.0,74.0,2025-26,,,,,,,,,,,,,Away
+2025-11-14,Virtus Bologna,Barcelona,81.0,88.0,2025-26,,,,,,,,,,,,,Away
+2025-11-19,Monaco,ASVEL,84.0,52.0,2025-26,,,,,,,,,,,,,Home
+2025-11-20,Barcelona,Efes,73.0,74.0,2025-26,,,,,,,,,,,,,Away
+2025-11-20,Hapoel Jerusalem,Olimpia Milano,105.0,83.0,2025-26,,,,,,,,,,,,,Home
+2025-11-20,Dubai Basketball,Panathinaikos,82.0,103.0,2025-26,,,,,,,,,,,,,Away
+2025-11-20,Zalgiris,Real Madrid,99.0,100.0,2025-26,,,,,,,,,,,,,Away
+2025-11-21,Paris Basketball,Olympiacos,86.0,98.0,2025-26,,,,,,,,,,,,,Away
+2025-11-21,Fenerbahce,Partizan,99.0,87.0,2025-26,,,,,,,,,,,,,Home
+2025-11-21,Red Star Belgrade,Valencia,73.0,76.0,2025-26,,,,,,,,,,,,,Away
+2025-11-21,Maccabi Tel Aviv,Virtus Bologna,89.0,99.0,2025-26,,,,,,,,,,,,,Away
+2025-11-21,Bayern Munich,Baskonia,73.0,95.0,2025-26,,,,,,,,,,,,,Away
+2025-11-25,Baskonia,Zalgiris,67.0,82.0,2025-26,,,,,,,,,,,,,Away
+2025-11-25,Virtus Bologna,Fenerbahce,64.0,66.0,2025-26,,,,,,,,,,,,,Away
+2025-11-25,Bayern Munich,Valencia,64.0,90.0,2025-26,,,,,,,,,,,,,Away
+2025-11-25,Real Madrid,Hapoel Jerusalem,75.0,74.0,2025-26,,,,,,,,,,,,,Home
+2025-11-25,Paris Basketball,Dubai Basketball,89.0,90.0,2025-26,,,,,,,,,,,,,Away
+2025-11-25,Partizan,Panathinaikos,69.0,91.0,2025-26,,,,,,,,,,,,,Away
+2025-11-26,ASVEL,Barcelona,78.0,88.0,2025-26,,,,,,,,,,,,,Away
+2025-11-26,Olimpia Milano,Maccabi Tel Aviv,102.0,88.0,2025-26,,,,,,,,,,,,,Home
+2025-11-26,Efes,Monaco,66.0,102.0,2025-26,,,,,,,,,,,,,Away
+2025-11-26,Olympiacos,Red Star Belgrade,80.0,91.0,2025-26,,,,,,,,,,,,,Away
+2025-12-04,Bayern Munich,Partizan,85.0,92.0,2025-26,,,,,,,,,,,,,Away
+2025-12-04,Maccabi Tel Aviv,Zalgiris,83.0,65.0,2025-26,,,,,,,,,,,,,Home
+2025-12-04,ASVEL,Hapoel Jerusalem,80.0,87.0,2025-26,,,,,,,,,,,,,Away
+2025-12-04,Real Madrid,Efes,81.0,75.0,2025-26,,,,,,,,,,,,,Home
+2025-12-04,Paris Basketball,Monaco,104.0,125.0,2025-26,,,,,,,,,,,,,Away
+2025-12-05,Valencia,Panathinaikos,89.0,79.0,2025-26,,,,,,,,,,,,,Home
+2025-12-05,Barcelona,Red Star Belgrade,89.0,79.0,2025-26,,,,,,,,,,,,,Home
+2025-12-05,Dubai Basketball,Virtus Bologna,78.0,79.0,2025-26,,,,,,,,,,,,,Away
+2025-12-05,Olimpia Milano,Baskonia,78.0,88.0,2025-26,,,,,,,,,,,,,Away
+2025-12-11,Efes,Valencia,82.0,94.0,2025-26,,,,,,,,,,,,,Away
+2025-12-11,Baskonia,Real Madrid,87.0,94.0,2025-26,,,,,,,,,,,,,Away
+2025-12-11,ASVEL,Maccabi Tel Aviv,84.0,92.0,2025-26,,,,,,,,,,,,,Away
+2025-12-11,Panathinaikos,Olimpia Milano,89.0,96.0,2025-26,,,,,,,,,,,,,Away
+2025-12-11,Zalgiris,Paris Basketball,108.0,105.0,2025-26,,,,,,,,,,,,,Home
+2025-12-12,Olympiacos,Barcelona,85.0,98.0,2025-26,,,,,,,,,,,,,Away
+2025-12-12,Bayern Munich,Dubai Basketball,88.0,89.0,2025-26,,,,,,,,,,,,,Away
+2025-12-12,Fenerbahce,Monaco,92.0,86.0,2025-26,,,,,,,,,,,,,Home
+2025-12-12,Red Star Belgrade,Partizan,76.0,79.0,2025-26,,,,,,,,,,,,,Away
+2025-12-12,Hapoel Jerusalem,Virtus Bologna,79.0,74.0,2025-26,,,,,,,,,,,,,Home
+2025-12-16,Maccabi Tel Aviv,Dubai Basketball,97.0,95.0,2025-26,,,,,,,,,,,,,Home
+2025-12-16,Red Star Belgrade,Hapoel Jerusalem,78.0,84.0,2025-26,,,,,,,,,,,,,Away
+2025-12-16,Real Madrid,Olimpia Milano,82.0,89.0,2025-26,,,,,,,,,,,,,Away
+2025-12-16,Valencia,Olympiacos,99.0,92.0,2025-26,,,,,,,,,,,,,Home
+2025-12-16,Barcelona,Paris Basketball,85.0,69.0,2025-26,,,,,,,,,,,,,Home
+2025-12-16,Panathinaikos,Fenerbahce,81.0,77.0,2025-26,,,,,,,,,,,,,Home
+2025-12-17,Efes,Zalgiris,87.0,64.0,2025-26,,,,,,,,,,,,,Home
+2025-12-17,Monaco,Baskonia,73.0,85.0,2025-26,,,,,,,,,,,,,Away
+2025-12-17,Bayern Munich,ASVEL,74.0,76.0,2025-26,,,,,,,,,,,,,Away
+2025-12-17,Virtus Bologna,Partizan,86.0,68.0,2025-26,,,,,,,,,,,,,Home
+2025-12-18,Valencia,Maccabi Tel Aviv,82.0,85.0,2025-26,,,,,,,,,,,,,Away
+2025-12-18,Fenerbahce,Olimpia Milano,87.0,72.0,2025-26,,,,,,,,,,,,,Home
+2025-12-18,Hapoel Jerusalem,Panathinaikos,82.0,93.0,2025-26,,,,,,,,,,,,,Away
+2025-12-18,Paris Basketball,Real Madrid,90.0,95.0,2025-26,,,,,,,,,,,,,Away
+2025-12-19,Dubai Basketball,Efes,80.0,76.0,2025-26,,,,,,,,,,,,,Home
+2025-12-19,Baskonia,Barcelona,124.0,134.0,2025-26,,,,,,,,,,,,,Away
+2025-12-19,Bayern Munich,Monaco,77.0,103.0,2025-26,,,,,,,,,,,,,Away
+2025-12-19,ASVEL,Olympiacos,84.0,107.0,2025-26,,,,,,,,,,,,,Away
+2025-12-19,Virtus Bologna,Red Star Belgrade,89.0,90.0,2025-26,,,,,,,,,,,,,Away
+2025-12-19,Partizan,Zalgiris,68.0,109.0,2025-26,,,,,,,,,,,,,Away
+2025-12-23,Efes,ASVEL,99.0,103.0,2025-26,,,,,,,,,,,,,Away
+2025-12-23,Panathinaikos,Zalgiris,92.0,85.0,2025-26,,,,,,,,,,,,,Home
+2025-12-23,Baskonia,Valencia,81.0,91.0,2025-26,,,,,,,,,,,,,Away
+2025-12-23,Hapoel Jerusalem,Bayern Munich,82.0,72.0,2025-26,,,,,,,,,,,,,Home
+2025-12-23,Red Star Belgrade,Paris Basketball,92.0,102.0,2025-26,,,,,,,,,,,,,Away
+2025-12-23,Barcelona,Fenerbahce,71.0,72.0,2025-26,,,,,,,,,,,,,Away
+2025-12-23,Olimpia Milano,Dubai Basketball,92.0,99.0,2025-26,,,,,,,,,,,,,Away
+2025-12-26,Real Madrid,Monaco,95.0,100.0,2025-26,,,,,,,,,,,,,Away
+2025-12-26,Maccabi Tel Aviv,Partizan,112.0,87.0,2025-26,,,,,,,,,,,,,Home
+2025-12-26,Olympiacos,Virtus Bologna,97.0,94.0,2025-26,,,,,,,,,,,,,Home
+2025-12-30,Monaco,Barcelona,90.0,74.0,2025-26,,,,,,,,,,,,,Home
+2025-12-30,Zalgiris,Hapoel Jerusalem,93.0,80.0,2025-26,,,,,,,,,,,,,Home
+2025-12-30,Partizan,Valencia,73.0,86.0,2025-26,,,,,,,,,,,,,Away
+2025-12-30,Paris Basketball,ASVEL,89.0,94.0,2025-26,,,,,,,,,,,,,Away
+2026-01-02,Olimpia Milano,Virtus Bologna,85.0,97.0,2025-26,,,,,,,,,,,,,Away
+2026-01-02,Fenerbahce,Baskonia,108.0,93.0,2025-26,,,,,,,,,,,,,Home
+2026-01-02,Dubai Basketball,Real Madrid,93.0,107.0,2025-26,,,,,,,,,,,,,Away
+2026-01-02,Maccabi Tel Aviv,Bayern Munich,71.0,95.0,2025-26,,,,,,,,,,,,,Away
+2026-01-02,Red Star Belgrade,Efes,87.0,65.0,2025-26,,,,,,,,,,,,,Home
+2026-01-02,Olympiacos,Panathinaikos,87.0,82.0,2025-26,,,,,,,,,,,,,Home
+2026-01-06,Maccabi Tel Aviv,Barcelona,83.0,93.0,2025-26,,,,,,,,,,,,,Away
+2026-01-06,Dubai Basketball,Hapoel Jerusalem,60.0,85.0,2025-26,,,,,,,,,,,,,Away
+2026-01-06,Partizan,Monaco,84.0,101.0,2025-26,,,,,,,,,,,,,Away
+2026-01-06,Olimpia Milano,Panathinaikos,87.0,74.0,2025-26,,,,,,,,,,,,,Home
+2026-01-06,Valencia,Red Star Belgrade,106.0,89.0,2025-26,,,,,,,,,,,,,Home
+2026-01-06,Olympiacos,Fenerbahce,80.0,88.0,2025-26,,,,,,,,,,,,,Away
+2026-01-06,Real Madrid,ASVEL,80.0,69.0,2025-26,,,,,,,,,,,,,Home
+2026-01-06,Zalgiris,Virtus Bologna,79.0,83.0,2025-26,,,,,,,,,,,,,Away
+2026-01-07,Baskonia,Bayern Munich,89.0,96.0,2025-26,,,,,,,,,,,,,Away
+2026-01-07,Paris Basketball,Efes,84.0,79.0,2025-26,,,,,,,,,,,,,Home
+2026-01-08,Monaco,Valencia,101.0,92.0,2025-26,,,,,,,,,,,,,Home
+2026-01-08,Maccabi Tel Aviv,Real Madrid,86.0,98.0,2025-26,,,,,,,,,,,,,Away
+2026-01-08,Fenerbahce,Dubai Basketball,81.0,92.0,2025-26,,,,,,,,,,,,,Away
+2026-01-08,Virtus Bologna,Panathinaikos,71.0,84.0,2025-26,,,,,,,,,,,,,Away
+2026-01-09,Partizan,Barcelona,70.0,88.0,2025-26,,,,,,,,,,,,,Away
+2026-01-09,Efes,Olimpia Milano,74.0,87.0,2025-26,,,,,,,,,,,,,Away
+2026-01-09,Bayern Munich,Olympiacos,80.0,95.0,2025-26,,,,,,,,,,,,,Away
+2026-01-09,ASVEL,Baskonia,73.0,78.0,2025-26,,,,,,,,,,,,,Away
+2026-01-09,Red Star Belgrade,Zalgiris,67.0,99.0,2025-26,,,,,,,,,,,,,Away
+2026-01-14,Olympiacos,Partizan,104.0,66.0,2025-26,,,,,,,,,,,,,Home
+2026-01-15,Baskonia,Efes,89.0,75.0,2025-26,,,,,,,,,,,,,Home
+2026-01-15,Panathinaikos,Bayern Munich,78.0,85.0,2025-26,,,,,,,,,,,,,Away
+2026-01-15,Virtus Bologna,Dubai Basketball,80.0,72.0,2025-26,,,,,,,,,,,,,Home
+2026-01-15,Zalgiris,Maccabi Tel Aviv,97.0,100.0,2025-26,,,,,,,,,,,,,Away
+2026-01-15,Red Star Belgrade,Olimpia Milano,104.0,96.0,2025-26,,,,,,,,,,,,,Home
+2026-01-15,Monaco,Paris Basketball,95.0,87.0,2025-26,,,,,,,,,,,,,Home
+2026-01-16,Hapoel Jerusalem,ASVEL,81.0,73.0,2025-26,,,,,,,,,,,,,Home
+2026-01-16,Barcelona,Real Madrid,61.0,80.0,2025-26,,,,,,,,,,,,,Away
+2026-01-16,Valencia,Fenerbahce,79.0,82.0,2025-26,,,,,,,,,,,,,Away
+2026-01-20,Dubai Basketball,Barcelona,89.0,91.0,2025-26,,,,,,,,,,,,,Away
+2026-01-20,Partizan,Bayern Munich,67.0,63.0,2025-26,,,,,,,,,,,,,Home
+2026-01-20,Efes,Hapoel Jerusalem,66.0,71.0,2025-26,,,,,,,,,,,,,Away
+2026-01-20,Red Star Belgrade,Monaco,100.0,96.0,2025-26,,,,,,,,,,,,,Home
+2026-01-20,Maccabi Tel Aviv,Olympiacos,93.0,100.0,2025-26,,,,,,,,,,,,,Away
+2026-01-20,Baskonia,Panathinaikos,74.0,93.0,2025-26,,,,,,,,,,,,,Away
+2026-01-20,Olimpia Milano,Real Madrid,77.0,106.0,2025-26,,,,,,,,,,,,,Away
+2026-01-20,Paris Basketball,Valencia,84.0,98.0,2025-26,,,,,,,,,,,,,Away
+2026-01-20,Zalgiris,ASVEL,96.0,77.0,2025-26,,,,,,,,,,,,,Home
+2026-01-21,Fenerbahce,Virtus Bologna,85.0,80.0,2025-26,,,,,,,,,,,,,Home
+2026-01-22,Monaco,Real Madrid,78.0,90.0,2025-26,,,,,,,,,,,,,Away
+2026-01-22,Dubai Basketball,Paris Basketball,99.0,79.0,2025-26,,,,,,,,,,,,,Home
+2026-01-22,Zalgiris,Olimpia Milano,86.0,82.0,2025-26,,,,,,,,,,,,,Home
+2026-01-22,Valencia,Bayern Munich,89.0,93.0,2025-26,,,,,,,,,,,,,Away
+2026-01-22,Olympiacos,Efes,74.0,68.0,2025-26,,,,,,,,,,,,,Home
+2026-01-22,Panathinaikos,Maccabi Tel Aviv,71.0,75.0,2025-26,,,,,,,,,,,,,Away
+2026-01-23,Hapoel Jerusalem,Partizan,101.0,104.0,2025-26,,,,,,,,,,,,,Away
+2026-01-23,Baskonia,Fenerbahce,71.0,84.0,2025-26,,,,,,,,,,,,,Away
+2026-01-23,Barcelona,ASVEL,98.0,91.0,2025-26,,,,,,,,,,,,,Home
+2026-01-23,Red Star Belgrade,Virtus Bologna,102.0,93.0,2025-26,,,,,,,,,,,,,Home
+2026-01-27,Real Madrid,Paris Basketball,92.0,98.0,2025-26,,,,,,,,,,,,,Away
+2026-01-29,Bayern Munich,Hapoel Jerusalem,79.0,64.0,2025-26,,,,,,,,,,,,,Home
+2026-01-29,Partizan,Olimpia Milano,79.0,85.0,2025-26,,,,,,,,,,,,,Away
+2026-01-29,Barcelona,Olympiacos,75.0,87.0,2025-26,,,,,,,,,,,,,Away
+2026-01-29,Efes,Fenerbahce,62.0,79.0,2025-26,,,,,,,,,,,,,Away
+2026-01-29,Maccabi Tel Aviv,Valencia,83.0,94.0,2025-26,,,,,,,,,,,,,Away
+2026-01-30,Zalgiris,Baskonia,91.0,102.0,2025-26,,,,,,,,,,,,,Away
+2026-01-30,Panathinaikos,ASVEL,79.0,78.0,2025-26,,,,,,,,,,,,,Home
+2026-01-30,Dubai Basketball,Red Star Belgrade,92.0,95.0,2025-26,,,,,,,,,,,,,Away
+2026-01-30,Virtus Bologna,Monaco,84.0,82.0,2025-26,,,,,,,,,,,,,Home
+2026-02-03,Valencia,Efes,90.0,107.0,2025-26,,,,,,,,,,,,,Away
+2026-02-03,Fenerbahce,Barcelona,82.0,78.0,2025-26,,,,,,,,,,,,,Home
+2026-02-03,Paris Basketball,Bayern Munich,75.0,81.0,2025-26,,,,,,,,,,,,,Away
+2026-02-03,Olympiacos,Dubai Basketball,98.0,108.0,2025-26,,,,,,,,,,,,,Away
+2026-02-03,Partizan,Maccabi Tel Aviv,93.0,95.0,2025-26,,,,,,,,,,,,,Away
+2026-02-03,Baskonia,Olimpia Milano,89.0,109.0,2025-26,,,,,,,,,,,,,Away
+2026-02-03,Real Madrid,Panathinaikos,81.0,82.0,2025-26,,,,,,,,,,,,,Away
+2026-02-03,Hapoel Jerusalem,Red Star Belgrade,75.0,87.0,2025-26,,,,,,,,,,,,,Away
+2026-02-03,Monaco,Zalgiris,87.0,104.0,2025-26,,,,,,,,,,,,,Away
+2026-02-04,ASVEL,Virtus Bologna,80.0,70.0,2025-26,,,,,,,,,,,,,Home
+2026-02-05,Panathinaikos,Partizan,62.0,78.0,2025-26,,,,,,,,,,,,,Away
+2026-02-05,Fenerbahce,Paris Basketball,92.0,90.0,2025-26,,,,,,,,,,,,,Home
+2026-02-05,Valencia,Hapoel Jerusalem,104.0,99.0,2025-26,,,,,,,,,,,,,Home
+2026-02-05,Real Madrid,Dubai Basketball,85.0,93.0,2025-26,,,,,,,,,,,,,Away
+2026-02-05,Monaco,Bayern Munich,82.0,91.0,2025-26,,,,,,,,,,,,,Away
+2026-02-06,Zalgiris,Efes,82.0,92.0,2025-26,,,,,,,,,,,,,Away
+2026-02-06,Virtus Bologna,Olympiacos,77.0,109.0,2025-26,,,,,,,,,,,,,Away
+2026-02-06,Maccabi Tel Aviv,Red Star Belgrade,83.0,82.0,2025-26,,,,,,,,,,,,,Home
+2026-02-06,Olimpia Milano,ASVEL,77.0,76.0,2025-26,,,,,,,,,,,,,Home
+2026-02-06,Barcelona,Baskonia,97.0,91.0,2025-26,,,,,,,,,,,,,Home
+2026-02-12,Virtus Bologna,Efes,60.0,91.0,2025-26,,,,,,,,,,,,,Away
+2026-02-12,Paris Basketball,Barcelona,85.0,74.0,2025-26,,,,,,,,,,,,,Home
+2026-02-12,Bayern Munich,Maccabi Tel Aviv,106.0,111.0,2025-26,,,,,,,,,,,,,Away
+2026-02-12,Red Star Belgrade,Olympiacos,86.0,92.0,2025-26,,,,,,,,,,,,,Away
+2026-02-12,ASVEL,Valencia,67.0,82.0,2025-26,,,,,,,,,,,,,Away
+2026-02-13,Hapoel Jerusalem,Zalgiris,82.0,93.0,2025-26,,,,,,,,,,,,,Away
+2026-02-13,Real Madrid,Partizan,77.0,73.0,2025-26,,,,,,,,,,,,,Home
+2026-02-13,Baskonia,Monaco,92.0,102.0,2025-26,,,,,,,,,,,,,Away
+2026-02-13,Dubai Basketball,Olimpia Milano,96.0,78.0,2025-26,,,,,,,,,,,,,Home
+2026-02-13,Fenerbahce,Panathinaikos,85.0,83.0,2025-26,,,,,,,,,,,,,Home
+2026-02-25,Partizan,Fenerbahce,78.0,81.0,2025-26,,,,,,,,,,,,,Away
+2026-02-25,Barcelona,Virtus Bologna,80.0,85.0,2025-26,,,,,,,,,,,,,Away
+2026-02-25,Olympiacos,Zalgiris,94.0,99.0,2025-26,,,,,,,,,,,,,Away
+2026-02-25,Efes,Red Star Belgrade,81.0,91.0,2025-26,,,,,,,,,,,,,Away
+2026-02-26,Valencia,Baskonia,108.0,79.0,2025-26,,,,,,,,,,,,,Home
+2026-02-26,ASVEL,Dubai Basketball,85.0,96.0,2025-26,,,,,,,,,,,,,Away
+2026-02-26,Olimpia Milano,Hapoel Jerusalem,86.0,92.0,2025-26,,,,,,,,,,,,,Away
+2026-02-26,Maccabi Tel Aviv,Monaco,91.0,86.0,2025-26,,,,,,,,,,,,,Home
+2026-02-26,Paris Basketball,Panathinaikos,104.0,99.0,2025-26,,,,,,,,,,,,,Home
+2026-02-26,Bayern Munich,Real Madrid,70.0,93.0,2025-26,,,,,,,,,,,,,Away
+2026-03-05,Monaco,Fenerbahce,70.0,88.0,2025-26,,,,,,,,,,,,,Away
+2026-03-05,Zalgiris,Valencia,87.0,91.0,2025-26,,,,,,,,,,,,,Away
+2026-03-05,Barcelona,Olimpia Milano,84.0,87.0,2025-26,,,,,,,,,,,,,Away
+2026-03-05,Virtus Bologna,Real Madrid,84.0,92.0,2025-26,,,,,,,,,,,,,Away
+2026-03-06,ASVEL,Efes,91.0,88.0,2025-26,,,,,,,,,,,,,Home
+2026-03-06,Panathinaikos,Olympiacos,80.0,86.0,2025-26,,,,,,,,,,,,,Away
+2026-03-06,Bayern Munich,Red Star Belgrade,85.0,80.0,2025-26,,,,,,,,,,,,,Home
+2026-03-06,Paris Basketball,Baskonia,97.0,81.0,2025-26,,,,,,,,,,,,,Home
+2026-03-10,Olympiacos,Paris Basketball,104.0,87.0,2025-26,,,,,,,,,,,,,Home
+2026-03-11,Partizan,Virtus Bologna,88.0,82.0,2025-26,,,,,,,,,,,,,Home
+2026-03-12,Efes,Bayern Munich,81.0,80.0,2025-26,,,,,,,,,,,,,Home
+2026-03-12,Baskonia,Dubai Basketball,94.0,100.0,2025-26,,,,,,,,,,,,,Away
+2026-03-12,Zalgiris,Panathinaikos,88.0,92.0,2025-26,,,,,,,,,,,,,Away
+2026-03-12,ASVEL,Paris Basketball,81.0,90.0,2025-26,,,,,,,,,,,,,Away
+2026-03-12,Valencia,Real Madrid,79.0,96.0,2025-26,,,,,,,,,,,,,Away
+2026-03-12,Olympiacos,Monaco,80.0,81.0,2025-26,,,,,,,,,,,,,Away
+2026-03-13,Maccabi Tel Aviv,Olimpia Milano,87.0,96.0,2025-26,,,,,,,,,,,,,Away
+2026-03-13,Fenerbahce,Red Star Belgrade,73.0,79.0,2025-26,,,,,,,,,,,,,Away
+2026-03-13,Hapoel Jerusalem,Barcelona,80.0,75.0,2025-26,,,,,,,,,,,,,Home
+2026-03-17,Paris Basketball,Hapoel Jerusalem,82.0,93.0,2025-26,,,,,,,,,,,,,Away
+2026-03-17,Fenerbahce,Olympiacos,87.0,104.0,2025-26,,,,,,,,,,,,,Away
+2026-03-17,Dubai Basketball,Partizan,74.0,88.0,2025-26,,,,,,,,,,,,,Away
+2026-03-19,Partizan,Paris Basketball,90.0,81.0,2025-26,,,,,,,,,,,,,Home
+2026-03-19,Monaco,Efes,98.0,93.0,2025-26,,,,,,,,,,,,,Home
+2026-03-19,Dubai Basketball,Bayern Munich,87.0,74.0,2025-26,,,,,,,,,,,,,Home
+2026-03-19,Virtus Bologna,Hapoel Jerusalem,91.0,109.0,2025-26,,,,,,,,,,,,,Away
+2026-03-19,Baskonia,Olympiacos,80.0,90.0,2025-26,,,,,,,,,,,,,Away
+2026-03-19,Barcelona,Valencia,66.0,62.0,2025-26,,,,,,,,,,,,,Home
+2026-03-20,Red Star Belgrade,Panathinaikos,74.0,82.0,2025-26,,,,,,,,,,,,,Away
+2026-03-20,Olimpia Milano,Fenerbahce,75.0,79.0,2025-26,,,,,,,,,,,,,Away
+2026-03-20,Maccabi Tel Aviv,ASVEL,89.0,85.0,2025-26,,,,,,,,,,,,,Home
+2026-03-20,Real Madrid,Zalgiris,85.0,87.0,2025-26,,,,,,,,,,,,,Away
+2026-03-24,Olympiacos,Valencia,84.0,85.0,2025-26,,,,,,,,,,,,,Away
+2026-03-24,Hapoel Jerusalem,Real Madrid,83.0,92.0,2025-26,,,,,,,,,,,,,Away
+2026-03-24,Bayern Munich,Zalgiris,71.0,78.0,2025-26,,,,,,,,,,,,,Away
+2026-03-24,ASVEL,Partizan,78.0,79.0,2025-26,,,,,,,,,,,,,Away
+2026-03-24,Efes,Barcelona,71.0,78.0,2025-26,,,,,,,,,,,,,Away
+2026-03-24,Fenerbahce,Maccabi Tel Aviv,89.0,94.0,2025-26,,,,,,,,,,,,,Away
+2026-03-24,Panathinaikos,Dubai Basketball,107.0,104.0,2025-26,,,,,,,,,,,,,Home
+2026-03-24,Olimpia Milano,Monaco,85.0,90.0,2025-26,,,,,,,,,,,,,Away
+2026-03-25,Red Star Belgrade,Baskonia,108.0,100.0,2025-26,,,,,,,,,,,,,Home
+2026-03-26,ASVEL,Bayern Munich,83.0,93.0,2025-26,,,,,,,,,,,,,Away
+2026-03-26,Dubai Basketball,Maccabi Tel Aviv,100.0,104.0,2025-26,,,,,,,,,,,,,Away
+2026-03-26,Virtus Bologna,Olimpia Milano,87.0,103.0,2025-26,,,,,,,,,,,,,Away
+2026-03-26,Efes,Real Madrid,71.0,82.0,2025-26,,,,,,,,,,,,,Away
+2026-03-27,Red Star Belgrade,Barcelona,88.0,92.0,2025-26,,,,,,,,,,,,,Away
+2026-03-27,Monaco,Panathinaikos,97.0,107.0,2025-26,,,,,,,,,,,,,Away
+2026-03-27,Valencia,Partizan,104.0,110.0,2025-26,,,,,,,,,,,,,Away
+2026-03-27,Zalgiris,Fenerbahce,92.0,82.0,2025-26,,,,,,,,,,,,,Home
+2026-03-27,Hapoel Jerusalem,Baskonia,109.0,118.0,2025-26,,,,,,,,,,,,,Away
+2026-03-31,Paris Basketball,Virtus Bologna,103.0,82.0,2025-26,,,,,,,,,,,,,Home
+2026-04-01,Fenerbahce,Bayern Munich,76.0,85.0,2025-26,,,,,,,,,,,,,Away
+2026-04-02,Efes,Maccabi Tel Aviv,89.0,103.0,2025-26,,,,,,,,,,,,,Away
+2026-04-02,Panathinaikos,Hapoel Jerusalem,88.0,92.0,2025-26,,,,,,,,,,,,,Away
+2026-04-02,Olimpia Milano,Paris Basketball,93.0,103.0,2025-26,,,,,,,,,,,,,Away
+2026-04-02,Partizan,Red Star Belgrade,89.0,82.0,2025-26,,,,,,,,,,,,,Home
+2026-04-02,Barcelona,Zalgiris,71.0,83.0,2025-26,,,,,,,,,,,,,Away
+2026-04-02,Monaco,Dubai Basketball,91.0,101.0,2025-26,,,,,,,,,,,,,Away
+2026-04-03,Olympiacos,ASVEL,82.0,74.0,2025-26,,,,,,,,,,,,,Home
+2026-04-03,Valencia,Virtus Bologna,94.0,81.0,2025-26,,,,,,,,,,,,,Home
+2026-04-03,Real Madrid,Baskonia,96.0,98.0,2025-26,,,,,,,,,,,,,Away
+2026-04-07,Bayern Munich,Virtus Bologna,85.0,80.0,2025-26,,,,,,,,,,,,,Home
+2026-04-07,Olimpia Milano,Valencia,96.0,102.0,2025-26,,,,,,,,,,,,,Away
+2026-04-07,Paris Basketball,Red Star Belgrade,81.0,94.0,2025-26,,,,,,,,,,,,,Away
+2026-04-07,Maccabi Tel Aviv,Baskonia,98.0,101.0,2025-26,,,,,,,,,,,,,Away
+2026-04-07,Fenerbahce,Hapoel Jerusalem,80.0,95.0,2025-26,,,,,,,,,,,,,Away
+2026-04-07,Panathinaikos,Barcelona,93.0,79.0,2025-26,,,,,,,,,,,,,Home
+2026-04-07,Real Madrid,Olympiacos,88.0,102.0,2025-26,,,,,,,,,,,,,Away
+2026-04-07,Dubai Basketball,Zalgiris,77.0,65.0,2025-26,,,,,,,,,,,,,Home

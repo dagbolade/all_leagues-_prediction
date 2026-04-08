@@ -19,14 +19,15 @@ logger = logging.getLogger(__name__)
 multi_sport = Blueprint('multi_sport', __name__)
 
 # ─── Model + historical data registry ───────────────────────────────────────
-_basketball_data = None
-_tennis_data     = None
-_basketball_hist = None   # pre-loaded historical NBA data
-_tennis_hist     = None   # pre-loaded historical tennis data
+_basketball_data    = None
+_tennis_data        = None
+_basketball_hist    = None   # pre-loaded historical NBA data
+_tennis_hist        = None   # pre-loaded historical tennis data
+_tennis_hist_feats  = None   # pre-computed tennis features (avoids O(n²) on every request)
 
 
 def _load_models():
-    global _basketball_data, _tennis_data, _basketball_hist, _tennis_hist
+    global _basketball_data, _tennis_data, _basketball_hist, _tennis_hist, _tennis_hist_feats
 
     # Basketball models
     for path in [
@@ -81,13 +82,20 @@ def _load_models():
             except Exception as e:
                 logger.error(f"[Tennis] Failed to load {p.name}: {e}")
 
-    # Tennis historical data
+    # Tennis historical data + pre-compute features ONCE at startup
     try:
         tennis_csv = project_root / "data/tennis/raw/tennis_real_data.csv"
         if tennis_csv.exists():
             _tennis_hist = pd.read_csv(tennis_csv)
             _tennis_hist['Date'] = pd.to_datetime(_tennis_hist['Date'])
-            logger.info(f"[Tennis] Historical data loaded: {len(_tennis_hist)} matches")
+            logger.info(f"[Tennis] Historical data loaded: {len(_tennis_hist)} matches — computing features...")
+            try:
+                from sports.tennis.tennis_features import TennisFeatureEngineer
+                _fe = TennisFeatureEngineer()
+                _tennis_hist_feats = _fe.engineer_features(_tennis_hist.copy())
+                logger.info(f"[Tennis] Features pre-computed: {len(_tennis_hist_feats)} rows")
+            except Exception as fe_err:
+                logger.error(f"[Tennis] Feature pre-computation failed: {fe_err}")
     except Exception as e:
         logger.error(f"[Tennis] Failed to load historical data: {e}")
 
@@ -341,30 +349,84 @@ def tennis_predict():
         return jsonify({'error': 'player1 and player2 names required'}), 400
 
     try:
-        from sports.tennis.tennis_features import TennisFeatureEngineer
-
         models = _tennis_data.get('models', {})
+        hf     = _tennis_hist_feats  # pre-computed — avoids O(n²) recompute
 
-        future_date = pd.Timestamp.now() + pd.Timedelta(days=1)
-        match_df = pd.DataFrame([{
-            'Date':       future_date,
-            'Player1':    player1,
-            'Player2':    player2,
-            'Winner':     'Player1',
-            'Surface':    surface,
-            'Tournament': 'Unknown',
-            'Round':      'Final',
-            'Score':      '0-0',
-        }])
+        # ── Build feature row from pre-computed historical features ──────────
+        feat_row = {}
 
-        # Append to historical data for proper feature context
-        if _tennis_hist is not None:
-            full_df = pd.concat([_tennis_hist, match_df], ignore_index=True)
-        else:
-            full_df = match_df
+        if hf is not None:
+            # Player1's last match as Player1
+            p1_as_p1 = hf[hf['Player1'] == player1]
+            # Player1's last match as Player2
+            p1_as_p2 = hf[hf['Player2'] == player1]
+            # Player2's last match as Player2
+            p2_as_p2 = hf[hf['Player2'] == player2]
+            # Player2's last match as Player1
+            p2_as_p1 = hf[hf['Player1'] == player2]
 
-        fe             = TennisFeatureEngineer()
-        match_features = fe.engineer_features(full_df).iloc[[-1]]
+            # Extract Player1_* features from their most recent match
+            for src_df, role in [(p1_as_p1, 'Player1'), (p1_as_p2, 'Player2')]:
+                if len(src_df) > 0:
+                    last = src_df.iloc[-1]
+                    for col in hf.columns:
+                        if col.startswith(f'{role}_'):
+                            new_col = col.replace(f'{role}_', 'Player1_', 1)
+                            val = last.get(col, 0)
+                            if pd.notna(val):
+                                feat_row[new_col] = float(val)
+                    if role == 'Player1' and 'Player1_Elo' in hf.columns:
+                        feat_row['Player1_Elo'] = float(last.get('Player1_Elo', 1500))
+                    elif role == 'Player2' and 'Player2_Elo' in hf.columns:
+                        feat_row['Player1_Elo'] = float(last.get('Player2_Elo', 1500))
+                    break  # use most recent match regardless of role
+
+            # Extract Player2_* features from their most recent match
+            for src_df, role in [(p2_as_p2, 'Player2'), (p2_as_p1, 'Player1')]:
+                if len(src_df) > 0:
+                    last = src_df.iloc[-1]
+                    for col in hf.columns:
+                        if col.startswith(f'{role}_'):
+                            new_col = col.replace(f'{role}_', 'Player2_', 1)
+                            val = last.get(col, 0)
+                            if pd.notna(val):
+                                feat_row[new_col] = float(val)
+                    if role == 'Player2' and 'Player2_Elo' in hf.columns:
+                        feat_row['Player2_Elo'] = float(last.get('Player2_Elo', 1500))
+                    elif role == 'Player1' and 'Player1_Elo' in hf.columns:
+                        feat_row['Player2_Elo'] = float(last.get('Player1_Elo', 1500))
+                    break
+
+            # ELO difference
+            feat_row['EloDiff'] = feat_row.get('Player1_Elo', 1500) - feat_row.get('Player2_Elo', 1500)
+
+            # H2H — last meeting between these two
+            h2h = hf[
+                ((hf['Player1'] == player1) & (hf['Player2'] == player2)) |
+                ((hf['Player1'] == player2) & (hf['Player2'] == player1))
+            ]
+            if len(h2h) > 0:
+                last = h2h.iloc[-1]
+                for col in ['H2H_Player1Wins', 'H2H_Player2Wins', 'H2H_TotalMatches']:
+                    if col in hf.columns:
+                        # Flip if the players were in opposite roles in the last H2H row
+                        if last.get('Player1') == player2:
+                            flip = {'H2H_Player1Wins': 'H2H_Player2Wins',
+                                    'H2H_Player2Wins': 'H2H_Player1Wins',
+                                    'H2H_TotalMatches': 'H2H_TotalMatches'}
+                            feat_row[flip[col]] = float(last.get(col, 0))
+                        else:
+                            feat_row[col] = float(last.get(col, 0))
+
+        # Surface encoding
+        surface_map = {'Hard': 0, 'Clay': 1, 'Grass': 2, 'Carpet': 3}
+        feat_row['Surface_encoded'] = surface_map.get(surface, 0)
+
+        # Month / season context
+        now = pd.Timestamp.now()
+        feat_row['Month'] = now.month
+
+        match_features = pd.DataFrame([feat_row])
 
         def get_X(task):
             cols = models[task].get('features', [])

@@ -5,6 +5,7 @@ Each sport has its own prediction page integrated into the main platform.
 
 import sys
 import logging
+import pickle
 from pathlib import Path
 from flask import Blueprint, render_template, request, jsonify
 
@@ -83,19 +84,46 @@ def _load_models():
                 logger.error(f"[Tennis] Failed to load {p.name}: {e}")
 
     # Tennis historical data + pre-compute features ONCE at startup
+    # Cache to disk so restarts after first run are instant
     try:
-        tennis_csv = project_root / "data/tennis/raw/tennis_real_data.csv"
+        tennis_csv   = project_root / "data/tennis/raw/tennis_real_data.csv"
+        cache_pkl    = project_root / "data/tennis/raw/tennis_feats_cache.pkl"
+        cache_sig    = project_root / "data/tennis/raw/tennis_feats_sig.txt"
+
         if tennis_csv.exists():
             _tennis_hist = pd.read_csv(tennis_csv)
             _tennis_hist['Date'] = pd.to_datetime(_tennis_hist['Date'])
-            logger.info(f"[Tennis] Historical data loaded: {len(_tennis_hist)} matches — computing features...")
-            try:
-                from sports.tennis.tennis_features import TennisFeatureEngineer
-                _fe = TennisFeatureEngineer()
-                _tennis_hist_feats = _fe.engineer_features(_tennis_hist.copy())
-                logger.info(f"[Tennis] Features pre-computed: {len(_tennis_hist_feats)} rows")
-            except Exception as fe_err:
-                logger.error(f"[Tennis] Feature pre-computation failed: {fe_err}")
+            logger.info(f"[Tennis] Historical data loaded: {len(_tennis_hist)} matches")
+
+            # Build a signature from the file mtime + size
+            stat    = tennis_csv.stat()
+            src_sig = f"{stat.st_mtime}_{stat.st_size}"
+
+            loaded_from_cache = False
+            if cache_pkl.exists() and cache_sig.exists():
+                try:
+                    if cache_sig.read_text().strip() == src_sig:
+                        logger.info("[Tennis] Loading pre-computed features from cache...")
+                        with open(cache_pkl, 'rb') as fh:
+                            _tennis_hist_feats = pickle.load(fh)
+                        loaded_from_cache = True
+                        logger.info(f"[Tennis] Cache loaded: {len(_tennis_hist_feats)} rows")
+                except Exception as ce:
+                    logger.warning(f"[Tennis] Cache load failed, will recompute: {ce}")
+
+            if not loaded_from_cache:
+                logger.info("[Tennis] Computing features (first run, may take ~30s)…")
+                try:
+                    from sports.tennis.tennis_features import TennisFeatureEngineer
+                    _fe = TennisFeatureEngineer()
+                    _tennis_hist_feats = _fe.engineer_features(_tennis_hist.copy())
+                    logger.info(f"[Tennis] Features computed: {len(_tennis_hist_feats)} rows — caching…")
+                    with open(cache_pkl, 'wb') as fh:
+                        pickle.dump(_tennis_hist_feats, fh)
+                    cache_sig.write_text(src_sig)
+                    logger.info("[Tennis] Features cached for future startups")
+                except Exception as fe_err:
+                    logger.error(f"[Tennis] Feature pre-computation failed: {fe_err}")
     except Exception as e:
         logger.error(f"[Tennis] Failed to load historical data: {e}")
 
@@ -645,13 +673,16 @@ def _get_nba_teams():
             return {'NBA': sorted(df['HomeTeam'].dropna().unique().tolist()), 'EuroLeague': []}
     except Exception:
         pass
-    return [
-        "Atlanta Hawks", "Boston Celtics", "Brooklyn Nets", "Charlotte Hornets",
-        "Chicago Bulls", "Cleveland Cavaliers", "Dallas Mavericks", "Denver Nuggets",
-        "Detroit Pistons", "Golden State Warriors", "Houston Rockets", "Indiana Pacers",
-        "Los Angeles Clippers", "Los Angeles Lakers", "Memphis Grizzlies", "Miami Heat",
-        "Milwaukee Bucks", "Minnesota Timberwolves", "New Orleans Pelicans", "New York Knicks",
-        "Oklahoma City Thunder", "Orlando Magic", "Philadelphia 76ers", "Phoenix Suns",
-        "Portland Trail Blazers", "Sacramento Kings", "San Antonio Spurs", "Toronto Raptors",
-        "Utah Jazz", "Washington Wizards",
-    ]
+    return {
+        'NBA': [
+            "Atlanta Hawks", "Boston Celtics", "Brooklyn Nets", "Charlotte Hornets",
+            "Chicago Bulls", "Cleveland Cavaliers", "Dallas Mavericks", "Denver Nuggets",
+            "Detroit Pistons", "Golden State Warriors", "Houston Rockets", "Indiana Pacers",
+            "Los Angeles Clippers", "Los Angeles Lakers", "Memphis Grizzlies", "Miami Heat",
+            "Milwaukee Bucks", "Minnesota Timberwolves", "New Orleans Pelicans", "New York Knicks",
+            "Oklahoma City Thunder", "Orlando Magic", "Philadelphia 76ers", "Phoenix Suns",
+            "Portland Trail Blazers", "Sacramento Kings", "San Antonio Spurs", "Toronto Raptors",
+            "Utah Jazz", "Washington Wizards",
+        ],
+        'EuroLeague': [],
+    }

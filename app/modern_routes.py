@@ -96,6 +96,23 @@ class ModernPredictorManager:
                 logger.error("Required files not found")
                 return False
 
+            # Guard against Git LFS pointer files (< 1 KB = not the real model)
+            model_size = os.path.getsize(models_path)
+            if model_size < 1024:
+                logger.error(
+                    f"Football model file is an LFS pointer ({model_size} bytes) — "
+                    "not pulled by deployment. Football predictions unavailable."
+                )
+                return False
+
+            data_size = os.path.getsize(data_path)
+            if data_size < 1024:
+                logger.error(
+                    f"Football features CSV is an LFS pointer ({data_size} bytes) — "
+                    "not pulled by deployment. Football predictions unavailable."
+                )
+                return False
+
             # Load data
             df = pd.read_csv(data_path, low_memory=False)
 

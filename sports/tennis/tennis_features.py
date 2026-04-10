@@ -185,29 +185,39 @@ class TennisFeatureEngineer:
         return df
 
     def _add_h2h_features(self, df: pd.DataFrame) -> pd.DataFrame:
-        """Add head-to-head matchup features."""
-        df['H2H_Player1Wins'] = 0
-        df['H2H_Player2Wins'] = 0
+        """Add head-to-head matchup features — O(n log n) via groupby cumsum."""
+        df = df.reset_index(drop=True)
+        df['H2H_Player1Wins']  = 0
+        df['H2H_Player2Wins']  = 0
         df['H2H_TotalMatches'] = 0
 
-        for idx, row in df.iterrows():
-            p1 = row['Player1']
-            p2 = row['Player2']
+        # Canonical pair key: sort names so A||B == B||A regardless of who is P1/P2
+        p1_vals = df['Player1'].values
+        p2_vals = df['Player2'].values
+        df['_pair'] = [f"{min(a, b)}||{max(a, b)}" for a, b in zip(p1_vals, p2_vals)]
 
-            # Get all previous meetings
-            h2h = df[(((df['Player1'] == p1) & (df['Player2'] == p2)) |
-                      ((df['Player1'] == p2) & (df['Player2'] == p1))) &
-                     (df.index < idx)]
+        # For each row, is Player1 the "canonical-first" player (i.e. alphabetically smaller)?
+        p1_is_canon = df['Player1'] <= df['Player2']
 
-            if len(h2h) > 0:
-                p1_wins = len(h2h[((h2h['Player1'] == p1) & (h2h['Winner'] == 'Player1')) |
-                                  ((h2h['Player2'] == p1) & (h2h['Winner'] == 'Player2'))])
-                p2_wins = len(h2h) - p1_wins
+        # 1 = canonical-first-player won this match
+        df['_canon_win'] = (
+            (p1_is_canon & (df['Winner'] == 'Player1')) |
+            (~p1_is_canon & (df['Winner'] == 'Player2'))
+        ).astype(int)
 
-                df.at[idx, 'H2H_Player1Wins'] = p1_wins
-                df.at[idx, 'H2H_Player2Wins'] = p2_wins
-                df.at[idx, 'H2H_TotalMatches'] = len(h2h)
+        # Cumulative totals BEFORE the current row (shift by group)
+        df['_cum_total']   = df.groupby('_pair').cumcount()           # 0-based = matches before this
+        df['_cum_canon_w'] = (df.groupby('_pair')['_canon_win'].cumsum() - df['_canon_win'])
 
+        df['H2H_TotalMatches'] = df['_cum_total'].values
+
+        mask_canon = p1_is_canon.values
+        df.loc[mask_canon,  'H2H_Player1Wins'] = df.loc[mask_canon,  '_cum_canon_w'].values
+        df.loc[mask_canon,  'H2H_Player2Wins'] = (df.loc[mask_canon,  '_cum_total'] - df.loc[mask_canon,  '_cum_canon_w']).values
+        df.loc[~mask_canon, 'H2H_Player2Wins'] = df.loc[~mask_canon, '_cum_canon_w'].values
+        df.loc[~mask_canon, 'H2H_Player1Wins'] = (df.loc[~mask_canon, '_cum_total'] - df.loc[~mask_canon, '_cum_canon_w']).values
+
+        df.drop(columns=['_pair', '_canon_win', '_cum_total', '_cum_canon_w'], inplace=True)
         return df
 
     def _add_surface_features(self, df: pd.DataFrame) -> pd.DataFrame:

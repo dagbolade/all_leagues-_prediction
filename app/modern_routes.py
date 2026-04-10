@@ -96,15 +96,6 @@ class ModernPredictorManager:
                 logger.error("Required files not found")
                 return False
 
-            # Guard against Git LFS pointer files (< 1 KB = not the real model)
-            model_size = os.path.getsize(models_path)
-            if model_size < 1024:
-                logger.error(
-                    f"Football model file is an LFS pointer ({model_size} bytes) — "
-                    "not pulled by deployment. Football predictions unavailable."
-                )
-                return False
-
             data_size = os.path.getsize(data_path)
             if data_size < 1024:
                 logger.error(
@@ -113,15 +104,26 @@ class ModernPredictorManager:
                 )
                 return False
 
-            # Load data
+            # Load data first so teams are always available
             df = pd.read_csv(data_path, low_memory=False)
+
+            # Extract teams from data regardless of model availability
+            self.teams = sorted(list(set(df['HomeTeam'].unique()) | set(df['AwayTeam'].unique())))
+            logger.info(f"[Football] Teams extracted: {len(self.teams)}")
+
+            # Guard against Git LFS pointer files (< 1 KB = not the real model)
+            model_size = os.path.getsize(models_path)
+            if model_size < 1024:
+                logger.error(
+                    f"Football model file is an LFS pointer ({model_size} bytes) — "
+                    "predictions unavailable but teams loaded."
+                )
+                return True   # partial success — teams work, predictions won't
 
             # Create predictor
             self.predictor = create_bayesian_predictor(df, models_path)
 
             if self.predictor:
-                # Extract teams
-                self.teams = sorted(list(set(df['HomeTeam'].unique()) | set(df['AwayTeam'].unique())))
 
                 # Get model info
                 try:

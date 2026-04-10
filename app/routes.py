@@ -401,14 +401,22 @@ def initialize_predictor():
             print(f"[Error] Failed to load data: {e}")
             return None, []
 
+        # Extract teams from data BEFORE predictor creation so teams always show
+        # even when the model file is unavailable (e.g. Git LFS pointer on deploy)
+        teams = sorted(list(set(df['HomeTeam'].unique()) | set(df['AwayTeam'].unique())))
+        print(f"[OK] Teams extracted from data: {len(teams)}")
+
+        # Guard against LFS pointer files (< 1 KB = not the real model)
+        if os.path.getsize(models_path) < 1024:
+            print(f"[Warning] football_models.joblib is an LFS pointer "
+                  f"({os.path.getsize(models_path)} bytes) — predictions unavailable but teams loaded")
+            return None, teams
+
         # Create predictor
         predictor = create_bayesian_predictor(df, models_path)
         if predictor is None:
             print("[Error] Failed to create predictor")
-            return None, []
-
-        # Extract teams
-        teams = sorted(list(set(df['HomeTeam'].unique()) | set(df['AwayTeam'].unique())))
+            return None, teams
 
         # Initialize analyzers
         global gw1_analyzer, weekly_analyzer

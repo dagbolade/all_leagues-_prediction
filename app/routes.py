@@ -52,6 +52,7 @@ routes = Blueprint('routes', __name__)
 # Global variables
 predictor = None
 teams = []
+_init_attempted = False   # True once initialize_predictor() has run at least once
 gw1_analyzer = None
 weekly_analyzer = None
 prediction_cache = None
@@ -334,7 +335,8 @@ def generate_comprehensive_insights(predictor_df, home_team, away_team, weekly_a
 
 def initialize_predictor():
     """Initialize prediction system with caching and live scores"""
-    global predictor, teams, prediction_cache, live_scores_service
+    global predictor, teams, prediction_cache, live_scores_service, _init_attempted
+    _init_attempted = True
     try:
         base_dir = os.path.dirname(os.path.abspath(__file__))
         
@@ -490,9 +492,12 @@ def api_league_teams():
     return jsonify({'league_teams': league_teams, 'league_names': LEAGUE_NAMES})
 
 def check_initialization():
-    """Ensure system is initialized before serving requests"""
-    global predictor, teams
-    if not teams or not predictor:
+    """Ensure system is initialized before serving requests."""
+    global predictor, teams, _init_attempted
+    # Only re-run if we haven't tried yet OR if we have no teams at all.
+    # If we already tried and the model is an LFS pointer (predictor=None but
+    # teams are populated), don't keep hammering initialize_predictor().
+    if not _init_attempted or not teams:
         print("[System] Lazy initialization triggered...")
         predictor, teams = initialize_predictor()
     return predictor, teams

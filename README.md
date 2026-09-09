@@ -1,100 +1,90 @@
-# all_leagues-_prediction
+# Matchday — sports intelligence
 
-**all_leagues-_prediction** is an open-source football (soccer) prediction platform designed for fans, data scientists, and developers who want to analyze matches and forecast outcomes across a variety of football leagues. This project leverages Python and modern web technologies to deliver reproducible, customizable football predictions and analytics.
+A rebuilt football, basketball and tennis analysis website. The active implementation is **`sportslab/`**. Football includes Champions League and 38 domestic/global competitions. The app uses SQLite, one chronological feature pipeline, versioned models and a private pre-match journal.
 
----
+## Start on this computer
 
-## Features
+The isolated runtime, refreshed data and trained models are available locally.
 
-- Predict outcomes for football matches across multiple leagues
-- Built-in data ingestion and preprocessing tools
-- Model training and evaluation (with support for custom models)
-- Interactive visualizations and reporting
-- Extensible for custom features, additional leagues, and new prediction algorithms
-- Community-driven and open for contributions
+```powershell
+.\Start-Matchday.ps1
+```
 
-## Getting Started
+Open http://127.0.0.1:5000. The app has Overview, Match explorer, Prediction journal, Results, Model lab and Data coverage pages. It does not place bets.
 
-### Prerequisites
+## Refresh and retrain
 
-- **Python 3.8+** (core backend, modeling, and data processing)
-- **Node.js & npm** (for front-end components, if any)
-- (See `requirements.txt` and `package.json` for a full list)
+```powershell
+# Download available results, fixtures and observed xG; settle recorded forecasts
+.\Refresh-Matchday.ps1
+# Refresh, benchmark and train all three sport models
+.\Refresh-Matchday.ps1 -Train
+# Train without network access
+.venv-revamp\Scripts\python.exe -m sportslab train
+# Inspect coverage and provider outcomes
+.venv-revamp\Scripts\python.exe -m sportslab status
+```
 
-### Installation
+Refresh is manual; no recurring task has been installed. **Refresh view** in the website reloads the database view, without scraping or retraining. An OS lock prevents overlapping CLI writers. Successful downloads remain available when another provider fails. Data coverage shows the latest outcome for each source plus recent attempt history. Partial provider failures are reported there; runtime or training failures return a nonzero exit code.
 
-1. **Fork this repository** using the "Fork" button at the top right.
-2. **Clone your fork:**
-   ```bash
-   git clone https://github.com/YOUR-USERNAME/all_leagues-_prediction.git
-   cd all_leagues-_prediction
-   ```
+`FOOTBALL_DATA_API_KEY` (or the existing `API_KEY`) in `.env` enables football-data.org UCL history and verified fixtures. The current account returned seasons 2023 onward; the attempted 2022 season returned HTTP 403. No subscription was added. Raw responses are saved with URLs, hashes and retrieval timestamps; credentials are not logged.
 
-3. **Set up the backend:**
-   ```bash
-   python -m venv venv
-   source venv/bin/activate  # Windows: venv\Scripts\activate
-   pip install -r requirements.txt
-   ```
+## Recreate the environment
 
-4. **Set up the frontend (if applicable):**
-   ```bash
-   npm install
-   ```
+Python 3.12 is supported. The older `.venv` referenced a missing Python installation; the replacement is `.venv-revamp`.
 
-5. **Environment setup:**
-   - Copy `.env.example` to `.env` and fill in required environment variables.
+```powershell
+py -3.12 -m venv .venv-revamp
+.venv-revamp\Scripts\python.exe -m pip install -r requirements-dev.txt
+.venv-revamp\Scripts\python.exe -m sportslab bootstrap
+.venv-revamp\Scripts\python.exe -m sportslab pipeline
+```
 
-### Usage
+`requirements.txt` contains direct runtime dependencies; `requirements-lock.txt` records the tested Windows environment. Linux hosting additionally installs Gunicorn from `requirements.txt`. Original workbooks and basketball/tennis archives seed a new store. Generated data and model artifacts are ignored by Git and must be transferred or regenerated on another host.
 
-- Run the main application:
-  ```bash
-  python main.py
-  ```
-- Or follow project-specific instructions in the documentation for running web servers or notebooks.
+## What the numbers mean
 
-### Contributing
+- Features use earlier UTC dates. Matches on the same date are processed as a batch, avoiding same-day leakage when kickoff times are missing.
+- The same builder serves training and inference: head-to-head between the actual opponents, all-venue rest, scoring history, Elo, surface form and observed xG. Missing data remains missing.
+- Outcome classes are explicit. Football goal totals, BTTS, clean sheets and outcome probabilities share one coherent score distribution. Predicted goals are model estimates, distinct from observed Understat xG.
+- Training, calibration and test periods do not overlap. Model lab shows the untouched chronological **recipe benchmark**, with per-competition metrics, log loss, Brier score and a historical class-frequency baseline. The serving model is subsequently refit on newer results and calibrated on a recent held-back period. Its exact future accuracy is unknown.
+- Historical accuracy does not establish profitability. Odds, lineups and injuries are not current model inputs. Half-time, cards, corners, NFL and unsupported legacy markets are not served.
+- Both participants need five earlier appearances. Unknown or thinly covered participants receive an explicit unavailable response. League coverage does not mean complete coverage of every club or every field.
 
-We welcome all types of contributions—bug fixes, new features, documentation, and tests!  
-Please see [CONTRIBUTING.md](CONTRIBUTING.md) for details on how to get started.
+## Prediction journal
 
-### Code of Conduct
+Only provider-verified future fixtures can be recorded. The server creates probabilities; the browser cannot supply them. Entries freeze the forecast and model/data versions. Duplicate saves retain the original record. Settlement uses exact identities, supports provider-confirmed postponements and records corrected final scores in an append-only event log. Custom scenarios cannot enter the journal.
 
-Please note that this project is released with a [Contributor Covenant Code of Conduct](CODE_OF_CONDUCT.md). By participating, you agree to abide by its terms to foster a welcoming and inclusive community.
+The journal belongs to this browser session, using a signed cookie; it is not a cross-device account. Keep `data/sportslab/session.key` stable or configure `SECRET_KEY`. Clearing cookies loses access to an anonymous journal. Writes require CSRF tokens and have per-session rate limits. Provider text is rendered as text, not HTML. Old shared chat histories and accumulators are not imported into anonymous sessions.
 
-  ```
+## Storage and hosting
 
-## Project Structure
+- `data/sportslab/sportslab.sqlite3`: matches, import reports, predictions and settlement events.
+- `data/sportslab/raw/`: downloaded bodies and provenance metadata.
+- `models/sportslab/<sport>/<version>/`: serving/benchmark artifacts and manifests containing evaluation, feature schema and checksums.
+- `SPORTSLAB_DATA` and `SPORTSLAB_MODELS`: optional durable storage overrides, set before running the app or CLI.
+- `app.run:app` and `api.unified_api:app`: the canonical Flask app; old blueprints are not registered.
+- `/health`: liveness. `/ready`: checks for database records and all three model pointers.
 
-all_leagues-_prediction/
-├── .github/                    # GitHub-specific configurations
-├── app/                        # Application-related code
-├── data/                       # Data storage and processing
-├── footy/                      # Football-specific modules
-├── models/                     # Machine learning models
-├── .gitattributes              # Git attributes file
-├── .gitignore                  # Git ignore file
-├── CODE_OF_CONDUCT.md          # Code of conduct guidelines
-├── CONTRIBUTING.md             # Contribution guidelines
-├── Procfile                    # Process file for deployment
-├── README.md                   # Project overview and documentation
-├── debug.py                     # Debugging script
-├── global_data_integration.py  # Script for integrating global data
-├── main.py                     # Main application script
-├── render.yaml                 # Render deployment configuration
-└── requirements.txt            # Python dependencies
+Use Waitress locally, or `gunicorn app.run:app --bind 0.0.0.0:$PORT --timeout 120 --workers 2` on Linux. Hosting needs durable data/model storage, a stable `SECRET_KEY` and `COOKIE_SECURE=1` behind HTTPS. Use SQLite's backup API for an active database, and back up the session key and model directories. Training writes a new version and switches the active pointer after its artifact and manifest are complete. No public deployment was performed.
 
-  ```
+## Tests and audit
 
-## License
+```powershell
+New-Item -ItemType Directory -Force .pytest-work
+.venv-revamp\Scripts\python.exe -m pytest -q --basetemp=.pytest-work/run
+```
 
-This project is open source and available under the MIT License.
+Tests use an isolated store. They cover future-result invariance, same-day batching, training/inference parity, rest, real labels, coherent probabilities, aliases, missing half-time data, corrections, journal ownership/immutability, postponement, exact settlement and API validation/CSRF.
 
-## Acknowledgements
+See `audit/PROJECT_AUDIT_2026-09-09.md` for the original audit and `audit/REVAMP_DELIVERY.md` for delivery evidence. Displaced entrypoints are retained in `legacy/entrypoints/`. Old `footy/`, route files, sport adapters and models remain as historical reference and are not used by the current application.
 
-- Inspired by football analytics and machine learning communities
-- Thanks to all contributors and football fans!
+## Sources
 
----
+[Football results](https://www.football-data.co.uk/data.php), [football-data.org](https://www.football-data.org/documentation/quickstart), [Understat](https://understat.com/), [tennis-data.co.uk](http://www.tennis-data.co.uk/alldata.php), [ESPN](https://www.espn.com/nba/scoreboard), [EuroLeague official API](https://api-live.euroleague.net/swagger/v2/swagger.json). The coverage page identifies imported results and freshness; provider availability can change.
 
-Enjoy predicting football matches and contributing to the project!
+## Railway deployment bundle
+
+`deployment/` contains a compressed public-match seed and the active trained models. It deliberately excludes local journals, session keys, credentials and raw response archives. Railway runs `python -m sportslab.deploy` before Gunicorn and checks `/ready`. A new empty database is seeded; an existing database is retained. Each deployment activates the bundled model versions.
+
+Attach a Railway volume to retain journals and refreshed data across deployments. The app automatically uses `RAILWAY_VOLUME_MOUNT_PATH/sportslab` when supplied, unless `SPORTSLAB_DATA` is explicitly set. Without a volume, Railway filesystem data is ephemeral. Set a stable `SECRET_KEY` and `COOKIE_SECURE=1` for the HTTPS site. Existing football API credentials remain Railway environment variables.

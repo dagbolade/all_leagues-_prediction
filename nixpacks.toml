@@ -1,13 +1,8 @@
-# Railway Nixpacks configuration
-# Note: Railway automatically handles Git LFS during source checkout (before Docker build)
-# Do NOT run 'git lfs pull' in Docker build - no .git directory exists there
+[variables]
+NIXPACKS_PYTHON_VERSION = "3.12"
 
 [phases.build]
-cmds = [
-    'pip install --upgrade pip setuptools wheel',
-    'pip install -r requirements.txt',
-    'python scripts/check_lfs_models.py || echo "LFS check completed with warnings"'
-]
+cmds = ["pip install -r requirements.txt"]
 
 [start]
-cmd = 'gunicorn app.run:app --bind 0.0.0.0:$PORT --timeout 120 --workers 2'
+cmd = "python -m sportslab.deploy && gunicorn app.run:app --bind 0.0.0.0:$PORT --timeout 120 --workers 2"

@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="csrf-token" content="{{ csrf }}">
+  <meta name="description" content="Matchday sports intelligence: match analysis, transparent probabilities and measured model performance.">
+  <meta name="theme-color" content="#142b26">
+  <title>Matchday — Sports intelligence</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 80'%3E%3Crect width='80' height='80' rx='22' fill='%23142b26'/%3E%3Cpath d='M18 55V25l22 22 22-22v30' stroke='%23c6e8a4' stroke-width='8' fill='none'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="{{ url_for('static',filename='app.css') }}">
+  <script src="{{ url_for('static',filename='app.js') }}" defer></script>
+</head>
+<body>
+<aside class="sidebar" aria-label="Main navigation">
+  <a href="#overview" class="brand"><span class="brand-mark">m<span>•</span></span><span>matchday<small>SPORTS INTELLIGENCE</small></span></a>
+  <div class="nav-label">WORKSPACE</div>
+  <nav>
+    <button class="nav-item active" data-page="overview"><span>◫</span> Overview</button>
+    <button class="nav-item" data-page="explorer"><span>⌕</span> Match explorer</button>
+    <button class="nav-item" data-page="journal"><span>▤</span> Prediction journal</button>
+    <button class="nav-item" data-page="results"><span>☷</span> Results</button>
+    <div class="nav-label second-label">UNDER THE HOOD</div>
+    <button class="nav-item" data-page="models"><span>◈</span> Model lab</button>
+    <button class="nav-item" data-page="coverage"><span>▦</span> Data coverage</button>
+  </nav>
+  <div class="sidebar-bottom"><span class="live-dot"></span> Built on evidence<p>Probabilities, not promises.<br>Track the process. Learn from results.</p><div class="profile"><span class="avatar">D</span><div>Your workspace<small>Private prediction journal</small></div></div></div>
+</aside>
+<div class="workspace">
+  <header class="topbar"><div class="breadcrumb">Workspace <span>/</span> <b id="page-title">Overview</b></div><div class="topbar-right"><span id="today"></span><span class="status-pill"><i></i> Research mode</span></div></header>
+  <main>
+    <div class="page-heading"><div><div class="eyebrow">A CLEARER VIEW OF THE GAME</div><h1 id="heading">Your matchday, decoded.</h1><p id="subtitle">Explore the numbers. Understand the matchup. Keep an honest record.</p></div><button class="button secondary" id="refresh-view">↻ Refresh view</button></div>
+    <div class="sport-bar" aria-label="Sport"><button class="sport active" data-sport="football">⚽ Football</button><button class="sport" data-sport="basketball">◉ Basketball</button><button class="sport" data-sport="tennis">◒ Tennis</button><span class="sport-note">Independent models. One workspace.</span></div>
+    <section id="overview" class="page active-page">
+      <div class="hero-grid">
+        <article class="hero"><div class="hero-content"><span class="hero-tag">THE ANALYSIS ADVANTAGE</span><h2>The game,<br>beyond the score.</h2><p>Form, team strength and probability.<br>A complete picture before the first whistle.</p><button class="button light" data-go="explorer">Explore a matchup <span>↗</span></button></div><div class="pitch" aria-hidden="true"><div class="pitch-center"></div><div class="pitch-box top"></div><div class="pitch-box bottom"></div><span class="player p1"></span><span class="player p2"></span><span class="player p3"></span><span class="player p4"></span><span class="player p5"></span><span class="player p6"></span><span class="player p7"></span><span class="player p8"></span></div><span class="hero-footer">LESS GUESSWORK. MORE CONTEXT.</span></article>
+        <article class="panel method-card"><div class="eyebrow">A DIFFERENT KIND OF SCOREBOARD</div><span class="method-icon">↗</span><h3>Confidence you can inspect.</h3><p>Every forecast connects to real match history and a measured benchmark. See what the model knows—and where the data ends.</p><div class="method-line"><span class="tiny-check">✓</span> Chronological evaluation</div><div class="method-line"><span class="tiny-check">✓</span> Source and freshness visibility</div><button class="text-button" data-go="models">Inside the model lab →</button></article>
+      </div>
+      <div class="metrics" id="summary-metrics"><div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div></div>
+      <div class="section-heading"><div><h2>The matchboard <span class="tag" id="match-count">—</span></h2><p>Upcoming fixtures when available, otherwise the latest recorded results.</p></div><button class="text-button" data-go="explorer">Open explorer ↗</button></div>
+      <div class="filters"><select id="competition" aria-label="Competition"><option value="">All competitions</option></select><input type="date" id="fixture-date" aria-label="Fixture date"><button class="filter-button" id="clear-filters">Reset filters</button></div>
+      <div class="match-grid" id="matchboard" aria-live="polite"></div>
+      <div class="footnote">Forecasts describe uncertainty. A higher probability is not a guarantee of the result.</div>
+    </section>
+    <section id="explorer" class="page">
+      <div class="explorer-layout"><article class="panel matchup-form"><div class="eyebrow">MATCH EXPLORER</div><h2>Build your analysis.</h2><p class="muted">Compare any two covered participants. Custom matchups are labelled as scenarios.</p>
+        <form id="analyse-form"><label for="analysis-competition">Competition</label><select id="analysis-competition" required></select><label for="home-team">Home / player 1</label><select id="home-team" required></select><div class="versus">VS</div><label for="away-team">Away / player 2</label><select id="away-team" required></select><label for="analysis-date">Match date</label><input type="date" id="analysis-date" required><div id="surface-field" hidden><label for="surface">Surface</label><select id="surface"><option>Hard</option><option>Clay</option><option>Grass</option></select></div><button class="button primary full" type="submit">Analyse matchup ↗</button></form>
+        <div class="form-note">Uses only earlier completed matches. Historical forecasts belong in the model evaluation pipeline.</div>
+      </article><div id="analysis" class="analysis-area" aria-live="polite"><article class="panel empty-analysis"><div class="empty-icon">◎</div><h2>Every matchup has a story.</h2><p>Choose the participants to explore outcome probabilities, recent form and the factors behind the forecast.</p><div class="empty-steps"><span>01 &nbsp; Choose teams</span><span>02 &nbsp; Inspect the evidence</span><span>03 &nbsp; Track the result</span></div></article></div></div>
+    </section>
+    <section id="journal" class="page"><div class="section-heading"><div><h2>A record that stays honest.</h2><p>Verified fixtures, frozen before kickoff. Results settle against the same fixture ID.</p></div><button class="button secondary" id="settle">Check recorded results</button></div><div id="journal-summary" class="metrics"></div><div id="journal-list"></div></section>
+    <section id="results" class="page"><div class="section-heading"><div><h2>The final whistle.</h2><p>Latest completed matches in the local dataset.</p></div></div><div id="results-list" class="match-grid"></div></section>
+    <section id="models" class="page"><div class="section-heading"><div><h2>Performance, with the workings shown.</h2><p>Chronological test results, baseline comparisons and probability calibration.</p></div></div><div id="model-list"></div></section>
+    <section id="coverage" class="page"><div class="section-heading"><div><h2>Know the boundaries of your data.</h2><p>Coverage, last observed results and provider download outcomes.</p></div></div><div id="coverage-summary" class="metrics"></div><article class="panel table-panel"><h3>Competition coverage</h3><div class="table-scroll"><table><thead><tr><th>Competition</th><th>Sport</th><th>Completed</th><th>Latest result</th><th>Freshness</th></tr></thead><tbody id="coverage-table"></tbody></table></div></article><article class="panel table-panel"><h3>Latest imports</h3><div class="table-scroll"><table><thead><tr><th>Source</th><th>Status</th><th>Rows</th><th>Details</th></tr></thead><tbody id="imports-table"></tbody></table></div></article></section>
+    <footer>matchday <span>Independent analysis · Transparent probabilities · No automated wagering</span></footer>
+  </main>
+</div>
+<div id="toast" role="status" hidden></div>
+</body></html>

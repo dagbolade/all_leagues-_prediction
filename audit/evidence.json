@@ -1,0 +1,1850 @@
+{
+  "python_inventory": {
+    "files": 114,
+    "lines": 29675,
+    "syntax_errors": []
+  },
+  "artifacts": [
+    {
+      "path": "models\\football_models.joblib",
+      "bytes": 74181514,
+      "lfs_pointer": false
+    },
+    {
+      "path": "models\\poisson_predictor.joblib",
+      "bytes": 27855,
+      "lfs_pointer": false
+    },
+    {
+      "path": "models\\basketball\\basketball_advanced_models.joblib",
+      "bytes": 20273737,
+      "lfs_pointer": false
+    },
+    {
+      "path": "models\\basketball\\basketball_backtested_models.joblib",
+      "bytes": 10483627,
+      "lfs_pointer": false
+    },
+    {
+      "path": "models\\basketball\\basketball_models.joblib",
+      "bytes": 845777,
+      "lfs_pointer": false
+    },
+    {
+      "path": "models\\nfl\\nfl_models.joblib",
+      "bytes": 1718034,
+      "lfs_pointer": false
+    },
+    {
+      "path": "models\\tennis\\tennis_advanced_models.joblib",
+      "bytes": 50995143,
+      "lfs_pointer": false
+    },
+    {
+      "path": "models\\tennis\\tennis_backtested_models.joblib",
+      "bytes": 13652270,
+      "lfs_pointer": false
+    },
+    {
+      "path": "models\\tennis\\tennis_models.joblib",
+      "bytes": 18047859,
+      "lfs_pointer": false
+    },
+    {
+      "path": "data\\processed\\complete_features.csv",
+      "bytes": 4949937,
+      "lfs_pointer": false
+    },
+    {
+      "path": "data\\processed\\data_metadata.json",
+      "bytes": 169,
+      "lfs_pointer": false
+    },
+    {
+      "path": "data\\processed\\enhanced_bayesian_data.pkl",
+      "bytes": 159138688,
+      "lfs_pointer": false
+    },
+    {
+      "path": "data\\processed\\enhanced_bayesian_features.csv",
+      "bytes": 144771538,
+      "lfs_pointer": false
+    },
+    {
+      "path": "data\\processed\\enhanced_bayesian_features.csv.zip",
+      "bytes": 39330166,
+      "lfs_pointer": false
+    },
+    {
+      "path": "data\\processed\\enhanced_features.csv",
+      "bytes": 50217083,
+      "lfs_pointer": false
+    },
+    {
+      "path": "data\\processed\\enhanced_processed_data.pkl",
+      "bytes": 59352673,
+      "lfs_pointer": false
+    },
+    {
+      "path": "data\\raw\\all-euro-data-2021-2022.xlsx",
+      "bytes": 3714716,
+      "lfs_pointer": false
+    },
+    {
+      "path": "data\\raw\\all-euro-data-2022-2023.xlsx",
+      "bytes": 3709829,
+      "lfs_pointer": false
+    },
+    {
+      "path": "data\\raw\\all-euro-data-2023-2024.xlsx",
+      "bytes": 3695168,
+      "lfs_pointer": false
+    },
+    {
+      "path": "data\\raw\\all-euro-data-2024-2025.xlsx",
+      "bytes": 4110986,
+      "lfs_pointer": false
+    },
+    {
+      "path": "data\\raw\\all-euro-data-2025-2026.xlsx",
+      "bytes": 4279176,
+      "lfs_pointer": false
+    }
+  ],
+  "datasets": {
+    "data\\processed\\complete_features.csv": {
+      "rows": 1000,
+      "columns": 267,
+      "Date": {
+        "min": "2021-07-23 00:00:00",
+        "max": "2021-09-14 00:00:00",
+        "invalid": 0
+      },
+      "Season": {
+        "2021-2022": 1000
+      },
+      "League": {
+        "E3": 82,
+        "E2": 77,
+        "E1": 76,
+        "F2": 70,
+        "EC": 62,
+        "B1": 61,
+        "SP2": 55,
+        "D2": 54,
+        "F1": 49,
+        "P1": 45,
+        "T1": 40,
+        "E0": 40,
+        "SP1": 38,
+        "D1": 36,
+        "N1": 34,
+        "SC0": 30,
+        "SC2": 30,
+        "SC3": 30,
+        "I2": 30,
+        "I1": 30,
+        "SC1": 24,
+        "G1": 7
+      },
+      "duplicate_match_keys": 0,
+      "invalid_outcomes": 0,
+      "score_result_disagreement": 275,
+      "actual_result_rates": {
+        "H": 0.412,
+        "A": 0.313,
+        "D": 0.275
+      },
+      "xg_fields": {
+        "HomexG": {
+          "non_null": 1000,
+          "non_zero": 1000
+        },
+        "AwayxG": {
+          "non_null": 1000,
+          "non_zero": 1000
+        }
+      },
+      "home_xg_matches_shot_proxy": 0,
+      "halftime": {
+        "null_goals": 0,
+        "invalid_result": 0,
+        "zero_goals_invalid_result": 0
+      },
+      "league_last_date": {
+        "B1": "2021-09-13",
+        "D1": "2021-09-12",
+        "D2": "2021-09-12",
+        "E0": "2021-09-13",
+        "E1": "2021-09-14",
+        "E2": "2021-09-14",
+        "E3": "2021-09-14",
+        "EC": "2021-09-14",
+        "F1": "2021-09-12",
+        "F2": "2021-09-14",
+        "G1": "2021-09-13",
+        "I1": "2021-09-13",
+        "I2": "2021-09-12",
+        "N1": "2021-09-12",
+        "P1": "2021-09-13",
+        "SC0": "2021-09-12",
+        "SC1": "2021-09-11",
+        "SC2": "2021-09-14",
+        "SC3": "2021-09-11",
+        "SP1": "2021-09-13",
+        "SP2": "2021-09-13",
+        "T1": "2021-09-13"
+      }
+    },
+    "data\\processed\\enhanced_bayesian_features.csv": {
+      "rows": 56036,
+      "columns": 374,
+      "Date": {
+        "min": "2021-02-12 00:00:00",
+        "max": "2026-04-01 00:00:00",
+        "invalid": 0
+      },
+      "Season": {
+        "2022-2023": 12513,
+        "2023-2024": 12488,
+        "2024-2025": 12431,
+        "2021-2022": 12349,
+        "2025-2026": 6255
+      },
+      "League": {
+        "E3": 2682,
+        "E1": 2675,
+        "E2": 2674,
+        "EC": 2650,
+        "ARG1": 2245,
+        "SP2": 2207,
+        "USA1": 2004,
+        "I2": 1839,
+        "E0": 1829,
+        "I1": 1820,
+        "SP1": 1810,
+        "F2": 1696,
+        "T1": 1685,
+        "F1": 1614,
+        "BRA1": 1520,
+        "B1": 1476,
+        "N1": 1476,
+        "D2": 1467,
+        "D1": 1467,
+        "P1": 1465,
+        "JPN1": 1376,
+        "MEX1": 1364,
+        "ROU1": 1277,
+        "POL1": 1224,
+        "G1": 1135,
+        "SC0": 1098,
+        "RUS1": 972,
+        "NOR1": 967,
+        "SWE1": 966,
+        "CHN1": 966,
+        "SC3": 875,
+        "SC2": 874,
+        "SC1": 873,
+        "SWZ1": 821,
+        "AUT1": 777,
+        "DNK1": 771,
+        "IRL1": 729,
+        "FIN1": 670
+      },
+      "duplicate_match_keys": 0,
+      "invalid_outcomes": 0,
+      "score_result_disagreement": 0,
+      "actual_result_rates": {
+        "H": 0.43532728959954314,
+        "A": 0.3007530873010208,
+        "D": 0.26391962309943606
+      },
+      "altered_goal_labels": {
+        "1.5": {
+          "flipped": 12908,
+          "actual_positive_rate": 0.7473588407452352,
+          "training_positive_rate": 0.977710757370262
+        },
+        "2.5": {
+          "flipped": 16369,
+          "actual_positive_rate": 0.5039260475408666,
+          "training_positive_rate": 0.7960418302519808
+        },
+        "3.5": {
+          "flipped": 7756,
+          "actual_positive_rate": 0.2820508244699836,
+          "training_positive_rate": 0.42046184595617103
+        }
+      },
+      "xg_fields": {
+        "HomexG": {
+          "non_null": 56036,
+          "non_zero": 34689
+        },
+        "AwayxG": {
+          "non_null": 56036,
+          "non_zero": 34675
+        },
+        "Home_Rolling_xG_3": {
+          "non_null": 56036,
+          "non_zero": 34282
+        },
+        "Away_Rolling_xG_3": {
+          "non_null": 56036,
+          "non_zero": 34284
+        },
+        "Home_Rolling_xG_5": {
+          "non_null": 56036,
+          "non_zero": 34302
+        },
+        "Away_Rolling_xG_5": {
+          "non_null": 56036,
+          "non_zero": 34304
+        },
+        "Home_Rolling_xG_10": {
+          "non_null": 56036,
+          "non_zero": 34350
+        },
+        "Away_Rolling_xG_10": {
+          "non_null": 56036,
+          "non_zero": 34349
+        },
+        "Rolling_xG_Advantage": {
+          "non_null": 56036,
+          "non_zero": 34118
+        }
+      },
+      "home_xg_matches_shot_proxy": 56036,
+      "halftime": {
+        "null_goals": 0,
+        "invalid_result": 18689,
+        "zero_goals_invalid_result": 18689
+      },
+      "league_last_date": {
+        "ARG1": "2024-12-17",
+        "AUT1": "2025-05-24",
+        "B1": "2026-03-22",
+        "BRA1": "2024-12-08",
+        "CHN1": "2024-11-02",
+        "D1": "2026-03-22",
+        "D2": "2026-03-22",
+        "DNK1": "2025-05-25",
+        "E0": "2026-03-22",
+        "E1": "2026-03-21",
+        "E2": "2026-03-28",
+        "E3": "2026-03-28",
+        "EC": "2026-03-31",
+        "F1": "2026-03-22",
+        "F2": "2026-03-21",
+        "FIN1": "2024-11-02",
+        "G1": "2026-03-22",
+        "I1": "2026-03-22",
+        "I2": "2026-03-22",
+        "IRL1": "2024-11-16",
+        "JPN1": "2024-12-08",
+        "MEX1": "2025-05-26",
+        "N1": "2026-03-22",
+        "NOR1": "2024-12-08",
+        "P1": "2026-03-22",
+        "POL1": "2025-05-24",
+        "ROU1": "2025-05-24",
+        "RUS1": "2025-05-24",
+        "SC0": "2026-03-22",
+        "SC1": "2026-03-28",
+        "SC2": "2026-03-28",
+        "SC3": "2026-03-28",
+        "SP1": "2026-03-22",
+        "SP2": "2026-04-01",
+        "SWE1": "2024-11-24",
+        "SWZ1": "2025-05-24",
+        "T1": "2026-03-19",
+        "USA1": "2024-12-07"
+      }
+    },
+    "data\\processed\\enhanced_features.csv": {
+      "rows": 31202,
+      "columns": 246,
+      "Date": {
+        "min": "2021-07-23 00:00:00",
+        "max": "2025-08-04 00:00:00",
+        "invalid": 0
+      },
+      "Season": {
+        "2022-2023": 7829,
+        "2021-2022": 7822,
+        "2023-2024": 7800,
+        "2024-2025": 7681,
+        "2025-2026": 70
+      },
+      "League": {
+        "E2": 2220,
+        "E3": 2220,
+        "E1": 2208,
+        "EC": 2162,
+        "SP2": 1848,
+        "E0": 1520,
+        "SP1": 1520,
+        "I2": 1520,
+        "I1": 1520,
+        "F2": 1445,
+        "T1": 1444,
+        "F1": 1372,
+        "B1": 1252,
+        "D2": 1233,
+        "P1": 1224,
+        "D1": 1224,
+        "N1": 1224,
+        "G1": 953,
+        "SC0": 918,
+        "SC1": 725,
+        "SC2": 725,
+        "SC3": 725
+      },
+      "duplicate_match_keys": 0,
+      "invalid_outcomes": 0,
+      "score_result_disagreement": 0,
+      "actual_result_rates": {
+        "H": 0.4338824434331133,
+        "A": 0.3054291391577463,
+        "D": 0.26068841740914045
+      },
+      "xg_fields": {
+        "HomexG": {
+          "non_null": 31202,
+          "non_zero": 28992
+        },
+        "AwayxG": {
+          "non_null": 31202,
+          "non_zero": 28979
+        }
+      },
+      "home_xg_matches_shot_proxy": 31202,
+      "halftime": {
+        "null_goals": 0,
+        "invalid_result": 40,
+        "zero_goals_invalid_result": 40
+      },
+      "league_last_date": {
+        "B1": "2025-08-03",
+        "D1": "2025-05-17",
+        "D2": "2025-08-03",
+        "E0": "2025-05-25",
+        "E1": "2025-05-03",
+        "E2": "2025-08-03",
+        "E3": "2025-08-02",
+        "EC": "2025-05-05",
+        "F1": "2025-05-17",
+        "F2": "2025-05-10",
+        "G1": "2025-05-18",
+        "I1": "2025-05-25",
+        "I2": "2025-05-13",
+        "N1": "2025-05-18",
+        "P1": "2025-05-17",
+        "SC0": "2025-08-04",
+        "SC1": "2025-08-02",
+        "SC2": "2025-08-02",
+        "SC3": "2025-08-02",
+        "SP1": "2025-05-25",
+        "SP2": "2025-06-01",
+        "T1": "2025-06-01"
+      }
+    },
+    "data\\basketball\\raw\\basketball_all_data.csv": {
+      "rows": 9149,
+      "columns": 20,
+      "Date": {
+        "min": "2020-10-01 00:00:00",
+        "max": "2026-04-07 00:00:00",
+        "invalid": 0
+      },
+      "Season": {
+        "2023-24": 1561,
+        "2024-25": 1560,
+        "2022-23": 1558,
+        "2025-26": 1534,
+        "2021-22": 1529,
+        "2020-21": 1407
+      },
+      "League": {
+        "NBA": 7177,
+        "EuroLeague": 1972
+      },
+      "duplicate_match_keys": 0,
+      "xg_fields": {},
+      "league_last_date": {
+        "EuroLeague": "2026-04-07",
+        "NBA": "2026-04-06"
+      }
+    },
+    "data\\basketball\\raw\\euroleague_data.csv": {
+      "rows": 1972,
+      "columns": 19,
+      "Date": {
+        "min": "2020-10-01 00:00:00",
+        "max": "2026-04-07 00:00:00",
+        "invalid": 0
+      },
+      "Season": {
+        "2025-26": 357,
+        "2023-24": 331,
+        "2024-25": 330,
+        "2022-23": 328,
+        "2020-21": 327,
+        "2021-22": 299
+      },
+      "duplicate_match_keys": 0,
+      "xg_fields": {}
+    },
+    "data\\basketball\\raw\\nba_real_data.csv": {
+      "rows": 7177,
+      "columns": 19,
+      "Date": {
+        "min": "2020-12-22 00:00:00",
+        "max": "2026-04-06 00:00:00",
+        "invalid": 0
+      },
+      "Season": {
+        "2021-22": 1230,
+        "2022-23": 1230,
+        "2023-24": 1230,
+        "2024-25": 1230,
+        "2025-26": 1177,
+        "2020-21": 1080
+      },
+      "duplicate_match_keys": 0,
+      "xg_fields": {}
+    },
+    "data\\basketball\\raw\\nba_sample.csv": {
+      "rows": 1000,
+      "columns": 8,
+      "Date": {
+        "min": "2023-10-01 00:00:00",
+        "max": "2024-01-08 00:00:00",
+        "invalid": 0
+      },
+      "Season": {
+        "2023-2024": 1000
+      },
+      "League": {
+        "NBA": 1000
+      },
+      "duplicate_match_keys": 16,
+      "xg_fields": {},
+      "league_last_date": {
+        "NBA": "2024-01-08"
+      }
+    },
+    "data\\nfl\\raw\\nfl_sample.csv": {
+      "rows": 500,
+      "columns": 9,
+      "Date": {
+        "min": "2023-09-01 00:00:00",
+        "max": "2024-04-05 00:00:00",
+        "invalid": 0
+      },
+      "Season": {
+        "2023": 500
+      },
+      "League": {
+        "NFL": 500
+      },
+      "duplicate_match_keys": 14,
+      "xg_fields": {},
+      "league_last_date": {
+        "NFL": "2024-04-05"
+      }
+    },
+    "data\\tennis\\raw\\tennis_real_data.csv": {
+      "rows": 28588,
+      "columns": 14,
+      "Date": {
+        "min": "2020-01-06 00:00:00",
+        "max": "2026-04-05 00:00:00",
+        "invalid": 0
+      },
+      "xg_fields": {}
+    },
+    "data\\tennis\\raw\\tennis_sample.csv": {
+      "rows": 800,
+      "columns": 15,
+      "Date": {
+        "min": "2023-01-01 00:00:00",
+        "max": "2024-12-30 00:00:00",
+        "invalid": 0
+      },
+      "xg_fields": {}
+    },
+    "data\\processed\\enhanced_bayesian_features.csv.zip": {
+      "rows": 58304,
+      "columns": 376,
+      "Date": {
+        "min": "2021-02-12 00:00:00",
+        "max": "2026-04-01 00:00:00",
+        "invalid": 0
+      },
+      "Season": {
+        "2024-2025": 13829,
+        "2022-2023": 12513,
+        "2023-2024": 12488,
+        "2021-2022": 12349,
+        "2025-2026": 7125
+      },
+      "League": {
+        "E3": 2682,
+        "E1": 2675,
+        "E2": 2674,
+        "EC": 2650,
+        "ARG1": 2589,
+        "USA1": 2412,
+        "SP2": 2207,
+        "I2": 1839,
+        "E0": 1829,
+        "I1": 1820,
+        "SP1": 1810,
+        "BRA1": 1719,
+        "F2": 1696,
+        "T1": 1685,
+        "JPN1": 1648,
+        "F1": 1614,
+        "B1": 1476,
+        "N1": 1476,
+        "D2": 1467,
+        "D1": 1467,
+        "P1": 1465,
+        "MEX1": 1417,
+        "ROU1": 1332,
+        "POL1": 1272,
+        "CHN1": 1143,
+        "G1": 1135,
+        "SWE1": 1134,
+        "NOR1": 1117,
+        "SC0": 1098,
+        "RUS1": 1020,
+        "SC3": 875,
+        "SC2": 874,
+        "SC1": 873,
+        "IRL1": 868,
+        "SWZ1": 843,
+        "DNK1": 807,
+        "AUT1": 800,
+        "FIN1": 796
+      },
+      "duplicate_match_keys": 0,
+      "invalid_outcomes": 0,
+      "score_result_disagreement": 0,
+      "actual_result_rates": {
+        "H": 0.4353903677277717,
+        "A": 0.30090559824368823,
+        "D": 0.2637040340285401
+      },
+      "altered_goal_labels": {
+        "1.5": {
+          "flipped": 13409,
+          "actual_positive_rate": 0.7467412184412733,
+          "training_positive_rate": 0.9767254390779363
+        },
+        "2.5": {
+          "flipped": 16910,
+          "actual_positive_rate": 0.5039962952799122,
+          "training_positive_rate": 0.7940278540065862
+        },
+        "3.5": {
+          "flipped": 8107,
+          "actual_positive_rate": 0.2823133918770582,
+          "training_positive_rate": 0.42136045554335894
+        }
+      },
+      "xg_fields": {
+        "HomexG": {
+          "non_null": 58304,
+          "non_zero": 7026
+        },
+        "AwayxG": {
+          "non_null": 58304,
+          "non_zero": 7025
+        },
+        "Home_xG": {
+          "non_null": 58304,
+          "non_zero": 7026
+        },
+        "Away_xG": {
+          "non_null": 58304,
+          "non_zero": 7025
+        },
+        "Home_Rolling_xG_3": {
+          "non_null": 58304,
+          "non_zero": 7692
+        },
+        "Away_Rolling_xG_3": {
+          "non_null": 58304,
+          "non_zero": 7692
+        },
+        "Home_Rolling_xG_5": {
+          "non_null": 58304,
+          "non_zero": 7811
+        },
+        "Away_Rolling_xG_5": {
+          "non_null": 58304,
+          "non_zero": 7816
+        },
+        "Home_Rolling_xG_10": {
+          "non_null": 58304,
+          "non_zero": 8046
+        },
+        "Away_Rolling_xG_10": {
+          "non_null": 58304,
+          "non_zero": 8052
+        },
+        "Rolling_xG_Advantage": {
+          "non_null": 58304,
+          "non_zero": 8740
+        }
+      },
+      "home_xg_matches_shot_proxy": 23615,
+      "halftime": {
+        "null_goals": 0,
+        "invalid_result": 20957,
+        "zero_goals_invalid_result": 20957
+      },
+      "league_last_date": {
+        "ARG1": "2025-08-26",
+        "AUT1": "2025-08-24",
+        "B1": "2026-03-22",
+        "BRA1": "2025-08-26",
+        "CHN1": "2025-08-25",
+        "D1": "2026-03-22",
+        "D2": "2026-03-22",
+        "DNK1": "2025-08-25",
+        "E0": "2026-03-22",
+        "E1": "2026-03-21",
+        "E2": "2026-03-28",
+        "E3": "2026-03-28",
+        "EC": "2026-03-31",
+        "F1": "2026-03-22",
+        "F2": "2026-03-21",
+        "FIN1": "2025-08-25",
+        "G1": "2026-03-22",
+        "I1": "2026-03-22",
+        "I2": "2026-03-22",
+        "IRL1": "2025-08-22",
+        "JPN1": "2025-08-24",
+        "MEX1": "2025-08-25",
+        "N1": "2026-03-22",
+        "NOR1": "2025-08-25",
+        "P1": "2026-03-22",
+        "POL1": "2025-08-25",
+        "ROU1": "2025-08-25",
+        "RUS1": "2025-08-24",
+        "SC0": "2026-03-22",
+        "SC1": "2026-03-28",
+        "SC2": "2026-03-28",
+        "SC3": "2026-03-28",
+        "SP1": "2026-03-22",
+        "SP2": "2026-04-01",
+        "SWE1": "2025-08-25",
+        "SWZ1": "2025-08-24",
+        "T1": "2026-03-19",
+        "USA1": "2025-08-25"
+      }
+    }
+  },
+  "inference_date_probe": {
+    "historical": {
+      "HomeForm_5": 0.9,
+      "AwayForm_5": 0.3,
+      "H2H_AvgGoals": 7.0,
+      "HomeElo": 1700.0,
+      "AwayElo": 1400.0,
+      "EloAdvantage": 335.0
+    },
+    "future": {
+      "HomeForm_5": 0.9,
+      "AwayForm_5": 0.3,
+      "H2H_AvgGoals": 7.0,
+      "HomeElo": 1700.0,
+      "AwayElo": 1400.0,
+      "EloAdvantage": 335.0
+    },
+    "identical": true,
+    "expected_historical_home_form": 0.2,
+    "expected_pair_h2h": 1.0
+  },
+  "probability_hierarchy_probe": {
+    "output": {
+      "over_1_5": 0.2,
+      "over_2_5": 0.3,
+      "over_3_5": 0.3
+    },
+    "valid": false
+  },
+  "rest_probe": {
+    "reported": 6.0,
+    "actual_days": 3
+  },
+  "binary_probability_probe": {
+    "prediction": "No",
+    "returned_probability": 0.8,
+    "actual_positive_probability": 0.2
+  },
+  "referee_future_probe": {
+    "before": 2.4,
+    "after_adding_future_match": 2.775,
+    "unchanged": false
+  },
+  "raw_workbooks": {
+    "all-euro-data-2021-2022.xlsx": {
+      "E0": {
+        "rows": 380,
+        "columns": 106,
+        "last_date": "2022-05-22 00:00:00",
+        "missing_ht_goals": 0
+      },
+      "E1": {
+        "rows": 552,
+        "columns": 106,
+        "last_date": "2022-05-07 00:00:00",
+        "missing_ht_goals": 0
+      },
+      "E2": {
+        "rows": 552,
+        "columns": 106,
+        "last_date": "2022-04-30 00:00:00",
+        "missing_ht_goals": 0
+      },
+      "E3": {
+        "rows": 552,
+        "columns": 106,
+        "last_date": "2022-05-07 00:00:00",
+        "missing_ht_goals": 0
+      },
+      "EC": {
+        "rows": 506,
+        "columns": 98,
+        "last_date": "2022-05-15 00:00:00",
+        "missing_ht_goals": 0
+      },
+      "SC0": {
+        "rows": 228,
+        "columns": 106,
+        "last_date": "2022-05-15 00:00:00",
+        "missing_ht_goals": 0
+      },
+      "SC1": {
+        "rows": 180,
+        "columns": 106,
+        "last_date": "2022-04-29 00:00:00",
+        "missing_ht_goals": 0
+      },
+      "SC2": {
+        "rows": 180,
+        "columns": 106,
+        "last_date": "2022-04-30 00:00:00",
+        "missing_ht_goals": 0
+      },
+      "SC3": {
+        "rows": 180,
+        "columns": 106,
+        "last_date": "2022-04-30 00:00:00",
+        "missing_ht_goals": 0
+      },
+      "D1": {
+        "rows": 306,
+        "columns": 105,
+        "last_date": "2022-05-14 00:00:00",
+        "missing_ht_goals": 0
+      },
+      "D2": {
+        "rows": 306,
+        "columns": 105,
+        "last_date": "2022-05-15 00:00:00",
+        "missing_ht_goals": 0
+      },
+      "SP1": {
+        "rows": 380,
+        "columns": 105,
+        "last_date": "2022-05-22 00:00:00",
+        "missing_ht_goals": 0
+      },
+      "SP2": {
+        "rows": 462,
+        "columns": 105,
+        "last_date": "2022-05-29 00:00:00",
+        "missing_ht_goals": 0
+      },
+      "I1": {
+        "rows": 380,
+        "columns": 105,
+        "last_date": "2022-05-22 00:00:00",
+        "missing_ht_goals": 0
+      },
+      "I2": {
+        "rows": 380,
+        "columns": 105,
+        "last_date": "2022-05-06 00:00:00",
+        "missing_ht_goals": 0
+      },
+      "F1": {
+        "rows": 380,
+        "columns": 105,
+        "last_date": "2022-05-21 00:00:00",
+        "missing_ht_goals": 0
+      },
+      "F2": {
+        "rows": 380,
+        "columns": 105,
+        "last_date": "2022-05-14 00:00:00",
+        "missing_ht_goals": 1
+      },
+      "B1": {
+        "rows": 306,
+        "columns": 105,
+        "last_date": "2022-04-10 00:00:00",
+        "missing_ht_goals": 2
+      },
+      "N1": {
+        "rows": 306,
+        "columns": 105,
+        "last_date": "2022-05-15 00:00:00",
+        "missing_ht_goals": 0
+      },
+      "P1": {
+        "rows": 306,
+        "columns": 105,
+        "last_date": "2022-05-15 00:00:00",
+        "missing_ht_goals": 0
+      },
+      "T1": {
+        "rows": 380,
+        "columns": 105,
+        "last_date": "2022-05-22 00:00:00",
+        "missing_ht_goals": 0
+      },
+      "G1": {
+        "rows": 240,
+        "columns": 105,
+        "last_date": "2022-05-17 00:00:00",
+        "missing_ht_goals": 0
+      },
+      "ARG1": {
+        "rows": 501,
+        "columns": 10,
+        "last_date": "2021-12-13 00:00:00",
+        "missing_ht_goals": 501
+      },
+      "AUT1": {
+        "rows": 195,
+        "columns": 10,
+        "last_date": "2022-05-29 00:00:00",
+        "missing_ht_goals": 195
+      },
+      "BRA1": {
+        "rows": 380,
+        "columns": 10,
+        "last_date": "2021-12-10 00:00:00",
+        "missing_ht_goals": 380
+      },
+      "CHN1": {
+        "rows": 180,
+        "columns": 10,
+        "last_date": "2022-01-12 00:00:00",
+        "missing_ht_goals": 180
+      },
+      "DNK1": {
+        "rows": 193,
+        "columns": 10,
+        "last_date": "2022-05-29 00:00:00",
+        "missing_ht_goals": 193
+      },
+      "FIN1": {
+        "rows": 164,
+        "columns": 10,
+        "last_date": "2021-11-07 00:00:00",
+        "missing_ht_goals": 164
+      },
+      "IRL1": {
+        "rows": 186,
+        "columns": 10,
+        "last_date": "2021-11-26 00:00:00",
+        "missing_ht_goals": 186
+      },
+      "JPN1": {
+        "rows": 380,
+        "columns": 10,
+        "last_date": "2021-12-04 00:00:00",
+        "missing_ht_goals": 380
+      },
+      "MEX1": {
+        "rows": 342,
+        "columns": 10,
+        "last_date": "2022-05-30 00:00:00",
+        "missing_ht_goals": 342
+      },
+      "NOR1": {
+        "rows": 241,
+        "columns": 10,
+        "last_date": "2021-12-15 00:00:00",
+        "missing_ht_goals": 241
+      },
+      "POL1": {
+        "rows": 306,
+        "columns": 10,
+        "last_date": "2022-05-21 00:00:00",
+        "missing_ht_goals": 306
+      },
+      "ROU1": {
+        "rows": 320,
+        "columns": 10,
+        "last_date": "2022-05-29 00:00:00",
+        "missing_ht_goals": 320
+      },
+      "RUS1": {
+        "rows": 244,
+        "columns": 10,
+        "last_date": "2022-05-28 00:00:00",
+        "missing_ht_goals": 244
+      },
+      "SWE1": {
+        "rows": 242,
+        "columns": 10,
+        "last_date": "2021-12-14 00:00:00",
+        "missing_ht_goals": 242
+      },
+      "SWZ1": {
+        "rows": 181,
+        "columns": 10,
+        "last_date": "2022-05-29 00:00:00",
+        "missing_ht_goals": 181
+      },
+      "USA1": {
+        "rows": 472,
+        "columns": 10,
+        "last_date": "2021-12-11 00:00:00",
+        "missing_ht_goals": 472
+      }
+    },
+    "all-euro-data-2022-2023.xlsx": {
+      "E0": {
+        "rows": 380,
+        "columns": 106,
+        "last_date": "2023-05-28 00:00:00",
+        "missing_ht_goals": 0
+      },
+      "E1": {
+        "rows": 552,
+        "columns": 106,
+        "last_date": "2023-05-08 00:00:00",
+        "missing_ht_goals": 0
+      },
+      "E2": {
+        "rows": 552,
+        "columns": 106,
+        "last_date": "2023-05-07 00:00:00",
+        "missing_ht_goals": 0
+      },
+      "E3": {
+        "rows": 552,
+        "columns": 106,
+        "last_date": "2023-05-08 00:00:00",
+        "missing_ht_goals": 0
+      },
+      "EC": {
+        "rows": 552,
+        "columns": 98,
+        "last_date": "2023-04-29 00:00:00",
+        "missing_ht_goals": 0
+      },
+      "SC0": {
+        "rows": 228,
+        "columns": 106,
+        "last_date": "2023-05-28 00:00:00",
+        "missing_ht_goals": 0
+      },
+      "SC1": {
+        "rows": 180,
+        "columns": 106,
+        "last_date": "2023-05-05 00:00:00",
+        "missing_ht_goals": 0
+      },
+      "SC2": {
+        "rows": 180,
+        "columns": 106,
+        "last_date": "2023-05-06 00:00:00",
+        "missing_ht_goals": 0
+      },
+      "SC3": {
+        "rows": 180,
+        "columns": 106,
+        "last_date": "2023-05-06 00:00:00",
+        "missing_ht_goals": 0
+      },
+      "D1": {
+        "rows": 306,
+        "columns": 105,
+        "last_date": "2023-05-27 00:00:00",
+        "missing_ht_goals": 0
+      },
+      "D2": {
+        "rows": 306,
+        "columns": 105,
+        "last_date": "2023-05-28 00:00:00",
+        "missing_ht_goals": 0
+      },
+      "SP1": {
+        "rows": 380,
+        "columns": 105,
+        "last_date": "2023-06-04 00:00:00",
+        "missing_ht_goals": 0
+      },
+      "SP2": {
+        "rows": 462,
+        "columns": 105,
+        "last_date": "2023-05-28 00:00:00",
+        "missing_ht_goals": 0
+      },
+      "I1": {
+        "rows": 380,
+        "columns": 105,
+        "last_date": "2023-06-04 00:00:00",
+        "missing_ht_goals": 0
+      },
+      "I2": {
+        "rows": 380,
+        "columns": 105,
+        "last_date": "2023-05-19 00:00:00",
+        "missing_ht_goals": 0
+      },
+      "F1": {
+        "rows": 380,
+        "columns": 105,
+        "last_date": "2023-06-03 00:00:00",
+        "missing_ht_goals": 0
+      },
+      "F2": {
+        "rows": 379,
+        "columns": 105,
+        "last_date": "2023-06-02 00:00:00",
+        "missing_ht_goals": 0
+      },
+      "B1": {
+        "rows": 306,
+        "columns": 105,
+        "last_date": "2023-04-23 00:00:00",
+        "missing_ht_goals": 2
+      },
+      "N1": {
+        "rows": 306,
+        "columns": 105,
+        "last_date": "2023-05-28 00:00:00",
+        "missing_ht_goals": 0
+      },
+      "P1": {
+        "rows": 306,
+        "columns": 105,
+        "last_date": "2023-05-27 00:00:00",
+        "missing_ht_goals": 0
+      },
+      "T1": {
+        "rows": 342,
+        "columns": 105,
+        "last_date": "2023-06-07 00:00:00",
+        "missing_ht_goals": 29
+      },
+      "G1": {
+        "rows": 240,
+        "columns": 105,
+        "last_date": "2023-05-14 00:00:00",
+        "missing_ht_goals": 0
+      },
+      "ARG1": {
+        "rows": 581,
+        "columns": 10,
+        "last_date": "2022-10-26 00:00:00",
+        "missing_ht_goals": 581
+      },
+      "AUT1": {
+        "rows": 195,
+        "columns": 10,
+        "last_date": "2023-06-11 00:00:00",
+        "missing_ht_goals": 195
+      },
+      "BRA1": {
+        "rows": 380,
+        "columns": 10,
+        "last_date": "2022-11-13 00:00:00",
+        "missing_ht_goals": 380
+      },
+      "CHN1": {
+        "rows": 306,
+        "columns": 10,
+        "last_date": "2022-12-31 00:00:00",
+        "missing_ht_goals": 306
+      },
+      "DNK1": {
+        "rows": 193,
+        "columns": 10,
+        "last_date": "2023-06-09 00:00:00",
+        "missing_ht_goals": 193
+      },
+      "FIN1": {
+        "rows": 170,
+        "columns": 10,
+        "last_date": "2022-10-30 00:00:00",
+        "missing_ht_goals": 170
+      },
+      "IRL1": {
+        "rows": 181,
+        "columns": 10,
+        "last_date": "2022-11-11 00:00:00",
+        "missing_ht_goals": 181
+      },
+      "JPN1": {
+        "rows": 310,
+        "columns": 10,
+        "last_date": "2022-11-13 00:00:00",
+        "missing_ht_goals": 310
+      },
+      "MEX1": {
+        "rows": 342,
+        "columns": 10,
+        "last_date": "2023-05-29 00:00:00",
+        "missing_ht_goals": 342
+      },
+      "NOR1": {
+        "rows": 242,
+        "columns": 10,
+        "last_date": "2022-11-19 00:00:00",
+        "missing_ht_goals": 242
+      },
+      "POL1": {
+        "rows": 306,
+        "columns": 10,
+        "last_date": "2023-05-27 00:00:00",
+        "missing_ht_goals": 306
+      },
+      "ROU1": {
+        "rows": 321,
+        "columns": 10,
+        "last_date": "2023-06-04 00:00:00",
+        "missing_ht_goals": 321
+      },
+      "RUS1": {
+        "rows": 244,
+        "columns": 10,
+        "last_date": "2023-06-10 00:00:00",
+        "missing_ht_goals": 244
+      },
+      "SWE1": {
+        "rows": 242,
+        "columns": 10,
+        "last_date": "2022-11-13 00:00:00",
+        "missing_ht_goals": 242
+      },
+      "SWZ1": {
+        "rows": 182,
+        "columns": 10,
+        "last_date": "2023-06-06 00:00:00",
+        "missing_ht_goals": 182
+      },
+      "USA1": {
+        "rows": 489,
+        "columns": 10,
+        "last_date": "2022-11-05 00:00:00",
+        "missing_ht_goals": 489
+      }
+    },
+    "all-euro-data-2023-2024.xlsx": {
+      "E0": {
+        "rows": 380,
+        "columns": 106,
+        "last_date": "2024-05-19 00:00:00",
+        "missing_ht_goals": 0
+      },
+      "E1": {
+        "rows": 552,
+        "columns": 106,
+        "last_date": "2024-05-04 00:00:00",
+        "missing_ht_goals": 0
+      },
+      "E2": {
+        "rows": 552,
+        "columns": 106,
+        "last_date": "2024-04-27 00:00:00",
+        "missing_ht_goals": 0
+      },
+      "E3": {
+        "rows": 552,
+        "columns": 106,
+        "last_date": "2024-04-27 00:00:00",
+        "missing_ht_goals": 0
+      },
+      "EC": {
+        "rows": 552,
+        "columns": 98,
+        "last_date": "2024-04-20 00:00:00",
+        "missing_ht_goals": 0
+      },
+      "SC0": {
+        "rows": 228,
+        "columns": 106,
+        "last_date": "2024-05-19 00:00:00",
+        "missing_ht_goals": 0
+      },
+      "SC1": {
+        "rows": 180,
+        "columns": 106,
+        "last_date": "2024-05-03 00:00:00",
+        "missing_ht_goals": 0
+      },
+      "SC2": {
+        "rows": 180,
+        "columns": 106,
+        "last_date": "2024-05-04 00:00:00",
+        "missing_ht_goals": 0
+      },
+      "SC3": {
+        "rows": 180,
+        "columns": 106,
+        "last_date": "2024-05-04 00:00:00",
+        "missing_ht_goals": 0
+      },
+      "D1": {
+        "rows": 306,
+        "columns": 105,
+        "last_date": "2024-05-18 00:00:00",
+        "missing_ht_goals": 0
+      },
+      "D2": {
+        "rows": 306,
+        "columns": 105,
+        "last_date": "2024-05-19 00:00:00",
+        "missing_ht_goals": 0
+      },
+      "SP1": {
+        "rows": 380,
+        "columns": 105,
+        "last_date": "2024-05-26 00:00:00",
+        "missing_ht_goals": 0
+      },
+      "SP2": {
+        "rows": 462,
+        "columns": 105,
+        "last_date": "2024-06-02 00:00:00",
+        "missing_ht_goals": 0
+      },
+      "I1": {
+        "rows": 380,
+        "columns": 105,
+        "last_date": "2024-06-02 00:00:00",
+        "missing_ht_goals": 0
+      },
+      "I2": {
+        "rows": 380,
+        "columns": 105,
+        "last_date": "2024-05-10 00:00:00",
+        "missing_ht_goals": 0
+      },
+      "F1": {
+        "rows": 306,
+        "columns": 105,
+        "last_date": "2024-05-19 00:00:00",
+        "missing_ht_goals": 0
+      },
+      "F2": {
+        "rows": 380,
+        "columns": 105,
+        "last_date": "2024-05-17 00:00:00",
+        "missing_ht_goals": 1
+      },
+      "B1": {
+        "rows": 312,
+        "columns": 105,
+        "last_date": "2024-06-02 00:00:00",
+        "missing_ht_goals": 0
+      },
+      "N1": {
+        "rows": 306,
+        "columns": 105,
+        "last_date": "2024-05-19 00:00:00",
+        "missing_ht_goals": 0
+      },
+      "P1": {
+        "rows": 306,
+        "columns": 105,
+        "last_date": "2024-05-18 00:00:00",
+        "missing_ht_goals": 0
+      },
+      "T1": {
+        "rows": 380,
+        "columns": 105,
+        "last_date": "2024-05-26 00:00:00",
+        "missing_ht_goals": 1
+      },
+      "G1": {
+        "rows": 240,
+        "columns": 105,
+        "last_date": "2024-05-19 00:00:00",
+        "missing_ht_goals": 1
+      },
+      "ARG1": {
+        "rows": 582,
+        "columns": 10,
+        "last_date": "2023-12-17 00:00:00",
+        "missing_ht_goals": 582
+      },
+      "AUT1": {
+        "rows": 195,
+        "columns": 10,
+        "last_date": "2024-05-28 00:00:00",
+        "missing_ht_goals": 195
+      },
+      "BRA1": {
+        "rows": 380,
+        "columns": 10,
+        "last_date": "2023-12-07 00:00:00",
+        "missing_ht_goals": 380
+      },
+      "CHN1": {
+        "rows": 240,
+        "columns": 10,
+        "last_date": "2023-11-04 00:00:00",
+        "missing_ht_goals": 240
+      },
+      "DNK1": {
+        "rows": 193,
+        "columns": 10,
+        "last_date": "2024-05-31 00:00:00",
+        "missing_ht_goals": 193
+      },
+      "FIN1": {
+        "rows": 167,
+        "columns": 10,
+        "last_date": "2023-11-05 00:00:00",
+        "missing_ht_goals": 167
+      },
+      "IRL1": {
+        "rows": 181,
+        "columns": 10,
+        "last_date": "2023-11-10 00:00:00",
+        "missing_ht_goals": 181
+      },
+      "JPN1": {
+        "rows": 306,
+        "columns": 10,
+        "last_date": "2023-12-03 00:00:00",
+        "missing_ht_goals": 306
+      },
+      "MEX1": {
+        "rows": 340,
+        "columns": 10,
+        "last_date": "2024-05-27 00:00:00",
+        "missing_ht_goals": 340
+      },
+      "NOR1": {
+        "rows": 242,
+        "columns": 10,
+        "last_date": "2023-12-10 00:00:00",
+        "missing_ht_goals": 242
+      },
+      "POL1": {
+        "rows": 306,
+        "columns": 10,
+        "last_date": "2024-05-25 00:00:00",
+        "missing_ht_goals": 306
+      },
+      "ROU1": {
+        "rows": 321,
+        "columns": 10,
+        "last_date": "2024-05-27 00:00:00",
+        "missing_ht_goals": 321
+      },
+      "RUS1": {
+        "rows": 244,
+        "columns": 10,
+        "last_date": "2024-06-01 00:00:00",
+        "missing_ht_goals": 244
+      },
+      "SWE1": {
+        "rows": 240,
+        "columns": 10,
+        "last_date": "2023-11-12 00:00:00",
+        "missing_ht_goals": 240
+      },
+      "SWZ1": {
+        "rows": 230,
+        "columns": 10,
+        "last_date": "2024-05-31 00:00:00",
+        "missing_ht_goals": 230
+      },
+      "USA1": {
+        "rows": 521,
+        "columns": 10,
+        "last_date": "2023-12-09 00:00:00",
+        "missing_ht_goals": 521
+      }
+    },
+    "all-euro-data-2024-2025.xlsx": {
+      "E0": {
+        "rows": 380,
+        "columns": 120,
+        "last_date": "2025-05-25 00:00:00",
+        "missing_ht_goals": 0
+      },
+      "E1": {
+        "rows": 552,
+        "columns": 120,
+        "last_date": "2025-05-03 00:00:00",
+        "missing_ht_goals": 0
+      },
+      "E2": {
+        "rows": 552,
+        "columns": 120,
+        "last_date": "2025-05-03 00:00:00",
+        "missing_ht_goals": 0
+      },
+      "E3": {
+        "rows": 552,
+        "columns": 120,
+        "last_date": "2025-05-03 00:00:00",
+        "missing_ht_goals": 0
+      },
+      "EC": {
+        "rows": 552,
+        "columns": 112,
+        "last_date": "2025-05-05 00:00:00",
+        "missing_ht_goals": 0
+      },
+      "SC0": {
+        "rows": 228,
+        "columns": 120,
+        "last_date": "2025-05-18 00:00:00",
+        "missing_ht_goals": 0
+      },
+      "SC1": {
+        "rows": 180,
+        "columns": 120,
+        "last_date": "2025-05-02 00:00:00",
+        "missing_ht_goals": 0
+      },
+      "SC2": {
+        "rows": 180,
+        "columns": 120,
+        "last_date": "2025-05-03 00:00:00",
+        "missing_ht_goals": 0
+      },
+      "SC3": {
+        "rows": 180,
+        "columns": 120,
+        "last_date": "2025-05-03 00:00:00",
+        "missing_ht_goals": 0
+      },
+      "D1": {
+        "rows": 306,
+        "columns": 119,
+        "last_date": "2025-05-17 00:00:00",
+        "missing_ht_goals": 1
+      },
+      "D2": {
+        "rows": 306,
+        "columns": 119,
+        "last_date": "2025-05-18 00:00:00",
+        "missing_ht_goals": 0
+      },
+      "SP1": {
+        "rows": 380,
+        "columns": 119,
+        "last_date": "2025-05-25 00:00:00",
+        "missing_ht_goals": 0
+      },
+      "SP2": {
+        "rows": 462,
+        "columns": 119,
+        "last_date": "2025-06-01 00:00:00",
+        "missing_ht_goals": 0
+      },
+      "I1": {
+        "rows": 380,
+        "columns": 119,
+        "last_date": "2025-05-25 00:00:00",
+        "missing_ht_goals": 0
+      },
+      "I2": {
+        "rows": 380,
+        "columns": 119,
+        "last_date": "2025-05-13 00:00:00",
+        "missing_ht_goals": 0
+      },
+      "F1": {
+        "rows": 306,
+        "columns": 119,
+        "last_date": "2025-05-17 00:00:00",
+        "missing_ht_goals": 0
+      },
+      "F2": {
+        "rows": 306,
+        "columns": 119,
+        "last_date": "2025-05-10 00:00:00",
+        "missing_ht_goals": 0
+      },
+      "B1": {
+        "rows": 312,
+        "columns": 119,
+        "last_date": "2025-05-25 00:00:00",
+        "missing_ht_goals": 1
+      },
+      "N1": {
+        "rows": 306,
+        "columns": 119,
+        "last_date": "2025-05-18 00:00:00",
+        "missing_ht_goals": 0
+      },
+      "P1": {
+        "rows": 306,
+        "columns": 119,
+        "last_date": "2025-05-17 00:00:00",
+        "missing_ht_goals": 0
+      },
+      "T1": {
+        "rows": 342,
+        "columns": 119,
+        "last_date": "2025-06-01 00:00:00",
+        "missing_ht_goals": 1
+      },
+      "G1": {
+        "rows": 233,
+        "columns": 119,
+        "last_date": "2025-05-18 00:00:00",
+        "missing_ht_goals": 0
+      },
+      "ARG1": {
+        "rows": 581,
+        "columns": 10,
+        "last_date": "2024-12-17 00:00:00",
+        "missing_ht_goals": 581
+      },
+      "AUT1": {
+        "rows": 192,
+        "columns": 10,
+        "last_date": "2025-05-24 00:00:00",
+        "missing_ht_goals": 192
+      },
+      "BRA1": {
+        "rows": 380,
+        "columns": 10,
+        "last_date": "2024-12-08 00:00:00",
+        "missing_ht_goals": 380
+      },
+      "CHN1": {
+        "rows": 240,
+        "columns": 10,
+        "last_date": "2024-11-02 00:00:00",
+        "missing_ht_goals": 240
+      },
+      "DNK1": {
+        "rows": 192,
+        "columns": 10,
+        "last_date": "2025-05-25 00:00:00",
+        "missing_ht_goals": 192
+      },
+      "FIN1": {
+        "rows": 169,
+        "columns": 10,
+        "last_date": "2024-11-02 00:00:00",
+        "missing_ht_goals": 169
+      },
+      "IRL1": {
+        "rows": 181,
+        "columns": 10,
+        "last_date": "2024-11-16 00:00:00",
+        "missing_ht_goals": 181
+      },
+      "JPN1": {
+        "rows": 380,
+        "columns": 10,
+        "last_date": "2024-12-08 00:00:00",
+        "missing_ht_goals": 380
+      },
+      "MEX1": {
+        "rows": 340,
+        "columns": 10,
+        "last_date": "2025-05-26 00:00:00",
+        "missing_ht_goals": 340
+      },
+      "NOR1": {
+        "rows": 242,
+        "columns": 10,
+        "last_date": "2024-12-08 00:00:00",
+        "missing_ht_goals": 242
+      },
+      "POL1": {
+        "rows": 306,
+        "columns": 10,
+        "last_date": "2025-05-24 00:00:00",
+        "missing_ht_goals": 306
+      },
+      "ROU1": {
+        "rows": 315,
+        "columns": 10,
+        "last_date": "2025-05-24 00:00:00",
+        "missing_ht_goals": 315
+      },
+      "RUS1": {
+        "rows": 240,
+        "columns": 10,
+        "last_date": "2025-05-24 00:00:00",
+        "missing_ht_goals": 240
+      },
+      "SWE1": {
+        "rows": 242,
+        "columns": 10,
+        "last_date": "2024-11-24 00:00:00",
+        "missing_ht_goals": 242
+      },
+      "SWZ1": {
+        "rows": 228,
+        "columns": 10,
+        "last_date": "2025-05-24 00:00:00",
+        "missing_ht_goals": 228
+      },
+      "USA1": {
+        "rows": 522,
+        "columns": 10,
+        "last_date": "2024-12-07 00:00:00",
+        "missing_ht_goals": 522
+      }
+    },
+    "all-euro-data-2025-2026.xlsx": {
+      "E0": {
+        "rows": 309,
+        "columns": 132,
+        "last_date": "2026-03-22 00:00:00",
+        "missing_ht_goals": 0
+      },
+      "E1": {
+        "rows": 467,
+        "columns": 132,
+        "last_date": "2026-03-21 00:00:00",
+        "missing_ht_goals": 0
+      },
+      "E2": {
+        "rows": 466,
+        "columns": 132,
+        "last_date": "2026-03-28 00:00:00",
+        "missing_ht_goals": 0
+      },
+      "E3": {
+        "rows": 474,
+        "columns": 133,
+        "last_date": "2026-03-28 00:00:00",
+        "missing_ht_goals": 0
+      },
+      "EC": {
+        "rows": 488,
+        "columns": 124,
+        "last_date": "2026-03-31 00:00:00",
+        "missing_ht_goals": 0
+      },
+      "SC0": {
+        "rows": 186,
+        "columns": 132,
+        "last_date": "2026-03-22 00:00:00",
+        "missing_ht_goals": 0
+      },
+      "SC1": {
+        "rows": 153,
+        "columns": 132,
+        "last_date": "2026-03-28 00:00:00",
+        "missing_ht_goals": 0
+      },
+      "SC2": {
+        "rows": 154,
+        "columns": 132,
+        "last_date": "2026-03-28 00:00:00",
+        "missing_ht_goals": 0
+      },
+      "SC3": {
+        "rows": 155,
+        "columns": 132,
+        "last_date": "2026-03-28 00:00:00",
+        "missing_ht_goals": 0
+      },
+      "D1": {
+        "rows": 243,
+        "columns": 131,
+        "last_date": "2026-03-22 00:00:00",
+        "missing_ht_goals": 0
+      },
+      "D2": {
+        "rows": 243,
+        "columns": 131,
+        "last_date": "2026-03-22 00:00:00",
+        "missing_ht_goals": 0
+      },
+      "SP1": {
+        "rows": 290,
+        "columns": 131,
+        "last_date": "2026-03-22 00:00:00",
+        "missing_ht_goals": 0
+      },
+      "SP2": {
+        "rows": 359,
+        "columns": 131,
+        "last_date": "2026-04-01 00:00:00",
+        "missing_ht_goals": 0
+      },
+      "I1": {
+        "rows": 300,
+        "columns": 131,
+        "last_date": "2026-03-22 00:00:00",
+        "missing_ht_goals": 0
+      },
+      "I2": {
+        "rows": 319,
+        "columns": 131,
+        "last_date": "2026-03-22 00:00:00",
+        "missing_ht_goals": 0
+      },
+      "F1": {
+        "rows": 242,
+        "columns": 131,
+        "last_date": "2026-03-22 00:00:00",
+        "missing_ht_goals": 0
+      },
+      "F2": {
+        "rows": 251,
+        "columns": 131,
+        "last_date": "2026-03-21 00:00:00",
+        "missing_ht_goals": 0
+      },
+      "B1": {
+        "rows": 240,
+        "columns": 131,
+        "last_date": "2026-03-22 00:00:00",
+        "missing_ht_goals": 0
+      },
+      "N1": {
+        "rows": 252,
+        "columns": 131,
+        "last_date": "2026-03-22 00:00:00",
+        "missing_ht_goals": 0
+      },
+      "P1": {
+        "rows": 241,
+        "columns": 131,
+        "last_date": "2026-03-22 00:00:00",
+        "missing_ht_goals": 0
+      },
+      "T1": {
+        "rows": 241,
+        "columns": 131,
+        "last_date": "2026-03-19 00:00:00",
+        "missing_ht_goals": 0
+      },
+      "G1": {
+        "rows": 182,
+        "columns": 131,
+        "last_date": "2026-03-22 00:00:00",
+        "missing_ht_goals": 0
+      }
+    }
+  }
+}

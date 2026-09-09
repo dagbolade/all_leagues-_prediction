@@ -1,9 +1,16 @@
-# render.yaml
+# Deploy only after provisioning durable data/model storage as described in README.md.
 services:
   - type: web
-    name: football-predictor
+    name: matchday
     env: python
     buildCommand: pip install -r requirements.txt
-    startCommand: gunicorn app.run:app
-    branch: master
-    autoDeploy: true
+    startCommand: gunicorn app.run:app --bind 0.0.0.0:$PORT --timeout 120 --workers 2
+    healthCheckPath: /ready
+    autoDeploy: false
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.10
+      - key: COOKIE_SECURE
+        value: '1'
+      - key: SECRET_KEY
+        generateValue: true

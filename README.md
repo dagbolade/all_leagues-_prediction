@@ -85,6 +85,10 @@ See `audit/PROJECT_AUDIT_2026-09-09.md` for the original audit and `audit/REVAMP
 
 ## Railway deployment bundle
 
-`deployment/` contains a compressed public-match seed and the active trained models. It deliberately excludes local journals, session keys, credentials and raw response archives. Railway runs `python -m sportslab.deploy` before Gunicorn and checks `/ready`. A new empty database is seeded; an existing database is retained. Each deployment activates the bundled model versions.
+`deployment/` contains a compressed public-match seed and the active trained models. It deliberately excludes local journals, session keys, credentials and raw response archives. Railway runs `python -m sportslab.deploy` before Gunicorn and checks `/ready`. New instances are seeded; existing instances merge newer bundled match revisions while preserving newer live records and private journals. Each deployment activates the bundled model versions.
 
 Attach a Railway volume to retain journals and refreshed data across deployments. The app automatically uses `RAILWAY_VOLUME_MOUNT_PATH/sportslab` when supplied, unless `SPORTSLAB_DATA` is explicitly set. Without a volume, Railway filesystem data is ephemeral. Set a stable `SECRET_KEY` and `COOKIE_SECURE=1` for the HTTPS site. Existing football API credentials remain Railway environment variables.
+
+### Refresh verification — 23 October 2026
+
+The data was refreshed and all three models retrained. Provider changes required published-link discovery for tennis and daily NBA feeds (with preseason games excluded). Run `python -m sportslab.package` after a validated refresh/training run to regenerate the public Railway bundle, including source update timestamps. See `audit/FRESHNESS_2026-10-23.json` for exact coverage, model dates and fixture checks. This report does not by itself confirm the live Railway installation is updated.

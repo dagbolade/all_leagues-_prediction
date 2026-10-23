@@ -203,7 +203,14 @@ class Importer:
 
     def tennis(self,tour,year):
         folder=str(year) if tour=='ATP' else f'{year}w'
-        url=f'http://www.tennis-data.co.uk/{folder}/{year}.xlsx'
+        from urllib.parse import urljoin, urlparse
+        page='https://tennis-data.co.uk/data.php'
+        html=self.fetch(page).decode('latin-1')
+        links=re.findall(r'''href=["']([^"']+)''',html,re.I)
+        links=[urljoin(page,u) for u in links if urlparse(u).path.endswith(f'/{folder}/{year}.xlsx')]
+        links=[u for u in links if urlparse(u).hostname in ['tennis-data.co.uk','www.tennis-data.co.uk']]
+        if len(set(links))!=1:raise ValueError('Current tennis download link is missing or ambiguous')
+        url=links[0]
         df=pd.read_excel(io.BytesIO(self.fetch(url)))
         out=[]
         for r in df.to_dict('records'):
@@ -215,21 +222,30 @@ class Importer:
         return self.other_rows(pd.DataFrame(out),'tennis',f'tennis-data.co.uk {tour}')
 
     def nba(self,year):
-        # Public ESPN scoreboard, monthly bounded windows avoid response truncation.
-        from calendar import monthrange
-        out=[]
-        for month in range(1, datetime.now(timezone.utc).month+1):
-            end=monthrange(year,month)[1]
-            url=f'https://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard?dates={year}{month:02d}01-{year}{month:02d}{end}&limit=1000'
-            data=json.loads(self.fetch(url))
+        # Single-day feeds avoid range/limit failures and silent monthly truncation.
+        from datetime import timedelta, date
+        last=max((m['date'][:10] for m in self.store.matches('basketball','NBA','finished')),default=f'{year}-01-01')
+        today=datetime.now(timezone.utc).date()
+        start=max(date.fromisoformat(last)-timedelta(days=2),today-timedelta(days=365))
+        days=[start+timedelta(days=i) for i in range((today-start).days+1)]
+        def day_rows(day):
+            data=json.loads(self.fetch(f'https://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard?dates={day:%Y%m%d}'))
+            out=[]
             for event in data.get('events',[]):
+                # Do not blend preseason exhibitions into regular/postseason history.
+                if event.get('season',{}).get('type') not in [2,3]:continue
                 for match in event.get('competitions',[]):
                     if not match.get('status',{}).get('type',{}).get('completed'):continue
                     participants={c['homeAway']:c for c in match['competitors']}
                     h,a=participants['home'],participants['away']
-                    out.append({'Date':pd.Timestamp(event['date']).tz_convert('America/New_York').date(),'HomeTeam':h['team']['displayName'],'AwayTeam':a['team']['displayName'],
-                        'HomeScore':h.get('score'),'AwayScore':a.get('score'),'Neutral':match.get('neutralSite',False),'League':'NBA','Season':str(year)})
-        return self.other_rows(pd.DataFrame(out),'basketball','ESPN scoreboard') if out else []
+                    out.append({'Date':pd.Timestamp(event['date']).tz_convert('America/New_York').date(),
+                        'HomeTeam':h['team']['displayName'],'AwayTeam':a['team']['displayName'],
+                        'HomeScore':h.get('score'),'AwayScore':a.get('score'),'Neutral':match.get('neutralSite',False),
+                        'League':'NBA','Season':str(event['season'].get('year',year))})
+            return out
+        with concurrent.futures.ThreadPoolExecutor(max_workers=3) as pool:
+            rows=[r for batch in pool.map(day_rows,days) for r in batch]
+        return self.other_rows(pd.DataFrame(rows),'basketball','ESPN scoreboard') if rows else []
 
     def euroleague(self,year):
         from .aliases import EUROLEAGUE_CLUBS

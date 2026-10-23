@@ -90,26 +90,46 @@ def create_app(store=None):
                    'competitions':sum(c['sport']==s for c in coverage['competitions'])} for s in ['football','basketball','tennis']}
         return jsonify(totals=totals,competitions=[{**c,'name':NAMES.get(c['competition'],c['competition'])} for c in coverage['competitions']],now=utcnow())
 
-    @app.get('/api/fixtures')
-    def fixtures():
-        sport=request.args.get('sport','football');competition=request.args.get('competition')
+    def match_listing(results_only=False):
+        sport=request.args.get('sport','football')
         if sport not in ['football','basketball','tennis']:raise ValueError('Unknown sport')
-        records=store.matches(sport,competition)
+        records=store.matches(sport,request.args.get('competition') or None)
+        mode='finished' if results_only else request.args.get('status','auto')
+        if mode not in ['auto','upcoming','finished','all']:raise ValueError('Unknown match status')
         date=request.args.get('date')
         if date:
             datetime.strptime(date,'%Y-%m-%d')
             records=[m for m in records if m['date'][:10]==date]
-        else:
-            upcoming=[m for m in records if m['status'] in ['scheduled','timed'] and m['date']>=utcnow()]
-            records=upcoming[:40] if upcoming else [m for m in records if m['status']=='finished'][-30:][::-1]
-        return jsonify(fixtures=records[:100],total=len(records))
+        query=request.args.get('q','').strip().casefold()
+        if query:
+            records=[m for m in records if query in (m['home']+' '+m['away']).casefold()]
+        upcoming=[m for m in records if m['status'] in ['scheduled','timed'] and m['date']>utcnow()]
+        if mode=='auto':mode='all' if date else ('upcoming' if upcoming else 'finished')
+        if mode=='upcoming':records=upcoming
+        elif mode=='finished':records=[m for m in records if m['status']=='finished']
+        records=sorted(records,key=lambda m:(m['date'],m['id']),reverse=mode=='finished')
+        try:
+            offset=int(request.args.get('offset',0));limit=int(request.args.get('limit',24))
+        except (ValueError,TypeError):raise ValueError('Invalid page parameters')
+        if offset<0 or not 1<=limit<=100:raise ValueError('Page size must be 1–100 and offset non-negative')
+        total=len(records)
+        return jsonify(**{'results' if results_only else 'fixtures':records[offset:offset+limit]},
+                       total=total,offset=offset,limit=limit,has_more=offset+limit<total,mode=mode)
+
+    @app.get('/api/fixtures')
+    def fixtures():return match_listing()
 
     @app.get('/api/teams')
     def teams():
         sport=request.args.get('sport','football');comp=request.args.get('competition')
         records=store.matches(sport,comp);found={}
         for m in records:
-            for side in ['home','away']:found[m[side+'_id']]={'id':m[side+'_id'],'name':m[side],'last_seen':m['date'][:10]}
+            for side in ['home','away']:
+                participant=found.setdefault(m[side+'_id'],{'id':m[side+'_id'],'name':m[side],'last_seen':None,'completed':0,'latest_result':None})
+                participant['last_seen']=max(participant['last_seen'] or '',m['date'][:10])
+                if m['status']=='finished':
+                    participant['completed']+=1
+                    participant['latest_result']=max(participant['latest_result'] or '',m['date'][:10])
         return jsonify(teams=sorted(found.values(),key=lambda t:t['name']))
 
     def requested_fixture(body):
@@ -174,9 +194,7 @@ def create_app(store=None):
     def settle():return jsonify(updated=store.settle(session['owner']))
 
     @app.get('/api/results')
-    def results():
-        sport=request.args.get('sport','football');comp=request.args.get('competition')
-        return jsonify(results=store.matches(sport,comp,'finished')[-80:][::-1])
+    def results():return match_listing(results_only=True)
 
     app.extensions['sportslab_store']=store
     app.extensions['sportslab_predictor']=predictor

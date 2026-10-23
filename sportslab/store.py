@@ -65,7 +65,7 @@ class Store:
         finally:
             c.close()
 
-    def upsert(self, records):
+    def upsert(self, records, observed_at=None):
         changed = 0
         with self.connect() as c:
             for record in records:
@@ -112,7 +112,7 @@ class Store:
                     competition=excluded.competition,date=excluded.date,home=excluded.home,
                     away=excluded.away,status=excluded.status,source=excluded.source,
                     payload=excluded.payload,updated_at=excluded.updated_at,revision=excluded.revision''',
-                    (m['id'],m['sport'],m['competition'],m['date'],m['home'],m['away'],m['status'],m['source'],json.dumps(m,allow_nan=False),utcnow(),rev))
+                    (m['id'],m['sport'],m['competition'],m['date'],m['home'],m['away'],m['status'],m['source'],json.dumps(m,allow_nan=False),(observed_at or {}).get(record['id'],utcnow()),rev))
                 changed += 1
         return changed
 

@@ -11,13 +11,21 @@ from .model import ARTIFACTS
 def prepare():
     bundle=ROOT/'deployment'
     store=Store()
+    metadata=bundle/'snapshot.json'
+    snapshot=json.loads(metadata.read_text(encoding='utf-8')) if metadata.exists() else None
     with store.connect() as c:
-        populated=c.execute('SELECT 1 FROM matches LIMIT 1').fetchone()
-    if not populated:
-        with gzip.open(bundle/'matches.jsonl.gz','rt',encoding='utf-8') as f:
-            records=[json.loads(line) for line in f]
-        store.upsert(records)
-        store.log_import('deployment:public-seed','ok',len(records),'Public match seed; no user journals or credentials included')
+        existing={r['id']:r['updated_at'] for r in c.execute('SELECT id,updated_at FROM matches')}
+    records=[];stamps={}
+    with gzip.open(bundle/'matches.jsonl.gz','rt',encoding='utf-8') as f:
+        for line in f:
+            entry=json.loads(line)
+            record=entry.get('match',entry)
+            stamp=entry.get('updated_at') or (snapshot['created_at'] if snapshot else None)
+            if record['id'] not in existing or (stamp and stamp>existing[record['id']]):
+                records.append(record)
+                if stamp:stamps[record['id']]=stamp
+    changed=store.upsert(records,observed_at=stamps)
+    store.log_import('deployment:public-seed','ok',len(records),f'{changed} new/corrected records; newer live data and private journals retained')
     for sport in ['football','basketball','tennis']:
         source=bundle/'models'/sport
         version=json.loads((source/'active.json').read_text())['version']

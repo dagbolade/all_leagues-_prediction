@@ -175,3 +175,81 @@ def test_unicode_provider_aliases_do_not_split_club_history():
     assert canonical('FC Bayern München')=='Bayern Munich'
     assert canonical('Málaga CF')=='Malaga'
     assert canonical('Vitória SC')=='Guimaraes'
+
+def test_tennis_download_follows_current_published_links(tmp_path,monkeypatch):
+    imp=Importer(Store(tmp_path/'test.db'));calls=[]
+    html=b'<a href="current-files/2026/2026.xlsx">ATP</a><a href="current-files/2026w/2026.xlsx">WTA</a>'
+    def fetch(url):
+        calls.append(url);return html if url.endswith('data.php') else b'excel'
+    monkeypatch.setattr(imp,'fetch',fetch)
+    monkeypatch.setattr(pd,'read_excel',lambda data:pd.DataFrame([{'Date':'2026-01-01','Winner':'A','Loser':'B','Comment':'Completed','Surface':'Hard'}]))
+    rows=imp.tennis('WTA',2026)
+    assert calls[-1]=='https://tennis-data.co.uk/current-files/2026w/2026.xlsx'
+    assert rows[0]['competition']=='WTA'
+
+
+def test_nba_refresh_uses_daily_feeds_and_excludes_preseason(tmp_path,monkeypatch):
+    import json
+    from urllib.parse import urlparse,parse_qs
+    s=Store(tmp_path/'test.db');today=datetime.now(timezone.utc).date()
+    old=match(day=today.isoformat());old.update(sport='basketball',competition='NBA');s.upsert([old])
+    imp=Importer(s);calls=[]
+    def fetch(url):
+        day=parse_qs(urlparse(url).query)['dates'][0];calls.append(day)
+        events=[]
+        if day==today.strftime('%Y%m%d'):
+            for kind in [1,2]:
+                events.append({'date':today.isoformat()+'T04:00:00Z','season':{'type':kind,'year':today.year},'competitions':[{'status':{'type':{'completed':True}},'competitors':[{'homeAway':'home','team':{'displayName':'Home'},'score':'100'},{'homeAway':'away','team':{'displayName':'Away'},'score':'90'}]}]})
+        return json.dumps({'events':events}).encode()
+    monkeypatch.setattr(imp,'fetch',fetch)
+    rows=imp.nba(today.year)
+    assert len(calls)==3 and all(len(day)==8 and day.isdigit() for day in calls)
+    assert len(rows)==1 and rows[0]['hg']==100
+
+def test_deployment_refreshes_existing_data_and_preserves_newer_records(tmp_path,monkeypatch):
+    import gzip,json
+    import sportslab.deploy as deployment
+    s=Store(tmp_path/'store.db');original=match();s.upsert([original],observed_at={'m1':'2024-01-02T00:00:00+00:00'})
+    future_fixture=future();s.upsert([future_fixture | {'id':'future'}]);s.save_prediction('alice',future_fixture | {'id':'future'},prediction(future_fixture))
+    root=tmp_path/'project';bundle=root/'deployment';bundle.mkdir(parents=True)
+    replacement=match(hg=3)
+    with gzip.open(bundle/'matches.jsonl.gz','wt',encoding='utf-8') as f:
+        f.write(json.dumps({'match':replacement,'updated_at':'2024-01-03T00:00:00+00:00'})+'\n')
+    for sport in ['football','basketball','tennis']:
+        source=bundle/'models'/sport/'test';source.mkdir(parents=True)
+        (source/'models.joblib').write_bytes(b'test fixture, not a production model')
+        (source/'manifest.json').write_text('{}');(source.parent/'active.json').write_text('{"version":"test"}')
+    monkeypatch.setattr(deployment,'ROOT',root);monkeypatch.setattr(deployment,'ARTIFACTS',tmp_path/'models');monkeypatch.setattr(deployment,'Store',lambda:s)
+    deployment.prepare();assert s.fixture('m1')['hg']==3 and len(s.journal('alice'))==1
+    s.upsert([match(hg=4)],observed_at={'m1':'2024-01-04T00:00:00+00:00'})
+    deployment.prepare();assert s.fixture('m1')['hg']==4 and len(s.journal('alice'))==1
+
+def test_match_listing_filters_pagination_and_counts(tmp_path):
+    store=Store(tmp_path/'listing.sqlite3')
+    rows=[match(i,day=f'2024-01-{i:02d}') for i in range(1,29)]
+    future=match(99,'2099-01-01');future.update(status='scheduled',hg=None,ag=None)
+    store.upsert(rows+[future])
+    client=create_app(store).test_client()
+    first=client.get('/api/results?limit=10').get_json()
+    second=client.get('/api/results?limit=10&offset=10').get_json()
+    assert first['total']==28 and first['has_more']
+    assert len(first['results'])==10
+    assert not ({m['id'] for m in first['results']} & {m['id'] for m in second['results']})
+    assert first['results'][0]['date']>second['results'][0]['date']
+    assert client.get('/api/results?q=ARSENAL&date=2024-01-03').get_json()['total']==1
+    assert client.get('/api/results?q=missing').get_json()['total']==0
+    upcoming=client.get('/api/fixtures').get_json()
+    assert upcoming['mode']=='upcoming' and upcoming['total']==1
+    assert client.get('/api/fixtures?status=finished&limit=5').get_json()['total']==28
+    assert client.get('/api/fixtures?status=all&date=2099-01-01').get_json()['total']==1
+    for query in ['limit=0','offset=-1','limit=no','status=unknown','sport=unknown','date=bad']:
+        assert client.get('/api/fixtures?'+query).status_code==422
+    assert client.get('/api/results?sport=unknown').status_code==422
+
+def test_participant_history_does_not_count_future_fixtures(tmp_path):
+    store=Store(tmp_path/'participants.sqlite3')
+    future=match(2,'2099-01-01');future.update(status='scheduled',hg=None,ag=None)
+    store.upsert([match(),future])
+    teams=create_app(store).test_client().get('/api/teams?sport=football&competition=E0').get_json()['teams']
+    assert all(t['completed']==1 and t['latest_result']=='2024-01-01' for t in teams)
+    assert all(t['last_seen']=='2099-01-01' for t in teams)

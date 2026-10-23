@@ -1,0 +1,420 @@
+{
+  "checked_at": "2026-10-23T14:56:19.288964+00:00",
+  "competitions": [
+    {
+      "sport": "basketball",
+      "competition": "EuroLeague",
+      "matches": 2397,
+      "completed": 2084,
+      "latest_result": "2026-10-22T18:45:00+00:00",
+      "checked_at": "2026-10-23T14:48:04.989204+00:00"
+    },
+    {
+      "sport": "basketball",
+      "competition": "NBA",
+      "matches": 7340,
+      "completed": 7340,
+      "latest_result": "2026-10-22T00:00:00+00:00",
+      "checked_at": "2026-10-23T14:50:37.661551+00:00"
+    },
+    {
+      "sport": "football",
+      "competition": "ARG1",
+      "matches": 6430,
+      "completed": 6430,
+      "latest_result": "2026-10-20T00:00:00+00:00",
+      "checked_at": "2026-10-23T14:47:50.888858+00:00"
+    },
+    {
+      "sport": "football",
+      "competition": "AUT1",
+      "matches": 2692,
+      "completed": 2692,
+      "latest_result": "2026-10-18T00:00:00+00:00",
+      "checked_at": "2026-10-23T14:47:50.349469+00:00"
+    },
+    {
+      "sport": "football",
+      "competition": "B1",
+      "matches": 1619,
+      "completed": 1619,
+      "latest_result": "2026-10-11T00:00:00+00:00",
+      "checked_at": "2026-10-23T14:47:46.555873+00:00"
+    },
+    {
+      "sport": "football",
+      "competition": "BRA1",
+      "matches": 5628,
+      "completed": 5628,
+      "latest_result": "2026-10-20T00:00:00+00:00",
+      "checked_at": "2026-10-23T14:47:50.862819+00:00"
+    },
+    {
+      "sport": "football",
+      "competition": "CHN1",
+      "matches": 3032,
+      "completed": 3032,
+      "latest_result": "2026-10-18T00:00:00+00:00",
+      "checked_at": "2026-10-23T14:47:52.944224+00:00"
+    },
+    {
+      "sport": "football",
+      "competition": "CL",
+      "matches": 647,
+      "completed": 557,
+      "latest_result": "2026-10-21T19:00:00+00:00",
+      "checked_at": "2026-10-23T14:48:44.229883+00:00"
+    },
+    {
+      "sport": "football",
+      "competition": "D1",
+      "matches": 1593,
+      "completed": 1584,
+      "latest_result": "2026-10-18T00:00:00+00:00",
+      "checked_at": "2026-10-23T14:48:58.073896+00:00"
+    },
+    {
+      "sport": "football",
+      "competition": "D2",
+      "matches": 1602,
+      "completed": 1602,
+      "latest_result": "2026-10-18T00:00:00+00:00",
+      "checked_at": "2026-10-23T14:47:43.145794+00:00"
+    },
+    {
+      "sport": "football",
+      "competition": "DNK1",
+      "matches": 3018,
+      "completed": 3018,
+      "latest_result": "2026-10-19T00:00:00+00:00",
+      "checked_at": "2026-10-23T14:47:53.283624+00:00"
+    },
+    {
+      "sport": "football",
+      "competition": "E0",
+      "matches": 1980,
+      "completed": 1970,
+      "latest_result": "2026-10-19T00:00:00+00:00",
+      "checked_at": "2026-10-23T14:48:47.001778+00:00"
+    },
+    {
+      "sport": "football",
+      "competition": "E1",
+      "matches": 2904,
+      "completed": 2892,
+      "latest_result": "2026-10-20T18:45:00+00:00",
+      "checked_at": "2026-10-23T14:48:44.231882+00:00"
+    },
+    {
+      "sport": "football",
+      "competition": "E2",
+      "matches": 2886,
+      "completed": 2886,
+      "latest_result": "2026-10-21T00:00:00+00:00",
+      "checked_at": "2026-10-23T14:47:40.079852+00:00"
+    },
+    {
+      "sport": "football",
+      "competition": "E3",
+      "matches": 2898,
+      "completed": 2898,
+      "latest_result": "2026-10-20T00:00:00+00:00",
+      "checked_at": "2026-10-23T14:47:40.755398+00:00"
+    },
+    {
+      "sport": "football",
+      "competition": "EC",
+      "matches": 2869,
+      "completed": 2869,
+      "latest_result": "2026-10-10T00:00:00+00:00",
+      "checked_at": "2026-10-23T14:47:40.918468+00:00"
+    },
+    {
+      "sport": "football",
+      "competition": "F1",
+      "matches": 1750,
+      "completed": 1741,
+      "latest_result": "2026-10-18T00:00:00+00:00",
+      "checked_at": "2026-10-23T14:49:01.704711+00:00"
+    },
+    {
+      "sport": "football",
+      "competition": "F2",
+      "matches": 1831,
+      "completed": 1831,
+      "latest_result": "2026-10-19T00:00:00+00:00",
+      "checked_at": "2026-10-23T14:47:45.416986+00:00"
+    },
+    {
+      "sport": "football",
+      "competition": "FIN1",
+      "matches": 2710,
+      "completed": 2710,
+      "latest_result": "2026-10-21T00:00:00+00:00",
+      "checked_at": "2026-10-23T14:47:53.244324+00:00"
+    },
+    {
+      "sport": "football",
+      "competition": "G1",
+      "matches": 1237,
+      "completed": 1237,
+      "latest_result": "2026-10-18T00:00:00+00:00",
+      "checked_at": "2026-10-23T14:47:47.644198+00:00"
+    },
+    {
+      "sport": "football",
+      "competition": "I1",
+      "matches": 1988,
+      "completed": 1970,
+      "latest_result": "2026-10-19T00:00:00+00:00",
+      "checked_at": "2026-10-23T14:48:54.458375+00:00"
+    },
+    {
+      "sport": "football",
+      "competition": "I2",
+      "matches": 1970,
+      "completed": 1970,
+      "latest_result": "2026-10-18T00:00:00+00:00",
+      "checked_at": "2026-10-23T14:47:44.197867+00:00"
+    },
+    {
+      "sport": "football",
+      "competition": "IRL1",
+      "matches": 2733,
+      "completed": 2733,
+      "latest_result": "2026-10-19T00:00:00+00:00",
+      "checked_at": "2026-10-23T14:47:56.002793+00:00"
+    },
+    {
+      "sport": "football",
+      "competition": "JPN1",
+      "matches": 4633,
+      "completed": 4633,
+      "latest_result": "2026-10-21T00:00:00+00:00",
+      "checked_at": "2026-10-23T14:47:56.590591+00:00"
+    },
+    {
+      "sport": "football",
+      "competition": "MEX1",
+      "matches": 4770,
+      "completed": 4770,
+      "latest_result": "2026-10-22T00:00:00+00:00",
+      "checked_at": "2026-10-23T14:47:56.612742+00:00"
+    },
+    {
+      "sport": "football",
+      "competition": "N1",
+      "matches": 1620,
+      "completed": 1611,
+      "latest_result": "2026-10-18T00:00:00+00:00",
+      "checked_at": "2026-10-23T14:48:44.235882+00:00"
+    },
+    {
+      "sport": "football",
+      "competition": "NOR1",
+      "matches": 3566,
+      "completed": 3566,
+      "latest_result": "2026-10-18T00:00:00+00:00",
+      "checked_at": "2026-10-23T14:47:58.882464+00:00"
+    },
+    {
+      "sport": "football",
+      "competition": "P1",
+      "matches": 1611,
+      "completed": 1602,
+      "latest_result": "2026-10-19T00:00:00+00:00",
+      "checked_at": "2026-10-23T14:48:44.235882+00:00"
+    },
+    {
+      "sport": "football",
+      "competition": "POL1",
+      "matches": 4179,
+      "completed": 4179,
+      "latest_result": "2026-10-19T00:00:00+00:00",
+      "checked_at": "2026-10-23T14:47:59.444182+00:00"
+    },
+    {
+      "sport": "football",
+      "competition": "ROU1",
+      "matches": 4278,
+      "completed": 4278,
+      "latest_result": "2026-10-19T00:00:00+00:00",
+      "checked_at": "2026-10-23T14:47:59.460188+00:00"
+    },
+    {
+      "sport": "football",
+      "competition": "RUS1",
+      "matches": 3416,
+      "completed": 3416,
+      "latest_result": "2026-08-02T00:00:00+00:00",
+      "checked_at": "2026-09-09T08:34:20.558277+00:00"
+    },
+    {
+      "sport": "football",
+      "competition": "SC0",
+      "matches": 1194,
+      "completed": 1194,
+      "latest_result": "2026-10-18T00:00:00+00:00",
+      "checked_at": "2026-10-23T14:47:41.140545+00:00"
+    },
+    {
+      "sport": "football",
+      "competition": "SC1",
+      "matches": 954,
+      "completed": 954,
+      "latest_result": "2026-10-20T00:00:00+00:00",
+      "checked_at": "2026-10-23T14:47:41.977003+00:00"
+    },
+    {
+      "sport": "football",
+      "competition": "SC2",
+      "matches": 954,
+      "completed": 954,
+      "latest_result": "2026-10-17T00:00:00+00:00",
+      "checked_at": "2026-10-23T14:47:42.125301+00:00"
+    },
+    {
+      "sport": "football",
+      "competition": "SC3",
+      "matches": 955,
+      "completed": 955,
+      "latest_result": "2026-10-17T00:00:00+00:00",
+      "checked_at": "2026-10-23T14:47:42.384905+00:00"
+    },
+    {
+      "sport": "football",
+      "competition": "SP1",
+      "matches": 1999,
+      "completed": 1989,
+      "latest_result": "2026-10-21T18:00:00+00:00",
+      "checked_at": "2026-10-23T14:48:50.729536+00:00"
+    },
+    {
+      "sport": "football",
+      "competition": "SP2",
+      "matches": 2420,
+      "completed": 2420,
+      "latest_result": "2026-10-19T00:00:00+00:00",
+      "checked_at": "2026-10-23T14:47:44.672135+00:00"
+    },
+    {
+      "sport": "football",
+      "competition": "SWE1",
+      "matches": 3576,
+      "completed": 3576,
+      "latest_result": "2026-10-19T00:00:00+00:00",
+      "checked_at": "2026-10-23T14:48:02.945192+00:00"
+    },
+    {
+      "sport": "football",
+      "competition": "SWZ1",
+      "matches": 2735,
+      "completed": 2735,
+      "latest_result": "2026-10-11T00:00:00+00:00",
+      "checked_at": "2026-10-23T14:48:02.820522+00:00"
+    },
+    {
+      "sport": "football",
+      "competition": "T1",
+      "matches": 1822,
+      "completed": 1822,
+      "latest_result": "2026-10-19T00:00:00+00:00",
+      "checked_at": "2026-10-23T14:47:46.997366+00:00"
+    },
+    {
+      "sport": "football",
+      "competition": "USA1",
+      "matches": 6267,
+      "completed": 6267,
+      "latest_result": "2026-10-22T00:00:00+00:00",
+      "checked_at": "2026-10-23T14:48:03.236181+00:00"
+    },
+    {
+      "sport": "tennis",
+      "competition": "ATP",
+      "matches": 18122,
+      "completed": 18122,
+      "latest_result": "2026-10-18T00:00:00+00:00",
+      "checked_at": "2026-10-23T14:50:05.188124+00:00"
+    },
+    {
+      "sport": "tennis",
+      "competition": "WTA",
+      "matches": 14220,
+      "completed": 14220,
+      "latest_result": "2026-10-18T00:00:00+00:00",
+      "checked_at": "2026-10-23T14:50:07.062982+00:00"
+    }
+  ],
+  "models": [
+    {
+      "sport": "football",
+      "version": "20261023T145314-7f35c21b",
+      "trained_through": "2026-08-22",
+      "calibrated_through": "2026-10-22",
+      "test_matches": 21447,
+      "accuracy": 0.4899519746351471,
+      "log_loss": 1.0229705462535716,
+      "baseline_log_loss": 1.072891316981457
+    },
+    {
+      "sport": "basketball",
+      "version": "20261023T145323-8dbcea05",
+      "trained_through": "2026-04-12",
+      "calibrated_through": "2026-10-22",
+      "test_matches": 1011,
+      "accuracy": 0.6439169139465876,
+      "log_loss": 0.6381396404728756,
+      "baseline_log_loss": 0.6889616951224374
+    },
+    {
+      "sport": "tennis",
+      "version": "20261023T145346-429d5e8e",
+      "trained_through": "2026-08-18",
+      "calibrated_through": "2026-10-18",
+      "test_matches": 1355,
+      "accuracy": 0.6280442804428045,
+      "log_loss": 0.6329026083294678,
+      "baseline_log_loss": 0.6941583045194867
+    }
+  ],
+  "provider_errors": [
+    {
+      "id": 361,
+      "source": "football:CL:2022",
+      "started_at": "2026-10-23T14:48:05.437419+00:00",
+      "status": "error",
+      "rows": 0,
+      "detail": "HTTPError: 403 Client Error:  for url: https://api.football-data.org/v4/competitions/CL/matches?season=2022"
+    }
+  ],
+  "next_week": {
+    "football_fixtures": 86,
+    "insufficient_history": 0,
+    "history_gaps_over_30_days": 0,
+    "limited_xg": 34
+  },
+  "observed_xg_matches": 8368,
+  "smoke_predictions": [
+    {
+      "fixture": "Ipswich vs Nott'm Forest",
+      "model": "20261023T145314-7f35c21b",
+      "history_through": "2026-10-18",
+      "warnings": []
+    },
+    {
+      "fixture": "FK Shakhtar Donetsk vs Sp Lisbon",
+      "model": "20261023T145314-7f35c21b",
+      "history_through": "2026-10-21",
+      "warnings": [
+        "Limited observed xG coverage; goal forecasts are model estimates."
+      ]
+    },
+    {
+      "fixture": "Zalgiris vs ASVEL",
+      "model": "20261023T145323-8dbcea05",
+      "history_through": "2026-10-16",
+      "warnings": []
+    }
+  ]
+}

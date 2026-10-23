@@ -1,0 +1,10 @@
+{
+  "created_at": "2026-10-23T14:55:45.741334+00:00",
+  "records": 147045,
+  "models": {
+    "football": "20261023T145314-7f35c21b",
+    "basketball": "20261023T145323-8dbcea05",
+    "tennis": "20261023T145346-429d5e8e"
+  },
+  "sha256": "b569e44a8d86aaa8b86b0e33a3126faf60efc46675cce25f2c547224f93fa9c7"
+}

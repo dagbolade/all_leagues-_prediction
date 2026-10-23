@@ -1,0 +1,173 @@
+{
+  "version": "20261023T145323-8dbcea05",
+  "sport": "basketball",
+  "schema": "causal-v1",
+  "features": [
+    "competition",
+    "surface",
+    "home_elo",
+    "away_elo",
+    "elo_difference",
+    "home_matches",
+    "away_matches",
+    "home_form",
+    "away_form",
+    "home_scored",
+    "away_scored",
+    "home_conceded",
+    "away_conceded",
+    "home_scoring_std",
+    "away_scoring_std",
+    "home_rest",
+    "away_rest",
+    "home_density",
+    "away_density",
+    "home_venue_scored",
+    "away_venue_scored",
+    "home_xg",
+    "away_xg",
+    "home_xga",
+    "away_xga",
+    "home_xg_coverage",
+    "away_xg_coverage",
+    "h2h_matches",
+    "h2h_home_rate",
+    "h2h_total",
+    "neutral",
+    "month",
+    "home_surface_form",
+    "away_surface_form"
+  ],
+  "created_at": "2026-10-23T14:53:23.594937+00:00",
+  "data_version": "cb340a0b5c8c9dbb",
+  "matches": 9252,
+  "latest_result": "2026-10-22",
+  "trained_through": "2026-04-12",
+  "calibrated_through": "2026-10-22",
+  "temperature": 1.0,
+  "evaluation": {
+    "n": 1011,
+    "accuracy": 0.6439169139465876,
+    "log_loss": 0.6381396404728756,
+    "brier": 0.4469677101446563,
+    "calibration": [
+      {
+        "probability": 0.5482901161509367,
+        "observed": 0.5721925133689839,
+        "count": 561
+      },
+      {
+        "probability": 0.6410651821177531,
+        "observed": 0.7142857142857143,
+        "count": 336
+      },
+      {
+        "probability": 0.7336920159501371,
+        "observed": 0.7837837837837838,
+        "count": 111
+      },
+      {
+        "probability": 0.8057464893266494,
+        "observed": 1.0,
+        "count": 3
+      }
+    ],
+    "class_recall": {
+      "0": 0.6221837088388215,
+      "1": 0.6728110599078341
+    },
+    "baseline": {
+      "n": 1011,
+      "accuracy": 0.5707220573689417,
+      "log_loss": 0.6889616951224374,
+      "brier": 0.49581598082444,
+      "calibration": [
+        {
+          "probability": 0.5167813509338577,
+          "observed": 0.5707220573689417,
+          "count": 1011
+        }
+      ],
+      "class_recall": {
+        "0": 1.0,
+        "1": 0.0
+      }
+    },
+    "test_start": "2026-01-12",
+    "test_end": "2026-10-22",
+    "calibration_start": "2025-03-11",
+    "temperature": 1.7,
+    "competition": {
+      "EuroLeague": {
+        "n": 256,
+        "accuracy": 0.46875,
+        "log_loss": 0.7226085459714932,
+        "brier": 0.5284711131357778,
+        "calibration": [
+          {
+            "probability": 0.5553066122361768,
+            "observed": 0.4295774647887324,
+            "count": 142
+          },
+          {
+            "probability": 0.6381634952573109,
+            "observed": 0.47619047619047616,
+            "count": 84
+          },
+          {
+            "probability": 0.7388418258507544,
+            "observed": 0.6206896551724138,
+            "count": 29
+          },
+          {
+            "probability": 0.8138193271055533,
+            "observed": 1.0,
+            "count": 1
+          }
+        ],
+        "class_recall": {
+          "0": 0.1794871794871795,
+          "1": 0.92
+        }
+      },
+      "NBA": {
+        "n": 755,
+        "accuracy": 0.7033112582781457,
+        "log_loss": 0.6094985281448676,
+        "brier": 0.4193321191966734,
+        "calibration": [
+          {
+            "probability": 0.5459122105564163,
+            "observed": 0.6205250596658711,
+            "count": 419
+          },
+          {
+            "probability": 0.6420324110712338,
+            "observed": 0.7936507936507936,
+            "count": 252
+          },
+          {
+            "probability": 0.7318707417169918,
+            "observed": 0.8414634146341463,
+            "count": 82
+          },
+          {
+            "probability": 0.8017100704371973,
+            "observed": 1.0,
+            "count": 2
+          }
+        ],
+        "class_recall": {
+          "0": 0.7862232779097387,
+          "1": 0.5988023952095808
+        }
+      }
+    }
+  },
+  "evaluation_scope": "Untouched chronological benchmark of this recipe; the serving model was subsequently refit on newer data.",
+  "class_labels": [
+    "Home / player 1",
+    "Away / player 2"
+  ],
+  "artifact_sha256": "40351c860998717cf1cd4cf59387cf8fd35133b0e721470d23a6cfce69854c31"
+}

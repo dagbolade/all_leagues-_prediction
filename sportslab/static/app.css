@@ -36,3 +36,11 @@ footer span{font-size:11px;color:#596d58}.sport-note{font-size:11px;color:#596d5
 .freshness:empty{display:none}.matchup-form input[type=search]{margin-bottom:6px}input:disabled,select:disabled{background:#f0f2ec;color:#65745d}
 
 .participant-note{font-size:12px;color:#596d58;margin:6px 0;line-height:1.6}.participant-note:empty{display:none}.participant-note.warning{padding:10px;border-radius:6px;color:#78581e}
+
+/* Forecasts stay visually separate from provider-reported live scores. */
+.board-options{display:flex;flex-wrap:wrap;gap:12px 24px;align-items:center;justify-content:space-between;margin:14px 0 18px;color:#536549;font-size:12px}
+.board-options label{display:flex;align-items:center;gap:9px;cursor:pointer}.board-options input[type=checkbox]{width:20px;height:20px;min-height:20px;accent-color:#294e40}
+.card-forecast{border-top:1px solid #dce5d5;margin-top:14px;padding-top:14px}.forecast-label{font-size:11px;font-weight:650;color:#48683b;margin-bottom:10px}.forecast-outcomes{display:grid;gap:6px}.forecast-outcomes>div{background:#f1f6e9;padding:9px 6px;border-radius:6px;min-width:0}.forecast-outcomes strong{display:block;font-size:18px;color:#294e40}.forecast-outcomes span{font-size:10px;display:block;overflow-wrap:anywhere;color:#526749}
+.card-forecast .model-caption{font-size:10px;overflow-wrap:anywhere;margin-top:10px}.forecast-warnings{font-size:12px;color:#78581e;background:#fbf7eb;padding:8px 10px;border-radius:6px;margin:9px 0}.forecast-warnings summary{cursor:pointer;min-height:28px;align-content:center}.forecast-warnings p{margin:6px 0}.pill.live-pill{background:#254d3d;color:#fff}.live-card .team-row{justify-content:space-between}.live-card .score{font-size:25px}.live-card .analysis-note{font-size:12px}
+@media(max-width:800px){.sidebar nav{grid-template-columns:repeat(4,minmax(0,1fr))}.nav-item{font-size:11px}.board-options{align-items:flex-start;flex-direction:column}}
+@media(max-width:400px){.sidebar nav{grid-template-columns:repeat(3,minmax(0,1fr))}}

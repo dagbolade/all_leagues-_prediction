@@ -18,6 +18,7 @@
   <div class="nav-label">WORKSPACE</div>
   <nav>
     <button class="nav-item active" data-page="overview"><span>◫</span> Overview</button>
+    <button class="nav-item" data-page="live"><span>◉</span> Live / today</button>
     <button class="nav-item" data-page="explorer"><span>⌕</span> Match explorer</button>
     <button class="nav-item" data-page="journal"><span>▤</span> Prediction journal</button>
     <button class="nav-item" data-page="results"><span>☷</span> Results</button>
@@ -41,9 +42,18 @@
       <div class="metrics" id="summary-metrics"><div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div></div>
       <div class="section-heading"><div><h2>The matchboard <span class="tag" id="match-count">—</span></h2><p><span id="match-context">Upcoming fixtures when available; otherwise completed results.</span></p></div><button class="text-button" data-go="explorer">Open explorer ↗</button></div>
       <div class="filters"><label>Find a participant<input type="search" id="fixture-search" placeholder="Team or player name"></label><label>Competition<select id="competition" aria-label="Competition"><option value="">All competitions</option></select></label><label>Status<select id="fixture-status"><option value="auto">Upcoming / latest results</option><option value="upcoming">Upcoming only</option><option value="finished">Completed</option><option value="all">All statuses</option></select></label><label>Date (UTC)<input type="date" id="fixture-date" aria-label="Fixture date"></label><button class="filter-button" id="clear-filters">Reset filters</button></div>
+      <div class="board-options"><label><input type="checkbox" id="show-predictions" checked> Show pre-match predictions</label><span id="prediction-progress" role="status"></span></div>
       <div class="match-grid" id="matchboard" aria-live="polite"></div>
       <nav id="fixture-pages" class="pagination" aria-label="Matchboard pages"></nav>
       <div class="footnote">Kickoff times use your device timezone. Date filters use UTC. Forecasts describe uncertainty. A higher probability is not a guarantee of the result.</div>
+    </section>
+    <section id="live" class="page">
+      <div class="section-heading"><div><h2>Follow today’s matches.</h2><p>Provider-reported football scores. Coverage and delay depend on the connected data plan.</p></div><button id="refresh-live" class="button secondary">Refresh scores</button></div>
+      <div class="board-options"><label><input type="checkbox" id="auto-live" checked> Refresh every minute while this page is visible</label></div>
+      <div class="filters"><label>Show<select id="live-status"><option value="all">All today’s matches</option><option value="playing">In play / half-time</option><option value="finished">Finished</option><option value="upcoming">Not started</option></select></label><label>Find a participant<input type="search" id="live-search" placeholder="Team name"></label></div>
+      <div id="live-status-message" class="analysis-note" role="status"></div>
+      <div id="live-matches" class="match-grid" aria-live="polite"></div>
+      <p class="footnote">Pre-match references are saved only when a matchboard forecast was calculated before kickoff. They do not change with the live score and are not in-play predictions. Extra-time scores are labelled separately.</p>
     </section>
     <section id="explorer" class="page">
       <div class="explorer-layout"><article class="panel matchup-form"><div class="eyebrow">MATCH EXPLORER</div><h2>Build your analysis.</h2><p class="muted">Compare any two covered participants. Custom matchups are labelled as scenarios.</p>

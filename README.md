@@ -92,3 +92,14 @@ Attach a Railway volume to retain journals and refreshed data across deployments
 ### Refresh verification — 23 October 2026
 
 The data was refreshed and all three models retrained. Provider changes required published-link discovery for tennis and daily NBA feeds (with preseason games excluded). Run `python -m sportslab.package` after a validated refresh/training run to regenerate the public Railway bundle, including source update timestamps. See `audit/FRESHNESS_2026-10-23.json` for exact coverage, model dates and fixture checks. This report does not by itself confirm the live Railway installation is updated.
+## Matchboard forecasts and reported live scores
+
+The overview now loads pre-match probabilities for the visible upcoming fixtures (up to 24 per request). Each card includes outcome probabilities, the most likely football scoreline, data limitations and calculation/model timestamps. These public forecast summaries are cached by fixture, model version and data version; they do not create private journal records. No new forecast is calculated after kickoff.
+
+The **Live / today** view (also `/live-predictions`) connects football-data.org for today's covered football competitions. Set `FOOTBALL_DATA_API_KEY` in Railway variables; local development also reads `.env`. Credentials remain server-side. The feed is fetched on demand, at most once per minute per shared SQLite database, across visitors and Gunicorn workers. Browser refresh pauses when the page is hidden. A persistent Railway volume retains public pre-match references across releases.
+
+Provider scores may be delayed; a fresh HTTP fetch is not proof of a fresh match observation. The UI displays both fetch time and the provider's match update time. Missing scores and clocks remain unavailable, failures retain the last successful observation with a warning, and extra-time phases are labelled. Scoreboard observations are separate from training results and private-journal settlement.
+
+This is **not an in-play probability model**. Provider responses tested on 24 October 2026 omitted the match minute, and the current models were evaluated only pre-match. In-play forecasts require a reliable clock/event feed and a separately trained, calibrated, temporally evaluated model. When an exact fixture has a cached forecast generated before kickoff, the live view may show it as a **saved pre-match reference**, never as an updated in-play probability. Basketball and tennis live feeds are not connected.
+
+Provider references: [score semantics](https://docs.football-data.org/general/v4/overtime.html), [match statuses](https://docs.football-data.org/general/v4/match.html), [coverage and delay plans](https://www.football-data.org/pricing).

@@ -13,6 +13,7 @@ from flask import Flask, jsonify, render_template, request, session
 from .catalog import NAMES, team_id
 from .store import Store, utcnow, ROOT
 from .model import Predictor, ARTIFACTS
+from .matchday import initialize, forecast, LiveFeed
 
 
 def create_app(store=None):
@@ -26,6 +27,7 @@ def create_app(store=None):
     app.config.update(SECRET_KEY=os.getenv('SECRET_KEY') or keyfile.read_text(),MAX_CONTENT_LENGTH=16384,
                       SESSION_COOKIE_HTTPONLY=True,SESSION_COOKIE_SAMESITE='Lax',SESSION_COOKIE_SECURE=os.getenv('COOKIE_SECURE')=='1')
     predictor=Predictor(store);prediction_lock=threading.Lock()
+    initialize(store);live_feed=LiveFeed(store)
     with store.connect() as c:
         c.execute('CREATE TABLE IF NOT EXISTS rate_limits (owner TEXT, minute INTEGER, calls INTEGER, PRIMARY KEY(owner,minute))')
 
@@ -118,6 +120,34 @@ def create_app(store=None):
 
     @app.get('/api/fixtures')
     def fixtures():return match_listing()
+
+    @app.post('/api/predictions')
+    def board_predictions():
+        body=request.get_json(silent=True)
+        ids=body.get('fixture_ids') if isinstance(body,dict) else None
+        if not isinstance(ids,list) or not 1<=len(ids)<=24 or any(not isinstance(i,str) or len(i)>150 for i in ids):
+            raise ValueError('Provide 1–24 fixture IDs')
+        predictions={};versions={}
+        with prediction_lock:
+            for fid in dict.fromkeys(ids):
+                fixture=store.fixture(fid)
+                try:
+                    if not fixture:raise ValueError('Fixture not found')
+                    sport=fixture['sport']
+                    if sport not in versions:versions[sport]=store.version(sport)
+                    predictions[fid]={'forecast':forecast(store,predictor,fixture,versions[sport])}
+                except ValueError as e:predictions[fid]={'unavailable':str(e)}
+        return jsonify(predictions=predictions)
+
+    @app.get('/api/live')
+    def live_matches():
+        sport=request.args.get('sport','football')
+        if sport not in ['football','basketball','tennis']:raise ValueError('Unknown sport')
+        if sport!='football':return jsonify(matches=[],available=False,error='Live score coverage is currently connected for football only.',fetched_at=None)
+        result=live_feed.get();result['matches']=live_feed.baselines(result['matches'])
+        result['notice']='Provider-reported scores may be delayed. Refreshing this view does not remove provider delays. In-play probabilities are not available: no validated in-play model is connected.'
+        result['source']='football-data.org';result['date']=datetime.now(timezone.utc).date().isoformat()
+        return jsonify(result)
 
     @app.get('/api/teams')
     def teams():

@@ -19,22 +19,22 @@ async function api(path,body){
 function ticket(key){const n=(state.requests[key]||0)+1;state.requests[key]=n;const epoch=state.epoch;return ()=>state.requests[key]===n&&state.epoch===epoch;}
 function retryPanel(parent,message,retry){empty(parent,message);parent.firstChild.append(button('Try again','button secondary',retry));}
 function debounce(action){let timer;return ()=>{clearTimeout(timer);timer=setTimeout(action,300);};}
-function route(){const [name,query]=location.hash.slice(1).split('?');const sport=new URLSearchParams(query).get('sport');return {page:headings[name]?name:'overview',sport:['football','basketball','tennis'].includes(sport)?sport:'football'};}
+function route(){const [name,query]=location.hash.slice(1).split('?');const sport=new URLSearchParams(query).get('sport');return {page:headings[name]?name:location.pathname==='/live-predictions'?'live':'overview',sport:['football','basketball','tennis'].includes(sport)?sport:'football'};}
 function metric(label,value,note,symbol='↗'){const n=el('article','metric');n.append(el('span','metric-symbol',symbol),el('div','metric-label',label),el('div','metric-value',value),el('div','metric-note',note));return n;}
 function pill(text,type=''){return el('span',`pill ${type}`,text);}
 function button(text,cls,action){const n=el('button',cls,text);n.addEventListener('click',action);return n;}
-const headings={overview:['Your matchday, decoded.','Explore the numbers. Understand the matchup. Keep an honest record.'],explorer:['Go deeper into the matchup.','The probabilities are only the beginning. Explore the evidence behind them.'],journal:['Track the forecast, not the feeling.','A private, immutable record of predictions made before kickoff.'],results:['The results are in.','See completed matches exactly as reported by their data source.'],models:['Open the black box.','Measured performance, honest baselines and clearly defined test periods.'],coverage:['Better analysis starts here.','Understand the sources, freshness and limits of your match data.']};
+const headings={live:['The match as it unfolds.','Reported scores and match status, with source freshness visible.'],overview:['Your matchday, decoded.','Explore the numbers. Understand the matchup. Keep an honest record.'],explorer:['Go deeper into the matchup.','The probabilities are only the beginning. Explore the evidence behind them.'],journal:['Track the forecast, not the feeling.','A private, immutable record of predictions made before kickoff.'],results:['The results are in.','See completed matches exactly as reported by their data source.'],models:['Open the black box.','Measured performance, honest baselines and clearly defined test periods.'],coverage:['Better analysis starts here.','Understand the sources, freshness and limits of your match data.']};
 async function page(name,push=true,focus=true,load=true){
-  if(!headings[name])name='overview';state.page=name;
+  if(!headings[name])name='overview';const entering=state.page!==name;clearTimeout(state.liveTimer);state.page=name;
   document.querySelectorAll('.page').forEach(n=>n.classList.toggle('active-page',n.id===name));
   document.querySelectorAll('[data-page]').forEach(n=>{n.classList.toggle('active',n.dataset.page===name);if(n.dataset.page===name)n.setAttribute('aria-current','page');else n.removeAttribute('aria-current');});
-  $('page-title').textContent={overview:'Overview',explorer:'Match explorer',journal:'Prediction journal',results:'Results',models:'Model lab',coverage:'Data coverage'}[name];
+  $('page-title').textContent={live:'Live / today',overview:'Overview',explorer:'Match explorer',journal:'Prediction journal',results:'Results',models:'Model lab',coverage:'Data coverage'}[name];
   [$('heading').textContent,$('subtitle').textContent]=headings[name];document.title=`${$('page-title').textContent} · Matchday`;
   const hash=`#${name}?sport=${state.sport}`;if(push&&location.hash!==hash)history.pushState(null,'',hash);
   if(state.overview)renderFreshness();if(focus)$('heading').focus({preventScroll:true});
-  const loaders={journal:loadJournal,models:loadModels,coverage:loadCoverage,results:loadResults};
-  const targets={journal:'journal-list',models:'model-list',coverage:'coverage-summary',results:'results-list'};
-  try{if(load&&loaders[name])await loaders[name]();}catch(e){retryPanel($(targets[name]),e.message,()=>page(name,false));}
+  const loaders={live:loadLive,journal:loadJournal,models:loadModels,coverage:loadCoverage,results:loadResults};
+  const targets={live:'live-matches',journal:'journal-list',models:'model-list',coverage:'coverage-summary',results:'results-list'};
+  try{if(load&&name==='overview'&&entering&&state.overview)await loadFixtures();if(load&&loaders[name])await loaders[name]();}catch(e){retryPanel($(targets[name]),e.message,()=>page(name,false));}
 }
 function setCompetitions(){const comps=state.overview.competitions.filter(c=>c.sport===state.sport);state.names=Object.fromEntries(state.overview.competitions.map(c=>[c.competition,c.name]));for(const id of ['competition','analysis-competition','results-competition']){const select=$(id);select.disabled=false;const previous=select.value;select.replaceChildren();if(id!=='analysis-competition')select.append(new Option('All competitions',''));for(const c of comps)select.append(new Option(c.name,c.competition));if(comps.some(c=>c.competition===previous))select.value=previous;else if(id==='analysis-competition'){const preferred={football:'E0',basketball:'NBA',tennis:'ATP'}[state.sport];if(comps.some(c=>c.competition===preferred))select.value=preferred;}}$('surface-field').hidden=state.sport!=='tennis';}
 function renderTeamOptions(id,previous=$(id).value){
@@ -50,7 +50,7 @@ async function loadTeams(){
     for(const id of selects){const previous=$(id).value;state.teams=d.teams;$(id+'-search').value='';renderTeamOptions(id,previous);}
   }catch(e){if(current()){selects.forEach(id=>$(id).replaceChildren(new Option('Could not load participants','')));toast(e.message);}}finally{if(current())selects.forEach(id=>{$(id).disabled=false;$(id+'-search').disabled=false;});}
 }
-async function loadOverview(){const current=ticket('overview');const data=await api('/api/overview');if(!current())return;state.overview=data;setCompetitions();renderFreshness();const s=state.overview.totals[state.sport];const m=state.models.find(m=>m.sport===state.sport&&!m.unavailable);$('summary-metrics').replaceChildren(metric('Historical matches',fmt.format(s.matches),'Completed results in the dataset','▤'),metric('Competitions covered',fmt.format(s.competitions),'Explore coverage by league','◎'),metric('Benchmark accuracy',m?pct(m.evaluation.accuracy):'Not trained',m?`${fmt.format(m.evaluation.n)} untouched test matches`:'No accuracy claim until evaluation','◈'));await Promise.all([loadFixtures(),loadTeams()]);}
+async function loadOverview(){const current=ticket('overview');const data=await api('/api/overview');if(!current())return;state.overview=data;setCompetitions();renderFreshness();const s=state.overview.totals[state.sport];const m=state.models.find(m=>m.sport===state.sport&&!m.unavailable);$('summary-metrics').replaceChildren(metric('Historical matches',fmt.format(s.matches),'Completed results in the dataset','▤'),metric('Competitions covered',fmt.format(s.competitions),'Explore coverage by league','◎'),metric('Benchmark accuracy',m?pct(m.evaluation.accuracy):'Not trained',m?`${fmt.format(m.evaluation.n)} untouched test matches`:'No accuracy claim until evaluation','◈'));await loadTeams();if(state.page==='overview')await loadFixtures();}
 function renderFreshness(){
   if(!state.overview)return;
   const selected=state.page==='overview'?$('competition').value:state.page==='results'?$('results-competition').value:state.page==='explorer'?$('analysis-competition').value:'';const comps=state.overview.competitions.filter(c=>c.sport===state.sport&&(!selected||c.competition===selected));
@@ -68,18 +68,67 @@ function pagination(id,data,change){
 }
 async function loadMatchList(kind){
   const fixture=kind==='fixtures',target=$(fixture?'matchboard':'results-list'),pages=fixture?'fixture-pages':'results-pages';
-  const current=ticket(kind);loading(target);$(pages).replaceChildren();
+  const current=ticket(kind);loading(target);$(pages).replaceChildren();if(fixture)$('prediction-progress').textContent='';
   const q=new URLSearchParams({sport:state.sport,offset:state.offsets[kind],limit:24});
   for(const [key,id] of [['competition',fixture?'competition':'results-competition'],['date',fixture?'fixture-date':'results-date'],['q',fixture?'fixture-search':'results-search']])if($(id).value)q.set(key,$(id).value);
   if(fixture)q.set('status',$('fixture-status').value);renderFreshness();
   try{const data=await api(`/api/${kind}?${q}`);if(!current())return;
     if(data.total&&data.offset>=data.total){state.offsets[kind]=0;return loadMatchList(kind);}
-    const records=data[kind];target.replaceChildren(...records.map(m=>matchCard(m)));
+    const records=data[kind];const cards=records.map(m=>matchCard(m));target.replaceChildren(...cards);if(fixture&&state.page==='overview')loadBoardForecasts(records,cards,current);
     if(!records.length)empty(target,'No matches match these filters. Try another date, competition or participant.');
     if(fixture){$('match-count').textContent=fmt.format(data.total);$('match-context').textContent={upcoming:'Upcoming verified fixtures, earliest first.',finished:$('fixture-status').value==='auto'?'No upcoming fixtures match these filters. Showing completed results, newest first.':'Completed results, newest first.',all:'All recorded statuses for your selection.'}[data.mode];}
     else $('results-count').textContent=`${fmt.format(data.total)} completed matches · newest first`;
     pagination(pages,data,offset=>{state.offsets[kind]=offset;loadMatchList(kind);});
   }catch(e){if(current())retryPanel(target,e.message,()=>loadMatchList(kind));}
+}
+function forecastBlock(d,m,reference=false){
+  const box=el('div','card-forecast');box.append(el('div','forecast-label',reference?'Saved pre-match reference · not in-play':'Pre-match probabilities'));
+  const grid=el('div','forecast-outcomes');const keys=m.sport==='football'?['home_win','draw','away_win']:['home_win','away_win'];
+  grid.style.gridTemplateColumns=`repeat(${keys.length},minmax(0,1fr))`;
+  for(const k of keys){const cell=el('div');const label=k==='home_win'?m.home:k==='away_win'?m.away:'Draw';cell.append(el('strong','',pct(d.probabilities[k])),el('span','',label));grid.append(cell);}box.append(grid);
+  if(d.scorelines?.length)box.append(el('p','model-caption',`Most likely score: ${d.scorelines[0].score} (${pct(d.scorelines[0].probability)})`));
+  if(m.sport==='basketball'&&d.expected)box.append(el('p','model-caption',`Model points: ${d.expected.home.toFixed(1)} – ${d.expected.away.toFixed(1)}`));
+  if(d.warnings?.length){const details=el('details','forecast-warnings');details.append(el('summary','',`Data limits (${d.warnings.length})`));d.warnings.forEach(w=>details.append(el('p','',w)));box.append(details);}
+  box.append(el('div','model-caption',`Calculated ${new Date(d.created_at).toLocaleString('en-GB')} · model ${d.model_version}`));return box;
+}
+async function loadBoardForecasts(records,cards,current){
+  if(!$('show-predictions').checked)return;
+  const eligible=records.map((m,i)=>({m,card:cards[i]})).filter(({m})=>['scheduled','timed'].includes(m.status)&&new Date(m.date)>new Date());
+  if(!eligible.length){$('prediction-progress').textContent='Pre-match predictions require upcoming fixtures.';return;}
+  const targets=new Map();for(const {m,card} of eligible){const n=el('div','card-forecast model-caption','Calculating pre-match probabilities…');card.append(n);targets.set(m.id,n);}
+  $('prediction-progress').textContent=`Calculating ${eligible.length} forecasts…`;
+  try{const data=await api('/api/predictions',{fixture_ids:eligible.map(({m})=>m.id)});if(!current()||!$('show-predictions').checked)return;
+    let count=0;for(const {m} of eligible){const result=data.predictions[m.id];const target=targets.get(m.id);if(new Date(m.date)<=new Date()){target.textContent='Kickoff has passed. See Live / today for reported status.';continue;}
+      if(result?.forecast){target.replaceWith(forecastBlock(result.forecast,m));count++;}else target.textContent=result?.unavailable||'Forecast unavailable.';}
+    $('prediction-progress').textContent=`${count} of ${eligible.length} forecasts available`;
+  }catch(e){if(current()){for(const n of targets.values())n.textContent=e.message;$('prediction-progress').textContent='Forecasts unavailable. Refresh the matchboard to retry.';}}
+}
+function reportedTime(value){return value?new Date(value).toLocaleString('en-GB'):'Not supplied';}
+function renderLive(){
+  const d=state.liveData;if(!d||state.liveSport!==state.sport)return;const filter=$('live-status').value,q=$('live-search').value.trim().toLocaleLowerCase();
+  const matches=d.matches.filter(m=>(!q||`${m.home} ${m.away}`.toLocaleLowerCase().includes(q))&&(filter==='all'||filter==='playing'&&['in_play','paused'].includes(m.status)||filter==='finished'&&m.status==='finished'||filter==='upcoming'&&['scheduled','timed'].includes(m.status)));
+  const priority=m=>['in_play','paused'].includes(m.status)?0:m.status==='finished'?2:1;matches.sort((a,b)=>priority(a)-priority(b)||a.date.localeCompare(b.date));
+  $('live-status-message').textContent=`${d.error||d.notice||''} ${d.fetched_at?`Feed fetched ${reportedTime(d.fetched_at)}. `:''}${d.refreshing?'First refresh is in progress. ':''}${d.available?`${matches.length} matching fixtures for ${date(d.date)} (UTC).`:''}`;
+  const awaiting=d.matches.filter(m=>['scheduled','timed'].includes(m.status)&&new Date(m.date)<new Date()).length;if(awaiting)$('live-status-message').textContent+=` ${awaiting} fixtures have passed their scheduled kickoff but the provider has not reported a start. Live coverage may be delayed or unavailable on this plan.`;
+  $('live-status-message').classList.toggle('warning',!!d.error||awaiting>0);
+  const cards=matches.map(m=>{const card=el('article','match-card live-card');const head=el('div','match-meta');
+    const statuses={in_play:'IN PLAY',paused:'HALF-TIME',finished:'FINAL',timed:'SCHEDULED',scheduled:'TIME UNCONFIRMED',postponed:'POSTPONED',cancelled:'CANCELLED',suspended:'SUSPENDED',awarded:'AWARDED'};
+    head.append(el('strong','',state.names[m.competition]||m.competition),pill(statuses[m.status]||m.status,['in_play','paused'].includes(m.status)?'live-pill':''));card.append(head);
+    for(const side of ['home','away']){const row=el('div','team-row');row.append(el('span','',m[side]),el('span','score',m[side==='home'?'hg':'ag']??'—'));card.append(row);}
+    const playing=['in_play','paused'].includes(m.status);card.append(el('div','model-caption',playing?(m.minute==null?'Match clock not supplied':`Reported minute: ${m.minute}′`):`${['scheduled','timed'].includes(m.status)&&new Date(m.date)<new Date()?'Awaiting provider status · scheduled kickoff':'Kickoff'}: ${reportedTime(m.date)}`));
+    if(m.duration&&m.duration!=='REGULAR')card.append(pill(m.duration.replaceAll('_',' '),'warn'));
+    card.append(el('div','model-caption',`Source updated: ${reportedTime(m.updated_at)}`));
+    if(playing&&(!m.updated_at||Date.now()-new Date(m.updated_at)>300000))card.append(el('p','analysis-note warning','This match has no recent source timestamp. The score or status may be out of date.'));
+    if(m.prematch)card.append(forecastBlock(m.prematch,m,true));else if(playing)card.append(el('p','model-caption','No pre-kickoff forecast was captured for this match. In-play probabilities are unavailable.'));
+    return card;});$('live-matches').replaceChildren(...cards);
+  if(!cards.length)empty($('live-matches'),d.available?'No matches match these filters in the connected football feed.':d.error||'Waiting for the first provider refresh…');
+}
+async function loadLive(){
+  clearTimeout(state.liveTimer);const current=ticket('live');const sport=state.sport;$('refresh-live').disabled=true;
+  if(!state.liveData||state.liveSport!==sport){state.liveData=null;loading($('live-matches'));$('live-status-message').textContent='Checking the connected score provider…';}
+  try{const d=await api(`/api/live?sport=${sport}`);if(!current())return;state.liveData=d;state.liveSport=sport;renderLive();}
+  catch(e){if(current()){$('live-status-message').textContent=`Refresh failed: ${e.message} Any scores still visible are from an earlier fetch.`;if(!state.liveData)retryPanel($('live-matches'),e.message,loadLive);}}
+  finally{if(current()){$('refresh-live').disabled=false;if(state.page==='live'&&sport==='football'&&$('auto-live').checked&&!document.hidden)state.liveTimer=setTimeout(loadLive,60000);}}
 }
 async function analyse(body){
   const current=ticket('analysis');await page('explorer');loading($('analysis'));const submit=$('analyse-form').querySelector('[type="submit"]');submit.disabled=true;
@@ -112,7 +161,7 @@ async function loadCoverage(){loading($('coverage-summary'));const current=ticke
 async function switchSport(sport,push=true){
   if(state.sport!==sport){state.sport=sport;state.epoch++;state.offsets={fixtures:0,results:0};state.analysis=null;
     empty($('analysis'),'Choose a matchup or open a verified fixture to explore its forecast.');
-    for(const id of ['summary-metrics','matchboard','results-list','journal-list','model-list','coverage-summary'])loading($(id));
+    for(const id of ['summary-metrics','matchboard','results-list','journal-list','model-list','coverage-summary','live-matches'])loading($(id));
     for(const id of ['fixture-pages','results-pages'])$(id).replaceChildren();$('match-count').textContent='—';
     $('analyse-form').querySelector('[type="submit"]').disabled=true;state.teams=[];
     for(const side of ['home','away']){$(side+'-team-search').value='';renderTeamOptions(side+'-team','');$(side+'-team').disabled=true;$(side+'-team-search').disabled=true;}
@@ -136,9 +185,14 @@ $('clear-filters').addEventListener('click',()=>{for(const id of ['competition',
 for(const side of ['home','away']){$(side+'-team-search').addEventListener('input',()=>renderTeamOptions(side+'-team'));$(side+'-team').addEventListener('change',()=>participantNote(side+'-team'));}
 $('swap-teams').addEventListener('click',()=>{const home=$('home-team').value,away=$('away-team').value;for(const side of ['home','away'])$(side+'-team-search').value='';renderTeamOptions('home-team',away);renderTeamOptions('away-team',home);});
 $('journal-status').addEventListener('change',()=>page('journal',false,false));
+$('show-predictions').addEventListener('change',loadFixtures);
+$('refresh-live').addEventListener('click',loadLive);
+$('auto-live').addEventListener('change',()=>{clearTimeout(state.liveTimer);if($('auto-live').checked&&state.page==='live')loadLive();});
+$('live-status').addEventListener('change',renderLive);$('live-search').addEventListener('input',renderLive);
+document.addEventListener('visibilitychange',()=>{clearTimeout(state.liveTimer);if(!document.hidden&&state.page==='live'&&$('auto-live').checked)loadLive();});
 $('analyse-form').addEventListener('submit',e=>{e.preventDefault();analyse({sport:state.sport,competition:$('analysis-competition').value,home_id:$('home-team').value,away_id:$('away-team').value,date:$('analysis-date').value,surface:$('surface').value});});
 $('settle').addEventListener('click',async()=>{const b=$('settle');b.disabled=true;try{const d=await api('/api/journal/settle',{});toast(`${d.updated} predictions settled or corrected from available results.`);await loadJournal();}catch(e){toast(e.message);}finally{b.disabled=false;}});
-$('refresh-view').addEventListener('click',async()=>{const b=$('refresh-view');b.disabled=true;try{state.models=(await api('/api/models')).models;await loadOverview();await page(state.page,false,false);toast('View refreshed from stored data. This does not download new provider data.');}catch(e){toast(e.message);}finally{b.disabled=false;}});
+$('refresh-view').addEventListener('click',async()=>{const b=$('refresh-view');b.disabled=true;try{state.models=(await api('/api/models')).models;await loadOverview();await page(state.page,false,false);if(state.page!=='live')toast('View refreshed from stored data. This does not download new provider data.');}catch(e){toast(e.message);}finally{b.disabled=false;}});
 document.querySelector('.skip-link').addEventListener('click',e=>{e.preventDefault();$('main-content').focus();});
 document.querySelector('.brand').addEventListener('click',e=>{e.preventDefault();page('overview');});
 window.addEventListener('popstate',async()=>{const r=route();state.page=r.page;if(r.sport!==state.sport)await switchSport(r.sport,false);else await page(r.page,false);});

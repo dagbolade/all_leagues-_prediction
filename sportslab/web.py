@@ -211,6 +211,16 @@ def create_app(store=None):
         if horizon not in [1,24]:raise ValueError('Choose 1 or 24 hours')
         return jsonify(report(store,sport,horizon))
 
+    @app.get('/api/players/scenario')
+    def player_scenario():
+        from .player_scenarios import analyse
+        return jsonify(analyse(store,request.args.get('player',''),request.args.get('minutes',70)))
+
+    @app.get('/api/players/fixture')
+    def player_fixture():
+        from .player_markets import board
+        return jsonify(board(store,request.args.get('fixture','')))
+
     @app.get('/api/players/status')
     def player_status():
         from .players import status

@@ -27,3 +27,13 @@ The importer validates identifiers, dates, columns, unique players and exactly e
 The local endpoint `/api/players/public` accepts `league`, `q`, `offset`, `limit` (maximum 50). Model lab displays inventory coverage, searchable player histories and pagination. The public-only deployment/players.json.gz bundle is imported by sportslab.deploy on startup. Repeat imports are idempotent and preserve newer player records, roster corrections and inventories. No private journal, session, credential or tracking tables are bundled. Changes have not been pushed to Railway.
 
 Audit: `audit/player-coverage-2026-10-27.json`. Preview verification: player search, expanded Palmer history, API pagination and 50 passing sportslab tests, including a clean database seed, repeat import, newer-record preservation and corrected-roster removal protection.
+
+## Players workspace
+
+The primary flow is now upcoming fixture -> player markets. Both teams are matched by explicit aliases to their latest known player appearances. This is inferred membership, not a confirmed squad.
+
+`sportslab/player_markets.py` provides experimental fixture forecasts for scoring, assists, score-or-assist, 2+/3+ total shots and reported yellow cards. Player binary event rates from up to ten previous appearances receive an eight-appearance league prior; opponent allowance odds are shrunk with 60 league-average appearances and clamped to 0.5–2 times the player's odds. Predictions are conditional on appearing, not unconditional bookmaker probabilities. Current-match minutes are never used. Evidence dates must precede kickoff day, observations must already exist, and at least five appearances / 450 minutes / a result within 45 days are required.
+
+These are uncalibrated preliminary forecasts; tests establish implementation behavior, not predictive accuracy. There is no measured betting edge, confirmed lineup, injury adjustment, referee adjustment or penalty-role model. Shots on target, fouls, saves and goalkeeper clean sheets remain unavailable; red-card forecasts are withheld because of sparse data. No market is settled against bookmaker rules. Full market coverage remains unfinished.
+
+The old minutes scenario endpoint remains for compatibility but is no longer the Players page's primary flow. Raw player stats are in a collapsed history and coverage section.

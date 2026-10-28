@@ -11,6 +11,10 @@ from .model import ARTIFACTS
 def prepare():
     bundle=ROOT/'deployment'
     store=Store()
+    from .player_bundle import import_bundle
+    if (bundle/'players.json.gz').exists():
+        imported=import_bundle(store,bundle/'players.json.gz')
+        print(f'Public player seed: {imported} new/updated rows',flush=True)
     metadata=bundle/'snapshot.json'
     snapshot=json.loads(metadata.read_text(encoding='utf-8')) if metadata.exists() else None
     with store.connect() as c:

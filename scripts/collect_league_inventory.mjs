@@ -1,0 +1,6 @@
+// Use with a bound Codex browser tab; rendered DOM only.
+export function createInventoryReader(leagueTab, matchIndex, teamReports) {
+const readLeague = async()=>leagueTab.playwright.evaluate(()=>({source:location.href,teams:Array.from(document.querySelectorAll('table a[href*="team/"]')).map(a=>({name:a.innerText,url:a.href})),players:Array.from(document.querySelectorAll('#league-players tbody tr')).filter(r=>r.querySelector('a[href*="player/"]')).map(r=>({url:r.querySelector('a[href*="player/"]').href,cells:Array.from(r.cells).map(c=>c.innerText)})),page:document.querySelector('#league-players + .table-control-panel .current')?.getAttribute('data-page'),last:document.querySelector('#league-players + .table-control-panel .prevNext:last-child')?.classList.contains('disabled')}));
+const discoverTeam = async(team)=>{await leagueTab.goto(team.url);await leagueTab.playwright.locator('a.match-info[data-isresult="true"]').first().waitFor({state:'visible',timeoutMs:10000});var links=await leagueTab.playwright.evaluate(()=>Array.from(document.querySelectorAll('a.match-info[data-isresult="true"]')).map(a=>a.href));links.forEach(url=>matchIndex.set(url,{url,league:team.league}));teamReports.push({...team,matches:links.length});};
+return {readLeague, discoverTeam};
+}

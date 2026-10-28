@@ -103,3 +103,68 @@ Provider scores may be delayed; a fresh HTTP fetch is not proof of a fresh match
 This is **not an in-play probability model**. Provider responses tested on 24 October 2026 omitted the match minute, and the current models were evaluated only pre-match. In-play forecasts require a reliable clock/event feed and a separately trained, calibrated, temporally evaluated model. When an exact fixture has a cached forecast generated before kickoff, the live view may show it as a **saved pre-match reference**, never as an updated in-play probability. Basketball and tennis live feeds are not connected.
 
 Provider references: [score semantics](https://docs.football-data.org/general/v4/overtime.html), [match statuses](https://docs.football-data.org/general/v4/match.html), [coverage and delay plans](https://www.football-data.org/pricing).
+
+
+## Prospective tracking and player data
+
+`python -m sportslab track` records all stored fixtures inside the 24-hour or
+1-hour lead-time window (15-minute tolerance). The first observation, including
+a withheld forecast, is immutable for that fixture, kickoff and lead time.
+Predictions with fewer than five appearances, 90-day-old participant history or
+imprecise kickoff times are withheld. These thresholds apply to the tracking
+ledger; they are not a blanket freshness guarantee for every source.
+Result corrections append audit events; cancellations, awards and kickoff
+changes void the original forecast. Each lead time and model version is reported
+separately in Model lab. No historical predictions are fabricated or backfilled.
+
+For ongoing collection run `python -m sportslab.worker` alongside the web process,
+using the **same persistent SPORTSLAB_DATA directory**. It refreshes the connected
+football fixture/result feed and captures/settles forecasts every ten minutes.
+It does not retrain models or refresh every historical sport feed. Keep the
+normal full refresh pipeline scheduled separately. The worker is not started by
+this revision's Railway start command; Model lab flags missing/stale runs. Do not
+run a separate Railway service with an isolated SQLite volume and expect the web
+service to see it. The web process and worker must share the same database.
+
+The optional player adapter uses the API-Sports direct API-Football service:
+set `API_FOOTBALL_KEY` server-side, then run
+`python -m sportslab player-import --provider-fixture <API-Football fixture ID>`.
+This is a different ID namespace from football-data.org. The adapter imports a
+completed regulation-time fixture's player appearances and original response,
+retains null statistics, and replaces corrected imports transactionally. It
+makes two provider calls per fixture; it does not launch a bulk paid backfill.
+Reference: https://www.api-football.com/documentation_v3
+
+No provider account or player history is bundled. Player market probabilities
+remain unavailable until adequate historical coverage, reviewed fixture/team
+mapping, pre-match lineup/expected-minutes inputs and chronological validation
+are implemented. The current adapter does not fetch future lineups or estimate
+player probabilities. Extra-time fixtures are excluded until regulation-only
+statistics can be verified. Bookmaker definitions such as shots including
+woodwork need their own matching data and settlement rules.
+
+
+### Public player histories without an API
+
+`scripts/collect_player_pages.mjs` exports `collectPlayer(tab, fs, source, output)`
+for the Codex browser REPL. Supply a bound browser tab, Node `fs/promises`, an
+observed public Understat player URL, and an absolute workspace output path.
+It reads the rendered match-history table and follows normal page controls;
+it makes no direct requests to data API endpoints and needs no API key.
+Dynamic pages require the browser; this is an assisted collector, not an
+unattended Railway scraping job. Rate-limit repeated visits and stop if the
+source blocks access or changes its table structure.
+
+Import saved histories with:
+`python -m sportslab player-pages --input data/player-pages`
+The initial 27 October 2026 collection contains 1,961 unique appearances across
+ten selected players (full displayed histories, not all players or leagues).
+Files preserve source URLs, extraction time, headers and page sequence.
+`/api/players/public` and Model lab display the last ten appearances per player.
+Total shots, goals, assists, minutes, xG and xA are available. Shots on target,
+cards, team-at-appearance and UCL coverage are not inferred. Namespaces are
+separate from API-Football. These statistics do not enter the existing team
+models or generate betting probabilities. Current-scorer selection is biased;
+a representative roster sample and chronological evaluation remain necessary
+before training or publishing player probabilities. Data is stored in the local
+SQLite database; these snapshots are not yet included in the Railway bundle.

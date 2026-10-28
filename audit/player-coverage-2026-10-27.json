@@ -1,0 +1,100 @@
+{
+  "import": {
+    "matches": 489,
+    "appearances": 15318,
+    "errors": [
+      {
+        "match": "https://understat.com/match/30804",
+        "error": "Duplicate player or invalid columns"
+      }
+    ]
+  },
+  "coverage": [
+    {
+      "league": "Bundesliga",
+      "name": "Bundesliga",
+      "season": 2026,
+      "teams": 18,
+      "expected_players": 403,
+      "covered_players": 403,
+      "extra_players": 0,
+      "expected_matches": 63,
+      "covered_matches": 63,
+      "observed_at": "2026-10-27T20:00:35.574Z",
+      "missing_players": [],
+      "missing_matches": []
+    },
+    {
+      "league": "EPL",
+      "name": "Premier League",
+      "season": 2026,
+      "teams": 20,
+      "expected_players": 451,
+      "covered_players": 451,
+      "extra_players": 0,
+      "expected_matches": 80,
+      "covered_matches": 80,
+      "observed_at": "2026-10-27T19:59:59.821Z",
+      "missing_players": [],
+      "missing_matches": []
+    },
+    {
+      "league": "La_liga",
+      "name": "La Liga",
+      "season": 2026,
+      "teams": 20,
+      "expected_players": 482,
+      "covered_players": 482,
+      "extra_players": 0,
+      "expected_matches": 99,
+      "covered_matches": 98,
+      "observed_at": "2026-10-27T20:00:22.494Z",
+      "missing_players": [],
+      "missing_matches": [
+        "understat:30804"
+      ]
+    },
+    {
+      "league": "Ligue_1",
+      "name": "Ligue 1",
+      "season": 2026,
+      "teams": 18,
+      "expected_players": 425,
+      "covered_players": 425,
+      "extra_players": 0,
+      "expected_matches": 72,
+      "covered_matches": 72,
+      "observed_at": "2026-10-27T20:01:12.524Z",
+      "missing_players": [],
+      "missing_matches": []
+    },
+    {
+      "league": "RFPL",
+      "name": "Russian Premier League",
+      "season": 2026,
+      "teams": 16,
+      "expected_players": 387,
+      "covered_players": 387,
+      "extra_players": 0,
+      "expected_matches": 96,
+      "covered_matches": 96,
+      "observed_at": "2026-10-27T20:01:24.927Z",
+      "missing_players": [],
+      "missing_matches": []
+    },
+    {
+      "league": "Serie_A",
+      "name": "Serie A",
+      "season": 2026,
+      "teams": 20,
+      "expected_players": 486,
+      "covered_players": 486,
+      "extra_players": 0,
+      "expected_matches": 80,
+      "covered_matches": 80,
+      "observed_at": "2026-10-27T20:00:57.814Z",
+      "missing_players": [],
+      "missing_matches": []
+    }
+  ]
+}

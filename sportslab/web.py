@@ -202,6 +202,26 @@ def create_app(store=None):
             except ValueError as e:manifests.append({'sport':sport,'unavailable':str(e)})
         return jsonify(models=manifests)
 
+    @app.get('/api/performance')
+    def performance():
+        from .tracking import performance as report
+        sport=request.args.get('sport','football')
+        if sport not in ['football','basketball','tennis']:raise ValueError('Unknown sport')
+        horizon=int(request.args.get('horizon','24'))
+        if horizon not in [1,24]:raise ValueError('Choose 1 or 24 hours')
+        return jsonify(report(store,sport,horizon))
+
+    @app.get('/api/players/status')
+    def player_status():
+        from .players import status
+        return jsonify(status(store))
+
+    @app.get('/api/players/public')
+    def public_player_history():
+        from .public_players import summary
+        return jsonify(summary(store,request.args.get('league',''),request.args.get('q','').strip(),
+                               int(request.args.get('offset','0')),int(request.args.get('limit','24'))))
+
     @app.get('/api/coverage')
     def coverage():
         result=store.coverage()

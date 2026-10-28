@@ -6,5 +6,12 @@
     "basketball": "20261023T145323-8dbcea05",
     "tennis": "20261023T145346-429d5e8e"
   },
-  "sha256": "b569e44a8d86aaa8b86b0e33a3126faf60efc46675cce25f2c547224f93fa9c7"
+  "sha256": "b569e44a8d86aaa8b86b0e33a3126faf60efc46675cce25f2c547224f93fa9c7",
+  "public_players": {
+    "public_player_pages": 10,
+    "public_roster_snapshots": 489,
+    "public_roster_inventory": 6,
+    "public_player_matches": 17205
+  },
+  "players_sha256": "a80334c85e92ac5dbd7ba40f433e734ff9ccfc7967614947abaac95a68527a04"
 }

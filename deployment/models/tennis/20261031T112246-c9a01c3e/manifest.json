@@ -1,0 +1,188 @@
+{
+  "version": "20261031T112246-c9a01c3e",
+  "sport": "tennis",
+  "schema": "causal-v1",
+  "features": [
+    "competition",
+    "surface",
+    "home_elo",
+    "away_elo",
+    "elo_difference",
+    "home_matches",
+    "away_matches",
+    "home_form",
+    "away_form",
+    "home_scored",
+    "away_scored",
+    "home_conceded",
+    "away_conceded",
+    "home_scoring_std",
+    "away_scoring_std",
+    "home_rest",
+    "away_rest",
+    "home_density",
+    "away_density",
+    "home_venue_scored",
+    "away_venue_scored",
+    "home_xg",
+    "away_xg",
+    "home_xga",
+    "away_xga",
+    "home_xg_coverage",
+    "away_xg_coverage",
+    "h2h_matches",
+    "h2h_home_rate",
+    "h2h_total",
+    "neutral",
+    "month",
+    "home_surface_form",
+    "away_surface_form"
+  ],
+  "created_at": "2026-10-31T11:22:46.310103+00:00",
+  "data_version": "a5b21dec14314293",
+  "matches": 26103,
+  "latest_result": "2026-10-25",
+  "trained_through": "2026-08-25",
+  "calibrated_through": "2026-10-25",
+  "temperature": 1.0,
+  "evaluation": {
+    "n": 1364,
+    "accuracy": 0.6180351906158358,
+    "log_loss": 0.6390739542058627,
+    "brier": 0.44886324662695476,
+    "calibration": [
+      {
+        "probability": 0.5499150399563286,
+        "observed": 0.5275459098497496,
+        "count": 599
+      },
+      {
+        "probability": 0.6435263745380375,
+        "observed": 0.6292134831460674,
+        "count": 445
+      },
+      {
+        "probability": 0.7432713092112437,
+        "observed": 0.7385892116182573,
+        "count": 241
+      },
+      {
+        "probability": 0.8370660061436168,
+        "observed": 0.875,
+        "count": 72
+      },
+      {
+        "probability": 0.9269439816755389,
+        "observed": 0.8571428571428571,
+        "count": 7
+      }
+    ],
+    "class_recall": {
+      "0": 0.6730769230769231,
+      "1": 0.563953488372093
+    },
+    "baseline": {
+      "n": 1364,
+      "accuracy": 0.49560117302052786,
+      "log_loss": 0.6942802679401827,
+      "brier": 0.5011322899530762,
+      "calibration": [
+        {
+          "probability": 0.5197981698452064,
+          "observed": 0.49560117302052786,
+          "count": 1364
+        }
+      ],
+      "class_recall": {
+        "0": 1.0,
+        "1": 0.0
+      }
+    },
+    "test_start": "2026-07-08",
+    "test_end": "2026-10-25",
+    "calibration_start": "2026-03-26",
+    "temperature": 1.0,
+    "competition": {
+      "ATP": {
+        "n": 732,
+        "accuracy": 0.6147540983606558,
+        "log_loss": 0.6406203014329469,
+        "brier": 0.4499391495386257,
+        "calibration": [
+          {
+            "probability": 0.5501192648552025,
+            "observed": 0.5075528700906344,
+            "count": 331
+          },
+          {
+            "probability": 0.6429252711066015,
+            "observed": 0.6637168141592921,
+            "count": 226
+          },
+          {
+            "probability": 0.7407679132591639,
+            "observed": 0.7238805970149254,
+            "count": 134
+          },
+          {
+            "probability": 0.8347718337137424,
+            "observed": 0.8571428571428571,
+            "count": 35
+          },
+          {
+            "probability": 0.9292601520972751,
+            "observed": 0.8333333333333334,
+            "count": 6
+          }
+        ],
+        "class_recall": {
+          "0": 0.6356164383561644,
+          "1": 0.5940054495912807
+        }
+      },
+      "WTA": {
+        "n": 632,
+        "accuracy": 0.6218354430379747,
+        "log_loss": 0.6372829317846196,
+        "brier": 0.4476171059128043,
+        "calibration": [
+          {
+            "probability": 0.5496628069655556,
+            "observed": 0.5522388059701493,
+            "count": 268
+          },
+          {
+            "probability": 0.6441466913211633,
+            "observed": 0.593607305936073,
+            "count": 219
+          },
+          {
+            "probability": 0.7464064032073064,
+            "observed": 0.7570093457943925,
+            "count": 107
+          },
+          {
+            "probability": 0.8392361692529575,
+            "observed": 0.8918918918918919,
+            "count": 37
+          },
+          {
+            "probability": 0.9130469591451221,
+            "observed": 1.0,
+            "count": 1
+          }
+        ],
+        "class_recall": {
+          "0": 0.7170418006430869,
+          "1": 0.5295950155763239
+        }
+      }
+    }
+  },
+  "evaluation_scope": "Untouched chronological benchmark of this recipe; the serving model was subsequently refit on newer data.",
+  "class_labels": [
+    "Home / player 1",
+    "Away / player 2"
+  ],
+  "artifact_sha256": "b120d5a5225a95f0338c514b7eefeae10b071ce9547fabc24bd85d2f75ae52c3"
+}

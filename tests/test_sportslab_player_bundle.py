@@ -11,10 +11,10 @@ def test_public_seed_clean_restart_and_newer_preservation(tmp_path):
     assert import_bundle(store,seed)>0
     client=create_app(store).test_client()
     data=client.get('/api/players/public').get_json()
-    assert data['total_players']==2613
-    assert data['appearances']==17205
-    assert sum(c['covered_matches'] for c in data['coverage'])==489
-    assert sum(c['expected_matches'] for c in data['coverage'])==490
+    assert data['total_players']==2623
+    assert data['appearances']==17678
+    assert sum(c['covered_matches'] for c in data['coverage'])==504
+    assert sum(c['expected_matches'] for c in data['coverage'])==505
     page=client.get('/api/players/public?offset=24').get_json()
     assert not {p['id'] for p in data['players']} & {p['id'] for p in page['players']}
     assert client.get('/api/players/public?q=Palmer&league=EPL').get_json()['players'][0]['name']=='Cole Palmer'

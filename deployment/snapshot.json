@@ -1,17 +1,17 @@
 {
-  "created_at": "2026-10-31T11:17:18.060350+00:00",
-  "records": 147137,
+  "created_at": "2026-10-31T11:25:21.425716+00:00",
+  "records": 147640,
   "models": {
-    "football": "20261023T145314-7f35c21b",
-    "basketball": "20261023T145323-8dbcea05",
-    "tennis": "20261023T145346-429d5e8e"
+    "football": "20261031T112206-f755ecbe",
+    "basketball": "20261031T112214-0c0669c8",
+    "tennis": "20261031T112246-c9a01c3e"
   },
-  "sha256": "bb73d9d153f27809585c6097923aaec3c9a1dd92100885f3a2f4b21306d4820d",
+  "sha256": "1bb10f417da9f28d63cfe7d9d8687c465cae266963e348b5fe3da3b9a8a93b4f",
   "public_players": {
     "public_player_pages": 10,
-    "public_roster_snapshots": 489,
+    "public_roster_snapshots": 504,
     "public_roster_inventory": 6,
-    "public_player_matches": 17205
+    "public_player_matches": 17678
   },
-  "players_sha256": "a80334c85e92ac5dbd7ba40f433e734ff9ccfc7967614947abaac95a68527a04"
+  "players_sha256": "1c45cc4cd24f139243839285ad5dc44570c398f424426e610a1a5dab7beff7bc"
 }

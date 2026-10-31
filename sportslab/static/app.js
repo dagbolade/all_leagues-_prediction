@@ -25,7 +25,7 @@ function pill(text,type=''){return el('span',`pill ${type}`,text);}
 function button(text,cls,action){const n=el('button',cls,text);n.addEventListener('click',action);return n;}
 const headings={players:['Pick the match. See the player markets.','Goals, assists, shots and discipline — with coverage and uncertainty shown.'],live:['The match as it unfolds.','Reported scores and match status, with source freshness visible.'],overview:['Your matchday, decoded.','Explore the numbers. Understand the matchup. Keep an honest record.'],explorer:['Go deeper into the matchup.','The probabilities are only the beginning. Explore the evidence behind them.'],journal:['Track the forecast, not the feeling.','A private, immutable record of predictions made before kickoff.'],results:['The results are in.','See completed matches exactly as reported by their data source.'],models:['Open the black box.','Measured performance, honest baselines and clearly defined test periods.'],coverage:['Better analysis starts here.','Understand the sources, freshness and limits of your match data.']};
 async function page(name,push=true,focus=true,load=true){
-  if(!headings[name])name='overview';const entering=state.page!==name;clearTimeout(state.liveTimer);state.page=name;
+  if(!headings[name])name='overview';const entering=state.page!==name;clearTimeout(state.liveTimer);clearTimeout(state.fixtureTimer);clearTimeout(state.playerRefreshTimer);state.page=name;
   document.querySelectorAll('.page').forEach(n=>n.classList.toggle('active-page',n.id===name));
   document.querySelectorAll('[data-page]').forEach(n=>{n.classList.toggle('active',n.dataset.page===name);if(n.dataset.page===name)n.setAttribute('aria-current','page');else n.removeAttribute('aria-current');});
   $('page-title').textContent={players:'Players',live:'Live / today',overview:'Overview',explorer:'Match explorer',journal:'Prediction journal',results:'Results',models:'Model lab',coverage:'Data coverage'}[name];
@@ -68,6 +68,7 @@ function pagination(id,data,change){
   $(id).replaceChildren(prev,el('span','',data.total?`${fmt.format(data.offset+1)}–${fmt.format(Math.min(data.offset+data.limit,data.total))} of ${fmt.format(data.total)}`:'0 matches'),next);
 }
 async function loadMatchList(kind){
+  if(kind==='fixtures')clearTimeout(state.fixtureTimer);
   const fixture=kind==='fixtures',target=$(fixture?'matchboard':'results-list'),pages=fixture?'fixture-pages':'results-pages';
   const current=ticket(kind);loading(target);$(pages).replaceChildren();if(fixture)$('prediction-progress').textContent='';
   const q=new URLSearchParams({sport:state.sport,offset:state.offsets[kind],limit:24});
@@ -78,7 +79,8 @@ async function loadMatchList(kind){
     const records=data[kind];const cards=records.map(m=>matchCard(m));target.replaceChildren(...cards);if(fixture&&state.page==='overview')loadBoardForecasts(records,cards,current);
     if(!records.length)empty(target,'No matches match these filters. Try another date, competition or participant.');
     if(fixture){$('match-count').textContent=fmt.format(data.total);$('match-context').textContent={upcoming:'Upcoming verified fixtures, earliest first.',finished:$('fixture-status').value==='auto'?'No upcoming fixtures match these filters. Showing completed results, newest first.':'Completed results, newest first.',all:'All recorded statuses for your selection.'}[data.mode];}
-    else $('results-count').textContent=`${fmt.format(data.total)} completed matches · newest first`;
+    if(fixture&&data.fixture_refresh){const r=data.fixture_refresh;$('match-context').textContent+=' '+(r.error|| (r.refreshing?'Checking the provider for current fixtures…':`Fixtures checked ${r.updated_at?new Date(r.updated_at).toLocaleString():'not yet'}.`));state.fixtureTimer=setTimeout(()=>{if(state.page==='overview')loadFixtures();},r.refreshing?3000:60000);}
+    else if(!fixture) $('results-count').textContent=`${fmt.format(data.total)} completed matches · newest first`;
     pagination(pages,data,offset=>{state.offsets[kind]=offset;loadMatchList(kind);});
   }catch(e){if(current())retryPanel(target,e.message,()=>loadMatchList(kind));}
 }
@@ -193,7 +195,7 @@ $('live-status').addEventListener('change',renderLive);$('live-search').addEvent
 document.addEventListener('visibilitychange',()=>{clearTimeout(state.liveTimer);if(!document.hidden&&state.page==='live'&&$('auto-live').checked)loadLive();});
 $('analyse-form').addEventListener('submit',e=>{e.preventDefault();analyse({sport:state.sport,competition:$('analysis-competition').value,home_id:$('home-team').value,away_id:$('away-team').value,date:$('analysis-date').value,surface:$('surface').value});});
 $('settle').addEventListener('click',async()=>{const b=$('settle');b.disabled=true;try{const d=await api('/api/journal/settle',{});toast(`${d.updated} predictions settled or corrected from available results.`);await loadJournal();}catch(e){toast(e.message);}finally{b.disabled=false;}});
-$('refresh-view').addEventListener('click',async()=>{const b=$('refresh-view');b.disabled=true;try{state.models=(await api('/api/models')).models;await loadOverview();await page(state.page,false,false);if(state.page!=='live')toast('View refreshed from stored data. This does not download new provider data.');}catch(e){toast(e.message);}finally{b.disabled=false;}});
+$('refresh-view').addEventListener('click',async()=>{const b=$('refresh-view');b.disabled=true;try{state.models=(await api('/api/models')).models;await loadOverview();await page(state.page,false,false);if(state.page!=='live')toast('View refreshed. Football fixtures are checked automatically when their refresh interval is due.');}catch(e){toast(e.message);}finally{b.disabled=false;}});
 document.querySelector('.skip-link').addEventListener('click',e=>{e.preventDefault();$('main-content').focus();});
 document.querySelector('.brand').addEventListener('click',e=>{e.preventDefault();page('overview');});
 window.addEventListener('popstate',async()=>{const r=route();state.page=r.page;if(r.sport!==state.sport)await switchSport(r.sport,false);else await page(r.page,false);});
@@ -239,8 +241,9 @@ async function loadPlayersPage(){
   const target=$('player-market-board'),select=$('player-fixture-select');
   if(state.sport!=='football'){select.replaceChildren();empty(target,'Player markets currently cover football only.');return;}
   const current=ticket('player-fixtures');loading(target);let fixtures=[],offset=0;
-  for(let i=0;i<20;i++){const d=await api(`/api/fixtures?sport=football&status=upcoming&limit=100&offset=${offset}`);fixtures.push(...d.fixtures);if(!d.has_more)break;offset+=100;}
-  if(!current())return;state.playerFixtures=fixtures;renderPlayerFixtures();empty(target,'Choose a fixture, then select Show player predictions.');await loadPlayerReadiness();
+  let refreshing=false;
+  for(let i=0;i<20;i++){const d=await api(`/api/fixtures?sport=football&status=upcoming&limit=100&offset=${offset}`);refreshing=refreshing||Boolean(d.fixture_refresh?.refreshing);fixtures.push(...d.fixtures);if(!d.has_more)break;offset+=100;}
+  if(!current())return;state.playerFixtures=fixtures;renderPlayerFixtures();empty(target,'Choose a fixture, then select Show player predictions.');await loadPlayerReadiness();clearTimeout(state.playerRefreshTimer);if(refreshing)state.playerRefreshTimer=setTimeout(()=>{if(state.page==='players')loadPlayersPage();},3000);
 }
 function renderPlayerFixtures(){const q=$('player-fixture-search').value.trim().toLowerCase(),select=$('player-fixture-select');const previous=select.value;const rows=(state.playerFixtures||[]).filter(f=>(f.home+' '+f.away).toLowerCase().includes(q));select.replaceChildren();for(const f of rows)select.append(new Option(`${date(f.date)} · ${f.home} vs ${f.away}`,f.id));if(rows.some(f=>f.id===previous))select.value=previous;$('player-fixture-load').disabled=!rows.length;$('player-fixture-count').textContent=`${rows.length} matching upcoming fixtures. Player coverage varies by team; lineups are unconfirmed.`;}
 async function loadPlayerBoard(){
@@ -255,3 +258,5 @@ async function loadPlayerBoard(){
 $('player-fixture-search').addEventListener('input',renderPlayerFixtures);
 $('player-fixture-load').addEventListener('click',loadPlayerBoard);
 $('player-fixture-select').addEventListener('change',()=>{state.requests['player-board']=(state.requests['player-board']||0)+1;empty($('player-market-board'),'Select Show player predictions for this fixture.');});
+
+$('today-fixtures').addEventListener('click',()=>{$('fixture-date').value=new Date().toISOString().slice(0,10);$('competition').value='';$('fixture-search').value='';$('fixture-status').value='all';state.offsets.fixtures=0;loadFixtures();});

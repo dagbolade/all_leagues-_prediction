@@ -1,12 +1,12 @@
 {
-  "created_at": "2026-10-23T14:55:45.741334+00:00",
-  "records": 147045,
+  "created_at": "2026-10-31T11:17:18.060350+00:00",
+  "records": 147137,
   "models": {
     "football": "20261023T145314-7f35c21b",
     "basketball": "20261023T145323-8dbcea05",
     "tennis": "20261023T145346-429d5e8e"
   },
-  "sha256": "b569e44a8d86aaa8b86b0e33a3126faf60efc46675cce25f2c547224f93fa9c7",
+  "sha256": "bb73d9d153f27809585c6097923aaec3c9a1dd92100885f3a2f4b21306d4820d",
   "public_players": {
     "public_player_pages": 10,
     "public_roster_snapshots": 489,

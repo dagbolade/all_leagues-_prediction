@@ -168,3 +168,5 @@ models or generate betting probabilities. Current-scorer selection is biased;
 a representative roster sample and chronological evaluation remain necessary
 before training or publishing player probabilities. Data is stored in the local
 SQLite database; these snapshots are not yet included in the Railway bundle.
+
+Football fixture freshness: the web service checks the rolling provider window when the football fixture list is requested, at most once per ten minutes across workers. A SQLite lease prevents duplicate requests; failed checks retain saved data and retry after one minute. The UI displays the last successful check or an error, and polls while refreshing. This requires the existing FOOTBALL_DATA_API_KEY (or API_KEY) on the server. It does not refresh player history or retrain models. The Today button selects the current UTC date and clears other fixture filters.

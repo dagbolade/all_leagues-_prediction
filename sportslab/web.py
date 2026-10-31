@@ -17,6 +17,7 @@ from .matchday import initialize, forecast, LiveFeed
 
 
 def create_app(store=None):
+    automatic_fixtures=store is None
     store=store or Store()
     app=Flask(__name__,template_folder='templates',static_folder='static')
     keyfile=store.path.parent/'session.key'
@@ -95,6 +96,10 @@ def create_app(store=None):
     def match_listing(results_only=False):
         sport=request.args.get('sport','football')
         if sport not in ['football','basketball','tennis']:raise ValueError('Unknown sport')
+        refresh_status=None
+        if sport=='football' and not results_only and automatic_fixtures:
+            from .fixture_refresh import ensure
+            refresh_status=ensure(store)
         records=store.matches(sport,request.args.get('competition') or None)
         mode='finished' if results_only else request.args.get('status','auto')
         if mode not in ['auto','upcoming','finished','all']:raise ValueError('Unknown match status')
@@ -116,7 +121,7 @@ def create_app(store=None):
         if offset<0 or not 1<=limit<=100:raise ValueError('Page size must be 1–100 and offset non-negative')
         total=len(records)
         return jsonify(**{'results' if results_only else 'fixtures':records[offset:offset+limit]},
-                       total=total,offset=offset,limit=limit,has_more=offset+limit<total,mode=mode)
+                       total=total,offset=offset,limit=limit,has_more=offset+limit<total,mode=mode,fixture_refresh=refresh_status)
 
     @app.get('/api/fixtures')
     def fixtures():return match_listing()
